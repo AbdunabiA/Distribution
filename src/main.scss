@@ -1,0 +1,222 @@
+// @font-face {
+//     font-family: Inter;
+//     src: url("assets/fonts/Inter-Regular.otf") format("opentype");
+// }
+
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,body{
+    height: 100%;
+    font-family: 'Inter';
+    background: #F1F1F1;
+}
+
+h1,h2,h3,h4,h5,h6,p{
+    margin: 0;
+}
+
+ul,ol{
+    list-style: none;
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;  
+$xxxl:1600px;
+$xxxxl:1920px;
+
+
+// $main-font: 'Manrope', sans-serif;
+
+// $mainBg: #F1F1F1;
+
+
+@mixin sm{
+    @media screen and (max-width:$sm) {
+        @content;
+    }
+}
+@mixin md{
+    @media screen and (max-width:$md) {
+        @content;
+    }
+}
+@mixin lg{
+    @media screen and (max-width:$lg) {
+        @content;
+    }
+}
+@mixin xl{
+    @media screen and (max-width:$xl) {
+        @content;
+    }
+}
+@mixin xxl{
+    @media screen and (max-width:$xxl) {
+        @content;
+    }
+}
+@mixin xxxl{
+    @media screen and (max-width:$xxxl) {
+        @content;
+    }
+}
+@mixin xxxxl{
+    @media screen and (max-width:$xxxxl) {
+        @content;
+    }
+}
+
+@mixin sliceText($num:1,$word-break:normal){
+    display: -webkit-box !important;
+    -webkit-line-clamp: $num !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    word-break: $word-break;
+}
+
+
+.container1{
+    width: 100%;
+    max-width: 1600px;
+    padding: 0px 20px;
+    // border: 1px solid black;
+    margin: 0 auto;
+    @include xxxxl{
+        max-width: $xxxl;
+        // margin: 0 auto;
+    }
+    @include xxxl{
+        max-width: $xxl;
+    }
+    @include xxl{
+        max-width: $xl;
+    }
+    @include xl{
+        max-width: $lg;
+        padding: 0px 10px;
+    }
+    @include lg{
+        max-width: $md;
+    }
+    @include md{
+        max-width: $sm;
+    }
+    @include sm{
+        width: 90%;
+    }
+    
+}
+
+.container{
+    width: 100%;
+    max-width: 1300px;
+    padding: 20px 0px 20px 20px;
+    // border: 1px solid black;
+    // background-color: red;
+    @include xxxxl{
+        max-width: 1300px;
+        // margin: 0 auto;
+    }
+    @include xxxl{
+        max-width: 1120px;
+    }
+    @include xxl{
+        max-width: 940px;
+    }
+    @include xl{
+        max-width: 752px;
+        padding: 10px 0px 10px 10px;
+    }
+    @include lg{
+        max-width: $md;
+        padding: 10px;
+        margin: 0 auto;
+    }
+    @include md{
+        max-width: $sm;
+    }
+    @include sm{
+        width: 90%;
+    }
+    
+}
+.map{
+    width: 100%;
+    height: 300px;
+    border: 5px solid green;
+}
+
+.title{
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 44px;
+    color: black;
+    margin-bottom: 15px;
+    @media (max-width:$xl) {
+        font-size: 32px;
+    }
+    @media (max-width:$sm) {
+        font-size: 28px;
+    }
+}
+.charts{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;     
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+ 
+.sidebar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background: black;
+}
+ 
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #F9C70B;
+  border-radius: 8px;
+}
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+.content::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background: black;
+}
+ 
+.content::-webkit-scrollbar-thumb {
+  background-color: #F9C70B;
+  border-radius: 8px;
+}
