@@ -9,6 +9,19 @@ import statistika from './icons/StatistikaIcon.png'
 import obunalar from './icons/obunalarIcon.png'
 import shoppingCart from './icons/ShoppingCart.png'
 
+export const carts = [
+					{
+						cart_text: 'Daromadlar',
+						total_amount: 5.402,
+						r_b_amount: 34,
+					},
+					{
+						cart_text: 'Kirim',
+						total_amount: 244,
+						r_b_amount: -23,
+					},
+				]
+
 export const menus = {
 					admin: [
 						{
