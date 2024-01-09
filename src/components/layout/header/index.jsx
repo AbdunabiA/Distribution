@@ -1,4 +1,4 @@
-import Carts from 'components/cart/carts'
+import Carts from 'components/cart/cart'
 
 const Header = () => {
 	return (

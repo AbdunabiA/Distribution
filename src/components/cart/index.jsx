@@ -1,28 +1,20 @@
-import './cart.scss'
+import { carts } from 'assets/db'
+import Cart from 'components/cart'
+import styles from "./cart.module.scss"
 
-const Cart = ({ cart_text, total_amount, r_b_amount }) => {
-	function isBigNum() {
-		if (r_b_amount > 0) return 1
-		if (r_b_amount < 0) return 2
-	}
-	// console.log(isBigNum())
+const Carts = () => {
 	return (
-		<div className='cart_mini'>
-			<h3 className='cart_text'>{cart_text}</h3>
-			<div className='b_total'>
-				<h1 className='b_total_text'>
-					<span>$</span>
-					<p>{total_amount}</p>
-				</h1>
-				<p
-					style={isBigNum() == 2 ? { color: 'red' } : { color: 'blue' }}
-					className='r_b_text'
-				>
-					{r_b_amount}%
-				</p>
-			</div>
+		<div className={styles.carts_container}>
+			{carts.map((item, i) => (
+				<Cart
+					key={i}
+					total_amount={item.total_amount}
+					r_b_amount={item.r_b_amount}
+					cart_text={item.cart_text}
+				/>
+			))}
 		</div>
 	)
 }
 
-export default Cart
+export default Carts
