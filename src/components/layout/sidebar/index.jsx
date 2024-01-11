@@ -3,32 +3,20 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import styles from './sidebar.module.scss'
 import close from "assets/icons/close.png"
-import {GiHamburgerMenu} from 'react-icons/gi';
-
-
-const Sidebar = () => {
-	const [active, setActive] = useState(false)
-	const onTouch = () => {
-		setActive(e => !e)
-		console.log(active);
-	}
+const Sidebar = ({active, setActive}) => {
+	
 	return (
 		<>
-			<button
-				onClick={onTouch}
-				className={styles.hamburgerMenu}
-				>
-				<GiHamburgerMenu />
-			</button>
+			
 			{active ? (
 				<div
-					className='back-black__cover'
+					className={styles.back_black__cover}
 					id='cover'
-					// onClick={e => {
-					// 	if (e.target.id === 'cover') {
-					// 		setSideMenu(false)
-					// 	}
-					// }}
+					onClick={e => {
+						if (e.target.id === 'cover') {
+							setActive(false)
+						}
+					}}
 				></div>
 			) : null}
 			<div className={`${styles.sidebar}  ${active ? styles.active : ''}`}>

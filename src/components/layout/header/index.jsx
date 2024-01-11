@@ -1,8 +1,16 @@
 import Carts from 'components/cart/cart'
-
-const Header = () => {
+import styles from "./header.module.scss"
+import {GiHamburgerMenu} from 'react-icons/gi'
+const Header = ({onTouch}) => {
+	
 	return (
 		<div>
+			<button
+			 onClick={onTouch}
+			 className={styles.hamburgerMenu}
+			 >
+				<GiHamburgerMenu />
+			</button>
 			<Carts />
 		</div>
 	)
