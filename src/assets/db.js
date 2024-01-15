@@ -3,11 +3,13 @@ import bigLeap from './icons/BigLeapIcon.png'
 import filiallar from './icons/FiliallarIcon.png'
 import mahsulot from './icons/MahsulotIcon.png'
 import pulAylanmasi from './icons/PulAylanmasiIcon.png'
+import clients from "./icons/clients1.png"
 import qollabQuvvatlash from './icons/QollabQuvvatlashIcon.png'
 import sozlamalar from './icons/SozlamalarIcon.png'
 import statistika from './icons/StatistikaIcon.png'
 import obunalar from './icons/obunalarIcon.png'
 import shoppingCart from './icons/ShoppingCart.png'
+import { FiUsers } from 'react-icons/fi'
 
 export const carts = [
 					{
@@ -30,24 +32,25 @@ export const menus = {
 							icon: asosiy,
 						},
 						{
-							title: 'Filiallar',
-							path: '/branches',
-							icon: filiallar,
+							title: 'Mijozlar',
+							path: '/clients',
+							icon: clients,
 						},
 						{
 							title: 'Mahsulotlar',
 							path: '/products',
 							icon: mahsulot,
 						},
-						{
-							title: 'Arxiv',
-							path: '/users',
-							icon: statistika,
-						},
+
 						{
 							title: 'Xodimlar',
 							path: '/money-circulation',
 							icon: pulAylanmasi,
+						},
+						{
+							title: 'Filiallar',
+							path: '/branches',
+							icon: filiallar,
 						},
 						{
 							title: 'Statistika',
@@ -55,9 +58,15 @@ export const menus = {
 							icon: statistika,
 						},
 						{
-							title: 'Obunalar',
-							path: '/subscriptions',
-							icon: obunalar,
+							title: 'Sozlamalar',
+							path: '/settings',
+							icon: sozlamalar,
+						},
+
+						{
+							title: 'Arxiv',
+							path: '/users',
+							icon: statistika,
 						},
 					],
 					ordinary_user: [
