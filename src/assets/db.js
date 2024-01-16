@@ -3,7 +3,9 @@ import bigLeap from './icons/BigLeapIcon.png'
 import filiallar from './icons/FiliallarIcon.png'
 import mahsulot from './icons/MahsulotIcon.png'
 import pulAylanmasi from './icons/PulAylanmasiIcon.png'
-import clients from "./icons/clients1.png"
+import employee from './icons/employes.png'
+import archive from "./icons/archive.png"
+import clients from "./icons/client3.png"
 import qollabQuvvatlash from './icons/QollabQuvvatlashIcon.png'
 import sozlamalar from './icons/SozlamalarIcon.png'
 import statistika from './icons/StatistikaIcon.png'
@@ -44,8 +46,8 @@ export const menus = {
 
 						{
 							title: 'Xodimlar',
-							path: '/money-circulation',
-							icon: pulAylanmasi,
+							path: '/employees',
+							icon: employee,
 						},
 						{
 							title: 'Filiallar',
@@ -66,7 +68,7 @@ export const menus = {
 						{
 							title: 'Arxiv',
 							path: '/users',
-							icon: statistika,
+							icon: archive,
 						},
 					],
 					ordinary_user: [

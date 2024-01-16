@@ -38,7 +38,7 @@ const routesWrapper = () => {
         path="*"
         element={
           <h2>
-            Not Fonund <Link to={"/sign-in"}>Login page</Link>
+            Not Found <Link to={"/sign-in"}>Login page</Link>
           </h2>
         }
       />
