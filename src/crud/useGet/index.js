@@ -15,13 +15,12 @@ const useGet = ({url, queryKey, params, onSuccess=()=>{}, onError=()=>{}}) => {
         onError:(error)=>{
             if (error.response.status === 401) {
                 dispatch(signOut());
-                // console.log('ERROR');
             }
             return onError(error);
         }
     })
 
-    return data
+    return data;
 }
 
 export default useGet;

@@ -1,0 +1,22 @@
+$sm: 578px;
+$md: 769px;
+$lg: 993px;
+$xl: 1201px;
+$xxl: 1401px;  
+$xxxl:1601px;
+$xxxxl:1921px;
+$sidebarColor: #3EA2FB;
+$sidebarHover : #375EB2;
+
+.hamburgerMenu{
+        padding: 4px 10px;
+					background-color: black;
+					font-size: 15px;
+					color: white;
+					font-weight: bold;
+                    @media (max-width:$xxxxl) {
+        display: none;
+    }
+                    @media (max-width:$lg) {                           display: block !important;
+    }
+        }

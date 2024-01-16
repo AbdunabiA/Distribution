@@ -1,33 +1,37 @@
 import { helpers, menus } from 'assets/db'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import './sidebar.scss'
+import styles from './sidebar.module.scss'
 import close from "assets/icons/close.png"
-import { GiHamburgerMenu } from "react-icons/gi"
-
-const Sidebar = () => {
-	const [active, setActive] = useState(true)
+const Sidebar = ({active, setActive}) => {
+	
 	return (
 		<>
-			{!active ? <div className='back-black__cover' id='cover'></div> : null}
-			<div className={`sidebar  ${active ? 'active' : ''}`}>
+			
+			{active ? (
+				<div
+					className={styles.back_black__cover}
+					id='cover'
+					onClick={e => {
+						if (e.target.id === 'cover') {
+							setActive(false)
+						}
+					}}
+				></div>
+			) : null}
+			<div className={`${styles.sidebar}  ${active ? styles.active : ''}`}>
 				{/* <div className='logo-wrapper' onClick={() => navigate('/')}>
 					<img src={logo} alt='logo' />
 				</div> */}
-				<div className='sidebar-wrapper'>
-					<div className='menus-wrapper'>
-						<div className={`${!active && 'closed'}`}>
+				<div className={styles.sidebar_wrapper}>
+					<div className={styles.menus_wrapper}>
+						<div className={`${!active && styles.closed}`}>
 							<h1>Menu</h1>
 							<div
-								onClick={() => setActive(e => !e)}
-								className='close-icon__wrapper'
+								onClick={() => setActive(false)}
+								className={styles.close_icon__wrapper}
 							>
-								{active ? 
-								
 								<img src={close} alt='icon' />
-								:
-								<GiHamburgerMenu />
-								 }
 							</div>
 						</div>
 						<nav>
@@ -38,13 +42,20 @@ const Sidebar = () => {
 											<NavLink
 												to={menu.path}
 												className={({ isActive, isPending }) =>
-													isPending ? 'pending' : isActive ? 'active' : ''
+													isPending
+														? styles.pending
+														: isActive
+														? styles.active
+														: ''
 												}
 											>
 												<div>
 													<img src={menu.icon} alt='icon' />
 												</div>
-												<p className={`menu-title ${!active ? 'active' : ''}`}>
+												<p
+													className={`${styles.menu_title}
+												 ${!active ? 'active' : ''}`}
+												>
 													{menu.title}
 												</p>
 											</NavLink>
@@ -54,9 +65,12 @@ const Sidebar = () => {
 							</ul>
 						</nav>
 					</div>
-					<div className='helpers-wrapper' style={{
-						display: "none"
-					}}>
+					<div
+						className='helpers-wrapper'
+						style={{
+							display: 'none',
+						}}
+					>
 						<h1>Yordam</h1>
 
 						<nav>

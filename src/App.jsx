@@ -19,7 +19,7 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    <Suspense fallback={<h1>Loading</h1>}>
+    <Suspense fallback={<h1>Loading..</h1>}>
       <RoutesWrapper />
     </Suspense>
   );
