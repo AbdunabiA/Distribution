@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { DownOutlined } from '@ant-design/icons'
 import s from  "./employe.module.scss"
 import { Form, Radio, Space, Switch, Table } from 'antd'
+import Carts from 'components/carts'
 const columns = [
 	{
 		title: 'Name',
@@ -143,6 +144,7 @@ const Employe = () => {
 	}
 	return (
 		<div className={s.table_component}>
+			<Carts />
 			<Table
 				{...tableProps}
 				pagination={{

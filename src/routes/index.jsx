@@ -1,5 +1,5 @@
 import React, { Suspense, useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { authPages, pages } from "./routes";
 import { storage } from "services";
 import { useSelector } from "react-redux";

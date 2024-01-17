@@ -1,4 +1,3 @@
-import Carts from 'components/carts'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import styles from './header.module.scss'
 const Header = ({ onTouch }) => {
@@ -7,7 +6,6 @@ const Header = ({ onTouch }) => {
 			<button onClick={onTouch} className={styles.hamburgerMenu}>
 				<GiHamburgerMenu />
 			</button>
-			<Carts />
 		</div>
 	)
 }
