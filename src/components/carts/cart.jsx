@@ -1,11 +1,9 @@
 import styles from './cart.module.scss'
 
 const Cart = ({ cart_text, total_amount, r_b_amount }) => {
-	if (r_b_amount > 0) return 1
 	function isBigNum() {
 		if (r_b_amount < 0) return 2
 	}
-	// console.log(isBigNum())
 	return (
 		<div className={styles.cart_mini}>
 			<h3 className={styles.cart_text}>{cart_text}</h3>

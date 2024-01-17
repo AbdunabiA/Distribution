@@ -13,19 +13,6 @@ import obunalar from './icons/obunalarIcon.png'
 import shoppingCart from './icons/ShoppingCart.png'
 import { FiUsers } from 'react-icons/fi'
 
-export const carts = [
-					{
-						cart_text: 'Daromadlar',
-						total_amount: 5.402,
-						r_b_amount: 34,
-					},
-					{
-						cart_text: 'Kirim',
-						total_amount: 244,
-						r_b_amount: -23,
-					},
-				]
-
 export const menus = {
 					admin: [
 						{
@@ -46,7 +33,7 @@ export const menus = {
 
 						{
 							title: 'Xodimlar',
-							path: '/employees',
+							path: '/employe',
 							icon: employee,
 						},
 						{
@@ -352,3 +339,22 @@ export const subscriptionsInfo = [
 		status: 'aktiv',
 	},
 ]
+
+export const cart_data = [
+	{
+		cart_text: 'Daromadlar',
+		total_amount: 2652,
+		r_b_amount: -2525,
+	},
+	{
+		cart_text: 'Xarajatlar',
+		total_amount: 252,
+		r_b_amount: -22,
+	},
+	{
+		cart_text: 'Chiqimlar',
+		total_amount: 23,
+		r_b_amount: 10,
+	},
+]
+

@@ -1,11 +1,10 @@
-import { carts } from 'assets/db'
-import Cart from 'components/cart'
-import styles from "./cart.module.scss"
-
+import { cart_data } from 'assets/db.js'
+import Cart from 'components/carts/cart'
+import styles from './cart.module.scss'
 const Carts = () => {
 	return (
 		<div className={styles.carts_container}>
-			{carts.map((item, i) => (
+			{cart_data.map((item, i) => (
 				<Cart
 					key={i}
 					total_amount={item.total_amount}

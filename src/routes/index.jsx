@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { get } from "lodash";
 import { useTranslation } from "react-i18next";
 import Layout from "components/layout";
+import NotFound from 'components/not-found'
 // import { useSelector } from "react-redux";
 // import { get } from "lodash";
 
@@ -33,24 +34,24 @@ const routesWrapper = () => {
   const role = "admin";
 
   return (
-    <Routes>
-      <Route
-        path="*"
-        element={
-          <h2>
-            Not Found <Link to={"/sign-in"}>Login page</Link>
-          </h2>
-        }
-      />
-      {isAuthenticated ? (
-        <Route path="/" element={<Layout />}>
-          {appRoutes(pages[role])}
-        </Route>
-      ) : (
-        appRoutes(authPages)
-      )}
-    </Routes>
-  );
+		<Routes>
+			<Route
+				path='*'
+				element={
+					<h2>
+						<NotFound />
+					</h2>
+				}
+			/>
+			{isAuthenticated ? (
+				<Route path='/' element={<Layout />}>
+					{appRoutes(pages[role])}
+				</Route>
+			) : (
+				appRoutes(authPages)
+			)}
+		</Routes>
+	)
   // return <Routes>{appRoutes(privateRoutes)}</Routes>;
 };
 
