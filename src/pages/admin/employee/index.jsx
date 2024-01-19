@@ -147,11 +147,12 @@ const Employee = () => {
 		const [dateValue, setDateValue] = useState('')
 		const onChange = value => {
 			setDateValue(value)
+			// console.log('VALUE', value);
 			console.log(dateValue)
 		}
 	return (
-		<div className={s.table_component}>
-			<FilterInput onChange={onChange} />
+		<div className='container'>
+			<FilterInput onChange={onChange} value={dateValue}/>
 			<Cards />
 			<Table
 				{...tableProps}
