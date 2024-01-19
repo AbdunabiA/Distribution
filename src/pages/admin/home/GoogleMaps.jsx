@@ -1,39 +1,135 @@
 import { YMaps, Map, Placemark, GeolocationControl } from "@pbe/react-yandex-maps";
+import CustomTable from "components/table";
+import { useState } from "react";
+import { Checkbox} from 'antd'
+
 
 const GoogleMaps = () => {
+  const columns = [
+    {
+      key: 1,
+      title: "Name",
+      dataIndex: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      // filters: [
+      //   {
+      //     text: "Joe",
+      //     value: "Joe",
+      //   },
+      //   {
+      //     text: "Category 1",
+      //     value: "Category 1",
+      //     children: [
+      //       {
+      //         text: "Yellow",
+      //         value: "Yellow",
+      //       },
+      //       {
+      //         text: "Pink",
+      //         value: "Pink",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     text: "Category 2",
+      //     value: "Category 2",
+      //     children: [
+      //       {
+      //         text: "Green",
+      //         value: "Green",
+      //       },
+      //       {
+      //         text: "Black",
+      //         value: "Black",
+      //       },
+      //     ],
+      //   },
+      // ],
+      // filterMode: "tree",
+      // filterSearch: true,
+      // onFilter: (value, record) => record.name.includes(value),
+      // width: "30%",
+      // fixed: "left",
+      // width: "150",
+    },
+    {
+      key: 2,
+      title: "Age",
+      dataIndex: "age",
+      sorter: (a, b) => a.age - b.age,
+    },
+    {
+      key: 3,
+      title: "Address",
+      dataIndex: "address",
+      filters: [
+        {
+          text: "London",
+          value: "London",
+        },
+        {
+          text: "New York",
+          value: "New York",
+        },
+      ],
+      onFilter: (value, record) => record.address.startsWith(value),
+      filterSearch: true,
+      // fixed: "right",
+      width: "30%",
+    },
+  ];
+  
+
+  const items = [
+    {
+      id: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      id: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      id: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sydney No. 1 Lake Park",
+    },
+    {
+      id: "4",
+      name: "Jim Red",
+      age: 32,
+      address: "London No. 2 Lake Park",
+    },
+    {
+      id: "5",
+      name: "Jim Red",
+      age: 32,
+      address: "London No. 2 Lake Park",
+    },
+    {
+      id: "6",
+      name: "Jim Red",
+      age: 32,
+      address: "London No. 2 Lake Park",
+    },
+    {
+      id: "7",
+      name: "Jim Red",
+      age: 32,
+      address: "London No. 2 Lake Park",
+    },
+  ];
+  
+  
   return (
-    <div>
-      <YMaps
-        query={{
-          ns: "use-load-option",
-          load:
-            "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon",
-        }}
-      >
-        <div>
-          My awesome application with maps!
-          <Map
-            height={400}
-            width={"100%"}
-            defaultState={{
-              center: [41.3598286, 69.2881609],
-              zoom: 9,
-              controls: ["zoomControl", "fullscreenControl"],
-            }}
-            // modules={["control.ZoomControl", "control.FullscreenControl"]}
-          >
-            <Placemark
-              //   modules={["geoObject.addon.balloon"]}
-              defaultGeometry={[41.3598286, 69.2881609]}
-              properties={{
-                balloonContentBody:
-                  "This is balloon loaded by the Yandex.Maps API module system",
-              }}
-            />
-            <GeolocationControl options={{ float: "left" }} />
-          </Map>
-        </div>
-      </YMaps>
+    <div className="container">
+      
+      <CustomTable {...{ columns, items, hasDelete:true, hasStatus:true, hasUpdate:true, hideColumns:true, hasPagination:true }} />
     </div>
   );
 };

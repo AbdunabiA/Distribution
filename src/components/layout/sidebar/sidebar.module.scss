@@ -1,10 +1,10 @@
-$sm: 578px;
-$md: 769px;
-$lg: 993px;
-$xl: 1201px;
-$xxl: 1401px;  
-$xxxl:1601px;
-$xxxxl:1921px;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;  
+$xxxl:1600px;
+$xxxxl:1920px;
 $sidebarColor: #3EA2FB;
 $sidebarHover : #375EB2;
 
@@ -31,8 +31,9 @@ $sidebarHover : #375EB2;
     @media (max-width:$xl) {
         max-width: 240px;
     } */
-    
-      
+    @media (max-width:$xxl) {
+        max-width: 220px;
+    }
     @media (max-width:$lg) {
         position: fixed;
         top: 0;
