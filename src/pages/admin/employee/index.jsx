@@ -143,9 +143,15 @@ const Employee = () => {
 		scroll,
 		tableLayout,
 	}
+	
+		const [dateValue, setDateValue] = useState('')
+		const onChange = value => {
+			setDateValue(value)
+			console.log(dateValue)
+		}
 	return (
 		<div className={s.table_component}>
-			<FilterInput />
+			<FilterInput onChange={onChange} />
 			<Cards />
 			<Table
 				{...tableProps}
