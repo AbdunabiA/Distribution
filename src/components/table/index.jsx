@@ -10,8 +10,8 @@ const CustomTable = ({
   isLoading,
   columns,
   hideColumns=false,
-  scrollX = false,
-  scrollY = false,
+  scrollX = null,
+  scrollY = null,
   hasUpdate = false,
   hasDelete = false,
   hasStatus = false,
@@ -99,21 +99,19 @@ const CustomTable = ({
 
   return (
     <>
-    {
-      hideColumns ? (
+      {hideColumns ? (
         <>
-        <Divider>Columns displayed</Divider>
-        <Checkbox.Group
-          value={checkedList}
-          options={options}
-          onChange={(value) => {
-            setCheckedList(value);
-          }}
+          <Divider>Columns displayed</Divider>
+          <Checkbox.Group
+            value={checkedList}
+            options={options}
+            onChange={(value) => {
+              setCheckedList(value);
+            }}
           />
-      </>
-      ) : null
-    }
-      
+        </>
+      ) : null}
+
       <Table
         rowKey={"id"}
         dataSource={items}
@@ -123,7 +121,7 @@ const CustomTable = ({
           x: scrollX,
           y: scrollY,
         }}
-        style={{marginTop:"20px"}}
+        style={{ marginTop: "20px" }}
         pagination={
           hasPagination
             ? {

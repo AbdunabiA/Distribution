@@ -1,7 +1,7 @@
 import { YMaps, Map, Placemark, GeolocationControl } from "@pbe/react-yandex-maps";
 import CustomTable from "components/table";
 import { useState } from "react";
-import { Checkbox} from 'antd'
+import { Checkbox, Button, Input, Dropdown} from 'antd'
 
 
 const GoogleMaps = () => {
@@ -128,8 +128,18 @@ const GoogleMaps = () => {
   
   return (
     <div className="container">
-      
-      <CustomTable {...{ columns, items, hasDelete:true, hasStatus:true, hasUpdate:true, hideColumns:true, hasPagination:true }} />
+      <Button type="primary">Hello</Button>
+      <CustomTable
+        {...{
+          columns,
+          items,
+          hasDelete: true,
+          hasStatus: true,
+          hasUpdate: true,
+          hideColumns: true,
+          hasPagination: true,
+        }}
+      />
     </div>
   );
 };
