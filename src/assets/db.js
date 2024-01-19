@@ -33,7 +33,7 @@ export const menus = {
 
 						{
 							title: 'Xodimlar',
-							path: '/employe',
+							path: '/employee',
 							icon: employee,
 						},
 						{
@@ -54,7 +54,7 @@ export const menus = {
 
 						{
 							title: 'Arxiv',
-							path: '/users',
+							path: '/archive',
 							icon: archive,
 						},
 					],

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
 import { DownOutlined } from '@ant-design/icons'
-import s from  "./employe.module.scss"
-import { Form, Radio, Space, Switch, Table } from 'antd'
-import Carts from 'components/carts'
+import { Space, Table } from 'antd'
+import Cards from 'components/cards'
+import FilterInput from 'components/filter-input'
+import { useState } from 'react'
+import s from './employee.module.scss'
 const columns = [
 	{
 		title: 'Name',
@@ -60,7 +61,7 @@ const defaultExpandable = {
 }
 const defaultTitle = () => "Xodimlar ro'yxati"
 const defaultFooter = () => 'Here is footer'
-const Employe = () => {
+const Employee = () => {
 	const [bordered, setBordered] = useState(true)
 	const [loading, setLoading] = useState(false)
 	const [size, setSize] = useState('middle')
@@ -144,7 +145,8 @@ const Employe = () => {
 	}
 	return (
 		<div className={s.table_component}>
-			<Carts />
+			<FilterInput />
+			<Cards />
 			<Table
 				{...tableProps}
 				pagination={{
@@ -157,4 +159,4 @@ const Employe = () => {
 		</div>
 	)
 }
-export default Employe
+export default Employee
