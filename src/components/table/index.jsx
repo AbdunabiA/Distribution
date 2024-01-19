@@ -62,7 +62,9 @@ const CustomTable = ({
             key: "action",
             render: (_, row) => {
               return (
-                <div style={{display:"flex", gap:"10px", alignItems:"center"}}>
+                <div
+                  style={{ display: "flex", gap: "10px", alignItems: "center" }}
+                >
                   {hasDelete ? (
                     <Tooltip title="Delete">
                       <Popconfirm
@@ -72,7 +74,9 @@ const CustomTable = ({
                         okText="Yes"
                         cancelText="No"
                       >
-                        <DeleteOutlined/>
+                        <DeleteOutlined
+                          style={{ color: "red", fontSize: "22px" }}
+                        />
                       </Popconfirm>
                     </Tooltip>
                   ) : null}
@@ -80,6 +84,7 @@ const CustomTable = ({
                     <Tooltip title="Edit">
                       <EditOutlined
                         onClick={() => updateAction(row)}
+                        style={{ color: "blue", fontSize: "22px" }}
                       />
                     </Tooltip>
                   ) : null}
