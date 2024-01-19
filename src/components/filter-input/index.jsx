@@ -3,14 +3,14 @@ import { useState } from 'react'
 import dayjs from 'dayjs'
 import style from './filterInput.module.scss'
 const { Option } = Select
-const PickerWithType = ({ type, onChange }) => {
-	if (type === 'time') return <TimePicker onChange={onChange} />
-	if (type === 'date') return <DatePicker onChange={onChange} />
-	return <DatePicker picker={type} onChange={onChange} />
+const PickerWithType = ({ type, onChange, value }) => {
+	if (type === 'time') return <TimePicker {...{ onChange, value }} />;
+	if (type === 'date') return <DatePicker {...{onChange, value}}/>
+	return <DatePicker picker={type} {...{ onChange, value }} />;
 }
 
 
-const FilterInput = ({ onChange }) => {
+const FilterInput = ({ onChange, value }) => {
 
 	const { RangePicker } = DatePicker
 	const [type, setType] = useState('Date')
@@ -37,28 +37,31 @@ const FilterInput = ({ onChange }) => {
 		console.log(value)
 	}
 	return (
-		<div className={style.container}>
-			<Space direction='horizontal' size={17} style={{ marginLeft: '15px' }}>
-				<div className={style.date_inputs}>
-					<Select value={type} onChange={setType}>
-						<Option value='date'>Date</Option>
-						<Option value='week'>Week</Option>
-						<Option value='month'>Month</Option>
-						<Option value='year'>Year</Option>
-					</Select>
-					<PickerWithType type={type} onChange={onChange} />
-				</div>
-				<RangePicker presets={rangePresets} onChange={onChange} />
+    <div className={style.container}>
+      <Space direction="horizontal" size={17}>
+        <div className={style.date_inputs}>
+          <Select value={type} onChange={setType}>
+            <Option value="date">Date</Option>
+            <Option value="week">Week</Option>
+            <Option value="month">Month</Option>
+            <Option value="year">Year</Option>
+          </Select>
+          <PickerWithType type={type} {...{ onChange, value }} />
+        </div>
+        <RangePicker
+          presets={rangePresets}
+          {...{ onChange, value }}
+        />
 
-				{/* <RangePicker
+        {/* <RangePicker
 					style={{ width: '100%' }}
 					format='YYYY-MM-DD'
 					onChange={onChange}
 					onOk={onOk}
 				/> */}
-			</Space>
-		</div>
-	)
+      </Space>
+    </div>
+  );
 }
 
 export default FilterInput
