@@ -10,14 +10,14 @@ const Layout = () => {
 		setActive(e => !e)
 	}
   return (
-    <div className={s.layout}>
-      <Sidebar active={active} setActive={setActive} />
-      <div className={s.content}>
-        <Header onTouch={onTouch}/>
-        <Outlet />
-      </div>
-    </div>
-  );
+		<div className={s.layout}>
+			<Sidebar active={active} setActive={setActive} />
+			<div className={s.content}>
+				<Header onTouch={onTouch} />
+				<Outlet />
+			</div>
+		</div>
+	)
 }
 
 export default Layout

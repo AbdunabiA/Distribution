@@ -14,9 +14,7 @@ $sidebarHover : #375EB2;
 					font-size: 15px;
 					color: white;
 					font-weight: bold;
-                    @media (max-width:$xxxxl) {
-        display: none;
-    }
+                    display: none;
                     @media (max-width:$lg) {                           display: block !important;
     }
         }

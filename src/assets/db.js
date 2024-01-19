@@ -1,28 +1,16 @@
+import moneyIcon from "assets/icons/money-icon.png"
 import asosiy from './icons/AsosiyIcon.png'
-import bigLeap from './icons/BigLeapIcon.png'
 import filiallar from './icons/FiliallarIcon.png'
 import mahsulot from './icons/MahsulotIcon.png'
 import pulAylanmasi from './icons/PulAylanmasiIcon.png'
-import clients from "./icons/clients1.png"
 import qollabQuvvatlash from './icons/QollabQuvvatlashIcon.png'
+import shoppingCart from './icons/ShoppingCart.png'
 import sozlamalar from './icons/SozlamalarIcon.png'
 import statistika from './icons/StatistikaIcon.png'
+import archive from "./icons/archive.png"
+import clients from "./icons/client3.png"
+import employee from './icons/employes.png'
 import obunalar from './icons/obunalarIcon.png'
-import shoppingCart from './icons/ShoppingCart.png'
-import { FiUsers } from 'react-icons/fi'
-
-export const carts = [
-					{
-						cart_text: 'Daromadlar',
-						total_amount: 5.402,
-						r_b_amount: 34,
-					},
-					{
-						cart_text: 'Kirim',
-						total_amount: 244,
-						r_b_amount: -23,
-					},
-				]
 
 export const menus = {
 					admin: [
@@ -44,8 +32,8 @@ export const menus = {
 
 						{
 							title: 'Xodimlar',
-							path: '/money-circulation',
-							icon: pulAylanmasi,
+							path: '/employee',
+							icon: employee,
 						},
 						{
 							title: 'Filiallar',
@@ -65,8 +53,8 @@ export const menus = {
 
 						{
 							title: 'Arxiv',
-							path: '/users',
-							icon: statistika,
+							path: '/archive',
+							icon: archive,
 						},
 					],
 					ordinary_user: [
@@ -350,3 +338,25 @@ export const subscriptionsInfo = [
 		status: 'aktiv',
 	},
 ]
+
+export const cart_data = [
+	{
+		cart_text: 'Daromadlar',
+		total_amount: 2652,
+		r_b_amount: -2525,
+		icon: moneyIcon
+	},
+	{
+		cart_text: 'Xarajatlar',
+		total_amount: 252,
+		r_b_amount: -22,
+			icon: moneyIcon
+	},
+	{
+		cart_text: 'Chiqimlar',
+		total_amount: 23,
+		r_b_amount: 10,
+		icon: moneyIcon
+	},
+]
+

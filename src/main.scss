@@ -1,7 +1,7 @@
-// @font-face {
-//     font-family: Inter;
-//     src: url("assets/fonts/Inter-Regular.otf") format("opentype");
-// }
+@font-face {
+     font-family: Inter;
+     src: url("assets/fonts/Inter.ttf") format("opentype");
+ }
 
 *,
 *::after,
@@ -9,6 +9,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Inter;
 }
 html,body{
     height: 100%;
@@ -50,6 +51,7 @@ $xl: 1200px;
 $xxl: 1400px;  
 $xxxl:1600px;
 $xxxxl:1920px;
+
 
 
 // $main-font: 'Manrope', sans-serif;
