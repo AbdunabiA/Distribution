@@ -37,31 +37,19 @@ const FilterInput = ({ onChange, value }) => {
 		console.log(value)
 	}
 	return (
-    <div className={style.container}>
-      <Space direction="horizontal" size={17}>
-        <div className={style.date_inputs}>
-          <Select value={type} onChange={setType}>
-            <Option value="date">Date</Option>
-            <Option value="week">Week</Option>
-            <Option value="month">Month</Option>
-            <Option value="year">Year</Option>
-          </Select>
-          <PickerWithType type={type} {...{ onChange, value }} />
-        </div>
-        <RangePicker
-          presets={rangePresets}
-          {...{ onChange, value }}
-        />
+			<Space direction='horizontal' className={style.space}>
+					<Select value={type} onChange={setType}>
+						<Option value='date'>Date</Option>
+						<Option value='week'>Week</Option>
+						<Option value='month'>Month</Option>
+						<Option value='year'>Year</Option>
+					</Select>
 
-        {/* <RangePicker
-					style={{ width: '100%' }}
-					format='YYYY-MM-DD'
-					onChange={onChange}
-					onOk={onOk}
-				/> */}
-      </Space>
-    </div>
-  );
+					<PickerWithType type={type} {...{ onChange, value }} />
+
+					<RangePicker presets={rangePresets} {...{ onChange, value }} />
+			</Space>
+	)
 }
 
 export default FilterInput
