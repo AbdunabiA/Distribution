@@ -2,13 +2,13 @@ import { lazy } from "react";
 
 const AdminHome = lazy(()=>import('pages/admin/home/home'))
 const GoogleMap = lazy(()=>import('pages/admin/home/GoogleMaps'))
-const Employee = lazy(()=>import("pages/admin/employee"))
-const Clients = lazy(() => import('pages/admin/clients'))
-const Products = lazy(() => import('pages/admin/products'))
-const Branches = lazy(() => import('pages/admin/branches'))
-const Statistics = lazy(() => import('pages/admin/statistics'))
-const Settings = lazy(() => import('pages/admin/settings'))
-const Archive = lazy(() => import('pages/admin/archive'))
+const AdminEmployee = lazy(()=>import("pages/admin/employee/employee"))
+const AdminClients = lazy(() => import('pages/admin/clients'))
+const AdminProducts = lazy(() => import('pages/admin/products'))
+const AdminBranches = lazy(() => import('pages/admin/branches'))
+const AdminStatistics = lazy(() => import('pages/admin/statistics'))
+const AdminSettings = lazy(() => import('pages/admin/settings'))
+const AdminArchive = lazy(() => import('pages/admin/archive'))
 
 
 export const pages = {
@@ -23,31 +23,31 @@ export const pages = {
 						},
 						{
 							path: '/employee',
-							component: <Employee />,
+							component: <AdminEmployee />,
 						},
 						{
 							path: '/clients',
-							component: <Clients />,
+							component: <AdminClients />,
 						},
 						{
 							path: '/products',
-							component: <Products />,
+							component: <AdminProducts />,
 						},
 						{
 							path: '/branches',
-							component: <Branches />,
+							component: <AdminBranches />,
 						},
 						{
 							path: '/statistics',
-							component: <Statistics />,
+							component: <AdminStatistics />,
 						},
 						{
 							path: '/settings',
-							component: <Settings />,
+							component: <AdminSettings />,
 						},
 						{
 							path: '/archive',
-							component: <Archive />,
+							component: <AdminArchive />,
 						},
 					],
 				}
