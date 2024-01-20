@@ -1,7 +1,29 @@
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;  
+$xxxl:1600px;
+$xxxxl:1920px;
+
 .date_inputs {
 	display: flex;
 	gap: 15px;
 }
 .container {
 	width: 100%;
+	.pcversion {
+		display: block;
+		@media (max-width:$md) {
+			display: none;
+			padding-top: 10px;
+		}
+	}
+	.liner {
+		display: none;
+		@media (max-width:$md) {
+			display: block;
+			padding-top: 10px;
+		}
+	}
 }
