@@ -38,7 +38,8 @@ $sidebarActive: #3EA2FB;
     }
     @media (max-width:$lg) {
         position: fixed;
-        top: 0;
+        // top: 50%;
+        transform: translateY(-50%);
         left: 0;
         max-width: 200px;
         width: 100%;

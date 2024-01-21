@@ -1,12 +1,12 @@
 import { cart_data } from 'assets/db.js'
-import CardTable from 'components/cards/card-table'
+import MainCard from 'components/cards/card'
 import styles from './card.module.scss'
 
 const Cards = () => {
 	return (
 		<div className={styles.carts_container}>
 			{cart_data.map((item, i) => (
-				<CardTable
+				<MainCard
 					key={i}
 					total_amount={item.total_amount}
 					r_b_amount={item.r_b_amount}

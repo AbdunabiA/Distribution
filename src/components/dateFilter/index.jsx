@@ -10,7 +10,7 @@ const PickerWithType = ({ type, onChange, value }) => {
 }
 
 
-const FilterInput = ({ onChange, value }) => {
+const DateFilter = ({ onChange, value }) => {
 
 	const { RangePicker } = DatePicker
 	const [type, setType] = useState('Date')
@@ -46,10 +46,12 @@ const FilterInput = ({ onChange, value }) => {
 					</Select>
 
 					<PickerWithType type={type} {...{ onChange, value }} />
-
+					<div className={style.custom_range}>
 					<RangePicker presets={rangePresets} {...{ onChange, value }} />
+					</div>
+						
 			</Space>
 	)
 }
 
-export default FilterInput
+export default DateFilter

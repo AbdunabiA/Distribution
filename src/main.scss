@@ -221,3 +221,12 @@ $xxxxl:1920px;
   background-color: #F9C70B;
   border-radius: 8px;
 }
+
+
+@media (max-width: $sm) {
+    .ant-picker-panels{
+        display: flex !important;
+        flex-direction: column !important;
+        // flex-wrap: wrap !important;
+    }
+}
