@@ -1,13 +1,10 @@
 import { helpers, menus } from 'assets/db'
-import { useState } from 'react'
+import close from 'assets/icons/close.png'
 import { NavLink } from 'react-router-dom'
 import styles from './sidebar.module.scss'
-import close from "assets/icons/close.png"
-const Sidebar = ({active, setActive}) => {
-	
+const Sidebar = ({ active, setActive }) => {
 	return (
 		<>
-			
 			{active ? (
 				<div
 					className={styles.back_black__cover}
@@ -38,7 +35,7 @@ const Sidebar = ({active, setActive}) => {
 							<ul>
 								{menus['admin'].map((menu, i) => {
 									return (
-										<li key={i}>
+										<li onClick={() => setActive(false)} key={i}>
 											<NavLink
 												to={menu.path}
 												className={({ isActive, isPending }) =>

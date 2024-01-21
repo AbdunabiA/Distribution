@@ -19,8 +19,13 @@ $xxxxl:1920px;
 			padding-top: 10px;
 		}
 	}
-	.liner {
+	.mobileversion {
 		display: none;
+	
+		.popupClass{
+			display: none;
+			background-color: black;
+		}
 		@media (max-width:$md) {
 			display: block;
 			padding-top: 10px;

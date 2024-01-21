@@ -53,8 +53,11 @@ const FilterInput = ({ onChange, value }) => {
 					<RangePicker presets={rangePresets} {...{ onChange, value }} />
 				</div>
 			</Space>
-			<div className={style.liner}>
-				<RangePicker presets={rangePresets} {...{ onChange, value }} />
+			<div className={style.mobileversion}>
+				<RangePicker
+					presets={rangePresets}
+					{...{ onChange, value }}
+				/>
 			</div>
 		</div>
 	)
