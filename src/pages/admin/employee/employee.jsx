@@ -1,7 +1,7 @@
 import { DownOutlined } from '@ant-design/icons'
 import { Space, Table } from 'antd'
 import Cards from 'components/cards'
-import FilterInput from 'components/filter-input'
+import DateFilter from "components/dateFilter";
 import { useState } from 'react'
 import s from './employee.module.scss'
 import CustomTable from "components/table";
@@ -95,7 +95,7 @@ const Employee = () => {
 	}
 	return (
     <div className="container">
-      <FilterInput onChange={onChange} value={dateValue} />
+      <DateFilter onChange={onChange} value={dateValue} />
       <Cards />
       <CustomTable
         {...{

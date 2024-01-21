@@ -2,7 +2,7 @@ import { Card } from "antd";
 import styles from "./card.module.scss";
 import { formatNums } from "services/formatNums";
 
-const CardTable = ({ cart_text, total_amount, r_b_amount, icon }) => {
+const MainCard = ({ cart_text, total_amount, r_b_amount, icon }) => {
   return (
     <Card bordered={false} className={styles.card}>
       <div className={styles.top_title}>
@@ -25,4 +25,4 @@ const CardTable = ({ cart_text, total_amount, r_b_amount, icon }) => {
   );
 };
 
-export default CardTable;
+export default MainCard;
