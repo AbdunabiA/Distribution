@@ -1,10 +1,14 @@
-import { YMaps, Map, Placemark, GeolocationControl } from "@pbe/react-yandex-maps";
+import { DownOutlined } from '@ant-design/icons'
+import { Space, Table } from 'antd'
+import Cards from 'components/cards'
+import FilterInput from 'components/filter-input'
+import { useState } from 'react'
+import s from './employee.module.scss'
 import CustomTable from "components/table";
-import { useState } from "react";
-import { Checkbox, Button, Input, Dropdown} from 'antd'
 
 
-const GoogleMaps = () => {
+
+const Employee = () => {
   const columns = [
     {
       key: 1,
@@ -37,7 +41,6 @@ const GoogleMaps = () => {
       width: "30%",
     },
   ];
-  
 
   const items = [
     {
@@ -83,11 +86,17 @@ const GoogleMaps = () => {
       address: "London No. 2 Lake Park",
     },
   ];
-  
-  
-  return (
+	
+	const [dateValue, setDateValue] = useState('')
+	const onChange = value => {
+		setDateValue(value)
+		// console.log('VALUE', value);
+		console.log(dateValue)
+	}
+	return (
     <div className="container">
-      <Button type="primary">Hello</Button>
+      <FilterInput onChange={onChange} value={dateValue} />
+      <Cards />
       <CustomTable
         {...{
           columns,
@@ -101,6 +110,5 @@ const GoogleMaps = () => {
       />
     </div>
   );
-};
-
-export default GoogleMaps;
+}
+export default Employee

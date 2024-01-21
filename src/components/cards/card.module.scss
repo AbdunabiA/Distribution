@@ -11,22 +11,37 @@ $xxxxl:1920px;
 	justify-content: start;
 	gap: 20px;
 	align-content: center;
-	margin: 30px 0;
+	margin: 25px 0;
+	@media (max-width: $xl ){
+		gap: 15px;
+	}
 	@media (max-width: $md ){
 		flex-wrap: wrap;
-		gap: 30px;
+		gap: 25px;
+	}
+	@media (max-width: $sm ){
+		flex-wrap: wrap;
+		gap: 10px;
 	}
 }
-.cart_mini {
+.card {
 	width: 100%;
-	// max-width: 400px;
-	color: black;
 	opacity: 1;
-	// margin: 15px;
-	border-radius: 20px;
 	-webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
--moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+	box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+	
+	&>div{
+		@media (max-width:$xxxl) {
+			padding: 20px !important;
+		}
+		@media (max-width:$xxl) {
+			padding: 16px !important;
+		}
+		@media (max-width:$sm) {
+			padding: 12px !important;
+		}
+	}
 	.top_title{
 		display: flex;
 		align-items: center;
@@ -37,11 +52,35 @@ box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 			width: 25px;
 			height: 25px;
 			opacity: .7;
+			@media (max-width:$xxxl) {
+				width: 23px;
+				height: 23px;
+			}
+			@media (max-width:$xxl) {
+				width: 20px;
+				height: 20px;
+			}
+			@media (max-width:$xxl) {
+				width: 18px;
+				height: 18px;
+			}
 		}
 	.cart_text {
 		font-size: 22px !important;
 		color:#9CB1C9;
 		font-weight: 400;
+		@media (max-width:$xxxl) {
+			font-size: 20px !important;
+		}
+		@media (max-width:$xxl) {
+			font-size: 19px !important;
+		}
+		@media (max-width:$xxl) {
+			font-size: 17px !important;
+		}
+		@media (max-width:$xl) {
+			font-size: 16px !important;
+		}
 	}
 }
 
@@ -56,11 +95,23 @@ box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 			font-weight: 600;
 			color: #3C518A;
 			font-size: 32px;
+			@media (max-width:$xxxl) {
+				font-size: 30px !important;
+			}
+			@media (max-width:$xxl) {
+				font-size: 26px !important;
+			}
+			@media (max-width:$xl) {
+				font-size: 20px !important;
+			}
+			@media (max-width:$sm) {
+				font-size: 24px !important;
+			}
 		}
-		.r_b_text {
-			font-size: 16px;
-			display: none;
-			font-weight: 600;
-		}
+		// .r_b_text {
+		// 	font-size: 16px;
+		// 	display: none;
+		// 	font-weight: 600;
+		// }
 	}
 }

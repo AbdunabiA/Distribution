@@ -127,7 +127,7 @@ const CustomTable = ({
             ? {
                 total: get(meta, "total"),
                 current: +get(params, "page", 1),
-                pageSize: get(meta, "perPage"),
+                pageSize: get(meta, "perPage", 10),
                 showSizeChanger: true,
               }
             : false

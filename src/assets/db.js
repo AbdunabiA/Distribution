@@ -46,16 +46,16 @@ export const menus = {
 							icon: statistika,
 						},
 						{
+							title: 'Arxiv',
+							path: '/archive',
+							icon: archive,
+						},
+						{
 							title: 'Sozlamalar',
 							path: '/settings',
 							icon: sozlamalar,
 						},
 
-						{
-							title: 'Arxiv',
-							path: '/archive',
-							icon: archive,
-						},
 					],
 					ordinary_user: [
 						{
@@ -342,7 +342,7 @@ export const subscriptionsInfo = [
 export const cart_data = [
 	{
 		cart_text: 'Daromadlar',
-		total_amount: 2652,
+		total_amount: 26520000000,
 		r_b_amount: -2525,
 		icon: moneyIcon
 	},

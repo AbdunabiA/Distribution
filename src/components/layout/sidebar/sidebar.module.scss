@@ -5,20 +5,21 @@ $xl: 1200px;
 $xxl: 1400px;  
 $xxxl:1600px;
 $xxxxl:1920px;
-$sidebarColor: #3EA2FB;
-$sidebarHover : #375EB2;
+$sidebarHover: #9CB1C9;
+$sidebarActive: #3EA2FB;
 
 
 
 .sidebar{
     width: 100%;
     max-width: 300px;
-    height: 100vh;
-    background: #122538;
+    height: 98vh;
+    background: #3C518A;
     color: white;
     overflow-y: auto;
     transition: all .5s;
-      
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
 
 		/* &.active{
 			width: 100%;
@@ -171,31 +172,31 @@ $sidebarHover : #375EB2;
                     }
                     &:hover{
                         /* background: rgba(249, 199, 11, 0.25); */
-												background: $sidebarColor;
-                        &:before{
-                            content: '';
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 6px;
-                            height: 100%;
-                            border-radius: 8px 0px 0px 8px;
-                            background-color: $sidebarColor;
-                        }
+												background: $sidebarHover;
+                        // &:before{
+                        //     content: '';
+                        //     position: absolute;
+                        //     top: 0;
+                        //     left: 0;
+                        //     width: 6px;
+                        //     height: 100%;
+                        //     border-radius: 8px 0px 0px 8px;
+                        //     background-color: $sidebarColor;
+                        // }
                     }
                     &.active{
-                            background: $sidebarHover;
-                            &:before{
-                            content: '';
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 6px;
-                            height: 100%;
+                            background: $sidebarActive;
+                            // &:before{
+                            // content: '';
+                            // position: absolute;
+                            // top: 0;
+                            // left: 0;
+                            // width: 6px;
+                            // height: 100%;
                             /* background: #F9C70B; */
-														background: $sidebarColor;
-                            border-radius: 8px 0px 0px 8px;
-                        }
+						// 								background: $sidebarColor;
+                        //     border-radius: 8px 0px 0px 8px;
+                        // }
                     }
                     div{
                         img{
@@ -225,6 +226,6 @@ $sidebarHover : #375EB2;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 100;
+            z-index: 8000;
         }
     }

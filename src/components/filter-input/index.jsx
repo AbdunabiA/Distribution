@@ -37,29 +37,18 @@ const FilterInput = ({ onChange, value }) => {
 		console.log(value)
 	}
 	return (
-		<div className={style.container}>
-			<Space direction='horizontal' size={17}>
-				<div className={style.date_inputs}>
+			<Space direction='horizontal' className={style.space}>
 					<Select value={type} onChange={setType}>
 						<Option value='date'>Date</Option>
 						<Option value='week'>Week</Option>
 						<Option value='month'>Month</Option>
 						<Option value='year'>Year</Option>
 					</Select>
+
 					<PickerWithType type={type} {...{ onChange, value }} />
-				</div>
-				<br className={style.liner} />
-				<div className={style.pcversion}>
+
 					<RangePicker presets={rangePresets} {...{ onChange, value }} />
-				</div>
 			</Space>
-			<div className={style.mobileversion}>
-				<RangePicker
-					presets={rangePresets}
-					{...{ onChange, value }}
-				/>
-			</div>
-		</div>
 	)
 }
 
