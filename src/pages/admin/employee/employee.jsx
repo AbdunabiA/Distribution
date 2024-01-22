@@ -39,6 +39,7 @@ const Employee = () => {
       onFilter: (value, record) => record.address.startsWith(value),
       filterSearch: true,
       width: "30%",
+      responsive: ["md"],
     },
   ];
 

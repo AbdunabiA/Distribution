@@ -84,7 +84,7 @@ const CustomTable = ({
                     <Tooltip title="Edit">
                       <EditOutlined
                         onClick={() => updateAction(row)}
-                        style={{ color: "blue", fontSize: "22px" }}
+                        style={{ color: "#645DF6", fontSize: "22px" }}
                       />
                     </Tooltip>
                   ) : null}
