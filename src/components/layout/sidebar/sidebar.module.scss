@@ -13,7 +13,7 @@ $sidebarActive: #645DF6;
 .sidebar{
     width: 100%;
     max-width: 300px;
-    height: 98vh;
+    height: 100vh;
     background: #3C518A;
     color: white;
     overflow-y: auto;
@@ -39,7 +39,7 @@ $sidebarActive: #645DF6;
     @media (max-width:$lg) {
         position: fixed;
         // top: 50%;
-        transform: translateY(-50%);
+        // transform: translateY(-50%);
         left: 0;
         max-width: 200px;
         width: 100%;
