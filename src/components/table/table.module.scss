@@ -1,0 +1,110 @@
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;
+$xxxl: 1600px;
+$xxxxl: 1920px;
+
+.big_wrapper {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 33px 36px 50px 36px;
+  @media (max-width: $sm) {
+    padding: 20px 16px 50px 16px;
+  }
+  .add {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    p {
+      color: #3c518a;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 120%;
+      @media (max-width: $xxxxl) {
+        font-size: 40px;
+      }
+      @media (max-width: $xl) {
+        font-size: 32px;
+      }
+      @media (max-width: $lg) {
+        font-size: 30px;
+      }
+      @media (max-width: $md) {
+        font-size: 30px;
+      }
+      @media (max-width: $sm) {
+        font-size: 20px;
+        font-weight: 700;
+      }
+    }
+    .btn_wrapper{
+      display: flex;
+      gap: 30px;
+      @media (max-width: $xl) {
+       gap: 15px;
+      }
+      @media (max-width: $lg) {
+        flex-direction: column;
+      }
+      @media (max-width: $md) {
+        flex-direction: column;
+      }
+      @media (max-width: $sm) {
+        flex-direction:column;
+      }
+      .btn{
+        border-radius: 10px;
+        padding: 20px 43px !important;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 18px;
+        color: #fff;
+        text-align: center;
+        box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.25);
+        font-weight: 600;
+        @media (max-width: $xxxl){
+          padding: 23px 30px !important;
+          font-size: 16px;
+        }
+        @media (max-width: $xl) {
+          padding: 20px 20px !important;
+          font-size: 14px;
+        }
+        @media (max-width: $lg) {
+          padding: 16px 20px !important;
+          font-size: 14px;
+          gap: 4px;
+        }
+        @media (max-width: $md) {
+          padding: 20px 20px !important;
+          font-size: 14px;
+        }
+        @media (max-width: $md) {
+          font-size: 16px;
+          padding: 9px 30px 9px 20px;
+        }
+        @media (max-width: $sm) {
+          font-size: 12px;
+          padding: 15px 5px !important;
+        }
+        img {
+          width: 20px;
+          height: 20px;
+          @media (max-width:$md) {
+            width: 15px;
+            height: 15px;
+          }
+          @media (max-width:$sm){
+            width: 6px !important;
+            height: 6px !important;
+          }
+        }
+      }
+    }
+  }
+}

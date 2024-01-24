@@ -14,7 +14,7 @@ const Layout = () => {
 			<Sidebar active={active} setActive={setActive} />
 			<div className={s.content}>
 				<Header onTouch={onTouch} />
-				<Outlet />
+				<Outlet />	
 			</div>
 		</div>
 	)
