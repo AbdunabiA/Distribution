@@ -1,9 +1,15 @@
 import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 
 const AdminHome = () => {
+
+  const { i18n } = useTranslation();
+  if (i18n.language == "ru-RU") {
+    i18n.changeLanguage("ru");
+  }
 
   function LocationMarker() {
     const [position, setPosition] = useState(null);
