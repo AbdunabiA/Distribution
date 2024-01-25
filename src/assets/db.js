@@ -1,4 +1,5 @@
-import moneyIcon from "assets/icons/money-icon.png"
+// import moneyIcon from "assets/icons/money-icon.png"
+import moneyIcon from "assets/icons/money-bag.svg"
 import asosiy from './icons/AsosiyIcon.png'
 import filiallar from './icons/FiliallarIcon.png'
 import mahsulot from './icons/MahsulotIcon.png'

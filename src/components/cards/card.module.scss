@@ -49,20 +49,15 @@ $xxxxl:1920px;
 		gap: 10px;
 		margin-bottom: 10px;
 		img {
-			width: 25px;
-			height: 25px;
-			opacity: .7;
+			width: 55px;
+			height: 55px;
 			@media (max-width:$xxxl) {
-				width: 23px;
-				height: 23px;
+				width: 37px;
+				height: 37px;
 			}
 			@media (max-width:$xxl) {
-				width: 20px;
-				height: 20px;
-			}
-			@media (max-width:$xxl) {
-				width: 18px;
-				height: 18px;
+				width: 30px;
+				height: 30px;
 			}
 		}
 	.cart_text {
