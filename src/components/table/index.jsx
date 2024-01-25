@@ -1,4 +1,12 @@
-import { Pagination, Popconfirm, Switch, Table, Tooltip, Checkbox, Divider } from "antd";
+import {
+  Pagination,
+  Popconfirm,
+  Switch,
+  Table,
+  Tooltip,
+  Checkbox,
+  Divider,
+} from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { get } from "lodash";
 import qs from "qs";
@@ -9,7 +17,7 @@ const CustomTable = ({
   items,
   isLoading,
   columns,
-  hideColumns=false,
+  hideColumns = false,
   scrollX = null,
   scrollY = null,
   hasUpdate = false,
@@ -94,8 +102,6 @@ const CustomTable = ({
           },
         ]
       : newColumnss;
-
-
 
   return (
     <>
