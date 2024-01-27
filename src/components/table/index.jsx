@@ -9,21 +9,15 @@ import {
 } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { get } from "lodash";
-import { Button, Flex } from "antd";
-import PlusIcon from "assets/icons/PlusIcon";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import tableScss from "./table.module.scss";
-import vektor from "../../assets/images/addVektor.svg";
+
 
 const CustomTable = ({
-  buttons = [
-    <Button icon={<PlusIcon />} className={tableScss.btn} type="primary">
-      xodim qo’shish
-    </Button>,
-  ],
-  hasTitle = "Xodimlar ro’yxati",
+  buttons = null,
+  title = null,
   items,
   isLoading,
   columns,
@@ -116,14 +110,13 @@ const CustomTable = ({
     <>
       <div className={tableScss.big_wrapper}>
         <div className={tableScss.add}>
-          {hasTitle ? <p>{hasTitle}</p> : null}
-          <div className={tableScss.btn_wrapper}>
-            {buttons ? buttons : null}
-          </div>
+          {title ? <p>{title}</p> : null}
+          {buttons ? (
+            <div className={tableScss.btn_wrapper}>{buttons}</div>
+          ) : null}
         </div>
         {hideColumns ? (
           <>
-            <Divider>Columns displayed</Divider>
             <Checkbox.Group
               value={checkedList}
               options={options}
