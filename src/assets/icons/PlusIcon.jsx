@@ -1,10 +1,8 @@
 import React from "react";
-
-const PlusIcon = ({ w = 20, h = 20}) => {
+import plus from './plus.module.scss'
+const PlusIcon = () => {
   return (
-    <svg
-      width={w}
-      height={h}
+    <svg className={plus.wrap}
       viewBox="0 0 21 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

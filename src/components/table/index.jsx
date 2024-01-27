@@ -18,6 +18,12 @@ import tableScss from "./table.module.scss";
 import vektor from "../../assets/images/addVektor.svg";
 
 const CustomTable = ({
+  buttons = [
+    <Button icon={<PlusIcon />} className={tableScss.btn} type="primary">
+      xodim qo’shish
+    </Button>,
+  ],
+  hasTitle = "Xodimlar ro’yxati",
   items,
   isLoading,
   columns,
@@ -106,17 +112,13 @@ const CustomTable = ({
           },
         ]
       : newColumnss;
-
   return (
     <>
       <div className={tableScss.big_wrapper}>
         <div className={tableScss.add}>
-          <p>Xodimlar ro’yxati</p>
+          {hasTitle ? <p>{hasTitle}</p> : null}
           <div className={tableScss.btn_wrapper}>
-          <Button className={tableScss.btn} type="primary">
-            <PlusIcon />
-            xodim qo’shish
-          </Button>
+            {buttons ? buttons : null}
           </div>
         </div>
         {hideColumns ? (
