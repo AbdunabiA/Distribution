@@ -1,4 +1,4 @@
-import { helpers, menus } from 'assets/db'
+import { menus } from 'assets/db'
 import close from 'assets/icons/close.png'
 import { NavLink } from 'react-router-dom'
 import styles from './sidebar.module.scss'
@@ -55,36 +55,6 @@ const Sidebar = ({ active, setActive }) => {
 												>
 													{menu.title}
 												</p>
-											</NavLink>
-										</li>
-									)
-								})}
-							</ul>
-						</nav>
-					</div>
-					<div
-						className='helpers-wrapper'
-						style={{
-							display: 'none',
-						}}
-					>
-						<h1>Yordam</h1>
-
-						<nav>
-							<ul>
-								{helpers['admin'].map((menu, i) => {
-									return (
-										<li key={i}>
-											<NavLink
-												to={menu.path}
-												className={({ isActive, isPending }) =>
-													isPending ? 'pending' : isActive ? 'active' : ''
-												}
-											>
-												<div>
-													<img src={menu.icon} alt='icon' />
-												</div>
-												<p>{menu.title}</p>
 											</NavLink>
 										</li>
 									)
