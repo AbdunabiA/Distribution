@@ -1,5 +1,4 @@
 import { lazy } from "react";
-
 const AdminHome = lazy(()=>import('pages/admin/home/home'))
 const GoogleMap = lazy(()=>import('pages/admin/home/GoogleMaps'))
 const AdminEmployee = lazy(()=>import("pages/admin/employee/employee"))
@@ -9,8 +8,6 @@ const AdminBranches = lazy(() => import('pages/admin/branches'))
 const AdminStatistics = lazy(() => import('pages/admin/statistics'))
 const AdminSettings = lazy(() => import('pages/admin/settings'))
 const AdminArchive = lazy(() => import('pages/admin/archive'))
-
-
 export const pages = {
 					admin: [
 						{

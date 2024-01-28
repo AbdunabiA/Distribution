@@ -12,8 +12,12 @@ import { get } from "lodash";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import tableScss from "./table.module.scss";
+
 
 const CustomTable = ({
+  buttons = null,
+  title = null,
   items,
   isLoading,
   columns,
@@ -102,71 +106,77 @@ const CustomTable = ({
           },
         ]
       : newColumnss;
-
   return (
     <>
-      {hideColumns ? (
-        <>
-          <Divider>Columns displayed</Divider>
-          <Checkbox.Group
-            value={checkedList}
-            options={options}
-            onChange={(value) => {
-              setCheckedList(value);
-            }}
-          />
-        </>
-      ) : null}
-
-      <Table
-        rowKey={"id"}
-        dataSource={items}
-        isLoading={isLoading}
-        columns={newColumnss}
-        scroll={{
-          x: scrollX,
-          y: scrollY,
-        }}
-        style={{ marginTop: "20px" }}
-        pagination={
-          hasPagination
-            ? {
-                total: get(meta, "total"),
-                current: +get(params, "page", 1),
-                pageSize: get(meta, "perPage", 10),
-                showSizeChanger: true,
-              }
-            : false
-        }
-        onChange={(page) => {
-          // console.log('PAGE', page);
-          navigate({
-            search: qs.stringify({
-              page: page.current,
-              pageSize: page.pageSize,
-            }),
-          });
-        }}
-      />
-      {!hasPagination && customPagination ? (
-        <div style={{ marginTop: "10px" }}>
-          <Pagination
-            total={get(meta, "total")}
-            current={+get(params, "page", 1)}
-            pageSize={get(meta, "perPage", 10)}
-            showSizeChanger
-            onChange={(page, pageSize) => {
-              // console.log(page, pageSize);
-              navigate({
-                search: qs.stringify({
-                  page: page,
-                  pageSize: pageSize,
-                }),
-              });
-            }}
-          />
+      <div className={tableScss.big_wrapper}>
+        <div className={tableScss.add}>
+          {title ? <p>{title}</p> : null}
+          {buttons ? (
+            <div className={tableScss.btn_wrapper}>{buttons}</div>
+          ) : null}
         </div>
-      ) : null}
+        {hideColumns ? (
+          <>
+            <Checkbox.Group
+              value={checkedList}
+              options={options}
+              onChange={(value) => {
+                setCheckedList(value);
+              }}
+            />
+          </>
+        ) : null}
+
+        <Table
+          rowKey={"id"}
+          dataSource={items}
+          isLoading={isLoading}
+          columns={newColumnss}
+          scroll={{
+            x: scrollX,
+            y: scrollY,
+          }}
+          style={{ marginTop: "20px" }}
+          pagination={
+            hasPagination
+              ? {
+                  total: get(meta, "total"),
+                  current: +get(params, "page", 1),
+                  pageSize: get(meta, "perPage", 10),
+                  showSizeChanger: true,
+                }
+              : false
+          }
+          onChange={(page) => {
+            // console.log('PAGE', page);
+            navigate({
+              search: qs.stringify({
+                page: page.current,
+                pageSize: page.pageSize,
+              }),
+            });
+          }}
+        />
+        {!hasPagination && customPagination ? (
+          <div style={{ marginTop: "10px" }}>
+            <Pagination
+              total={get(meta, "total")}
+              current={+get(params, "page", 1)}
+              pageSize={get(meta, "perPage", 10)}
+              showSizeChanger
+              onChange={(page, pageSize) => {
+                // console.log(page, pageSize);
+                navigate({
+                  search: qs.stringify({
+                    page: page,
+                    pageSize: pageSize,
+                  }),
+                });
+              }}
+            />
+          </div>
+        ) : null}
+      </div>
     </>
   );
 };
