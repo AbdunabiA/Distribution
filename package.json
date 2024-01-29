@@ -15,7 +15,9 @@
     "@tanstack/react-query": "^5.8.4",
     "antd": "^5.13.1",
     "axios": "^1.6.2",
+    "chart.js": "^4.4.1",
     "dayjs": "^1.11.10",
+    "faker": "^6.6.6",
     "formik": "^2.4.5",
     "i18next": "^23.7.6",
     "i18next-browser-languagedetector": "^7.2.0",
@@ -27,6 +29,7 @@
     "moment": "^2.29.4",
     "qs": "^6.11.2",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-datepicker": "^4.21.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
@@ -51,6 +54,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
+    "Faker": "^0.7.2",
     "vite": "^5.0.0"
   }
 }

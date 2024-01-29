@@ -16,7 +16,7 @@ const appRoutes = (routes) => {
     <React.Fragment key={key}>
       <Route
         path={route.path}
-        element={<Suspense fallback="LOADING...">{route.component}</Suspense>}
+        element={<Suspense fallback={<></>}>{route.component}</Suspense>}
       />
       {route.children && appRoutes(route.children)}
     </React.Fragment>

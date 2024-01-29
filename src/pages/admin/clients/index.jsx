@@ -1,8 +1,11 @@
+import BarChart  from 'components/chart'
 import React from 'react'
-
+import s from './clients.module.scss'
 const Clients = () => {
 	return (
-		<div>Clients</div>
+		<div className={s.clientContainer}>
+			<BarChart />
+		</div>
 	)
 }
 
