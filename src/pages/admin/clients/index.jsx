@@ -1,4 +1,4 @@
-import BarChart  from 'components/chart'
+import BarChart  from 'components/charts/barChart'
 import React from 'react'
 import { data } from 'assets/db'
 const Clients = () => {
