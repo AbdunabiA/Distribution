@@ -258,3 +258,27 @@ export const cart_data = [
 					},
 				]
 
+				const labels = [
+					'January',
+					'February',
+					'March',
+					'April',
+					'May',
+					'June',
+					'July',
+				]
+export const data = {
+					labels,
+					datasets: [
+						{
+							label: 'Dataset 2',
+							data: [65, 59, 80, 45, 56, 55, 40],
+							backgroundColor: 'rgba(53, 162, 235, 0.5)',
+						},
+						{
+							label: 'Dataset 2',
+							data: [23, 49, 60, 35, 66, 45, 30],
+							backgroundColor: 'rgba(153,88,246)',
+						},
+					],
+				}

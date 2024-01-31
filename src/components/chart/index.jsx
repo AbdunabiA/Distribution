@@ -31,19 +31,9 @@ export const options = {
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 2',
-      data: [65, 59, 80, 45, 56, 55, 40],
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
-};
-
-export default function BarChart() {
+export default function BarChart({data}) {
+  const { labels, datasets } = data
+  console.log(labels)
   return <Bar options={options} data={data} />;
 }
