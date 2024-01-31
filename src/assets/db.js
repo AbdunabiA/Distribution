@@ -1,16 +1,12 @@
-import moneyIcon from "assets/icons/money-icon.png"
+import moneyIcon from "assets/icons/money-bag.svg"
 import asosiy from './icons/AsosiyIcon.png'
 import filiallar from './icons/FiliallarIcon.png'
 import mahsulot from './icons/MahsulotIcon.png'
-import pulAylanmasi from './icons/PulAylanmasiIcon.png'
-import qollabQuvvatlash from './icons/QollabQuvvatlashIcon.png'
-import shoppingCart from './icons/ShoppingCart.png'
 import sozlamalar from './icons/SozlamalarIcon.png'
 import statistika from './icons/StatistikaIcon.png'
 import archive from "./icons/archive.png"
 import clients from "./icons/client3.png"
 import employee from './icons/employes.png'
-import obunalar from './icons/obunalarIcon.png'
 
 export const menus = {
 					admin: [
@@ -57,105 +53,7 @@ export const menus = {
 						},
 
 					],
-					ordinary_user: [
-						{
-							title: 'Asosiy',
-							path: '/',
-							icon: asosiy,
-						},
-						{
-							title: 'Mahsulotlar',
-							path: '/products',
-							icon: mahsulot,
-						},
-						{
-							title: 'Pul aylanmasi',
-							path: '/money-circulation',
-							icon: pulAylanmasi,
-						},
-						{
-							title: 'Obunalar',
-							path: '/subscriptions',
-							icon: obunalar,
-						},
-						{
-							title: 'Buyurtmalar',
-							path: '/orders',
-							icon: shoppingCart,
-						},
-					],
-					employee: [
-						{
-							title: 'Asosiy',
-							path: '/',
-							icon: asosiy,
-						},
-						{
-							title: 'Filiallar',
-							path: '/branches',
-							icon: filiallar,
-						},
-						{
-							title: 'Mahsulotlar',
-							path: '/products',
-							icon: mahsulot,
-						},
-						//  {
-						//    title: "Pul aylanmasi",
-						//    path: "/money-circulation",
-						//    icon: pulAylanmasi,
-						//  },
-						//  {
-						//    title: "Statistika",
-						//    path: "/statistics",
-						//    icon: statistika,
-						//  },
-						{
-							title: 'Obunalar',
-							path: '/subscriptions',
-							icon: obunalar,
-						},
-					],
 				}
-
-export const helpers = {
-	admin: [
-		{
-			title: 'Sozlamalar',
-			path: '/settings',
-			icon: sozlamalar,
-		},
-		{
-			title: "Qo'llab quvvatlash",
-			path: '/',
-			icon: qollabQuvvatlash,
-		},
-	],
-	ordinary_user: [
-		{
-			title: 'Sozlamalar',
-			path: '/',
-			icon: sozlamalar,
-		},
-		{
-			title: "Qo'llab quvvatlash",
-			path: '/',
-			icon: qollabQuvvatlash,
-		},
-	],
-	employee: [
-		{
-			title: 'Sozlamalar',
-			path: '/',
-			icon: sozlamalar,
-		},
-		{
-			title: "Qo'llab quvvatlash",
-			path: '/',
-			icon: qollabQuvvatlash,
-		},
-	],
-}
 
 export const mahsulotTarqatish2 = [
 	{
@@ -340,23 +238,47 @@ export const subscriptionsInfo = [
 ]
 
 export const cart_data = [
-	{
-		cart_text: 'Daromadlar',
-		total_amount: 26520000000,
-		r_b_amount: -2525,
-		icon: moneyIcon
-	},
-	{
-		cart_text: 'Xarajatlar',
-		total_amount: 252,
-		r_b_amount: -22,
-			icon: moneyIcon
-	},
-	{
-		cart_text: 'Chiqimlar',
-		total_amount: 23,
-		r_b_amount: 10,
-		icon: moneyIcon
-	},
-]
+					{
+						cart_text: 'Daromadlar',
+						total_amount: 26520000000,
+						r_b_amount: -2525,
+						icon: moneyIcon,
+					},
+					{
+						cart_text: 'Xarajatlar',
+						total_amount: 252,
+						r_b_amount: -22,
+						icon: moneyIcon,
+					},
+					{
+						cart_text: 'Chiqimlar',
+						total_amount: 23,
+						r_b_amount: 10,
+						icon: moneyIcon,
+					},
+				]
 
+				const labels = [
+					'January',
+					'February',
+					'March',
+					'April',
+					'May',
+					'June',
+					'July',
+				]
+export const data = {
+					labels,
+					datasets: [
+						{
+							label: 'Dataset 2',
+							data: [65, 59, 80, 45, 56, 55, 40],
+							backgroundColor: 'rgba(53, 162, 235, 0.5)',
+						},
+						{
+							label: 'Dataset 2',
+							data: [23, 49, 60, 35, 66, 45, 30],
+							backgroundColor: 'rgba(153,88,246)',
+						},
+					],
+				}

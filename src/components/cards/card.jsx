@@ -7,6 +7,7 @@ const MainCard = ({ cart_text, total_amount, r_b_amount, icon }) => {
     <Card bordered={false} className={styles.card}>
       <div className={styles.top_title}>
         <img src={icon} />
+
         <h3 className={styles.cart_text}>{cart_text}</h3>
       </div>
       <div className={styles.b_total}>
