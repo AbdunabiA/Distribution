@@ -1,8 +1,11 @@
+import BarChart  from 'components/charts/barChart'
 import React from 'react'
-
+import { data } from 'assets/db'
 const Clients = () => {
 	return (
-		<div>Clients</div>
+		<div className={"container"}>
+			<BarChart data={data} />
+		</div>
 	)
 }
 

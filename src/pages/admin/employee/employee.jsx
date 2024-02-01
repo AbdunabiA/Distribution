@@ -1,10 +1,11 @@
 import { DownOutlined } from '@ant-design/icons'
-import { Space, Table } from 'antd'
+import { Button, Space, Table } from 'antd'
 import Cards from 'components/cards'
 import DateFilter from "components/dateFilter";
 import { useState } from 'react'
 import s from './employee.module.scss'
 import CustomTable from "components/table";
+import PlusIcon from 'assets/icons/PlusIcon';
 
 
 
@@ -102,6 +103,8 @@ const Employee = () => {
         {...{
           columns,
           items,
+          title:"Xodimlar ro'yxati",
+          buttons:[<Button icon={<PlusIcon/>} type='primary'>Xodim qo'shish</Button>],
           hasDelete: true,
           hasStatus: true,
           hasUpdate: true,
