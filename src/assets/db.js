@@ -25,7 +25,6 @@ export const menus = {
       path: "/products",
       icon: mahsulot,
     },
-
     {
       title: "Xodimlar",
       path: "/employee",
@@ -75,19 +74,15 @@ export const cart_data = [
   },
 ];
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
 export const data = {
-  labels,
+  labels: ["Yanvar", "Fevral", "Mart", "Aprel", "May","Iyun"],
   datasets: [
     {
-      label: "Dataset 2",
-      data: [65, 59, 80, 45, 56, 55, 40],
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-    {
-      label: "Dataset 2",
-      data: [23, 49, 60, 35, 66, 45, 30],
-      backgroundColor: "rgba(153,88,246)",
+      label: "Mijozlar soni",
+      data: [65, 59, 80, 45, 56, 55],
+      backgroundColor: ["orange", "blue", "red", "purple", "green", 'pink'],
+      borderColor: ["blue", "red", "purple", "green"],
+      borderWidth: 1,
     },
   ],
 };
