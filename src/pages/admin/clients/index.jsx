@@ -2,19 +2,26 @@ import React from "react";
 import BarChart from "components/charts/barChart";
 import { data } from "assets/db";
 import PieChart from "components/charts/pieChart";
-import clientScss from './clients.module.scss'
+import clientScss from "./clients.module.scss";
 const Clients = () => {
-  const dataLabels = ["Yakshanba", "Dushanba", "seshanba", "chorshanba"];
-
   return (
     <>
       <div className={"container"}>
-        <BarChart data={data}/>
+        <BarChart data={data} />
         <PieChart
-          data={data}
-		  subtitle={'hello'}
-		  title={'PieChart'}
-		  textBottom={'Bu bitta kompaniyaning bir yillik hisobotini korsatuvchi chart'}
+          data={{
+            January:"30",
+            February:"40",
+            March:"60",
+            May:"70",
+            Sebtember:"87",
+          }}
+          label={"mijozlar o'sishi"}
+          subtitle={"hello"}
+          title={"PieChart"}
+          textBottom={
+            "Bu bitta kompaniyaning bir yillik hisobotini korsatuvchi chart"
+          }
         />
       </div>
     </>
