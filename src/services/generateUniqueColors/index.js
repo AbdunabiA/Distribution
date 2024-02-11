@@ -8,7 +8,7 @@ export function generateUniqueColor(length) {
         green = Math.floor(Math.random() * 256);
         blue = Math.floor(Math.random() * 256);
         alpha = '0.4';
-        var color = 'rgba(' + red + ',' + green + ',' + blue + ',' + alpha + ')';
+        var color = 'rgba(' + red + ',' + green + ',' + blue + ')';
         if (!arr.includes(color)) {
           arr.push(color);
           isUnique = true;

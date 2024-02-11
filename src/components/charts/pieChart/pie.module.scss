@@ -1,0 +1,78 @@
+$sm: 578px;
+$md: 769px;
+$lg: 993px;
+$xl: 1201px;
+$xxl: 1401px;  
+$xxxl:1601px;
+$xxxxl:1921px;
+.chart{
+        width:200px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+        border-radius: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        @media (max-width:$xxxl) {
+            width: 530px;
+        }
+        @media (max-width:$xxl) {
+            width: 450px;
+        }
+        @media (max-width:$xl) {
+            margin: 0 auto;
+        }
+        @media (max-width:$sm) {
+            width: 100%;
+            padding: 15px;
+            gap: 5px;
+        }
+        h1{
+            font-size: 30px;
+            font-weight: 600;
+            line-height: 20px;
+            color: black;
+            @media (max-width:$xxl) {
+                font-size: 26px;
+            }
+            @media (max-width:$sm) {
+                font-size: 20px;
+            }
+        }
+        .subtitle{
+            font-size: 15px;
+            text-transform: capitalize;
+            font-weight: 400;
+            line-height: 18px;
+            color: black;
+            @media (max-width:$xxl) {
+                font-size: 15px;
+            }
+            @media (max-width:$sm) {
+                font-size: 12px;
+            }
+        }
+        .text-bottom{
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 15px;
+            @media (max-width:$sm) {
+                font-size: 10px;
+            }
+        }
+        .chart2{
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            @media (max-width:$xxxl) {
+                padding: 40px;
+            }
+            @media (max-width:$xxl) {
+                padding: 10px;
+            }
+            @media (max-width:$sm) {
+                padding: 2px;
+            }
+        }
+    }
