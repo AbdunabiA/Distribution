@@ -1,13 +1,12 @@
-import { DownOutlined } from '@ant-design/icons'
-import { Button, Space, Table } from 'antd'
-import Cards from 'components/cards'
+import { DownOutlined } from "@ant-design/icons";
+import { Button, Space, Table } from "antd";
+import Cards from "components/cards";
 import DateFilter from "components/dateFilter";
-import { useState } from 'react'
-import s from './employee.module.scss'
+import { useState } from "react";
+import s from "./employee.module.scss";
 import CustomTable from "components/table";
-import PlusIcon from 'assets/icons/PlusIcon';
-
-
+// import PlusIcon from 'assets/icons/PlusIcon';
+import PlusIcon from "assets/icons/PlusIcon.svg?react";
 
 const Employee = () => {
   const columns = [
@@ -88,23 +87,28 @@ const Employee = () => {
       address: "London No. 2 Lake Park",
     },
   ];
-	
-	const [dateValue, setDateValue] = useState('')
-	const onChange = value => {
-		setDateValue(value)
-		// console.log('VALUE', value);
-		console.log(dateValue)
-	}
-	return (
+
+  const [dateValue, setDateValue] = useState("");
+  const onChange = (value) => {
+    setDateValue(value);
+    // console.log('VALUE', value);
+    console.log(dateValue);
+  };
+  return (
     <div className="container">
       <DateFilter onChange={onChange} value={dateValue} />
       <Cards />
+      {/* <PlusIcon /> */}
       <CustomTable
         {...{
           columns,
           items,
-          title:"Xodimlar ro'yxati",
-          buttons:[<Button icon={<PlusIcon/>} type='primary'>Xodim qo'shish</Button>],
+          title: "Xodimlar ro'yxati",
+          buttons: [
+            <Button icon={<PlusIcon />} key={1} type="primary">
+              Xodim qo'shish
+            </Button>,
+          ],
           hasDelete: true,
           hasStatus: true,
           hasUpdate: true,
@@ -114,5 +118,5 @@ const Employee = () => {
       />
     </div>
   );
-}
-export default Employee
+};
+export default Employee;
