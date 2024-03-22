@@ -31,7 +31,7 @@ const routesWrapper = () => {
   //   i18n.changeLanguage("ru");
   // }
   // const role = useSelector((state) => state.auth.role);
-  const role = "admin";
+  const role = "manager";
 
   return (
 		<Routes>

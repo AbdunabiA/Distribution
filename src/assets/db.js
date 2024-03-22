@@ -51,6 +51,48 @@ export const menus = {
       icon: sozlamalar,
     },
   ],
+  manager: [
+    {
+      title: "Filiallar",
+      path: "/",
+      icon: filiallar,
+    },
+    {
+      title: "Mahsulotlar",
+      path: "/products",
+      icon: mahsulot,
+    },
+    {
+      title: "Mijozlar",
+      path: "/clients",
+      icon: clients,
+    },
+    {
+      title: "Topshiriqlar",
+      path: "/tasks",
+      icon: mahsulot,
+    },
+    {
+      title: "Xodimlar",
+      path: "/employee",
+      icon: employee,
+    },
+    //  {
+    //    title: "Statistika",
+    //    path: "/statistics",
+    //    icon: statistika,
+    //  },
+    {
+      title: "Arxiv",
+      path: "/archive",
+      icon: archive,
+    },
+    //  {
+    //    title: "Sozlamalar",
+    //    path: "/settings",
+    //    icon: sozlamalar,
+    //  },
+  ],
 };
 
 export const cart_data = [
@@ -75,12 +117,12 @@ export const cart_data = [
 ];
 
 export const data = {
-  labels: ["Yanvar", "Fevral", "Mart", "Aprel", "May","Iyun"],
+  labels: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun"],
   datasets: [
     {
       label: "Mijozlar soni",
       data: [65, 59, 80, 45, 56, 55],
-      backgroundColor: ["orange", "blue", "red", "purple", "green", 'pink'],
+      backgroundColor: ["orange", "blue", "red", "purple", "green", "pink"],
       borderColor: ["blue", "red", "purple", "green"],
       borderWidth: 1,
     },
