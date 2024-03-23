@@ -96,7 +96,7 @@ const Main = ({
       }}
       onSubmit={(values, { resetForm }) => {
         values = { ...values };
-        fields.forEach((field) => {
+        isArray(fields) && fields.forEach((field) => {
           if (field.hasOwnProperty("onSubmitValue")) {
             if (typeof field.onSubmitValue === "function") {
               if (field.hasOwnProperty("onSubmitKey")) {
@@ -147,16 +147,12 @@ const Main = ({
         return (
           <form
             onSubmit={handleSubmit}
-            onKeyPress={(event) => {
-              // if (event.which === 13 && disableOnEnter) {
-              // 	event.preventDefault();
-              // }
-            }}
           >
             {children({
               handleSubmit,
               submitForm,
               values,
+              touched,
               isSubmitting,
               setFieldValue,
               setFieldError,

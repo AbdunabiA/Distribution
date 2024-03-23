@@ -2,7 +2,7 @@ import axios from "axios";
 import storage from "services/storage";
 
 const api = axios.create({
-  baseURL: "https://paymentstest-60d8729405f3.herokuapp.com/api/v1/",
+  baseURL: "",
   timeout: 30000,
 });
 
