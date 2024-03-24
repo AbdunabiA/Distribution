@@ -6,6 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { persister, store } from "store/index.js";
 import { ConfigProvider, theme } from "antd";
+import { Toaster } from "sonner";
 import "./main.scss";
 import "./i18n";
 
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </ConfigProvider>
         </BrowserRouter>
       </PersistGate>
+      <Toaster position="top-right" expand={true} richColors />
     </QueryClientProvider>
   </Provider>
 );
