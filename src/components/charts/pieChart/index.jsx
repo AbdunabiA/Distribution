@@ -14,7 +14,7 @@ function PieChart({
   label,
   height = "100%",
 }) {
-  console.log(data, "dataa");
+  // console.log(data, "dataa");
 
   const options = {
     responsive: true,
