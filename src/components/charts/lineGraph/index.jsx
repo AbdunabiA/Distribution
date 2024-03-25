@@ -39,12 +39,15 @@ function LineGraph({
   const datasets = data.map((item) => {
     const label = item.label;
     const data = uniqueLabels.map((label) => item[label] || 0);
+    const uniqueColor = generateUniqueColor(1);
     return {
       label: label,
       data: data,
-      backgroundColor: generateUniqueColor(uniqueLabels.length),
-      borderColor: generateUniqueColor(uniqueLabels.length),
-      borderWidth: 1,
+      backgroundColor: uniqueColor,
+      borderColor: uniqueColor,
+      pointBorderColor: uniqueColor,
+      pointBackgroundColor: uniqueColor,
+      borderWidth: 2,
     };
   });
 

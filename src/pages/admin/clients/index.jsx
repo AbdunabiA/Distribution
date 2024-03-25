@@ -28,31 +28,31 @@ const Clients = () => {
         <LineGraph
           data={[
             {
-              label:'Malumot osishi',
+              label: "Malumot osishi",
               January: "14",
               February: "13",
               March: "60",
               May: "76",
               Sebtember: "87",
-              December:'90'
+              December: "90",
             },
             {
-              label:'Soqqa kopayishi',
+              label: "Soqqa kopayishi",
               January: "10",
               February: "40",
               March: "34",
               May: "89",
               Sebtember: "100",
-              December:'70'
+              December: "70",
             },
             {
-              label:'Mahsulot kopayishi',
+              label: "Mahsulot kopayishi",
               January: "17",
               February: "0",
               March: "10",
               May: "70",
               Sebtember: "27",
-              December:'50'
+              December: "50",
             },
           ]}
           title={"LineGraph of the company"}

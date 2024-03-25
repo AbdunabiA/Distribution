@@ -33,6 +33,6 @@ export const options = {
 
 export default function BarChart({data}) {
   const { labels, datasets } = data
-  console.log(labels)
+  // console.log(labels)
   return <Bar options={options} data={data} />;
 }
