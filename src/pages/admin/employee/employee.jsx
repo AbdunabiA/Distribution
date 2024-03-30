@@ -91,7 +91,6 @@ const Employee = () => {
   const [dateValue, setDateValue] = useState("");
   const onChange = (value) => {
     setDateValue(value);
-    // console.log('VALUE', value);
     console.log(dateValue);
   };
   return (
