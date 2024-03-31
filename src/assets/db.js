@@ -150,17 +150,3 @@ export const data1 = {
 
 
 
-export const userProfile = [
-  {
-    name:'Abdunabi Abduvaxobov',
-    job:'Ombor manageri',
-    profileImg:'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
-    phoneNumber:'+998905200350',
-    lavozim:'Ombor manageri',
-    salary:10000000,
-    status:true,
-    adress:"Shifokorlar 70/89",
-    branch:'Fergana branch',
-    KPI:1000000
-  }
-]

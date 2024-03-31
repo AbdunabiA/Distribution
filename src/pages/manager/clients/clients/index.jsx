@@ -5,5 +5,4 @@ const ManagerClients = () => {
     <div>ManagerClients</div>
   )
 }
-
 export default ManagerClients
