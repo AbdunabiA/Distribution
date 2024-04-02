@@ -4,15 +4,11 @@ import { CustomInput } from "components/inputs";
 import { usePost } from "crud";
 import { Field, FieldArray } from "formik";
 import { ContainerForm } from "modules";
-
 const ManagerArchive = () => {
   return (
     <div className="container">
-
-     
-
+      Archive
     </div>
   );
 };
-
 export default ManagerArchive;

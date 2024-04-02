@@ -17,6 +17,7 @@ const ManagerClients = lazy(() => import("pages/manager/clients/clients"));
 const ManagerEmployee = lazy(() => import("pages/manager/employee/employee"));
 const ManagerProducts = lazy(() => import("pages/manager/products/products"));
 const ManagerTasks = lazy(() => import("pages/manager/tasks/tasks"));
+const ManagerProfile = lazy(()=> import("pages/manager/profile/index"))
 
 export const pages = {
   admin: [
@@ -69,6 +70,10 @@ export const pages = {
     {
       path: "/employee",
       component: <ManagerEmployee />,
+    },
+    {
+      path: "/profile",
+      component: <ManagerProfile />,
     },
     {
       path: "/clients",

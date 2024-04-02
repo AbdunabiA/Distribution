@@ -14,16 +14,17 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import tableScss from "./table.module.scss";
 
-
 const CustomTable = ({
   buttons = null,
   title = null,
   items,
+  height = null,
   isLoading,
+  mineHeigth = null, 
   columns,
   hideColumns = false,
   scrollX = null,
-  scrollY = null,
+  scrollY = false,
   hasUpdate = false,
   hasDelete = false,
   hasStatus = false,
@@ -132,11 +133,11 @@ const CustomTable = ({
           dataSource={items}
           isLoading={isLoading}
           columns={newColumnss}
+          style={{ marginTop: "20px", minHeight:`${mineHeigth}` }}
           scroll={{
             x: scrollX,
-            y: scrollY,
+            y: scrollY ? height : null, 
           }}
-          style={{ marginTop: "20px" }}
           pagination={
             hasPagination
               ? {

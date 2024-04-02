@@ -1,0 +1,135 @@
+$sm: 578px;
+$md: 769px;
+$lg: 993px;
+$xl: 1201px;
+$xxl: 1401px;
+$xxxl: 1601px;
+$xxxxl: 1921px;
+.basic {
+  margin-top: 30px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  .bare {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: center;
+    width: 90%;
+    .bar {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      align-items: center;
+      width: 90%;
+    }
+  }
+}
+@media (max-width: $sm) {
+  .basic {
+    width: 500px;
+    margin: 0 auto;
+    .bare {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      align-items: center;
+      width: 90%;
+      height: 200px;
+      .bar {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+      }
+      .subtitle {
+        font-size: 12px;
+      }
+      .text_bottom {
+        font-size: 10px;
+      }
+      .title {
+        font-size: 14px;
+        margin-top: 30px;
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .basic {
+    width: 400px;
+    // margin: 0 auto;
+    height: 100px;
+    .bare {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      align-items: center;
+      width: 100%;
+      height: 300px !important;
+      .bar {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        font-size: 10px;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+      }
+      .subtitle {
+        font-size: 12px;
+      }
+      .text_bottom {
+        font-size: 10px;
+      }
+      .title {
+        font-size: 14px;
+        margin-top: 30px;
+      }
+    }
+  }
+}
+@media (max-width: 400px) {
+  .basic {
+    width: 340px;
+    .bare {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      align-items: center;
+      width: 100%;
+      height: 300px !important;
+      .bar {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        font-size: 10px;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+      }
+      .subtitle {
+        font-size: 12px;
+      }
+      .text_bottom {
+        font-size: 10px;
+      }
+      .title {
+        font-size: 14px;
+        margin-top: 30px;
+      }
+    }
+  }
+}
