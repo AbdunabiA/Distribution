@@ -1,8 +1,8 @@
-
-
 const ManagerEmployee = () => {
   return (
-    <div>ManagerEmployee</div>
+    <div>
+      ManagerEmployee
+    </div>
   )
 }
 

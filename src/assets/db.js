@@ -129,7 +129,7 @@ export const data = {
   ],
 };
 export const data1 = {
-  labels: ["Yanvar", "Fevral", "Mart", "Aprel", "May","Iyun", 'iyul', 'Avgust', 'September', 'Oktober', 'Novermber', 'December'],
+  labels: ["Yanvar", "Fevral", 'September', 'Oktober', 'Novermber', 'December'],
   datasets: [
     {
       label: "Mijozlar soni",
@@ -140,6 +140,13 @@ export const data1 = {
     },
     {
       label: "Mahsulotlar soni",
+      data: [35, 69, 80, 5, 56, 5, 68, 0, 67, 34, 23, 89],
+      backgroundColor: ["orange", "blue", "red", "purple", "green", 'pink'],
+      borderColor: ["blue", "red", "purple", "green"],
+      borderWidth: 1,
+    },
+    {
+      label: "Zakazlar  soni",
       data: [35, 69, 80, 5, 56, 5, 68, 0, 67, 34, 23, 89],
       backgroundColor: ["orange", "blue", "red", "purple", "green", 'pink'],
       borderColor: ["blue", "red", "purple", "green"],

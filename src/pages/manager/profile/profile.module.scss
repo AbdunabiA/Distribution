@@ -14,7 +14,6 @@ $xxxxl: 1920px;
     border-radius: 20px;
     box-shadow: 2px 2px 10px white;
     flex: 1;
-    // width: 50%;
     .second_wrapper {
       display: flex;
       align-items: center;
@@ -76,3 +75,94 @@ $xxxxl: 1920px;
     margin-top: 20px;
   }
 }
+
+@media(max-width:$lg){
+  .flex_div{
+    flex-direction: column;
+    align-items: center;
+    .main_wrapper{
+      width: 60%;
+    }
+    .table{
+      width: 100%;
+    }
+  }
+}
+@media(max-width:$md){
+  .flex_div{
+    flex-direction: column;
+    align-items: center;
+    .main_wrapper{
+      width: 100%;
+    }
+    .table{
+      width: 100%;
+    }
+  }
+}
+@media(max-width:$sm){
+  .flex_div{
+    flex-direction: column;
+    align-items: center;
+    .main_wrapper{
+      padding: 30px 50px 30px 40px;
+      .second_wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        img {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+        .name {
+          color: #3c518a;
+          font-size: 13px;
+          width: 100%;
+          line-height: 33px;
+          font-weight: 600;
+        }
+        .lavozim {
+          color: #9cb1c9;
+          text-transform: uppercase;
+          font-size: 12px;
+        }
+      }
+      .third_wrapper {
+        display: flex;
+        justify-content: space-between;
+        gap: 13px;
+        margin-top: 48px;
+        ul {
+          display: flex;
+          flex-direction: column;
+          row-gap: 10px;
+          li {
+            color: #9cb1c9;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20.57px;
+          }
+        }
+      }
+      .btn {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        margin-top: 50px;
+        display: flex;
+        .btn1 {
+          padding: 5px 22px;
+          font-weight: 600;
+          font-size: 13px;
+        }
+      }
+    }
+    .table{
+      width: 100%;
+    }
+  }
+}
+
