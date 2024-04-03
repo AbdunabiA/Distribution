@@ -22,19 +22,48 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
+    },
+  },
+};
+
 function LineGraph({
   data,
   title,
   subtitle,
   textBottom,
+  isMonthUniqueLabels = true,
   width = "100%",
   height = "100%",
 }) {
   const labels = data.reduce((allLabels, item) => {
     return allLabels.concat(Object.keys(item).filter((key) => key !== "label"));
   }, []);
-
+  const monthOrder = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   const uniqueLabels = [...new Set(labels)];
+  if (isMonthUniqueLabels) {
+    uniqueLabels.sort((a, b) => {
+      return monthOrder.indexOf(a) - monthOrder.indexOf(b);
+    });
+  }
 
   const datasets = data.map((item) => {
     const label = item.label;
@@ -47,6 +76,8 @@ function LineGraph({
       borderColor: uniqueColor,
       pointBorderColor: uniqueColor,
       pointBackgroundColor: uniqueColor,
+      pointRadius: 6,
+      pointHoverRadius: 10,
       borderWidth: 2,
     };
   });
@@ -56,21 +87,20 @@ function LineGraph({
     datasets: datasets,
   };
   return (
-    <div>
-      <>
-        <div className={lineGraphScss.chart}>
-          {title ? <h1>{title}</h1> : null}
-          {subtitle ? (
-            <p className={lineGraphScss.subtitle}>{subtitle}</p>
-          ) : null}
-          <div className={lineGraphScss.chart2}>
-            <Line data={chartData} />
-          </div>
-          {textBottom ? (
-            <p className={lineGraphScss.text_bottom}>{textBottom}</p>
-          ) : null}
-        </div>
-      </>
+    <div className={lineGraphScss.chartContainer}>
+      {title ? <h1>{title}</h1> : null}
+      {subtitle ? <p className={lineGraphScss.subtitle}>{subtitle}</p> : null}
+      <div className={lineGraphScss.chart}>
+        <Line
+          data={chartData}
+          options={options}
+          width={width}
+          height={height}
+        />
+      </div>
+      {textBottom ? (
+        <p className={lineGraphScss.text_bottom}>{textBottom}</p>
+      ) : null}
     </div>
   );
 }

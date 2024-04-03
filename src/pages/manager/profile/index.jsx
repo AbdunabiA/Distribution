@@ -4,7 +4,7 @@ import CustomTable from "components/table";
 import { Button } from "antd";
 import DateFilter from "components/dateFilter";
 import { useState } from "react";
-import ProfileData from "./profiledata";
+import ProfileData from "./profileData";
 function Profile() {
   const [dateValue, setDateValue] = useState("");
   const onChange = (value) => {

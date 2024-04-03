@@ -1,6 +1,7 @@
 import React from "react";
 import profiledataScss from "./profiledata.module.scss";
 import { Button } from "antd";
+
 function ProfileData({ userProfile }) {
   return (
     <div className={profiledataScss.main_wrapper}>
