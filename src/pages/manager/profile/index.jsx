@@ -4,6 +4,7 @@ import CustomTable from "components/table";
 import { Button } from "antd";
 import DateFilter from "components/dateFilter";
 import { useState } from "react";
+import ProfileData from "./profiledata";
 function Profile() {
   const [dateValue, setDateValue] = useState("");
   const onChange = (value) => {
@@ -227,63 +228,7 @@ function Profile() {
     <div className="container">
       <div className={profileScss.biggest_wrapper}>
         <div className={profileScss.flex_div}>
-          <div className={profileScss.main_wrapper}>
-            <div className={profileScss.second_wrapper}>
-              <div>
-                <h1 className={profileScss.name}>
-                  {userProfile.name ? userProfile.name : null}
-                </h1>
-                <p className={profileScss.lavozim}>
-                  {userProfile.lavozim ? userProfile.lavozim : null}
-                </p>
-              </div>
-              <div>
-                <img
-                  src={userProfile.profileImg ? userProfile.profileImg : null}
-                  alt="Profile image"
-                />
-              </div>
-            </div>
-            <div className={profileScss.third_wrapper}>
-              <ul>
-                <li>
-                  <span>Tel:</span>
-                  {userProfile.phoneNumber ? userProfile.phoneNumber : null}
-                </li>
-                <li>
-                  <span>Lavozim:</span>
-                  {userProfile.lavozim ? userProfile.lavozim : null}
-                </li>
-                <li>
-                  <span>Oylik:</span>
-                  {userProfile.salary ? userProfile.salary : null}
-                </li>
-                <li>
-                  <span>Status:</span>
-                  {userProfile.status === true ? "Aktiv" : "noActive"}
-                </li>
-              </ul>
-              <ul>
-                <li>
-                  <span>Adress:</span>
-                  {userProfile.adress ? userProfile.adress : null}
-                </li>
-                <li>
-                  <span>Filial:</span>
-                  {userProfile.branch ? userProfile.branch : null}
-                </li>
-                <li>
-                  <span>KPI:</span>
-                  {userProfile.KPI ? userProfile.KPI : null}
-                </li>
-              </ul>
-            </div>
-            <div className={profileScss.btn}>
-              <Button className={profileScss.bnt1} size="large" type="primary">
-                O'zgartirish
-              </Button>
-            </div>
-          </div>
+          <ProfileData userProfile={userProfile}/>
           <div className={profileScss.table}>
             <CustomTable
               {...{
