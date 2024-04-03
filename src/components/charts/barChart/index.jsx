@@ -26,7 +26,7 @@ const options = {
     },
   },
 };
-function BarChart({ data, title, subtitle, textBottom, isMonthUniqueLabels=true }) {
+export function BarChart({ data, title, subtitle, textBottom, isMonthUniqueLabels=true }) {
   const labels = data.reduce((allLabels, item) => {
     return allLabels.concat(Object.keys(item).filter((key) => key !== "label"));
   }, []);
@@ -87,4 +87,4 @@ function BarChart({ data, title, subtitle, textBottom, isMonthUniqueLabels=true 
   );
 }
 
-export default BarChart;
+

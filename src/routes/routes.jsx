@@ -20,90 +20,106 @@ const ManagerTasks = lazy(() => import("pages/manager/tasks/tasks"));
 const ManagerProfile = lazy(()=> import("pages/manager/profile/index"))
 
 export const pages = {
-  admin: [
-    {
-      path: "/",
-      component: <AdminHome />,
-    },
-    {
-      path: "/google-maps",
-      component: <GoogleMap />,
-    },
-    {
-      path: "/employee",
-      component: <AdminEmployee />,
-    },
-    {
-      path: "/clients",
-      component: <AdminClients />,
-    },
-    {
-      path: "/products",
-      component: <AdminProducts />,
-    },
-    {
-      path: "/branches",
-      component: <AdminBranches />,
-    },
-    {
-      path: "/statistics",
-      component: <AdminStatistics />,
-    },
-    {
-      path: "/settings",
-      component: <AdminSettings />,
-    },
-    {
-      path: "/archive",
-      component: <AdminArchive />,
-    },
-  ],
-  manager: [
-    {
-      path: "/",
-      component: <ManagerBranches />,
-    },
-    //    {
-    //      path: "/google-maps",
-    //      component: <GoogleMap />,
-    //    },
-    {
-      path: "/employee",
-      component: <ManagerEmployee />,
-    },
-    {
-      path: "/profile",
-      component: <ManagerProfile />,
-    },
-    {
-      path: "/clients",
-      component: <ManagerClients />,
-    },
-    {
-      path: "/products",
-      component: <ManagerProducts />,
-    },
-    //    {
-    //      path: "/branches",
-    //      component: <ManagerBranches />,
-    //    },
-    {
-      path: "/tasks",
-      component: <ManagerTasks />,
-    },
-    //    {
-    //      path: "/statistics",
-    //      component: <AdminStatistics />,
-    //    },
-    //    {
-    //      path: "/settings",
-    //      component: <AdminSettings />,
-    //    },
-    {
-      path: "/archive",
-      component: <ManagerArchive />,
-    },
-  ],
-};
+         admin: [
+           {
+             path: "/",
+             component: <AdminHome />,
+             name: "",
+           },
+           {
+             path: "/google-maps",
+             component: <GoogleMap />,
+             name: "",
+           },
+           {
+             path: "/employee",
+             component: <AdminEmployee />,
+             name: "",
+           },
+           {
+             path: "/clients",
+             component: <AdminClients />,
+             name: "",
+           },
+           {
+             path: "/products",
+             component: <AdminProducts />,
+             name: "",
+           },
+           {
+             path: "/branches",
+             component: <AdminBranches />,
+             name: "",
+           },
+           {
+             path: "/statistics",
+             component: <AdminStatistics />,
+             name: "",
+           },
+           {
+             path: "/settings",
+             component: <AdminSettings />,
+             name: "",
+           },
+           {
+             path: "/archive",
+             component: <AdminArchive />,
+             name: "",
+           },
+         ],
+         manager: [
+           {
+             path: "/",
+             component: <ManagerBranches />,
+             name: "Filiallar",
+           },
+           //    {
+           //      path: "/google-maps",
+           //      component: <GoogleMap />,
+           //    },
+           {
+             path: "/employee",
+             component: <ManagerEmployee />,
+             name: "Xodimlar",
+           },
+           {
+             path: "/profile",
+             component: <ManagerProfile />,
+             name: "Profil",
+           },
+           {
+             path: "/clients",
+             component: <ManagerClients />,
+             name: "Mijozlar",
+           },
+           {
+             path: "/products",
+             component: <ManagerProducts />,
+             name: "Mahsulotlar",
+           },
+           //    {
+           //      path: "/branches",
+           //      component: <ManagerBranches />,
+           //    },
+           {
+             path: "/tasks",
+             component: <ManagerTasks />,
+             name: "Topshiriqlar",
+           },
+           //    {
+           //      path: "/statistics",
+           //      component: <AdminStatistics />,
+           //    },
+           //    {
+           //      path: "/settings",
+           //      component: <AdminSettings />,
+           //    },
+           {
+             path: "/archive",
+             component: <ManagerArchive />,
+             name: "Arxiv",
+           },
+         ],
+       };
 
 export const authPages = [];
