@@ -18,7 +18,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-export const options = {
+const options = {
   responsive: true,
   plugins: {
     legend: {
@@ -26,7 +26,7 @@ export const options = {
     },
   },
 };
-function BarChart({ data, title, subtitle, textBottom }) {
+function BarChart({ data, title, subtitle, textBottom, isMonthUniqueLabels=true }) {
   const labels = data.reduce((allLabels, item) => {
     return allLabels.concat(Object.keys(item).filter((key) => key !== "label"));
   }, []);
@@ -45,6 +45,13 @@ function BarChart({ data, title, subtitle, textBottom }) {
     "December",
   ];
   const uniqueLabels = [...new Set(labels)];
+
+  if(isMonthUniqueLabels){
+    uniqueLabels.sort((a, b) => {
+      return monthOrder.indexOf(a) - monthOrder.indexOf(b);
+    });
+  }
+
   const datasets = data.map((item) => {
     const label = item.label;
     const data = uniqueLabels.map((label) => item[label] || 0);
@@ -59,9 +66,7 @@ function BarChart({ data, title, subtitle, textBottom }) {
       borderWidth: 2,
     };
   });
-    uniqueLabels.sort((a, b) => {
-    return monthOrder.indexOf(a) - monthOrder.indexOf(b);
-});
+
   const barData = {
     labels: uniqueLabels,
     datasets: datasets,
@@ -72,12 +77,12 @@ function BarChart({ data, title, subtitle, textBottom }) {
         {title ? <h1 className={barchart.title}>{title}</h1> : null}
         {subtitle ? <p className={barchart.subtitle}>{subtitle}</p> : null}
         <div className={barchart.bar}>
-          <Bar  options={options} data={barData} />
+          <Bar options={options} data={barData} />
         </div>
         {textBottom ? (
           <p className={barchart.text_bottom}>{textBottom}</p>
         ) : null}
-      </div>    
+      </div>
     </div>
   );
 }
