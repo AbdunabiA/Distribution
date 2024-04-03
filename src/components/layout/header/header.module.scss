@@ -1,41 +1,65 @@
 $sm: 578px;
 $md: 769px;
 $lg: 993px;
-$xl: 1201px;
-$xxl: 1401px;
-$xxxl: 1601px;
-$xxxxl: 1921px;
+$xl: 1200px;
+$xxl: 1400px;
+$xxxl: 1600px;
+$xxxxl: 1920px;
 $sidebarColor: #3ea2fb;
 $sidebarHover: #375eb2;
 
 header {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    position: sticky;
-    top: 0;
-    z-index: 7000;
-    
-    &>div{
-        height: 10vh;
-        background: white;
-        border-radius: 0px 0px 8px 8px;
-        display: flex;
-        align-items: center;
-        -webkit-box-shadow: 0px 4px 12px 0px rgba(34, 60, 80, 0.135);
-	    -moz-box-shadow: 0px 4px 12px 0px rgba(34, 60, 80, 0.135);
-	    box-shadow: 0px 4px 12px 0px rgba(34, 60, 80, 0.135);
-        padding: 0px 10px;
-    }
-}
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  position: sticky;
+  top: 0;
+  z-index: 7000;
 
-.hamburgerMenu {
-  padding: 4px 10px;
-  background-color: black;
-  font-size: 15px;
-  color: white;
-  font-weight: bold;
-  display: none;
-  @media (max-width: $lg) {
-    display: block !important;
+  & > div {
+    height: 10vh;
+    background: white;
+    border-radius: 0px 0px 8px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    -webkit-box-shadow: 0px 4px 12px 0px rgba(34, 60, 80, 0.135);
+    -moz-box-shadow: 0px 4px 12px 0px rgba(34, 60, 80, 0.135);
+    box-shadow: 0px 4px 12px 0px rgba(34, 60, 80, 0.135);
+    padding: 0px 30px;
+    @media (max-width: $xl) {
+      padding: 0 20px;
+    }
+    @media (max-width: $sm) {
+    }
+    .pageNameWrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .hamburgerMenu {
+        padding: 4px 10px;
+        font-size: 15px;
+        color: white;
+        font-weight: bold;
+        display: none;
+        @media (max-width: $lg) {
+          display: block !important;
+        }
+      }
+      .pageName {
+        font-size: 34px;
+        font-weight: 600;
+        color: #3c518a;
+        @media (max-width: $xxl) {
+          font-size: 28px;
+        }
+        @media (max-width: $xxl) {
+          font-size: 24px;
+        }
+      }
+    }
+    .profileImage {
+      height: 60%;
+    }
   }
 }

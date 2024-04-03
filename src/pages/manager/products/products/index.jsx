@@ -1,9 +1,9 @@
-import BarChart from "components/charts/barChart";
+import { BarChart } from "components/charts/barChart";
 import { data1 } from "assets/db";
-import LineGraph from "components/charts/lineGraph";
+import { LineGraph } from "components/charts/lineGraph";
 const ManagerProducts = () => {
   return (
-    <div>
+    <div className="container">
       <BarChart
         data={[
           {
