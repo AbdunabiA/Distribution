@@ -15,6 +15,7 @@ export const CustomInput = (props) => {
             {...field}
             placeholder={props.placeholder}
             type={props.type}
+            status={meta.touched && meta.error && 'error'}
             // value={values[props.name]}
             // onChange={() => setFieldValue(props.name, values[props.name])}
             onInput={(e) => setFieldValue(props.name, e.target.value)}
