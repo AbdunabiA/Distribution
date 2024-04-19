@@ -2,7 +2,7 @@ import axios from "axios";
 import storage from "services/storage";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: "http://64.225.110.95",
   timeout: 30000,
 });
 

@@ -1,10 +1,12 @@
 import React from "react";
 import profileScss from "./profile.module.scss";
 import CustomTable from "components/table";
-import { Button } from "antd";
 import DateFilter from "components/dateFilter";
 import { useState } from "react";
-import ProfileData from "./profileData";
+import ProfileData from "./profiledata";
+
+
+
 function Profile() {
   const [dateValue, setDateValue] = useState("");
   const onChange = (value) => {
