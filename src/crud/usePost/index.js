@@ -9,8 +9,10 @@ async function postData({
   onSuccess = () => {},
   onError = () => {},
 }) {
+  // console.log('post data called');
   return await api[method](queryBuilder(url, params), values)
     .then((data) => {
+      console.log('then success');
       onSuccess(data);
     })
     .catch((error) => {
@@ -19,7 +21,8 @@ async function postData({
 }
 
 const usePost = () => {
-  return useMutation(postData);
+  
+  return useMutation({ mutationFn: postData, });
 };
 
 export default usePost;
