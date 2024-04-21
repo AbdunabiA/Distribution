@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Select, Spin } from "antd";
 import { Field } from "formik";
 import { useGet } from "crud";
@@ -18,18 +18,23 @@ export const AsyncSelect = ({
            queryKey,
            params,
            onSuccess: (data) => {
-             // Assuming the data is an array of objects
-             const transformedOptions = data.map((item) => ({
-               label: item[optionLabel], // The text to display
-               value: item[optionValue], // The corresponding value
-             }));
-             setOptions(transformedOptions);
+            // console.log('asyncSelectData', data);
+             
            },
            onError: (error) => {
              console.error("Error fetching data: ", error);
            },
          });
 
+         useEffect(()=>{
+          const transformedOptions = data?.data?.map((item) => ({
+            label: item[optionLabel], // The text to display
+            value: item[optionValue], // The corresponding value
+          }));
+          setOptions(transformedOptions);
+         }, [data?.data])
+         
+        //  console.log('Options', options);
          return (
            <Field {...props}>
              {({
@@ -57,6 +62,7 @@ export const AsyncSelect = ({
                      }
                      {...props}
                      options={options}
+                     style={{minWidth:"300px"}}
                    />
                    {meta.touched && meta.error && (
                      <small style={{ color: "red" }}>{meta.error}</small>

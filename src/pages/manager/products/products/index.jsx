@@ -3,43 +3,31 @@ import { data1 } from "assets/db";
 import { LineGraph } from "components/charts/lineGraph";
 import CustomTable from "components/table";
 import { Button, Modal } from "antd";
-import CreateProductCategory from "components/forms/createProductCategory";
 import { useState } from "react";
-const columns2 = [
+import { CreateProduct, CreateProductCategory } from "components/forms";
+import { AsyncSelect } from "components/inputs";
+import { useGet } from "crud";
+const productsColumns = [
   {
     key: 1,
-    title: "name",
+    title: "Nomi",
     dataIndex: "name",
   },
   {
     key: 2,
-    title: "month",
-    dataIndex: "month",
-    sorter: (a, b) => a.month.localeCompare(b.month),
+    title: "Narxi",
+    dataIndex: "price",
+    sorter: (a, b) => a.price - b.price,
   },
   {
     key: 3,
-    title: "salary",
-    dataIndex: "salary",
-    sorter: (a, b) => a.salary - b.salary,
+    title: "Status",
+    dataIndex: "status",
   },
   {
     key: 4,
-    title: "bonus",
-    dataIndex: "bonus",
-    sorter: (a, b) => a.bonus - b.bonus,
-  },
-  {
-    key: 5,
-    title: "jarima",
-    dataIndex: "jarima",
-    sorter: (a, b) => a.jarima - b.jarima,
-  },
-  {
-    key: 6,
-    title: "jami",
-    dataIndex: "jami",
-    sorter: (a, b) => a.jami - b.jami,
+    title: "Kategoriya",
+    dataIndex: "category",
   },
 ];
 const items2 = [
@@ -91,8 +79,11 @@ const items2 = [
   },
 ];
 const ManagerProducts = () => {
-  const [categoryModal, setCategoryModal] = useState(false)
-  console.log(import.meta.env.VITE_BASE_URL);
+  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
+  const { data, isLoading } = useGet({
+    url: "/products/all/",
+    queryKey: ["products"],
+  });
   return (
     <div className="container">
       <BarChart
@@ -176,23 +167,59 @@ const ManagerProducts = () => {
         textBottom={"Kompaniyaning bir yillik daromadi "}
         label={"Daromad osishi"}
       />
-      <Modal destroyOnClose centered footer={false} open={categoryModal} onCancel={()=>setCategoryModal(false)}>
-        <CreateProductCategory setCategoryModal={setCategoryModal}/>
+      <Modal
+        destroyOnClose
+        centered
+        footer={false}
+        open={modal.isOpen}
+        onCancel={() => setModal({ isOpen: false, form: null, data: null })}
+      >
+        {modal.form === "category" ? (
+          <CreateProductCategory {...{ setModal, modal }} />
+        ) : modal.form === "product" ? (
+          <CreateProduct {...{ setModal, modal }} />
+        ) : null}
       </Modal>
-      <CustomTable
-        {...{
-          columns: columns2,
-          items: items2,
-          title: "Maosh to’lo’vi ",
-          minHeigth: "230px",
-          hasStatus: true,
-          scrollY: true,
-          height: 230,
-          hideColumns: true,
-          hasPagination: true,
-          buttons:[<Button key={'category'} type="primary" onClick={()=>setCategoryModal(true)}>Kategoriya qo'shish</Button>]
-        }}
-      />
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <CustomTable
+          {...{
+            columns: productsColumns,
+            items: data?.data,
+            title: "Mahsulotlar",
+            minHeigth: "230px",
+            scrollY: true,
+            height: 230,
+            hideColumns: true,
+            hasPagination: true,
+            deleteAction:()=>{},
+            updateAction:()=>{},
+            hasDelete:true,
+            hasUpdate:true,
+            buttons: [
+              <Button
+                key={"category"}
+                type="primary"
+                onClick={() =>
+                  setModal({ isOpen: true, form: "category", data: null })
+                }
+              >
+                Kategoriya qo'shish
+              </Button>,
+              <Button
+                key={"product"}
+                type="primary"
+                onClick={() =>
+                  setModal({ isOpen: true, form: "product", data: null })
+                }
+              >
+                Mahsulot qo'shish
+              </Button>,
+            ],
+          }}
+        />
+      )}
     </div>
   );
 };
