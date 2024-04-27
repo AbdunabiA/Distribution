@@ -1,12 +1,12 @@
 import { BarChart } from "components/charts/barChart";
-import { data1 } from "assets/db";
 import { LineGraph } from "components/charts/lineGraph";
 import CustomTable from "components/table";
 import { Button, Modal } from "antd";
 import { useState } from "react";
 import { CreateProduct, CreateProductCategory } from "components/forms";
-import { AsyncSelect } from "components/inputs";
 import { useGet } from "crud";
+import PlusIcon from "assets/icons/PlusIcon.svg?react";
+
 const productsColumns = [
   {
     key: 1,
@@ -86,7 +86,7 @@ const ManagerProducts = () => {
   });
   return (
     <div className="container">
-      <BarChart
+      {/* <BarChart
         data={[
           {
             label: "Malumot osishi",
@@ -130,8 +130,8 @@ const ManagerProducts = () => {
         textBottom={
           "Siz bu grafic orqali kampaniya mahsulotlari osishi hajmni korishingiz mumkin."
         }
-      />
-      <LineGraph
+      /> */}
+      {/* <LineGraph
         data={[
           {
             label: "Malumot osishi",
@@ -166,7 +166,7 @@ const ManagerProducts = () => {
         subtitle={"Bu linegraph companiyaning foydasini korsatadi"}
         textBottom={"Kompaniyaning bir yillik daromadi "}
         label={"Daromad osishi"}
-      />
+      /> */}
       <Modal
         destroyOnClose
         centered
@@ -175,9 +175,9 @@ const ManagerProducts = () => {
         onCancel={() => setModal({ isOpen: false, form: null, data: null })}
       >
         {modal.form === "category" ? (
-          <CreateProductCategory {...{ setModal, modal }} />
+          <CreateProductCategory {...{ setModal, data: modal.data }} />
         ) : modal.form === "product" ? (
-          <CreateProduct {...{ setModal, modal }} />
+          <CreateProduct {...{ setModal, data: modal.data }} />
         ) : null}
       </Modal>
       {isLoading ? (
@@ -193,12 +193,14 @@ const ManagerProducts = () => {
             height: 230,
             hideColumns: true,
             hasPagination: true,
-            deleteAction:()=>{},
-            updateAction:()=>{},
-            hasDelete:true,
-            hasUpdate:true,
+            deleteAction: () => {},
+            updateAction: (data) =>
+              setModal({ isOpen: true, form: "product", data: data }),
+            hasDelete: true,
+            hasUpdate: true,
             buttons: [
               <Button
+                icon={<PlusIcon />}
                 key={"category"}
                 type="primary"
                 onClick={() =>
@@ -208,6 +210,7 @@ const ManagerProducts = () => {
                 Kategoriya qo'shish
               </Button>,
               <Button
+                icon={<PlusIcon />}
                 key={"product"}
                 type="primary"
                 onClick={() =>

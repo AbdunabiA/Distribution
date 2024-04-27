@@ -17,6 +17,7 @@ const ManagerClients = lazy(() => import("pages/manager/clients/clients"));
 const ManagerEmployee = lazy(() => import("pages/manager/employee/employee"));
 const ManagerProducts = lazy(() => import("pages/manager/products/products"));
 const ManagerTasks = lazy(() => import("pages/manager/tasks/tasks"));
+const ManagerProduct = lazy(() => import('pages/manager/products/product'))
 const ManagerProfile = lazy(()=> import("pages/profile"))
 
 export const pages = {
@@ -73,10 +74,6 @@ export const pages = {
              component: <ManagerBranches />,
              name: "Filiallar",
            },
-           //    {
-           //      path: "/google-maps",
-           //      component: <GoogleMap />,
-           //    },
            {
              path: "/employee",
              component: <ManagerEmployee />,
@@ -96,6 +93,13 @@ export const pages = {
              path: "/products",
              component: <ManagerProducts />,
              name: "Mahsulotlar",
+             children:[
+              {
+                path: "/products/:productId",
+                component: <ManagerProduct/>,
+                name:"Mahsulot"
+              }
+             ]
            },
            //    {
            //      path: "/branches",

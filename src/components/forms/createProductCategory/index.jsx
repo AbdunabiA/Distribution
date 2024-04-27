@@ -4,18 +4,18 @@ import { get } from "lodash";
 import { ContainerForm } from "modules";
 import { toast } from "sonner";
 
-export const CreateProductCategory = ({modal, setModal}) => {
+export const CreateProductCategory = ({data, setModal}) => {
   return (
     <ContainerForm
       fields={[
         {
           name: "name",
           required: true,
-          value: get(modal, "data.name", ""),
+          value: get(data, "name", ""),
         },
         {
           name: "status",
-          value: get(modal, "data.status", "active"),
+          value: get(data, "status", "active"),
         },
       ]}
       method="post"
@@ -37,7 +37,7 @@ export const CreateProductCategory = ({modal, setModal}) => {
             }}
           >
             <h2>
-              {modal.data ? "Kategoriya o'zgartirish" : "Kategoriya yaratish"}
+              {data ? "Kategoriya o'zgartirish" : "Kategoriya yaratish"}
             </h2>
             <CustomInput placeholder="kategoriya nomi" name="name" />
             <div style={{ display: "flex", justifyContent: "end" }}>

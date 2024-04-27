@@ -22,6 +22,7 @@ const CustomTable = ({
   isLoading,
   mineHeigth = null, 
   columns,
+  onRow = () => {},
   hideColumns = false,
   scrollX = null,
   scrollY = false,
@@ -133,6 +134,7 @@ const CustomTable = ({
           dataSource={items}
           isLoading={isLoading}
           columns={newColumnss}
+          onRow={(rec, index) => onRow(rec, index)}
           style={{ marginTop: "20px", minHeight:`${mineHeigth}` }}
           scroll={{
             x: scrollX,

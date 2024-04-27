@@ -62,7 +62,7 @@ export const AsyncSelect = ({
                      }
                      {...props}
                      options={options}
-                     style={{minWidth:"300px"}}
+                     style={{ minWidth: "300px", width: "100%" }}
                    />
                    {meta.touched && meta.error && (
                      <small style={{ color: "red" }}>{meta.error}</small>
