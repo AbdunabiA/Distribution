@@ -7,13 +7,13 @@ import { useState } from "react";
 import { CreateUserForm } from "components/forms";
 import { usePost } from "crud";
 import { render } from "react-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const employeeColumns = [
   {
     key: "name",
     title: "Ism",
-    render:(_, row) => `${row.first_name + row.last_name}`
+    render: (_, row) => `${row.first_name + row.last_name}`,
   },
   {
     key: "username",
@@ -39,6 +39,7 @@ const employeeColumns = [
 
 const ManagerEmployee = () => {
   const [modal, setModal] = useState({ isOpen: false, data: null });
+  const navigate = useNavigate();
   // const {mutation} = usePost({url:""})
   return (
     <GetAll queryKey={["/users/all/"]} url={"/users/all/"}>
@@ -65,6 +66,10 @@ const ManagerEmployee = () => {
                 hasPagination
                 hasDelete
                 hasUpdate
+                onRow={(data, index) => ({
+                  onClick: () => navigate(`/employee/${data.id}`),
+                  style:{cursor:"pointer"}
+                })}
                 isLoading={isLoading}
                 items={data?.data}
                 buttons={[
