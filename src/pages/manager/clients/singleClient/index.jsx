@@ -6,6 +6,8 @@ import PieChart from "components/charts/pieChart";
 import CustomTable from "components/table";
 import singleScss from "./singleClient.module.scss";
 import { useState } from "react";
+
+
 const ManagerSingleClient = () => {
   const [dateValue, setDateValue] = useState("");
   const onChange = (value) => {
