@@ -5,7 +5,11 @@ import { Button } from "antd";
 import DateFilter from "components/dateFilter";
 import { useState } from "react";
 import ProfileData from "./profileData";
-function Profile() {
+function Profile({
+  hasRightTable = true,
+  hasTableBottom = true,
+  hasDateFilter = true, 
+}) {
   const [dateValue, setDateValue] = useState("");
   const onChange = (value) => {
     setDateValue(value);
@@ -228,9 +232,9 @@ function Profile() {
     <div className="container">
       <div className={profileScss.biggest_wrapper}>
         <div className={profileScss.flex_div}>
-          <ProfileData userProfile={userProfile}/>
+          <ProfileData button1Text={"O'zgartirish"} userProfile={userProfile}/>
           <div className={profileScss.table}>
-            <CustomTable
+            {hasRightTable && hasRightTable ? <CustomTable
               {...{
                 columns: columns1,
                 items: items1,
@@ -242,14 +246,14 @@ function Profile() {
                 hideColumns: true,
                 hasPagination: true,
               }}
-            />
+            /> : null}
           </div>
         </div>
         <div>
           <div className={profileScss.date}>
-            <DateFilter onChange={onchange} value={dateValue} />
+          {hasDateFilter && hasDateFilter ? <DateFilter onChange={onchange} value={dateValue} /> : null}
             <div style={{ marginTop: "20px" }}>
-              <CustomTable
+              {hasTableBottom && hasTableBottom ? <CustomTable
                 {...{
                   columns: columns2,
                   items: items2,
@@ -261,7 +265,7 @@ function Profile() {
                   hideColumns: true,
                   hasPagination: true,
                 }}
-              />
+              /> : null}
             </div>
           </div>
         </div>

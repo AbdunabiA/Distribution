@@ -17,8 +17,10 @@ const ManagerClients = lazy(() => import("pages/manager/clients/clients"));
 const ManagerEmployee = lazy(() => import("pages/manager/employee/employee"));
 const ManagerProducts = lazy(() => import("pages/manager/products/products"));
 const ManagerTasks = lazy(() => import("pages/manager/tasks/tasks"));
-const ManagerProfile = lazy(()=> import("pages/manager/profile/index"))
-
+const ManagerProfile = lazy(() => import("pages/manager/profile/index"));
+const ManagerSingleClient = lazy(() =>
+  import("pages/manager/clients/singleClient")
+);
 export const pages = {
   admin: [
     {
@@ -80,13 +82,17 @@ export const pages = {
       component: <ManagerClients />,
     },
     {
+      path: "/clients/single",
+      component: <ManagerSingleClient/>,
+    },
+    {
       path: "/products",
       component: <ManagerProducts />,
     },
-    //    {
-    //      path: "/branches",
-    //      component: <ManagerBranches />,
-    //    },
+      //  {
+      //    path: "/branches",
+      //    component: <ManagerBranches />,
+      //  },
     {
       path: "/tasks",
       component: <ManagerTasks />,

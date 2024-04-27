@@ -1,12 +1,15 @@
 .chartContainer {
   text-align: center;
   width: 100%;
-  margin-top: 40px;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
-  align-items: center;
+  align-items: start;
   justify-content: center;
+  margin-left: 20px;
+  .title{
+    transform: translateX(100px);
+  }
   .chart {
     width: 90%;
     max-height: 500px;

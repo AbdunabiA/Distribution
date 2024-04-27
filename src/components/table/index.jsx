@@ -33,6 +33,7 @@ const CustomTable = ({
   deleteAction = () => {},
   updateAction = () => {},
   statusAction = () => {},
+  onClick,
   meta,
 }) => {
   const params = qs.parse(location.search, { ignoreQueryPrefix: true });
@@ -132,7 +133,14 @@ const CustomTable = ({
           rowKey={"id"}
           dataSource={items}
           isLoading={isLoading}
-          columns={newColumnss}
+          columns={[
+            ...newColumnss.map(column => ({
+              ...column,
+              onHeaderCell: () => ({
+                onClick: onClick // Attach handleColumnClick to onClick event of header cell
+              })
+            }))
+          ]}
           style={{ marginTop: "20px", minHeight:`${mineHeigth}` }}
           scroll={{
             x: scrollX,

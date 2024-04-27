@@ -88,7 +88,7 @@ function LineGraph({
   };
   return (
     <div className={lineGraphScss.chartContainer}>
-      {title ? <h1>{title}</h1> : null}
+      {title ? <h1 className={lineGraphScss.title}>{title}</h1> : null}
       {subtitle ? <p className={lineGraphScss.subtitle}>{subtitle}</p> : null}
       <div className={lineGraphScss.chart}>
         <Line
