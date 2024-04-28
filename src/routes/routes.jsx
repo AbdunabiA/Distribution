@@ -1,6 +1,6 @@
 import { lazy } from "react";
 
-import Login from "pages/login";
+const Login = lazy(()=>import('pages/login'))
 
 //?ADMIN PAGES
 const AdminHome = lazy(() => import("pages/admin/home/home"));
