@@ -40,7 +40,7 @@ const Login = () => {
             <div className={s.loginForm}>
               <h1>Login</h1>
               <CustomInput name="username" placeholder={"username"} />
-              <CustomInput name="password" placeholder={"password"} />
+              <CustomInput type="password" name="password" placeholder={"password"} />
               <div className={s.buttonWrapper}>
                 <Button
                   type="primary"
