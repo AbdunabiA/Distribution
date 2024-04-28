@@ -3,9 +3,19 @@ import profiledataScss from "./profiledata.module.scss";
 import { Button } from "antd";
 import ProfileImage from "components/profileImage";
 
-function ProfileData({ userProfile }) {
+ export function ProfileData({
+  userProfile,
+  buttons = null,
+  button1Text = null,
+  button2Text = null,
+  button3Text = null,
+  button1 = false,
+  button2 = false,
+  button3 = false,
+  height = null
+}) {
   return (
-    <div className={profiledataScss.main_wrapper}>
+    <div style={{height:height}} className={profiledataScss.main_wrapper}>
       <div className={profiledataScss.second_wrapper}>
         <div>
           <h1 className={profiledataScss.name}>
@@ -21,45 +31,47 @@ function ProfileData({ userProfile }) {
       </div>
       <div className={profiledataScss.third_wrapper}>
         <ul>
-          <li>
-            <span>Tel:</span>
+         {userProfile.phoneNumber && userProfile.phoneNumber ?  <li>
+            {userProfile.phoneNumber ? <span>Tel:</span> : null}
             {userProfile.phoneNumber ? userProfile.phoneNumber : null}
-          </li>
-          <li>
-            <span>Lavozim:</span>
+          </li> : null}
+          {userProfile.lavozim && userProfile.lavozim ? <li>
+           { userProfile.lavozim ?  <span>Lavozim:</span> : null}
             {userProfile.lavozim ? userProfile.lavozim : null}
-          </li>
-          <li>
-            <span>Oylik:</span>
+          </li> : null}
+          {userProfile.salary && userProfile.salary ? <li>
+            {userProfile.salary ? <span>Oylik:</span> : null}
             {userProfile.salary ? userProfile.salary : null}
-          </li>
-          <li>
-            <span>Status:</span>
+          </li> : null}
+         {userProfile.status && userProfile.status ? <li>
+            {userProfile.status ? <span>Status:</span> :null}
             {userProfile.status === true ? "Aktiv" : "noActive"}
-          </li>
+          </li> : null}
+          {userProfile.byWhichPerson && userProfile.byWhichPerson ? <li>
+            {userProfile.byWhichPerson ? <span>Kim tomonidan tizimga kiritilgan:</span> :null}
+            {userProfile.byWhichPerson ? userProfile.byWhichPerson : null}
+          </li> : null}
         </ul>
         <ul>
           <li>
-            <span>Adress:</span>
+            { userProfile.adress ? <span>Adress:</span> : null}
             {userProfile.adress ? userProfile.adress : null}
           </li>
           <li>
-            <span>Filial:</span>
+            {userProfile.branch ? <span>Filial:</span> : null}
             {userProfile.branch ? userProfile.branch : null}
           </li>
           <li>
-            <span>KPI:</span>
+            {userProfile.KPI ? <span>KPI:</span> : null}
             {userProfile.KPI ? userProfile.KPI : null}
           </li>
         </ul>
       </div>
       <div className={profiledataScss.btn}>
-        <Button className={profiledataScss.bnt1} size="large" type="primary">
-          O'zgartirish
-        </Button>
+         {buttons ? (
+            <div className={profiledataScss.btn_wrapper}>{buttons}</div>
+          ) : null}
       </div>
     </div>
   );
 }
-
-export default ProfileData;

@@ -128,6 +128,15 @@ const ManagerProducts = () => {
             September: "47",
             November: "65",
           },
+          {
+            label: "Ishchi kopayishi",
+            January: "17",
+            March: "19",
+            April: "99",
+            May: "23",
+            September: "47",
+            // November: "65",
+          },
         ]}
         title={"Mahsulot osishi"}
         subtitle={"Bu bar chart mahulotning bir yillik osishini korsatadi."}

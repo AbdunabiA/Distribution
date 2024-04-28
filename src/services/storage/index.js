@@ -11,7 +11,6 @@ const storage = {
 			window.localStorage.setItem(key, value);
 		}
 	},
-
 	remove: key => {
 		if (window.localStorage && window.localStorage[key]) {
 			window.localStorage.removeItem(key);

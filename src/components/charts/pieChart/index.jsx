@@ -10,9 +10,9 @@ export function PieChart({
   title,
   subtitle,
   textBottom,
-  width = "100%",
+  // width = "100%",
   label,
-  height = "100%",
+  // height = "100%",
 }) {
   // console.log(data, "dataa");
 

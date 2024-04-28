@@ -34,6 +34,7 @@ const CustomTable = ({
   deleteAction = () => {},
   updateAction = () => {},
   statusAction = () => {},
+  onClick,
   meta,
 }) => {
   const params = qs.parse(location.search, { ignoreQueryPrefix: true });

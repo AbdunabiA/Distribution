@@ -26,7 +26,13 @@ const options = {
     },
   },
 };
-export function BarChart({ data, title, subtitle, textBottom, isMonthUniqueLabels=true }) {
+export function BarChart({
+  data,
+  title,
+  subtitle,
+  textBottom,
+  isMonthUniqueLabels = true,
+}) {
   const labels = data.reduce((allLabels, item) => {
     return allLabels.concat(Object.keys(item).filter((key) => key !== "label"));
   }, []);
@@ -45,13 +51,11 @@ export function BarChart({ data, title, subtitle, textBottom, isMonthUniqueLabel
     "December",
   ];
   const uniqueLabels = [...new Set(labels)];
-
-  if(isMonthUniqueLabels){
+  if (isMonthUniqueLabels) {
     uniqueLabels.sort((a, b) => {
       return monthOrder.indexOf(a) - monthOrder.indexOf(b);
     });
   }
-
   const datasets = data.map((item) => {
     const label = item.label;
     const data = uniqueLabels.map((label) => item[label] || 0);
@@ -86,5 +90,7 @@ export function BarChart({ data, title, subtitle, textBottom, isMonthUniqueLabel
     </div>
   );
 }
+
+
 
 
