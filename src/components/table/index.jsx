@@ -22,7 +22,7 @@ const CustomTable = ({
   isLoading,
   mineHeigth = null, 
   columns,
-  onRow = () => {},
+  onRowNavigationUrl,
   hideColumns = false,
   scrollX = null,
   scrollY = false,
@@ -39,16 +39,16 @@ const CustomTable = ({
 }) => {
   const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const navigate = useNavigate();
-  const defaultCheckedList = columns.map((item) => item.dataIndex);
+  const defaultCheckedList = columns.map((item) => item.key);
   const [checkedList, setCheckedList] = useState(defaultCheckedList);
-  const options = columns.map(({ dataIndex, title }) => ({
+  const options = columns.map(({ key, title }) => ({
     label: title,
-    value: dataIndex,
+    value: key,
   }));
 
   let newColumns = columns.map((item) => ({
     ...item,
-    hidden: !checkedList.includes(item.dataIndex),
+    hidden: !checkedList.includes(item.key),
   }));
 
   let newColumnss = hasStatus
@@ -83,13 +83,20 @@ const CustomTable = ({
                   {hasDelete ? (
                     <Tooltip title="Delete">
                       <Popconfirm
-                        placement="topRight"
-                        description={"Delete"}
-                        onConfirm={() => deleteAction(row)}
+                        placement="top"
+                        title="Confirm delete ?"
+                        // description={"Confirm delete"}
+                        onConfirm={(event) => {
+                          event.stopPropagation();
+                          deleteAction(row);
+                        }}
+                        onCancel={(event) => event.stopPropagation()}
                         okText="Yes"
                         cancelText="No"
+                        style={{ width: "500px" }}
                       >
                         <DeleteOutlined
+                          onClick={(event) => event.stopPropagation()}
                           style={{ color: "red", fontSize: "22px" }}
                         />
                       </Popconfirm>
@@ -98,7 +105,10 @@ const CustomTable = ({
                   {hasUpdate ? (
                     <Tooltip title="Edit">
                       <EditOutlined
-                        onClick={() => updateAction(row)}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          updateAction(row);
+                        }}
                         style={{ color: "#645DF6", fontSize: "22px" }}
                       />
                     </Tooltip>
@@ -134,18 +144,19 @@ const CustomTable = ({
           rowKey={"id"}
           dataSource={items}
           isLoading={isLoading}
-          columns={[
-            ...newColumnss.map(column => ({
-              ...column,
-              onHeaderCell: () => ({
-                onClick: onClick // Attach handleColumnClick to onClick event of header cell
-              })
-            }))
-          ]}
-          style={{ marginTop: "20px", minHeight:`${mineHeigth}` }}
+          columns={newColumnss}
+          onRow={(data) => {
+            if(onRowNavigationUrl){
+              return {
+                onClick: () => navigate(`${onRowNavigationUrl}${data.id}`),
+                style: { cursor: "pointer" },
+              };
+            }
+          }}
+          style={{ marginTop: "20px", minHeight: `${mineHeigth}` }}
           scroll={{
             x: scrollX,
-            y: scrollY ? height : null, 
+            y: scrollY ? height : null,
           }}
           pagination={
             hasPagination
