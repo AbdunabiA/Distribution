@@ -20,6 +20,7 @@ const ManagerClients = lazy(() => import("pages/manager/clients/clients"));
 const ManagerEmployees = lazy(() => import("pages/manager/employee/employees"));
 const ManagerProducts = lazy(() => import("pages/manager/products/products"));
 const ManagerTasks = lazy(() => import("pages/manager/tasks/tasks"));
+const ManagerProduct = lazy(() => import('pages/manager/products/product'))
 // <<<<<<< HEAD
 const ManagerProfile = lazy(() => import("pages/profile/index"));
 const ManagerSingleClient = lazy(() =>
