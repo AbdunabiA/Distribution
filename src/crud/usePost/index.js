@@ -21,7 +21,6 @@ async function postData({
 }
 
 const usePost = () => {
-  
   return useMutation({ mutationFn: postData, });
 };
 
