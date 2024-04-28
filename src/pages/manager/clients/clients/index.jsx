@@ -5,6 +5,7 @@ import CustomTable from "components/table";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { data } from "assets/db";
+
 const ManagerClients = () => {
   const [dateValue, setDateValue] = useState("");
   // const history = useHistory(); // Initialize useHistory hook
