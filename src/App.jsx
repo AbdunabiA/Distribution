@@ -12,7 +12,7 @@ function App() {
   // console.log(location.pathname);
   useEffect(() => {
     if (!isAuthenticated) {
-        navigate("/sign-in");
+        navigate("/login");
     }
   }, [isAuthenticated]);
 
