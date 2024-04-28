@@ -1,0 +1,24 @@
+.inputMask{
+    width: 100%;
+    border-width: 1px;
+    border-color: #ded4fa;
+    color: rgba(0, 0, 0, 0.88);
+    line-height: 1.5714285714285714;
+    border-style: solid;
+    box-shadow: 0 0 0 2px rgba(172, 5, 255, 0.06);
+    outline: 0;
+    background-color: #ffffff;
+    padding: 4px 11px;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.inputMask:active{
+    border-color: #9236f5;
+}
+.inputMask:focus{
+    border-color: #9236f5;
+}
+
+

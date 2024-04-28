@@ -6,7 +6,6 @@ const initialState = {
 	isAuthenticated: false,
 	data: {},
 	token: storage.get("token"),
-	role:'admin'
 };
 
 export const authSlice = createSlice({
@@ -20,7 +19,6 @@ export const authSlice = createSlice({
 				isAuthenticated: action.payload.isAuthenticated,
 				token: action.payload.access,
 				data: action.payload.user,
-				role:action.payload.user_role
 			};
 		},
 		signOut: state => {
@@ -47,7 +45,6 @@ export const authSlice = createSlice({
 				isAuthenticated: true,
 				token: null,
 				data: {},
-				role:action.payload
 			};
 		}
 	}

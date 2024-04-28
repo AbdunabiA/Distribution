@@ -2,9 +2,11 @@ import { menus } from "assets/db";
 import close from "assets/icons/close.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./sidebar.module.scss";
+import { useSelector } from "react-redux";
 const Sidebar = ({ active, setActive }) => {
   const navigate = useNavigate();
-  const role = "manager";
+  // const role = "manager";
+    const { role } = useSelector((state) => state.auth.data);
   return (
     <>
       {active ? (
