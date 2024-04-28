@@ -1,6 +1,6 @@
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { Button } from "antd";
-import { CustomInput, CustomSelect } from "components/inputs";
+import { CustomInput, CustomSelect, InputMask } from "components/inputs";
 import { get } from "lodash";
 import { ContainerForm } from "modules";
 import { toast } from "sonner";
@@ -11,7 +11,7 @@ const options = [
     value: "admin",
   },
   {
-    label: "Manajer",
+    label: "Menejer",
     value: "manager",
   },
   {
@@ -31,7 +31,7 @@ const options = [
     value: "agent",
   },
   {
-    label: "Xaydovchi",
+    label: "Yetkazib beruvchi",
     value: "driver",
   },
 ];
@@ -64,13 +64,17 @@ export const CreateUserForm = ({ data, setModal }) => {
         },
         {
           name: "role",
-          value: get(data, "role", ""),
+          value: get(data, "role", null),
           required: true,
         },
         {
           name: "phone_number",
-          value: get(data, "phone_number", ""),
+          min: 13,
+          value: get(data, "phone_number", "+998"),
           required: true,
+          onSubmitValue: (value) => {
+            return `+${value.match(/\d+/g).join("")}`;
+          },
         },
         {
           name: "address",
@@ -121,7 +125,8 @@ export const CreateUserForm = ({ data, setModal }) => {
               placeholder="Lavozimi"
               options={options}
             />
-            <CustomInput name="phone_number" placeholder="Telefon raqam" />
+            <InputMask name="phone_number" mask="+998 (99) 999 99 99"/>
+            {/* <CustomInput name="phone_number" placeholder="Telefon raqam" /> */}
             <CustomInput name="address" placeholder="Manzil" />
             <CustomInput
               name="birth_date"

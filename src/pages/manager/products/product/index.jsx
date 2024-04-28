@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ManagerProducts = () => {
+const ManagerProduct = () => {
   return (
-    <div>ManagerProducts</div>
+    <div>ManagerProduct</div>
   )
 }
 
-export default ManagerProducts
+export default ManagerProduct

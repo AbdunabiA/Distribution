@@ -32,12 +32,12 @@ export const CreateProduct = ({data, setModal}) => {
         {
           name: "category",
           required: true,
-          value: get(data, "category", ""),
+          value: get(data, "category", null),
         },
       ]}
       url={`/products/${data ? data.id : "all"}/`}
       onSuccess={() => {
-        queryClient.invalidateQueries("products");
+        queryClient.invalidateQueries("/products/all/");
         setModal({ isOpen: false, form: null, data: null });
         toast.success(`Mahsulot ${data ? "o'zgartirildi" : "yaratildi"}`);
       }}
@@ -59,6 +59,7 @@ export const CreateProduct = ({data, setModal}) => {
               queryKey={"categories"}
               url={"/categories/"}
               name="category"
+              placeholder="Mahsulot katego'riyasi"
             />
             <div style={{ display: "flex", justifyContent: "end" }}>
               <Button

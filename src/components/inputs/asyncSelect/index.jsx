@@ -28,7 +28,7 @@ export const AsyncSelect = ({
 
          useEffect(()=>{
           const transformedOptions = data?.data?.map((item) => ({
-            label: item[optionLabel], // The text to display
+            label: typeof optionLabel === "string" ? item[optionLabel] : optionLabel(item), // The text to display
             value: item[optionValue], // The corresponding value
           }));
           setOptions(transformedOptions);
@@ -49,7 +49,7 @@ export const AsyncSelect = ({
                      onChange={(e) => setFieldValue(props.name, e)}
                      status={meta.touched && meta.error && "error"}
                      showSearch
-                     placeholder="Select an option"
+                     placeholder={props.placeholder}
                      optionFilterProp="children"
                      filterOption={(input, option) =>
                        option.label

@@ -1,11 +1,12 @@
-import { BarChart } from "components/charts/barChart";
-import { LineGraph } from "components/charts/lineGraph";
 import CustomTable from "components/table";
 import { Button, Modal } from "antd";
 import { useState } from "react";
 import { CreateProduct, CreateProductCategory } from "components/forms";
-import { useGet } from "crud";
+import { useGet, usePost } from "crud";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const productsColumns = [
   {
@@ -82,8 +83,11 @@ const ManagerProducts = () => {
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
   const { data, isLoading } = useGet({
     url: "/products/all/",
-    queryKey: ["products"],
+    queryKey: ["/products/all/"],
   });
+  const queryClient = useQueryClient();
+  const navigate = useNavigate()
+  const { mutate: deleteProduct } = usePost();
   return (
     <div className="container">
       {/* <BarChart
@@ -192,12 +196,21 @@ const ManagerProducts = () => {
             scrollY: true,
             height: 230,
             hideColumns: true,
-            hasPagination: true,
-            deleteAction: () => {},
+            deleteAction: (data) =>
+              deleteProduct({
+                url: `/products/${data.id}/`,
+                method: "delete",
+                onSuccess: () => {
+                  queryClient.invalidateQueries("/products/all/");
+                  toast.success("Mahsulot o'chirildi");
+                },
+                onError: () => toast.error("Mahsulot o'chirilmadi"),
+              }),
             updateAction: (data) =>
               setModal({ isOpen: true, form: "product", data: data }),
             hasDelete: true,
             hasUpdate: true,
+            onRowNavigationUrl:'/products/',
             buttons: [
               <Button
                 icon={<PlusIcon />}

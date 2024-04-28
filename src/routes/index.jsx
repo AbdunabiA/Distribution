@@ -24,14 +24,14 @@ const appRoutes = (routes) => {
 };
 
 const routesWrapper = () => {
-  // const { isAuthenticated } = useSelector((state) => get(state, "auth"));
-  const isAuthenticated = true;
+  const { isAuthenticated } = useSelector((state) => get(state, "auth"));
+  // const isAuthenticated = true;
   // const { i18n } = useTranslation();
   // if (i18n.language == "ru-RU") {
   //   i18n.changeLanguage("ru");
   // }
-  // const role = useSelector((state) => state.auth.role);
-  const role = "manager";
+  const {role} = useSelector((state) => state.auth.data);
+  // const role = "manager";
 
   return (
 		<Routes>

@@ -1,8 +1,11 @@
 import { lazy } from "react";
+
+import Login from "pages/login";
+
 //?ADMIN PAGES
 const AdminHome = lazy(() => import("pages/admin/home/home"));
 const GoogleMap = lazy(() => import("pages/admin/home/GoogleMaps"));
-const AdminEmployee = lazy(() => import("pages/admin/employee/employee"));
+const AdminEmployees = lazy(() => import("pages/admin/employee/employee"));
 const AdminClients = lazy(() => import("pages/admin/clients"));
 const AdminProducts = lazy(() => import("pages/admin/products"));
 const AdminBranches = lazy(() => import("pages/admin/branches"));
@@ -14,7 +17,7 @@ const AdminArchive = lazy(() => import("pages/admin/archive"));
 const ManagerArchive = lazy(() => import("pages/manager/archive/archive"));
 const ManagerBranches = lazy(() => import("pages/manager/branches/branches"));
 const ManagerClients = lazy(() => import("pages/manager/clients/clients"));
-const ManagerEmployee = lazy(() => import("pages/manager/employee/employee"));
+const ManagerEmployees = lazy(() => import("pages/manager/employee/employees"));
 const ManagerProducts = lazy(() => import("pages/manager/products/products"));
 const ManagerTasks = lazy(() => import("pages/manager/tasks/tasks"));
 const ManagerProduct = lazy(() => import('pages/manager/products/product'))
@@ -34,7 +37,7 @@ export const pages = {
            },
            {
              path: "/employee",
-             component: <AdminEmployee />,
+             component: <AdminEmployees />,
              name: "",
            },
            {
@@ -76,7 +79,7 @@ export const pages = {
            },
            {
              path: "/employee",
-             component: <ManagerEmployee />,
+             component: <ManagerEmployees />,
              name: "Xodimlar",
            },
            {
@@ -126,4 +129,9 @@ export const pages = {
          ],
        };
 
-export const authPages = [];
+export const authPages = [
+  {
+    path:"/login",
+    component:<Login/>,
+  }
+];
