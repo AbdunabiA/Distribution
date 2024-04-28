@@ -9,91 +9,169 @@ import clients from "./icons/client3.png";
 import employee from "./icons/employes.png";
 
 export const menus = {
-  admin: [
-    {
-      title: "Asosiy",
-      path: "/",
-      icon: asosiy,
-    },
-    {
-      title: "Mijozlar",
-      path: "/clients",
-      icon: clients,
-    },
-    {
-      title: "Mahsulotlar",
-      path: "/products",
-      icon: mahsulot,
-    },
-    {
-      title: "Xodimlar",
-      path: "/employee",
-      icon: employee,
-    },
-    {
-      title: "Filiallar",
-      path: "/branches",
-      icon: filiallar,
-    },
-    {
-      title: "Statistika",
-      path: "/statistics",
-      icon: statistika,
-    },
-    {
-      title: "Arxiv",
-      path: "/archive",
-      icon: archive,
-    },
-    {
-      title: "Sozlamalar",
-      path: "/settings",
-      icon: sozlamalar,
-    },
-  ],
-  manager: [
-    {
-      title: "Filiallar",
-      path: "/",
-      icon: filiallar,
-    },
-    {
-      title: "Mahsulotlar",
-      path: "/products",
-      icon: mahsulot,
-    },
-    {
-      title: "Mijozlar",
-      path: "/clients",
-      icon: clients,
-    },
-    {
-      title: "Topshiriqlar",
-      path: "/tasks",
-      icon: mahsulot,
-    },
-    {
-      title: "Xodimlar",
-      path: "/employee",
-      icon: employee,
-    },
-    //  {
-    //    title: "Statistika",
-    //    path: "/statistics",
-    //    icon: statistika,
-    //  },
-    {
-      title: "Arxiv",
-      path: "/archive",
-      icon: archive,
-    },
-    //  {
-    //    title: "Sozlamalar",
-    //    path: "/settings",
-    //    icon: sozlamalar,
-    //  },
-  ],
-};
+         admin: [
+           {
+             title: "Asosiy",
+             path: "/",
+             icon: asosiy,
+           },
+           {
+             title: "Mijozlar",
+             path: "/clients",
+             icon: clients,
+           },
+           {
+             title: "Mahsulotlar",
+             path: "/products",
+             icon: mahsulot,
+           },
+           {
+             title: "Xodimlar",
+             path: "/employee",
+             icon: employee,
+           },
+           {
+             title: "Filiallar",
+             path: "/branches",
+             icon: filiallar,
+           },
+           {
+             title: "Statistika",
+             path: "/statistics",
+             icon: statistika,
+           },
+           {
+             title: "Arxiv",
+             path: "/archive",
+             icon: archive,
+           },
+           {
+             title: "Sozlamalar",
+             path: "/settings",
+             icon: sozlamalar,
+           },
+         ],
+         manager: [
+           {
+             title: "Filiallar",
+             path: "/",
+             icon: filiallar,
+           },
+           {
+             title: "Mahsulotlar",
+             path: "/products",
+             icon: mahsulot,
+           },
+           {
+             title: "Mijozlar",
+             path: "/clients",
+             icon: clients,
+           },
+           {
+             title: "Topshiriqlar",
+             path: "/tasks",
+             icon: mahsulot,
+           },
+           {
+             title: "Xodimlar",
+             path: "/employee",
+             icon: employee,
+           },
+           {
+             title: "Arxiv",
+             path: "/archive",
+             icon: archive,
+           },
+         ],
+         branch_director: [
+           {
+             title: "Mahsulotlar",
+             path: "/",
+             icon: mahsulot,
+           },
+           {
+             title: "Mijozlar",
+             path: "/clients",
+             icon: clients,
+           },
+           {
+             title: "Topshiriqlar",
+             path: "/tasks",
+             icon: mahsulot,
+           },
+           {
+             title: "Xodimlar",
+             path: "/employee",
+             icon: employee,
+           },
+           {
+             title: "Buyurtmalar",
+             path: "/orders",
+             icon: archive,
+           },
+         ],
+         operator: [
+           {
+             title: "Buyurtmalar",
+             path: "/",
+             icon: archive,
+           },
+           {
+             title: "Mahsulotlar",
+             path: "/products",
+             icon: mahsulot,
+           },
+           {
+             title: "Mijozlar",
+             path: "/clients",
+             icon: clients,
+           },
+           {
+             title: "Yetkazib beruvchilar",
+             path: "/drivers",
+             icon: clients,
+           },
+         ],
+         agent: [
+           {
+             title: "Topshiriqlar",
+             path: "/",
+             icon: statistika,
+           },
+           {
+             title: "Mahsulotlar",
+             path: "/products",
+             icon: mahsulot,
+           },
+           {
+             title: "Mijozlar",
+             path: "/clients",
+             icon: clients,
+           },
+         ],
+         supervisor: [
+           {
+             title: "Topshiriqlar",
+             path: "/",
+             icon: statistika,
+           },
+           {
+             title: "Mahsulotlar",
+             path: "/products",
+             icon: mahsulot,
+           },
+           {
+             title: "Mijozlar",
+             path: "/clients",
+             icon: clients,
+           },
+           {
+            title:"Agentlar",
+            path:"/agents",
+            icon: employee,
+           }
+         ],
+       };
 
 export const cart_data = [
   {
