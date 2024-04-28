@@ -6,15 +6,13 @@ import { Suspense, useEffect } from "react";
 
 function App() {
   const navigate = useNavigate();
-  // const { isAuthenticated } = useSelector((state) => get(state, "auth"));
-  const isAuthenticated = true;
+  const { isAuthenticated } = useSelector((state) => get(state, "auth"));
+  // const isAuthenticated = true;
   const location = useLocation();
   // console.log(location.pathname);
   useEffect(() => {
     if (!isAuthenticated) {
-      if (location.pathname !== "/sign-up") {
         navigate("/sign-in");
-      }
     }
   }, [isAuthenticated]);
 

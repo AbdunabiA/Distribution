@@ -31,11 +31,7 @@ const routesWrapper = () => {
   // if (i18n.language == "ru-RU") {
   //   i18n.changeLanguage("ru");
   // }
-  useEffect(() => {
-    if (!isAuthenticated) {
-        navigate("/login");
-    }
-  }, [isAuthenticated]);
+  
   const {role} = useSelector((state) => state.auth.data);
   // const role = "manager";
 
