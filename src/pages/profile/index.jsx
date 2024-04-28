@@ -3,20 +3,13 @@ import profileScss from "./profile.module.scss";
 import CustomTable from "components/table";
 import DateFilter from "components/dateFilter";
 import { useState } from "react";
-<<<<<<< HEAD:src/pages/manager/profile/index.jsx
-import ProfileData from "./profileData";
+import { ProfileData } from "./profiledata";
+import { Button } from "antd";
 function Profile({
   hasRightTable = true,
   hasTableBottom = true,
-  hasDateFilter = true, 
+  hasDateFilter = true,
 }) {
-// =======
-import ProfileData from "./profiledata";
-
-
-
-function Profile() {
-// >>>>>>> f1d60b82010043dd621d4af37c5a992df95a4b11:src/pages/profile/index.jsx
   const [dateValue, setDateValue] = useState("");
   const onChange = (value) => {
     setDateValue(value);
@@ -239,32 +232,17 @@ function Profile() {
     <div className="container">
       <div className={profileScss.biggest_wrapper}>
         <div className={profileScss.flex_div}>
-          <ProfileData button1Text={"O'zgartirish"} userProfile={userProfile}/>
+          <ProfileData
+            userProfile={userProfile}
+            buttons={[<Button type="primary">O’zgartirish</Button>]}
+          />
           <div className={profileScss.table}>
-            {hasRightTable && hasRightTable ? <CustomTable
-              {...{
-                columns: columns1,
-                items: items1,
-                title: "Topshiriqlar",
-                minHeigth: "230px",
-                hasStatus: true,
-                scrollY: true,
-                height: 230,
-                hideColumns: true,
-                hasPagination: true,
-              }}
-            /> : null}
-          </div>
-        </div>
-        <div>
-          <div className={profileScss.date}>
-          {hasDateFilter && hasDateFilter ? <DateFilter onChange={onchange} value={dateValue} /> : null}
-            <div style={{ marginTop: "20px" }}>
-              {hasTableBottom && hasTableBottom ? <CustomTable
+            {hasRightTable && hasRightTable ? (
+              <CustomTable
                 {...{
-                  columns: columns2,
-                  items: items2,
-                  title: "Maosh to’lo’vi ",
+                  columns: columns1,
+                  items: items1,
+                  title: "Topshiriqlar",
                   minHeigth: "230px",
                   hasStatus: true,
                   scrollY: true,
@@ -272,7 +250,31 @@ function Profile() {
                   hideColumns: true,
                   hasPagination: true,
                 }}
-              /> : null}
+              />
+            ) : null}
+          </div>
+        </div>
+        <div>
+          <div className={profileScss.date}>
+            {hasDateFilter && hasDateFilter ? (
+              <DateFilter onChange={onchange} value={dateValue} />
+            ) : null}
+            <div style={{ marginTop: "20px" }}>
+              {hasTableBottom && hasTableBottom ? (
+                <CustomTable
+                  {...{
+                    columns: columns2,
+                    items: items2,
+                    title: "Maosh to’lo’vi ",
+                    minHeigth: "230px",
+                    hasStatus: true,
+                    scrollY: true,
+                    height: 230,
+                    hideColumns: true,
+                    hasPagination: true,
+                  }}
+                />
+              ) : null}
             </div>
           </div>
         </div>

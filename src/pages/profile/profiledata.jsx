@@ -3,8 +3,9 @@ import profiledataScss from "./profiledata.module.scss";
 import { Button } from "antd";
 import ProfileImage from "components/profileImage";
 
-function ProfileData({
+ export function ProfileData({
   userProfile,
+  buttons = null,
   button1Text = null,
   button2Text = null,
   button3Text = null,
@@ -67,22 +68,10 @@ function ProfileData({
         </ul>
       </div>
       <div className={profiledataScss.btn}>
-        {button3 && button3 ? (
-          <Button className={profiledataScss.bnt1} size="large" type="primary">
-            {button3Text ? button3Text : null}
-          </Button>
-        ) : null}
-        {button2 && button2 ? (
-          <Button className={profiledataScss.bnt1} size="large" type="primary">
-            {button2Text ? button2Text : null}
-          </Button>
-        ) : null}
-        { button1 && button1 ? <Button className={profiledataScss.bnt1} size="large" type="primary">
-          {button1Text ? button1Text : null}
-        </Button> : null}
+         {buttons ? (
+            <div className={profiledataScss.btn_wrapper}>{buttons}</div>
+          ) : null}
       </div>
     </div>
   );
 }
-
-export default ProfileData;

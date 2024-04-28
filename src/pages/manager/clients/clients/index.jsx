@@ -1,20 +1,21 @@
 import { useState } from "react";
 import DateFilter from "components/dateFilter";
-import LineGraph from "components/charts/lineGraph";
+import { LineGraph } from "components/charts";
 import CustomTable from "components/table";
 import { Button } from "antd";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { data } from "assets/db";
 const ManagerClients = () => {
   const [dateValue, setDateValue] = useState("");
   // const history = useHistory(); // Initialize useHistory hook
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onChange = (value) => {
     setDateValue(value);
     console.log(dateValue);
   };
-  
+
   const handleColumnClick = () => {
-    navigate('/clients/single');
+    navigate("/clients/single");
   };
   const items2 = [
     {
@@ -116,18 +117,20 @@ const ManagerClients = () => {
         </div>
         <div style={{ margin: "32px 10px" }}>
           <CustomTable
-            {...{
-              columns: columns2,
-              items: items2,
-              onClick:handleColumnClick,  
-              title: "Mijozlar ro’yxati (20 000)",
-              minHeigth: "230px",
-              scrollY: true,
-              height: 230,
-              hideColumns: true,
-              hasPagination: true,
-              buttons: [<Button type="primary">+ mijoz qo'shish</Button>],
-            }}
+            columns={columns2}
+            items={items2}
+            onClick={handleColumnClick}
+            title={"Mijozlar ro’yxati (20 000)"}
+            minHeigth={"230px"}
+            scrollY
+            onRow={() => ({
+              onClick: () => navigate(`clients/single`),
+              style: { cursor: "pointer" },
+            })}
+            height
+            hideColumns
+            hasPagination
+            buttons={[<Button type="primary" key={'1'}>+ mijoz qo'shish</Button>]}
           />
         </div>
       </div>

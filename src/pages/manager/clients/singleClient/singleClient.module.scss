@@ -20,7 +20,74 @@ $xxxxl: 1920px;
   }
 }
 .date{
-  margin-top: 29px;
+  margin-top: 59px;
   margin-bottom: 29px;
   margin-left: 10px;
 }
+
+@media(max-width:$xxl){
+  .wrapper{
+    flex-direction: column;
+    align-items: center;
+    row-gap: 100px;
+    .prof{
+      width: 500px;
+    }
+    .pie{
+      width: 500px;
+    }
+  }
+  .date{
+    margin-top: 100px;
+  }
+}
+@media(max-width:$lg){
+  .wrapper{
+    flex-direction: column;
+    align-items: start;
+    row-gap: 100px;
+    .prof{
+      width: 800px;
+    }
+    .pie{
+      width: 480px;
+    }
+  }
+  .date{
+    margin-top: 100px;
+  }
+}
+@media(max-width:$md){
+  .wrapper{
+    flex-direction: column;
+    align-items: center;
+    row-gap: 50px;
+    .prof{
+      width: 500px;
+    }
+    .pie{
+      width: 480px;
+    }
+  }
+  .date{
+    margin-top: 50px;
+  }
+}
+@media(max-width:$sm){
+  .wrapper{
+    flex-direction: column;
+    align-items: start  ;
+    row-gap: 100px;
+    .prof{
+      width: 380px;
+      margin:0;
+    }
+    .pie{
+      width: 400px;
+    }
+  }
+  .date{
+    margin-top: 50px;
+  }
+}
+

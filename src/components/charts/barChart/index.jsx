@@ -26,17 +26,13 @@ const options = {
     },
   },
 };
-<<<<<<< HEAD
-function BarChart({
+export function BarChart({
   data,
   title,
   subtitle,
   textBottom,
   isMonthUniqueLabels = true,
 }) {
-=======
-export function BarChart({ data, title, subtitle, textBottom, isMonthUniqueLabels=true }) {
->>>>>>> f1d60b82010043dd621d4af37c5a992df95a4b11
   const labels = data.reduce((allLabels, item) => {
     return allLabels.concat(Object.keys(item).filter((key) => key !== "label"));
   }, []);
@@ -94,5 +90,7 @@ export function BarChart({ data, title, subtitle, textBottom, isMonthUniqueLabel
     </div>
   );
 }
+
+
 
 

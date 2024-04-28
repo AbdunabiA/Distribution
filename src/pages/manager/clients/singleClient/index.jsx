@@ -1,13 +1,12 @@
 import React from "react";
-import Profile from "pages/manager/profile";
-import ProfileData from "pages/manager/profile/profiledata";
+import { ProfileData } from "pages/profile/profiledata";
 import DateFilter from "components/dateFilter";
-import PieChart from "components/charts/pieChart";
+import { PieChart } from "components/charts";
 import CustomTable from "components/table";
 import singleScss from "./singleClient.module.scss";
 import { useState } from "react";
-
-
+import { Button } from "antd";
+import ProfileImage from "components/profileImage";
 const ManagerSingleClient = () => {
   const [dateValue, setDateValue] = useState("");
   const onChange = (value) => {
@@ -108,8 +107,7 @@ const ManagerSingleClient = () => {
   const userProfile = {
     name: "Abdunabi Abduvaxobov",
     job: "Ombor manageri",
-    profileImg:
-      "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg",
+    profileImg:<ProfileImage/>,
     phoneNumber: "+998905200350",
     status: true,
     byWhichPerson:' John Washington',
@@ -123,13 +121,24 @@ const ManagerSingleClient = () => {
           <div className={singleScss.prof}>
             <ProfileData
               height={"555px"}
-              button3={true}
-              button2={true}
-              button1={true}
-              button1Text={"O’zgartirish"}
-              button2Text={"Arxivlash"}
-              button3Text={"Joylashuvi"}
               userProfile={userProfile}
+              buttons={[
+                <Button
+                  type="primary"  
+                >
+                  O’zgartirish
+                </Button>,
+                 <Button
+                 type="primary"
+               >
+                 Arxivlash
+               </Button>,
+                <Button
+                type="primary"
+              >
+                Joylashuvi
+              </Button>,
+              ]}
             />
           </div>
           <div
@@ -150,7 +159,7 @@ const ManagerSingleClient = () => {
           </div>
         </div>
         <div className={singleScss.date}>
-          <DateFilter onChange={onchange} value={dateValue} />
+          <DateFilter onChange={onChange} value={dateValue} />
         </div>
         <div className={singleScss.orderTable}>
           <CustomTable

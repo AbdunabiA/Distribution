@@ -1,5 +1,4 @@
 import defaultImage from "assets/icons/defaultProfileImg.jpg";
-
 const ProfileImage = ({ src = null }) => {
   return (
     <img
@@ -13,5 +12,4 @@ const ProfileImage = ({ src = null }) => {
     />
   );
 };
-
 export default ProfileImage;
