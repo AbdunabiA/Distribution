@@ -14,6 +14,7 @@ export const CustomInput = ({type='text', placeholder, ...props}) => {
           <Input
             {...field}
             placeholder={placeholder}
+            autoComplete="off"
             type={type}
             status={meta.touched && meta.error && 'error'}
             // value={values[props.name]}

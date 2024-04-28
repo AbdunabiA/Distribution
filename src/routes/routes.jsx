@@ -1,6 +1,7 @@
 import { lazy } from "react";
 
-const Login = lazy(()=>import('pages/login'))
+const Login = lazy(() => import("pages/login"));
+const Profile = lazy(() => import("pages/profile/index"));
 
 //?ADMIN PAGES
 const AdminHome = lazy(() => import("pages/admin/home/home"));
@@ -20,123 +21,258 @@ const ManagerClients = lazy(() => import("pages/manager/clients/clients"));
 const ManagerEmployees = lazy(() => import("pages/manager/employee/employees"));
 const ManagerProducts = lazy(() => import("pages/manager/products/products"));
 const ManagerTasks = lazy(() => import("pages/manager/tasks/tasks"));
-const ManagerProduct = lazy(() => import('pages/manager/products/product'))
-// <<<<<<< HEAD
-const ManagerProfile = lazy(() => import("pages/profile/index"));
+const ManagerProduct = lazy(() => import("pages/manager/products/product"));
 const ManagerSingleClient = lazy(() =>
   import("pages/manager/clients/singleClient")
 );
+
+//?BRANCH DIRECTOR PAGES
+const BranchDirectorProducts = lazy(() =>
+  import("pages/branchDirector/products/products")
+);
+const BranchDirectorClients = lazy(() =>
+  import("pages/branchDirector/clients/clients")
+);
+const BranchDirectorTasks = lazy(() =>
+  import("pages/branchDirector/tasks/tasks")
+);
+const BranchDirectorEmployees = lazy(() =>
+  import("pages/branchDirector/employee/employees")
+);
+const BranchDirectorOrders = lazy(() =>
+  import("pages/branchDirector/orders/orders")
+);
+
+//?OPERATOR PAGES
+const OperatorOrders = lazy(() => import("pages/operator/orders/orders"));
+const OperatorProducts = lazy(()=>import('pages/operator/products/products'))
+const OperatorClients = lazy(() => import("pages/operator/clients/clients"));
+const OperatorDrivers = lazy(() => import("pages/operator/drivers/drivers"));
+
+//?OPERATOR PAGES
+const AgentTasks = lazy(()=>import('pages/agent/tasks/tasks'))
+const AgentClients = lazy(()=>import('pages/agent/clients/clients'))
+const AgentProducts = lazy(()=>import('pages/agent/products/products'))
+
+//?SUPERVISOR PAGES
+const SupervisorTasks = (lazy(()=>import('pages/supervisor/tasks/tasks')))
+const SupervisorClients = lazy(() => import("pages/supervisor/clients/clients"));
+const SupervisorProducts = lazy(() => import("pages/supervisor/products/products"));
+const SupervisorAgents = lazy(() => import("pages/supervisor/agents/agents"));
+
 export const pages = {
-  admin: [
-    {
-      path: "/",
-      component: <AdminHome />,
-      name: "",
-    },
-    {
-      path: "/google-maps",
-      component: <GoogleMap />,
-      name: "",
-    },
-    {
-      path: "/employee",
-      component: <AdminEmployees />,
-      name: "",
-    },
-    {
-      path: "/clients",
-      component: <AdminClients />,
-      name: "",
-    },
-    {
-      path: "/products",
-      component: <AdminProducts />,
-      name: "",
-    },
-    {
-      path: "/branches",
-      component: <AdminBranches />,
-      name: "",
-    },
-    {
-      path: "/statistics",
-      component: <AdminStatistics />,
-      name: "",
-    },
-    {
-      path: "/settings",
-      component: <AdminSettings />,
-      name: "",
-    },
-    {
-      path: "/archive",
-      component: <AdminArchive />,
-      name: "",
-    },
-  ],
-  manager: [
-    {
-      path: "/",
-      component: <ManagerBranches />,
-      name: "Filiallar",
-    },
-    {
-      path: "/employee",
-      component: <ManagerEmployees />,
-      name: "Xodimlar",
-    },
-    {
-      path: "/profile",
-      component: <ManagerProfile />,
-      name: "Profil",
-    },
-    {
-      path: "/clients",
-      component: <ManagerClients />,
-      name: "Mijozlar",
-      children: [
-        {
-          path:'/clients/:clintId',
-          component:<ManagerSingleClient/>,
-        }
-      ]
-    },
-    {
-      path: "/products",
-      component: <ManagerProducts />,
-      name: "Mahsulotlar",
-      children: [
-        {
-          path: "/products/:productId",
-          component: <ManagerProduct />,
-          name: "Mahsulot",
-        },
-      ],
-    },
-    //    {
-    //      path: "/branches",
-    //      component: <ManagerBranches />,
-    //    },
-    {
-      path: "/tasks",
-      component: <ManagerTasks />,
-      name: "Topshiriqlar",
-    },
-    //    {
-    //      path: "/statistics",
-    //      component: <AdminStatistics />,
-    //    },
-    //    {
-    //      path: "/settings",
-    //      component: <AdminSettings />,
-    //    },
-    {
-      path: "/archive",
-      component: <ManagerArchive />,
-      name: "Arxiv",
-    },
-  ],
-};
+         admin: [
+           {
+             path: "/",
+             component: <AdminHome />,
+             name: "",
+           },
+           {
+             path: "/google-maps",
+             component: <GoogleMap />,
+             name: "",
+           },
+           {
+             path: "/employee",
+             component: <AdminEmployees />,
+             name: "",
+           },
+           {
+             path: "/clients",
+             component: <AdminClients />,
+             name: "",
+           },
+           {
+             path: "/products",
+             component: <AdminProducts />,
+             name: "",
+           },
+           {
+             path: "/branches",
+             component: <AdminBranches />,
+             name: "",
+           },
+           {
+             path: "/statistics",
+             component: <AdminStatistics />,
+             name: "",
+           },
+           {
+             path: "/settings",
+             component: <AdminSettings />,
+             name: "",
+           },
+           {
+             path: "/archive",
+             component: <AdminArchive />,
+             name: "",
+           },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
+         ],
+         manager: [
+           {
+             path: "/",
+             component: <ManagerBranches />,
+             name: "Filiallar",
+           },
+           {
+             path: "/employee",
+             component: <ManagerEmployees />,
+             name: "Xodimlar",
+           },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
+           {
+             path: "/clients",
+             component: <ManagerClients />,
+             name: "Mijozlar",
+             children: [
+               {
+                 path: "/clients/:clintId",
+                 component: <ManagerSingleClient />,
+               },
+             ],
+           },
+           {
+             path: "/products",
+             component: <ManagerProducts />,
+             name: "Mahsulotlar",
+             children: [
+               {
+                 path: "/products/:productId",
+                 component: <ManagerProduct />,
+                 name: "Mahsulot",
+               },
+             ],
+           },
+           {
+             path: "/tasks",
+             component: <ManagerTasks />,
+             name: "Topshiriqlar",
+           },
+           {
+             path: "/archive",
+             component: <ManagerArchive />,
+             name: "Arxiv",
+           },
+         ],
+         branch_director: [
+           {
+             path: "/",
+             component: <BranchDirectorProducts />,
+             name: "Mahsulotlar",
+           },
+           {
+             path: "/clients",
+             component: <BranchDirectorClients />,
+             name: "Mijozlar",
+           },
+           {
+             path: "/tasks",
+             component: <BranchDirectorTasks />,
+             name: "Topshiriqlar",
+           },
+           {
+             path: "/employee",
+             component: <ManagerEmployees />,
+             name: "Xodimlar",
+           },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
+
+           {
+             path: "/orders",
+             component: <BranchDirectorOrders />,
+             name: "Buyurtmalar",
+           },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
+         ],
+         operator: [
+           {
+             path: "/",
+             component: <OperatorOrders />,
+             name: "Buyurtmalar",
+           },
+           {
+             path: "/products",
+             component: <OperatorOrders />,
+             name: "Mahsulotlar",
+           },
+           {
+             path: "/clients",
+             component: <OperatorClients />,
+             name: "Mijozlar",
+           },
+           {
+             path: "/drivers",
+             component: <OperatorDrivers />,
+             name: "Yetkazib beruvchilar",
+           },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
+         ],
+         agent: [
+           {
+             path: "/",
+             component: <AgentTasks />,
+             name: "Topshiriqlar",
+           },
+           {
+             path: "/products",
+             component: <AgentProducts />,
+             name: "Mahsulotlar",
+           },
+           {
+             path: "/clients",
+             component: <AgentClients />,
+             name: "Mijozlar",
+           },
+         ],
+         supervisor: [
+           {
+             path: "/",
+             component: <SupervisorTasks />,
+             name: "Topshiriqlar",
+           },
+           {
+             path: "/products",
+             component: <SupervisorProducts />,
+             name: "Mahsulotlar",
+           },
+           {
+             path: "/clients",
+             component: <SupervisorClients />,
+             name: "Mijozlar",
+           },
+           {
+             path: "/agents",
+             component: <SupervisorAgents />,
+             name: "Agentlar",
+           },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
+         ],
+       };
 
 export const authPages = [
   {

@@ -1,6 +1,11 @@
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { Button } from "antd";
-import { CustomInput, CustomSelect, InputMask } from "components/inputs";
+import {
+  AsyncSelect,
+  CustomInput,
+  CustomSelect,
+  InputMask,
+} from "components/inputs";
 import { get } from "lodash";
 import { ContainerForm } from "modules";
 import { toast } from "sonner";
@@ -37,7 +42,7 @@ const options = [
 ];
 
 export const CreateUserForm = ({ data, setModal }) => {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   return (
     <ContainerForm
       url={`/users/${data ? data.id : "all"}/`}
@@ -91,7 +96,8 @@ export const CreateUserForm = ({ data, setModal }) => {
         },
         {
           name: "warehouse",
-          value: get(data, "warehouse", ""),
+          value: get(data, "warehouse", null),
+          required: true,
         },
         {
           name: "is_available",
@@ -125,8 +131,15 @@ export const CreateUserForm = ({ data, setModal }) => {
               placeholder="Lavozimi"
               options={options}
             />
-            <InputMask name="phone_number" mask="+998 (99) 999 99 99"/>
-            {/* <CustomInput name="phone_number" placeholder="Telefon raqam" /> */}
+            <InputMask name="phone_number" mask="+998 (99) 999 99 99" />
+            <AsyncSelect
+              name="warehouse"
+              url={"/warehouses/all/"}
+              queryKey={["/warehouses/all/"]}
+              optionLabel={"name"}
+              optionValue={"id"}
+              placeholder="Filial"
+            />
             <CustomInput name="address" placeholder="Manzil" />
             <CustomInput
               name="birth_date"
