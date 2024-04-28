@@ -5,11 +5,10 @@ import CustomTable from "components/table";
 import { Button, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import { data } from "assets/db";
-import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGet, usePost } from "crud";
+import { toast } from "sonner";
 import { CreateClient } from "components/forms/createClient";
-import { CreateProduct, CreateProductCategory } from "components/forms";
 const ManagerClients = () => {
   const [dateValue, setDateValue] = useState("");
   // const navigate = useNavigate();
