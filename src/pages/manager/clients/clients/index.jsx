@@ -123,10 +123,6 @@ const ManagerClients = () => {
             title={"Mijozlar ro’yxati (20 000)"}
             minHeigth={"230px"}
             scrollY
-            onRow={() => ({
-              onClick: () => navigate(`clients/single`),
-              style: { cursor: "pointer" },
-            })}
             height
             hideColumns
             hasPagination
