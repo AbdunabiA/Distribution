@@ -1,5 +1,5 @@
-import React, { Suspense, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { Suspense, useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { authPages, pages } from "./routes";
 import { storage } from "services";
 import { useSelector } from "react-redux";
@@ -24,12 +24,18 @@ const appRoutes = (routes) => {
 };
 
 const routesWrapper = () => {
+  const navigate = useNavigate()
   const { isAuthenticated } = useSelector((state) => get(state, "auth"));
   // const isAuthenticated = true;
   // const { i18n } = useTranslation();
   // if (i18n.language == "ru-RU") {
   //   i18n.changeLanguage("ru");
   // }
+  useEffect(() => {
+    if (!isAuthenticated) {
+        navigate("/login");
+    }
+  }, [isAuthenticated]);
   const {role} = useSelector((state) => state.auth.data);
   // const role = "manager";
 
