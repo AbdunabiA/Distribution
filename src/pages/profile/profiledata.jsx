@@ -1,6 +1,7 @@
 import React from "react";
 import profiledataScss from "./profiledata.module.scss";
 import { Button } from "antd";
+import ProfileImage from "components/profileImage";
 
 function ProfileData({
   userProfile,
@@ -24,10 +25,7 @@ function ProfileData({
           </p>
         </div>
         <div>
-          <img
-            src={userProfile.profileImg ? userProfile.profileImg : null}
-            alt="Profile image"
-          />
+          <ProfileImage/>
         </div>
       </div>
       <div className={profiledataScss.third_wrapper}>

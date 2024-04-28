@@ -1,31 +1,39 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 import styles from "./header.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import ProfileImage from "components/profileImage";
+import { pages } from "routes/routes";
+import { Button } from "antd";
+
 const Header = ({ onTouch }) => {
+  const location = useLocation();
+  const role = "manager";
+
   return (
     <header className="container">
       <div>
-        <button onClick={onTouch} className={styles.hamburgerMenu}>
-          <GiHamburgerMenu />
-        </button>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "100%",
-            alignItems: "center",
-          }}
-        >
-          <div>header</div>
-          <div>
-            <Link to={'/profile'}>
-              <img
-                style={{ width: "50px", height: "50px", borderRadius: "100%" }}
-                src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-                alt="ProfileImage"
-              />
-            </Link>
-          </div>
+        <div className={styles.pageNameWrapper}>
+          <Button
+            type="primary"
+            onClick={onTouch}
+            className={styles.hamburgerMenu}
+          >
+            <GiHamburgerMenu />
+          </Button>
+
+          <p className={styles.pageName}>
+            {pages[role]?.map((page) => {
+              if (location.pathname.toLowerCase() == page.path.toLowerCase()) {
+                return page.name;
+              }
+            })}
+          </p>
+        </div>
+
+        <div className={styles.profileImage}>
+          <Link to={"/profile"}>
+            <ProfileImage />
+          </Link>
         </div>
       </div>
     </header>

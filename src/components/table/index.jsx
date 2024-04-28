@@ -22,6 +22,7 @@ const CustomTable = ({
   isLoading,
   mineHeigth = null, 
   columns,
+  onRow = () => {},
   hideColumns = false,
   scrollX = null,
   scrollY = false,
@@ -133,6 +134,7 @@ const CustomTable = ({
           rowKey={"id"}
           dataSource={items}
           isLoading={isLoading}
+<<<<<<< HEAD
           columns={[
             ...newColumnss.map(column => ({
               ...column,
@@ -141,6 +143,10 @@ const CustomTable = ({
               })
             }))
           ]}
+=======
+          columns={newColumnss}
+          onRow={(rec, index) => onRow(rec, index)}
+>>>>>>> f1d60b82010043dd621d4af37c5a992df95a4b11
           style={{ marginTop: "20px", minHeight:`${mineHeigth}` }}
           scroll={{
             x: scrollX,

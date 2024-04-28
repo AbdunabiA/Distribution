@@ -1,8 +1,7 @@
-import { Input } from "antd";
-import { Field } from "formik";
+import { Select } from 'antd';
+import { Field } from 'formik';
 
-export const CustomInput = ({type='text', placeholder, ...props}) => {
-  //   console.log({ ...props });
+export const CustomSelect = ({placeholder, options, ...props}) => {
   return (
     <Field {...props}>
       {({
@@ -11,14 +10,13 @@ export const CustomInput = ({type='text', placeholder, ...props}) => {
         meta,
       }) => (
         <div>
-          <Input
+          <Select
             {...field}
             placeholder={placeholder}
-            type={type}
-            status={meta.touched && meta.error && 'error'}
-            // value={values[props.name]}
-            // onChange={() => setFieldValue(props.name, values[props.name])}
-            onInput={(e) => setFieldValue(props.name, e.target.value)}
+            options={options}
+            status={meta.touched && meta.error && "error"}
+            onChange={(e) => setFieldValue(props.name, e)}
+            style={{minWidth:"300px", width:"100%"}}
           />
           {meta.touched && meta.error && (
             <small style={{ color: "red" }}>{meta.error}</small>
@@ -28,3 +26,5 @@ export const CustomInput = ({type='text', placeholder, ...props}) => {
     </Field>
   );
 };
+
+ 

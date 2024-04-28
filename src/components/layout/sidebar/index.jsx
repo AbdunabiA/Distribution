@@ -1,8 +1,9 @@
 import { menus } from "assets/db";
 import close from "assets/icons/close.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./sidebar.module.scss";
 const Sidebar = ({ active, setActive }) => {
+  const navigate = useNavigate();
   const role = "manager";
   return (
     <>
@@ -18,10 +19,11 @@ const Sidebar = ({ active, setActive }) => {
         ></div>
       ) : null}
       <div className={`${styles.sidebar}  ${active ? styles.active : ""}`}>
-        {/* <div className='logo-wrapper' onClick={() => navigate('/')}>
-					<img src={logo} alt='logo' />
-				</div> */}
         <div className={styles.sidebar_wrapper}>
+          <div className={styles.logo_wrapper} onClick={() => navigate("/")}>
+            {/* <img src={logo} alt='logo' /> */}
+            <h1>Logo</h1>
+          </div>
           <div className={styles.menus_wrapper}>
             <div className={`${!active && styles.closed}`}>
               <h1>Menu</h1>

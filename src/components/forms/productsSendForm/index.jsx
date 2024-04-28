@@ -10,7 +10,9 @@ const schema = Yup.object().shape({
       Yup.object().shape({
         product_category: Yup.string().required("Required"), // these constraints take precedence
         product: Yup.string().required("Required"), // these constraints take precedence
-        product_amount: Yup.string().required("Required"),
+        product_amount: Yup.number()
+          .required("Required")
+          .min(1, "Must be greater than or equal to 1"),
       })
     )
     .required("Must have product")

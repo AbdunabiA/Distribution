@@ -32,7 +32,7 @@ const options = {
   },
 };
 
-function LineGraph({
+export function LineGraph({
   data,
   title,
   subtitle,
@@ -104,4 +104,4 @@ function LineGraph({
     </div>
   );
 }
-export default LineGraph;
+

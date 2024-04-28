@@ -5,7 +5,7 @@ import pieChart from "./pie.module.scss";
 import { generateUniqueColor } from "services/generateUniqueColors";
 ChartJS.register(Legend, Tooltip, ArcElement);
 
-function PieChart({
+export function PieChart({
   data,
   title,
   subtitle,
@@ -56,4 +56,4 @@ function PieChart({
     </>
   );
 }
-export default PieChart;
+

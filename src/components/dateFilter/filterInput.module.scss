@@ -7,13 +7,27 @@ $xxxl:1600px;
 $xxxxl:1920px;
 
 
-
-.space{
+.dateFilterWrapper{
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	flex-wrap: wrap;
-	gap: 30px;
-	@media (max-width:$md) {
-		gap: 10px;
-	}
+		.space{
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 30px;
+			@media (max-width:$md) {
+				gap: 10px;
+			}
+		}
+		.buttons{
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 30px;
+			@media (max-width:$md) {
+				gap: 10px;
+			}
+		}
 }

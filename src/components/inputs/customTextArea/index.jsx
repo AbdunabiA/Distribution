@@ -1,7 +1,8 @@
 import { Input } from "antd";
 import { Field } from "formik";
+const { TextArea } = Input;
 
-export const CustomInput = ({type='text', placeholder, ...props}) => {
+export const CustomTextArea = ({rows=4, ...props}) => {
   //   console.log({ ...props });
   return (
     <Field {...props}>
@@ -11,11 +12,11 @@ export const CustomInput = ({type='text', placeholder, ...props}) => {
         meta,
       }) => (
         <div>
-          <Input
+          <TextArea
             {...field}
-            placeholder={placeholder}
-            type={type}
-            status={meta.touched && meta.error && 'error'}
+            rows={rows}
+            placeholder={props.placeholder}
+            status={meta.touched && meta.error && "error"}
             // value={values[props.name]}
             // onChange={() => setFieldValue(props.name, values[props.name])}
             onInput={(e) => setFieldValue(props.name, e.target.value)}
