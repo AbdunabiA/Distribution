@@ -36,7 +36,7 @@ export const CreateClient = ({data, setModal}) => {
         },
         {
           name: "warehouse",
-          value: get(data, "warehouse", ""),
+          value: get(data, "warehouse", null),
         },
       ]}
       url={`/customers/${data ? `${data.id}/detail`: "all"}/`}
@@ -53,7 +53,7 @@ export const CreateClient = ({data, setModal}) => {
       {({ handleSubmit, isLoading }) => {
         return (
           <div>
-            <h2>{data ? "Client o'zgartirish" : "Client yaratish"}</h2>
+            <h2>{data ? "Mijozni o'zgartirish" : "Mijoz yaratish"}</h2>
             <CustomInput name="name" placeholder="Ism" />
             <InputMask name="phone" mask="+998 (99) 999 99 99"/>
             <CustomInput name="address" placeholder="Manzil" />

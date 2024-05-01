@@ -7,12 +7,16 @@ import singleScss from "./singleClient.module.scss";
 import { useState } from "react";
 import { Button } from "antd";
 import ProfileImage from "components/profileImage";
+import { useParams } from "react-router-dom";
+import { useGet } from "crud";
 const ManagerSingleClient = () => {
+  let { clintId } = useParams();
   const [dateValue, setDateValue] = useState("");
   const onChange = (value) => {
     setDateValue(value);
     console.log(dateValue);
   };
+
   const columns1 = [
     {
       key: 1,
@@ -107,13 +111,19 @@ const ManagerSingleClient = () => {
   const userProfile = {
     name: "Abdunabi Abduvaxobov",
     job: "Ombor manageri",
-    profileImg:<ProfileImage/>,
+    profileImg: <ProfileImage />,
     phoneNumber: "+998905200350",
     status: true,
-    byWhichPerson:' John Washington',
+    byWhichPerson: " John Washington",
     adress: "Shifokorlar 70/89",
     branch: "Fergana branch",
   };
+  const { data, isLoading } = useGet({
+    url: `/customers/${clintId}/detail/`,
+    queryKey: [`/customers/${clintId}/detail/`],
+  });
+  if (isLoading) return <h1>Loading.....</h1>;
+  console.log(data);
   return (
     <>
       <div className="container">
@@ -121,23 +131,17 @@ const ManagerSingleClient = () => {
           <div className={singleScss.prof}>
             <ProfileData
               height={"555px"}
-              userProfile={userProfile}
+              userProfile={data}
               buttons={[
-                <Button
-                  type="primary"  
-                >
+                <Button key={"1"} type="primary">
                   O’zgartirish
                 </Button>,
-                 <Button
-                 type="primary"
-               >
-                 Arxivlash
-               </Button>,
-                <Button
-                type="primary"
-              >
-                Joylashuvi
-              </Button>,
+                <Button key={"2"} type="primary">
+                  Arxivlash
+                </Button>,
+                <Button key={"3"} type="primary">
+                  Joylashuvi
+                </Button>,
               ]}
             />
           </div>
@@ -170,10 +174,10 @@ const ManagerSingleClient = () => {
               minHeigth: "230px",
               hasStatus: true,
               hasDelete: true,
-              scrollY: true,
+              // scrollY: true,
               height: 230,
               hideColumns: true,
-              hasPagination: true,
+              // hasPagination: true,
             }}
           />
         </div>
