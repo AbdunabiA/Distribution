@@ -118,6 +118,7 @@ const ManagerSingleClient = () => {
     url: `/customers/${clintId}/detail/`,
     queryKey: [`/customers/${clintId}/detail/`],
   });
+  // console.log(data.data);
   return (
     <>
       <Modal
@@ -139,7 +140,7 @@ const ManagerSingleClient = () => {
             <div className={singleScss.prof}>
               <ProfileData
                 height={"555px"}
-                userProfile={data}
+                userProfile={data.data}
                 buttons={[
                   <Button 
                   key={"1"} 

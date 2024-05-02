@@ -114,6 +114,7 @@ const ManagerBranches = () => {
                 ]}
               />
             </div>
+            
           </div>
         );
       }}

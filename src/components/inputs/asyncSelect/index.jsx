@@ -9,6 +9,8 @@ export const AsyncSelect = ({
          params = {},
          optionLabel,
          optionValue,
+         disabled = false,
+         mode = 'default',
          ...props
        }) => {
          const [options, setOptions] = useState([]);
@@ -48,6 +50,8 @@ export const AsyncSelect = ({
                      {...field}
                      onChange={(e) => setFieldValue(props.name, e)}
                      status={meta.touched && meta.error && "error"}
+                     disabled={disabled}
+                     mode={mode}
                      showSearch
                      placeholder={props.placeholder}
                      optionFilterProp="children"

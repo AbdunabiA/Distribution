@@ -5,3 +5,4 @@ export { CreateUserForm } from './createUser';
 export { CreateCar } from './createCar';
 export { CreateWarehouse } from './createWarehouse';
 export { ProductSend } from './productSend';
+export { CreateTask } from './createTask';
