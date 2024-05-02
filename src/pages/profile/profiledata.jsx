@@ -1,65 +1,74 @@
 import React from "react";
 import profiledataScss from "./profiledata.module.scss";
-import { Button } from "antd";
 import ProfileImage from "components/profileImage";
 
  export function ProfileData({
   userProfile,
   buttons = null,
-  button1Text = null,
-  button2Text = null,
-  button3Text = null,
-  button1 = false,
-  button2 = false,
-  button3 = false,
   height = null
 }) {
   return (
-    <div style={{height:height}} className={profiledataScss.main_wrapper}>
+    <div style={{ height: height }} className={profiledataScss.main_wrapper}>
       <div className={profiledataScss.second_wrapper}>
         <div>
           <h1 className={profiledataScss.name}>
-            {userProfile.name ? userProfile.name : null}
+            {userProfile.first_name + " " + userProfile.last_name}
           </h1>
           <p className={profiledataScss.lavozim}>
-            {userProfile.lavozim ? userProfile.lavozim : null}
+            {userProfile.role ? userProfile.role : null}
           </p>
         </div>
         <div>
-          <ProfileImage/>
+          <ProfileImage />
         </div>
       </div>
       <div className={profiledataScss.third_wrapper}>
         <ul>
-         {userProfile.phoneNumber && userProfile.phoneNumber ?  <li>
-            {userProfile.phoneNumber ? <span>Tel:</span> : null}
-            {userProfile.phoneNumber ? userProfile.phoneNumber : null}
-          </li> : null}
-          {userProfile.lavozim && userProfile.lavozim ? <li>
-           { userProfile.lavozim ?  <span>Lavozim:</span> : null}
-            {userProfile.lavozim ? userProfile.lavozim : null}
-          </li> : null}
-          {userProfile.salary && userProfile.salary ? <li>
-            {userProfile.salary ? <span>Oylik:</span> : null}
-            {userProfile.salary ? userProfile.salary : null}
-          </li> : null}
-         {userProfile.status && userProfile.status ? <li>
-            {userProfile.status ? <span>Status:</span> :null}
-            {userProfile.status === true ? "Aktiv" : "noActive"}
-          </li> : null}
-          {userProfile.byWhichPerson && userProfile.byWhichPerson ? <li>
-            {userProfile.byWhichPerson ? <span>Kim tomonidan tizimga kiritilgan:</span> :null}
-            {userProfile.byWhichPerson ? userProfile.byWhichPerson : null}
-          </li> : null}
+          {userProfile.phone_number && userProfile.phone_number ? (
+            <li>
+              {userProfile.phone_number ? <span>Tel:</span> : null}
+              {userProfile.phone_number}
+            </li>
+          ) : null}
+          {userProfile.username && userProfile.username ? (
+            <li>
+              {userProfile.username ? <span>Username:</span> : null}
+              {userProfile.username}
+            </li>
+          ) : null}
+          {userProfile?.salary && userProfile?.salary ? (
+            <li>
+              {userProfile?.salary ? <span>Oylik:</span> : null}
+              {userProfile?.salary}
+            </li>
+          ) : null}
+          {userProfile.status && userProfile.status ? (
+            <li>
+              {userProfile.status ? <span>Status:</span> : null}
+              {userProfile.status}
+            </li>
+          ) : null}
+          {userProfile.created_by && userProfile.created_by ? (
+            <li>
+              {userProfile.created_by ? (
+                <span>Kim tomonidan tizimga kiritilgan:</span>
+              ) : null}
+              {userProfile.created_by}
+            </li>
+          ) : null}
         </ul>
         <ul>
           <li>
-            { userProfile.adress ? <span>Adress:</span> : null}
-            {userProfile.adress ? userProfile.adress : null}
+            {userProfile.address ? <span>Adres:</span> : null}
+            {userProfile.address ? userProfile.address : null}
           </li>
           <li>
-            {userProfile.branch ? <span>Filial:</span> : null}
-            {userProfile.branch ? userProfile.branch : null}
+            {userProfile.warehouse ? <span>Filial:</span> : null}
+            {userProfile.warehouse ? userProfile.warehouse : null}
+          </li>
+          <li>
+            {userProfile.birth_date ? <span>Tugulgan sana:</span> : null}
+            {userProfile.birth_date ? userProfile.birth_date : null}
           </li>
           <li>
             {userProfile.KPI ? <span>KPI:</span> : null}
@@ -68,9 +77,9 @@ import ProfileImage from "components/profileImage";
         </ul>
       </div>
       <div className={profiledataScss.btn}>
-         {buttons ? (
-            <div className={profiledataScss.btn_wrapper}>{buttons}</div>
-          ) : null}
+        {buttons ? (
+          <div className={profiledataScss.btn_wrapper}>{buttons}</div>
+        ) : null}
       </div>
     </div>
   );
