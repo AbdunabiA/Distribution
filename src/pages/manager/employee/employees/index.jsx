@@ -4,8 +4,9 @@ import CustomTable from "components/table";
 import { GetAll } from "modules";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useState } from "react";
-import { CreateCar, CreateUserForm } from "components/forms";
+import { CreateCar, CreateTask, CreateUserForm } from "components/forms";
 import { useNavigate } from "react-router-dom";
+import { ProductsSendForm } from "components/forms/productsSendForm";
 
 const employeeColumns = [
   {
@@ -71,9 +72,7 @@ const ManagerEmployees = () => {
               footer={false}
               onCancel={() => setCarModal({ isOpen: false, data: null })}
             >
-              <CreateCar
-                {...{ setModal: setCarModal, data: carModal.data }}
-              />
+              <CreateCar {...{ setModal: setCarModal, data: carModal.data }} />
             </Modal>
             <div style={{ marginTop: "20px" }}>
               <CustomTable

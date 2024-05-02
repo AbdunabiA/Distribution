@@ -11,9 +11,14 @@ import employee from "./icons/employes.png";
 export const menus = {
          admin: [
            {
-             title: "Asosiy",
+             title: "Filiallar",
              path: "/",
-             icon: asosiy,
+             icon: filiallar,
+           },
+           {
+             title: "Mahsulotlar",
+             path: "/products",
+             icon: mahsulot,
            },
            {
              title: "Mijozlar",
@@ -21,8 +26,8 @@ export const menus = {
              icon: clients,
            },
            {
-             title: "Mahsulotlar",
-             path: "/products",
+             title: "Topshiriqlar",
+             path: "/tasks",
              icon: mahsulot,
            },
            {
@@ -31,24 +36,9 @@ export const menus = {
              icon: employee,
            },
            {
-             title: "Filiallar",
-             path: "/branches",
-             icon: filiallar,
-           },
-           {
-             title: "Statistika",
-             path: "/statistics",
-             icon: statistika,
-           },
-           {
              title: "Arxiv",
              path: "/archive",
              icon: archive,
-           },
-           {
-             title: "Sozlamalar",
-             path: "/settings",
-             icon: sozlamalar,
            },
          ],
          manager: [
@@ -166,10 +156,10 @@ export const menus = {
              icon: clients,
            },
            {
-            title:"Agentlar",
-            path:"/agents",
-            icon: employee,
-           }
+             title: "Agentlar",
+             path: "/agents",
+             icon: employee,
+           },
          ],
        };
 

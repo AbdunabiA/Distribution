@@ -12,7 +12,9 @@ import ProfileImage from "components/profileImage";
       <div className={profiledataScss.second_wrapper}>
         <div>
           <h1 className={profiledataScss.name}>
-            {userProfile.first_name + " " + userProfile.last_name}
+            {userProfile?.first_name ? userProfile?.first_name +
+              " " +
+              userProfile?.last_name : userProfile?.name}
           </h1>
           <p className={profiledataScss.lavozim}>
             {userProfile.role ? userProfile.role : null}

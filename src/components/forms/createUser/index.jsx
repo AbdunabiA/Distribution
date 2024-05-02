@@ -8,6 +8,7 @@ import {
 } from "components/inputs";
 import { get } from "lodash";
 import { ContainerForm } from "modules";
+import { useSelector } from "react-redux";
 import { toast } from "sonner";
 
 const options = [
@@ -43,6 +44,8 @@ const options = [
 
 export const CreateUserForm = ({ data, setModal }) => {
   const queryClient = useQueryClient();
+  const { data: userData } = useSelector((store) => store.auth);
+
   return (
     <ContainerForm
       url={`/users/${data ? data.id : "all"}/`}
@@ -129,7 +132,9 @@ export const CreateUserForm = ({ data, setModal }) => {
             <CustomSelect
               name="role"
               placeholder="Lavozimi"
-              options={options}
+              options={
+                userData.role === "manager" ? options.slice(2) : options
+              }
             />
             <InputMask name="phone_number" mask="+998 (99) 999 99 99" />
             <AsyncSelect

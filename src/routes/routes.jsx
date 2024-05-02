@@ -65,53 +65,57 @@ export const pages = {
          admin: [
            {
              path: "/",
-             component: <AdminHome />,
-             name: "",
-           },
-           {
-             path: "/google-maps",
-             component: <GoogleMap />,
-             name: "",
+             component: <ManagerBranches />,
+             name: "Filiallar",
+             children: [
+               {
+                 path: "/branches/:branchId",
+                 component: <ManagerBranch />,
+               },
+             ],
            },
            {
              path: "/employee",
-             component: <AdminEmployees />,
-             name: "",
-           },
-           {
-             path: "/clients",
-             component: <AdminClients />,
-             name: "",
-           },
-           {
-             path: "/products",
-             component: <AdminProducts />,
-             name: "",
-           },
-           {
-             path: "/branches",
-             component: <AdminBranches />,
-             name: "",
-           },
-           {
-             path: "/statistics",
-             component: <AdminStatistics />,
-             name: "",
-           },
-           {
-             path: "/settings",
-             component: <AdminSettings />,
-             name: "",
-           },
-           {
-             path: "/archive",
-             component: <AdminArchive />,
-             name: "",
+             component: <ManagerEmployees />,
+             name: "Xodimlar",
            },
            {
              path: "/profile",
              component: <Profile />,
              name: "Profil",
+           },
+           {
+             path: "/clients",
+             component: <ManagerClients />,
+             name: "Mijozlar",
+             children: [
+               {
+                 path: "/clients/:clintId",
+                 component: <ManagerSingleClient />,
+               },
+             ],
+           },
+           {
+             path: "/products",
+             component: <ManagerProducts />,
+             name: "Mahsulotlar",
+             children: [
+               {
+                 path: "/products/:productId",
+                 component: <ManagerProduct />,
+                 name: "Mahsulot",
+               },
+             ],
+           },
+           {
+             path: "/tasks",
+             component: <ManagerTasks />,
+             name: "Topshiriqlar",
+           },
+           {
+             path: "/archive",
+             component: <ManagerArchive />,
+             name: "Arxiv",
            },
          ],
          manager: [
@@ -119,12 +123,12 @@ export const pages = {
              path: "/",
              component: <ManagerBranches />,
              name: "Filiallar",
-             children:[
-              {
-                path:'/branches/:branchId',
-                component: <ManagerBranch/>,
-              }
-             ]
+             children: [
+               {
+                 path: "/branches/:branchId",
+                 component: <ManagerBranch />,
+               },
+             ],
            },
            {
              path: "/employee",
