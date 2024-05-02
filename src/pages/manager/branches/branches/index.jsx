@@ -44,10 +44,19 @@ const ManagerBranches = () => {
       key: "productSend",
       title: "Masulot yuborish",
       render: (_, data) => {
-        return <Button type="primary" onClick={(e)=>{
-          e.stopPropagation()
-          setSendProdModal({isOpen:true, data:data})
-        }}>Yuborish</Button>;
+        return (
+          <div style={{width:"100%",display:"flex", justifyContent:"center"}}>
+            <Button
+              type="primary"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSendProdModal({ isOpen: true, data: data });
+              }}
+            >
+              Yuborish
+            </Button>
+          </div>
+        );
       },
     },
   ];
@@ -89,6 +98,7 @@ const ManagerBranches = () => {
                 columns={branchesCoulmns}
                 items={data?.data}
                 title={"Filiallar"}
+                hideColumns
                 hasDelete
                 hasUpdate
                 onRowNavigationUrl={"/branches/"}

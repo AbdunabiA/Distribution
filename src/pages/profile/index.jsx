@@ -5,11 +5,7 @@ import DateFilter from "components/dateFilter";
 import { useState } from "react";
 import { ProfileData } from "./profiledata";
 import { Button } from "antd";
-function Profile({
-  hasRightTable = true,
-  hasTableBottom = true,
-  hasDateFilter = true,
-}) {
+function Profile() {
   const [dateValue, setDateValue] = useState("");
   const onChange = (value) => {
     setDateValue(value);
@@ -237,7 +233,6 @@ function Profile({
             buttons={[<Button type="primary">O’zgartirish</Button>]}
           />
           <div className={profileScss.table}>
-            {hasRightTable && hasRightTable ? (
               <CustomTable
                 {...{
                   columns: columns1,
@@ -251,16 +246,12 @@ function Profile({
                   hasPagination: true,
                 }}
               />
-            ) : null}
           </div>
         </div>
         <div>
           <div className={profileScss.date}>
-            {hasDateFilter && hasDateFilter ? (
               <DateFilter onChange={onchange} value={dateValue} />
-            ) : null}
             <div style={{ marginTop: "20px" }}>
-              {hasTableBottom && hasTableBottom ? (
                 <CustomTable
                   {...{
                     columns: columns2,
@@ -274,7 +265,6 @@ function Profile({
                     hasPagination: true,
                   }}
                 />
-              ) : null}
             </div>
           </div>
         </div>
