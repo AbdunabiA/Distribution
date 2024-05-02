@@ -5,7 +5,6 @@ import { signOut } from "store/auth";
 
 const useGet = ({url, queryKey, params, onSuccess=()=>{}, onError=()=>{}}) => {
     const dispatch = useDispatch()
-    
     const data = useQuery({
         queryKey:[...queryKey, params, url],
         queryFn:()=>{

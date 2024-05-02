@@ -5,14 +5,24 @@ import { PieChart } from "components/charts";
 import CustomTable from "components/table";
 import singleScss from "./singleClient.module.scss";
 import { useState } from "react";
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import ProfileImage from "components/profileImage";
+import { useParams } from "react-router-dom";
+import { useGet , usePost} from "crud";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { CreateClient } from "components/forms/createClient";
 const ManagerSingleClient = () => {
+  let { clintId } = useParams();
   const [dateValue, setDateValue] = useState("");
+  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
   const onChange = (value) => {
     setDateValue(value);
     console.log(dateValue);
   };
+
+  console.log(modal, 'modal');
+
   const columns1 = [
     {
       key: 1,
@@ -104,80 +114,87 @@ const ManagerSingleClient = () => {
       address: "London No. 1 Lake Park",
     },
   ];
-  const userProfile = {
-    name: "Abdunabi Abduvaxobov",
-    job: "Ombor manageri",
-    profileImg:<ProfileImage/>,
-    phoneNumber: "+998905200350",
-    status: true,
-    byWhichPerson:' John Washington',
-    adress: "Shifokorlar 70/89",
-    branch: "Fergana branch",
-  };
+  const { data, isLoading } = useGet({
+    url: `/customers/${clintId}/detail/`,
+    queryKey: [`/customers/${clintId}/detail/`],
+  });
   return (
     <>
-      <div className="container">
-        <div className={singleScss.wrapper}>
-          <div className={singleScss.prof}>
-            <ProfileData
-              height={"555px"}
-              userProfile={userProfile}
-              buttons={[
-                <Button
-                  type="primary"  
-                >
-                  O’zgartirish
-                </Button>,
-                 <Button
-                 type="primary"
-               >
-                 Arxivlash
-               </Button>,
-                <Button
-                type="primary"
-              >
-                Joylashuvi
-              </Button>,
-              ]}
-            />
+      <Modal
+        destroyOnClose
+        centered
+        footer={false}
+        open={modal.isOpen}
+        onCancel={() => setModal({ isOpen: false, form: null, data: null })}
+      >
+        {modal.form === "client" ? (
+          <CreateClient {...{ setModal, data: modal.data }} />
+        ) : null}
+      </Modal>
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <div className="container">
+          <div className={singleScss.wrapper}>
+            <div className={singleScss.prof}>
+              <ProfileData
+                height={"555px"}
+                userProfile={data}
+                buttons={[
+                  <Button 
+                  key={"1"} 
+                  type="primary"
+                  onClick={() =>
+                    setModal({ isOpen: true, form: "client", data: data.data })
+                  }
+                  >
+                    O’zgartirish
+                  </Button>,
+                  <Button key={"2"} type="primary">
+                    Arxivlash
+                  </Button>,
+                  <Button key={"3"} type="primary">
+                    Joylashuvi
+                  </Button>,
+                ]}
+              />
+            </div>
+            <div
+              className={singleScss.pie}
+            >
+              <PieChart
+                data={{
+                  January: "30",
+                  February: "40",
+                  March: "60",
+                  May: "70",
+                  Sebtember: "87",
+                }}
+                label={"Buyurtma qilingan mahsulotlar"}
+                title={"Buyurtma qilingan mahsulotlar"}
+              />
+            </div>
           </div>
-          <div
-            className={singleScss.pie}
-            style={{ backgroundColor: "white", marginTop: "20px" }}
-          >
-            <PieChart
-              data={{
-                January: "30",
-                February: "40",
-                March: "60",
-                May: "70",
-                Sebtember: "87",
+          <div className={singleScss.date}>
+            <DateFilter onChange={onChange} value={dateValue} />
+          </div>
+          <div className={singleScss.orderTable}>
+            <CustomTable
+              {...{
+                columns: columns1,
+                items: items1,
+                title: "Buyurtmalar tarixi",
+                minHeigth: "230px",
+                hasDelete: true,
+                // scrollY: true,
+                height: 230,
+                hideColumns: true,
+                // hasPagination: true,
               }}
-              label={"Buyurtma qilingan mahsulotlar"}
-              title={"Buyurtma qilingan mahsulotlar"}
             />
           </div>
         </div>
-        <div className={singleScss.date}>
-          <DateFilter onChange={onChange} value={dateValue} />
-        </div>
-        <div className={singleScss.orderTable}>
-          <CustomTable
-            {...{
-              columns: columns1,
-              items: items1,
-              title: "Buyurtmalar tarixi",
-              minHeigth: "230px",
-              hasStatus: true,
-              hasDelete: true,
-              scrollY: true,
-              height: 230,
-              hideColumns: true,
-              hasPagination: true,
-            }}
-          />
-        </div>
-      </div>
+      )}
     </>
   );
 };
