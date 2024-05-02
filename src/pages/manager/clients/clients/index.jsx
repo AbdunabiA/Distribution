@@ -9,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useGet, usePost } from "crud";
 import { toast } from "sonner";
 import { CreateClient } from "components/forms/createClient";
+import PlusIcon from "assets/icons/PlusIcon.svg?react";
 const ManagerClients = () => {
   const [dateValue, setDateValue] = useState("");
   // const navigate = useNavigate();
@@ -16,53 +17,49 @@ const ManagerClients = () => {
     setDateValue(value);
     console.log(dateValue);
   };
+  // const items2 = [
+  //   {
+  //     id: "1",
+  //     famismshar: "Mordayev Akmaljon",
+  //     telefonraqam: +998905200350,
+  //     manzil: "Tashkent",
+  //     status: "active",
+  //     filial: "Novza",
+  //   },
+  //   {
+  //     id: "2",
+  //     famismshar: "Mordayev Akmaljon",
+  //     telefonraqam: +998905200350,
+  //     manzil: "Tashkent",
+  //     status: "active",
+  //     filial: "Novza",
+  //   },
 
-  const handleColumnClick = () => {
-    navigate("/clients/single");
-  };
-  const items2 = [
-    {
-      id: "1",
-      famismshar: "Mordayev Akmaljon",
-      telefonraqam: +998905200350,
-      manzil: "Tashkent",
-      status: "active",
-      filial: "Novza",
-    },
-    {
-      id: "2",
-      famismshar: "Mordayev Akmaljon",
-      telefonraqam: +998905200350,
-      manzil: "Tashkent",
-      status: "active",
-      filial: "Novza",
-    },
-
-    {
-      id: "3",
-      famismshar: "Mordayev Akmaljon",
-      telefonraqam: +998905200350,
-      manzil: "Tashkent",
-      status: "active",
-      filial: "Novza",
-    },
-    {
-      id: "4",
-      famismshar: "Mordayev Akmaljon",
-      telefonraqam: +998905200350,
-      manzil: "Tashkent",
-      status: "active",
-      filial: "Novza",
-    },
-    {
-      id: "5",
-      famismshar: "Mordayev Akmaljon",
-      telefonraqam: +998905200350,
-      manzil: "Tashkent",
-      status: "active",
-      filial: "Novza",
-    },
-  ];
+  //   {
+  //     id: "3",
+  //     famismshar: "Mordayev Akmaljon",
+  //     telefonraqam: +998905200350,
+  //     manzil: "Tashkent",
+  //     status: "active",
+  //     filial: "Novza",
+  //   },
+  //   {
+  //     id: "4",
+  //     famismshar: "Mordayev Akmaljon",
+  //     telefonraqam: +998905200350,
+  //     manzil: "Tashkent",
+  //     status: "active",
+  //     filial: "Novza",
+  //   },
+  //   {
+  //     id: "5",
+  //     famismshar: "Mordayev Akmaljon",
+  //     telefonraqam: +998905200350,
+  //     manzil: "Tashkent",
+  //     status: "active",
+  //     filial: "Novza",
+  //   },
+  // ];
   const columns2 = [
     {
       key: 1,
@@ -141,10 +138,10 @@ const ManagerClients = () => {
                 items: data?.data,
                 hasDelete: true,
                 hasUpdate: true,
-                title: `Mijozlar ro’yxati (20 000)`,
+                title: `Mijozlar ro’yxati ${data?.data.length}`,
                 minHeigth: "230px",
-                scrollY: true,
-                onRowNavigationUrl: "/single",
+                // scrollY: true,
+                onRowNavigationUrl: `/clients/`,
                 hideColumns: true,
                 deleteAction: (data) =>
                 deleteClient({
@@ -158,16 +155,17 @@ const ManagerClients = () => {
                 }),
                 updateAction: (data) =>
                   setModal({ isOpen: true, form: "client", data: data }),
-                hasPagination: true,
+                // hasPagination: true,
                 buttons: [
                   <Button
+                    icon={<PlusIcon/>}
                     type="primary"
                     key={"client"}
                     onClick={() =>
                       setModal({ isOpen: true, form: "client", data: null })
                     }
                   >
-                    + mijoz qo'shish
+                     mijoz qo'shish
                   </Button>,
                 ],
               }}
