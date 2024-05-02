@@ -161,7 +161,6 @@ const ManagerSingleClient = () => {
             </div>
             <div
               className={singleScss.pie}
-              style={{ backgroundColor: "white", marginTop: "20px" }}
             >
               <PieChart
                 data={{
@@ -186,7 +185,6 @@ const ManagerSingleClient = () => {
                 items: items1,
                 title: "Buyurtmalar tarixi",
                 minHeigth: "230px",
-                hasStatus: true,
                 hasDelete: true,
                 // scrollY: true,
                 height: 230,

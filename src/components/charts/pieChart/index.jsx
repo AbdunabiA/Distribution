@@ -47,7 +47,7 @@ export function PieChart({
         {title ? <h1>{title}</h1> : null}
         {subtitle ? <p className={pieChart.subtitle}>{subtitle}</p> : null}
         <div className={pieChart.chart2}>
-          <Pie className={pieChart.pie} data={chartData} options={options} />
+          <Pie className={pieChart.pie} width={'100%'} height={'100%'} data={chartData} options={options} />
         </div>
         {textBottom ? (
           <p className={pieChart.text_bottom}>{textBottom}</p>
