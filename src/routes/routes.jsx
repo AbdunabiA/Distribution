@@ -17,6 +17,7 @@ const AdminArchive = lazy(() => import("pages/admin/archive"));
 //?MANAGER PAGES
 const ManagerArchive = lazy(() => import("pages/manager/archive/archive"));
 const ManagerBranches = lazy(() => import("pages/manager/branches/branches"));
+const ManagerBranch = lazy(() => import('pages/manager/branches/branch'))
 const ManagerClients = lazy(() => import("pages/manager/clients/clients"));
 const ManagerEmployees = lazy(() => import("pages/manager/employee/employees"));
 const ManagerProducts = lazy(() => import("pages/manager/products/products"));
@@ -118,6 +119,12 @@ export const pages = {
              path: "/",
              component: <ManagerBranches />,
              name: "Filiallar",
+             children:[
+              {
+                path:'/branches/:branchId',
+                component: <ManagerBranch/>,
+              }
+             ]
            },
            {
              path: "/employee",

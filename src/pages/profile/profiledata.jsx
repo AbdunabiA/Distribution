@@ -1,18 +1,21 @@
 import React from "react";
 import profiledataScss from "./profiledata.module.scss";
-import { Button } from "antd";
 import ProfileImage from "components/profileImage";
 
-export function ProfileData({ userProfile, buttons = null, height = null }) {
+ export function ProfileData({
+  userProfile,
+  buttons = null,
+  height = null
+}) {
   return (
     <div style={{ height: height }} className={profiledataScss.main_wrapper}>
       <div className={profiledataScss.second_wrapper}>
         <div>
           <h1 className={profiledataScss.name}>
-            {userProfile.data.name ? userProfile.data.name : null}
+            {userProfile.first_name + " " + userProfile.last_name}
           </h1>
           <p className={profiledataScss.lavozim}>
-            {userProfile.lavozim ? userProfile.lavozim : null}
+            {userProfile.role ? userProfile.role : null}
           </p>
         </div>
         <div>
@@ -21,48 +24,51 @@ export function ProfileData({ userProfile, buttons = null, height = null }) {
       </div>
       <div className={profiledataScss.third_wrapper}>
         <ul>
-          {userProfile.data.phone && userProfile.data.phone ? (
+          {userProfile.phone_number && userProfile.phone_number ? (
             <li>
-              {userProfile.data.phone ? <span>Tel:</span> : null}
-              {userProfile.data.phone ? userProfile.data.phone : null}
+              {userProfile.phone_number ? <span>Tel:</span> : null}
+              {userProfile.phone_number}
             </li>
           ) : null}
-          {userProfile.lavozim && userProfile.lavozim ? (
+          {userProfile.username && userProfile.username ? (
             <li>
-              {userProfile.lavozim ? <span>Lavozim:</span> : null}
-              {userProfile.lavozim ? userProfile.lavozim : null}
+              {userProfile.username ? <span>Username:</span> : null}
+              {userProfile.username}
             </li>
           ) : null}
-          {userProfile.salary && userProfile.salary ? (
+          {userProfile?.salary && userProfile?.salary ? (
             <li>
-              {userProfile.salary ? <span>Oylik:</span> : null}
-              {userProfile.salary ? userProfile.salary : null}
+              {userProfile?.salary ? <span>Oylik:</span> : null}
+              {userProfile?.salary}
             </li>
           ) : null}
-          {userProfile.data.status && userProfile.data.status ? (
+          {userProfile.status && userProfile.status ? (
             <li>
-              {userProfile.data.status ? (
-                <span>Status:{userProfile.data.status}</span>
-              ) : null}
+              {userProfile.status ? <span>Status:</span> : null}
+              {userProfile.status}
             </li>
           ) : null}
-          {userProfile.byWhichPerson && userProfile.byWhichPerson ? (
+          {userProfile.created_by && userProfile.created_by ? (
             <li>
-              {userProfile.byWhichPerson ? (
+              {userProfile.created_by ? (
                 <span>Kim tomonidan tizimga kiritilgan:</span>
               ) : null}
-              {userProfile.byWhichPerson ? userProfile.byWhichPerson : null}
+              {userProfile.created_by}
             </li>
           ) : null}
         </ul>
         <ul>
           <li>
-            {userProfile.data.address ? <span>Adress:</span> : null}
-            {userProfile.data.address ? userProfile.data.address : null}
+            {userProfile.address ? <span>Adres:</span> : null}
+            {userProfile.address ? userProfile.address : null}
           </li>
           <li>
-            {userProfile.data.warehouse ? <span>Filial:</span> : null}
-            {userProfile.data.warehouse ? userProfile.data.warehouse : null}
+            {userProfile.warehouse ? <span>Filial:</span> : null}
+            {userProfile.warehouse ? userProfile.warehouse : null}
+          </li>
+          <li>
+            {userProfile.birth_date ? <span>Tugulgan sana:</span> : null}
+            {userProfile.birth_date ? userProfile.birth_date : null}
           </li>
           <li>
             {userProfile.KPI ? <span>KPI:</span> : null}

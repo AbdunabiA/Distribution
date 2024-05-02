@@ -10,6 +10,7 @@ $xxxxl: 1920px;
   background-color: #fff;
   border-radius: 20px;
   padding: 28px 30px 20px 30px;
+  overflow-x: auto;
   @media (max-width: $sm) {
     padding: 20px 16px 10px 16px;
   }
@@ -24,8 +25,11 @@ $xxxxl: 1920px;
       font-style: normal;
       font-weight: 600;
       line-height: 120%;
+      @media (max-width:$xxxl) {
+        font-size: 30px;
+      }
       @media (max-width: $xl) {
-        font-size: 32px;
+        font-size: 28px;
       }
       @media (max-width: $lg) {
         font-size: 25px;

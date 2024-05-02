@@ -5,12 +5,12 @@ import DateFilter from "components/dateFilter";
 import { useState } from "react";
 import { ProfileData } from "./profiledata";
 import { Button } from "antd";
-function Profile({
-  hasRightTable = true,
-  hasTableBottom = true,
-  hasDateFilter = true,
-}) {
+import { useSelector } from "react-redux";
+import { GetAll } from "modules";
+function Profile() {
   const [dateValue, setDateValue] = useState("");
+  const { data: userData } = useSelector((store) => store.auth);
+  console.log(userData);
   const onChange = (value) => {
     setDateValue(value);
     console.log(dateValue);
@@ -215,71 +215,64 @@ function Profile({
       sorter: (a, b) => a.jami - b.jami,
     },
   ];
-  const userProfile = {
-    name: "Abdunabi Abduvaxobov",
-    job: "Ombor manageri",
-    profileImg:
-      "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg",
-    phoneNumber: "+998905200350",
-    lavozim: "Ombor manageri",
-    salary: 10000000,
-    status: true,
-    adress: "Shifokorlar 70/89",
-    branch: "Fergana branch",
-    KPI: 1000000,
-  };
   return (
-    <div className="container">
-      <div className={profileScss.biggest_wrapper}>
-        <div className={profileScss.flex_div}>
-          <ProfileData
-            userProfile={userProfile}
-            buttons={[<Button type="primary">O’zgartirish</Button>]}
-          />
-          <div className={profileScss.table}>
-            {hasRightTable && hasRightTable ? (
-              <CustomTable
-                {...{
-                  columns: columns1,
-                  items: items1,
-                  title: "Topshiriqlar",
-                  minHeigth: "230px",
-                  hasStatus: true,
-                  scrollY: true,
-                  height: 230,
-                  hideColumns: true,
-                  hasPagination: true,
-                }}
-              />
-            ) : null}
-          </div>
-        </div>
-        <div>
-          <div className={profileScss.date}>
-            {hasDateFilter && hasDateFilter ? (
-              <DateFilter onChange={onchange} value={dateValue} />
-            ) : null}
-            <div style={{ marginTop: "20px" }}>
-              {hasTableBottom && hasTableBottom ? (
-                <CustomTable
-                  {...{
-                    columns: columns2,
-                    items: items2,
-                    title: "Maosh to’lo’vi ",
-                    minHeigth: "230px",
-                    hasStatus: true,
-                    scrollY: true,
-                    height: 230,
-                    hideColumns: true,
-                    hasPagination: true,
-                  }}
+    <GetAll
+      url={`/users/details/token/${userData.access}`}
+      queryKey={["ProfileData"]}
+    >
+      {({ data, isLoading, isError, error }) => {
+        if (isLoading) return <h1>Loading</h1>;
+        if (isError) return <h1>Error</h1>;
+        console.log(data);
+        return (
+          <div className="container">
+            <div className={profileScss.biggest_wrapper}>
+              <div className={profileScss.flex_div}>
+                <ProfileData
+                  userProfile={data?.data}
+                  buttons={[<Button type="primary" key={'1'}>O’zgartirish</Button>]}
                 />
-              ) : null}
+                <div className={profileScss.table}>
+                  <CustomTable
+                    {...{
+                      columns: columns1,
+                      items: items1,
+                      title: "Topshiriqlar",
+                      minHeigth: "230px",
+                      hasStatus: true,
+                      scrollY: true,
+                      height: 230,
+                      hideColumns: true,
+                      hasPagination: true,
+                    }}
+                  />
+                </div>
+              </div>
+              <div>
+                <div className={profileScss.date}>
+                  <DateFilter onChange={onchange} value={dateValue} />
+                  <div style={{ marginTop: "20px" }}>
+                    <CustomTable
+                      {...{
+                        columns: columns2,
+                        items: items2,
+                        title: "Maosh to’lo’vi ",
+                        minHeigth: "230px",
+                        hasStatus: true,
+                        scrollY: true,
+                        height: 230,
+                        hideColumns: true,
+                        hasPagination: true,
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        );
+      }}
+    </GetAll>
   );
 }
 export default Profile;

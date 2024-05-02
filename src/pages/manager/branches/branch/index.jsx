@@ -1,22 +1,80 @@
 import { GetAll } from "modules"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import s from './branch.module.scss'
+import TasksIcon from 'assets/icons/Tasks.svg?react'
+import ProductsIcon from 'assets/icons/Products.svg?react'
+import PeopleIcon from 'assets/icons/People.svg?react'
+import OrdersIcon from 'assets/icons/Orders.svg?react'
+import Cards from "components/cards"
 
 
 const ManagerBranch = () => {
     const {branchId} = useParams()
+    const navigate = useNavigate()
   return (
     <GetAll
-        url={'/'}
+        url={`/warehouses/details/${branchId}`}
+        queryKey={['wahousesdetails']}
     >
         {({data, isLoading, isError, error})=>{
-
+            
             if(isLoading) return <h1>Loading</h1>
             if(isError) return <h2>Error</h2>
+            console.log(data.data);
+            const {warehouse, counts} = data?.data
+            const cardsData = [
+              {
+                cart_text: "Topshiriqlar soni",
+                total_amount: counts.tasks,
+                icon: TasksIcon,
+                currency: "ta",
+                onClick: () => navigate(`/branche/tasks/${branchId}`),
+              },
+              {
+                cart_text: "Mahsulotlar soni",
+                total_amount: counts.warehouse_products,
+                icon: ProductsIcon,
+                currency: "ta",
+                onClick: () => navigate(`/branche/products/${branchId}`),
+              },
+              {
+                cart_text: "Mijozlar soni",
+                total_amount: counts.customers,
+                icon: PeopleIcon,
+                currency: "ta",
+                onClick: () => navigate(`/branche/clients/${branchId}`),
+              },
+              {
+                cart_text: "Xodimlar soni",
+                total_amount: counts.users,
+                icon: PeopleIcon,
+                currency: "ta",
+                onClick: () => navigate(`/branche/employees/${branchId}`),
+              },
+              {
+                cart_text: "Buyurtmalar soni",
+                total_amount: counts.orders,
+                icon: OrdersIcon,
+                currency: "ta",
+                onClick: () => navigate(`/branche/orders/${branchId}`),
+              },
+            ];
             return (
-                <div className="container">
-
+              <div className="container">
+                <div className={s.warehouseDetailsWrapper}>
+                  <div className={s.warehouseDetails}>
+                    <p>{warehouse.name}</p>
+                    <div>
+                      <a href={`tel:${warehouse.phone}`}>Tel:{warehouse.phone}</a>
+                        <p>Manzil:{warehouse.address}</p>
+                        <p>Status:{warehouse.status}</p>
+                    </div>
+                  </div>
+                  <div></div>
                 </div>
-            )
+                <Cards data={cardsData}/>
+              </div>
+            );
         }}
     </GetAll>
   )
