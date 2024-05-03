@@ -84,24 +84,44 @@ export const CreateTask = ({ data, setModal }) => {
       {({handleSubmit, isLoading, values}) => {
         console.log(values?.role);
         return (
-          <div>
-            <p>{`Topshiriq ${data ? "o'zgartirish" : "yaratish"}`}</p>
-            <CustomTextArea name="text" placeholder="Topshiriq tavsifi" />
-            <CustomInput type="date" name="deadline" placeholder={"Topshiriq deadline"} />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              padding: "30px",
+            }}
+          >
+            <p className="form-title">{`Topshiriq ${
+              data ? "o'zgartirish" : "yaratish"
+            }`}</p>
+            <CustomTextArea
+              name="text"
+              label={"Topshiriq tavsifi"}
+              placeholder="Topshiriq tavsifi"
+            />
+            <CustomInput
+              type="date"
+              name="deadline"
+              label={"Topshiriq deadline"}
+              placeholder={"Topshiriq deadline"}
+            />
             <CustomSelect
               name="role"
+              label={"Lavozim"}
               placeholder={"Lavozim"}
               options={userData.role === "manager" ? options.slice(2) : options}
             />
             <AsyncSelect
               name="task_executors"
               url={`/users/all/`}
-              params={{extra:{role:values?.role}}}
+              params={{ extra: { role: values?.role } }}
               queryKey={["/users/all/?role"]}
               optionLabel={(data) => data?.first_name + " " + data?.last_name}
               optionValue={"id"}
               mode="multiple"
               disabled={!values?.role}
+              label={"Bajaruvchilar"}
               placeholder={"Bajaruvchilar"}
             />
             <div>

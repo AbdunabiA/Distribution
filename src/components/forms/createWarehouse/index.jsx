@@ -6,7 +6,7 @@ import { ContainerForm } from "modules";
 import { toast } from "sonner";
 
 export const CreateWarehouse = ({ data, setModal }) => {
-    const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   return (
     <ContainerForm
       url="/warehouses/all/"
@@ -47,15 +47,40 @@ export const CreateWarehouse = ({ data, setModal }) => {
       }}
       onError={() => toast.error("Filial yaratilmadi")}
     >
-      {({handleSubmit, isLoading}) => {
+      {({ handleSubmit, isLoading }) => {
         return (
-          <div>
-            <p>{`Filial ${data ? "o'zgartirish" : "yaratish"}`}</p>
-            <CustomInput name="name" placeholder={"Filial nomi"} />
-            <InputMask name="phone" mask={"+998 (99) 999 99 99"} />
-            <CustomInput name="address" placeholder={"Filial manzili"} />
-            <div>
-              <Button onClick={handleSubmit} type="primary" disabled={isLoading}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              padding: "30px",
+            }}
+          >
+            <p className="form-title">{`Filial ${
+              data ? "o'zgartirish" : "yaratish"
+            }`}</p>
+            <CustomInput
+              name="name"
+              label={"Filial nomi"}
+              placeholder={"Filial nomi"}
+            />
+            <InputMask
+              name="phone"
+              label={"Tel. raqam"}
+              mask={"+998 (99) 999 99 99"}
+            />
+            <CustomInput
+              name="address"
+              label={"Filial manzili"}
+              placeholder={"Filial manzili"}
+            />
+            <div className="form-button-wrapper">
+              <Button
+                onClick={handleSubmit}
+                type="primary"
+                disabled={isLoading}
+              >
                 Saqlash
               </Button>
             </div>

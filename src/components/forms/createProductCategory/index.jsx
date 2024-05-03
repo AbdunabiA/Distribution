@@ -35,15 +35,21 @@ export const CreateProductCategory = ({data, setModal}) => {
         return (
           <div
             style={{
-              padding: "30px",
               display: "flex",
               flexDirection: "column",
-              gap: "20px",
+              gap: "10px",
+              padding: "30px",
             }}
           >
-            <h2>{data ? "Kategoriya o'zgartirish" : "Kategoriya yaratish"}</h2>
-            <CustomInput placeholder="kategoriya nomi" name="name" />
-            <div style={{ display: "flex", justifyContent: "end" }}>
+            <p className="form-title">
+              {data ? "Kategoriya o'zgartirish" : "Kategoriya yaratish"}
+            </p>
+            <CustomInput
+              label={"Kategoriya nomi"}
+              placeholder="Kategoriya nomi"
+              name="name"
+            />
+            <div className="form-button-wrapper">
               <Button
                 type="primary"
                 onClick={handleSubmit}

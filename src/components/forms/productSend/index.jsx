@@ -41,7 +41,7 @@ export const ProductSend = ({ data, setModal }) => {
       {({ handleSubmit, isLoading }) => {
         return (
           <div>
-            <p>{data?.name}ga mahsulot yuborish</p>
+            <p className="form-title">{data?.name}ga mahsulot yuborish</p>
             <AsyncSelect
               name="product"
               placeholder={"Mahsulot"}
@@ -49,6 +49,7 @@ export const ProductSend = ({ data, setModal }) => {
               queryKey={["/products/all/"]}
               optionLabel={"name"}
               optionValue={"id"}
+              label={"Mahsulot"}
             />
             <AsyncSelect
               name="warehouse"
@@ -57,19 +58,26 @@ export const ProductSend = ({ data, setModal }) => {
               queryKey={["/warehouses/all/"]}
               optionLabel={"name"}
               optionValue={"id"}
+              label={"Filial"}
             />
             <CustomInput
               type="number"
               name="amount"
+              label={"Mahsulot miqdori"}
               placeholder={"Mahsulot miqdori"}
             />
             <CustomInput
               type="number"
               name="invalids_amount"
+              label={"Yaroqsiz mahsulot miqdori"}
               placeholder={"Yaroqsiz mahsulot miqdori"}
             />
-            <CustomTextArea name="comment" placeholder="Komentariy" />
-            <div>
+            <CustomTextArea
+              name="comment"
+              label={"Komentariy"}
+              placeholder="Komentariy"
+            />
+            <div className="form-button-wrapper">
               <Button
                 type="primary"
                 onClick={handleSubmit}
