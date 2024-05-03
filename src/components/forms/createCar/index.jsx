@@ -35,10 +35,20 @@ export const CreateCar = ({ data, setModal }) => {
     >
       {({ handleSubmit, isLoading }) => {
         return (
-          <div>
-            <p>{data ? "Avtomashina o'zgartirish" : "Avtomashina qo'shish"}</p>
-            <CustomInput name="type" placeholder={"Mashina markasi"} />
-            <CustomInput name="number" placeholder={"Mashina raqami"} />
+          <div style={{display:"flex", flexDirection:"column", gap:"10px", padding:"30px"}}>
+            <p className="form-title">
+              {data ? "Avtomashina o'zgartirish" : "Avtomashina qo'shish"}
+            </p>
+            <CustomInput
+              name="type"
+              label={"Mashina markasi"}
+              placeholder={"Mashina markasi"}
+            />
+            <CustomInput
+              name="number"
+              label={"Mashina raqami"}
+              placeholder={"Mashina raqami"}
+            />
             <AsyncSelect
               optionLabel={(data) => data?.first_name + " " + data?.last_name}
               optionValue={"id"}
@@ -46,9 +56,10 @@ export const CreateCar = ({ data, setModal }) => {
               url={"/users/all"}
               params={{ extra: { role: "driver" } }}
               name="driver"
+              label={"Yetkazib beruvchi"}
               placeholder="Yetkazib beruvchi"
             />
-            <div>
+            <div className="form-button-wrapper">
               <Button
                 onClick={handleSubmit}
                 type="primary"

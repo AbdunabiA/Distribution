@@ -48,11 +48,29 @@ export const CreateProduct = ({data, setModal}) => {
     >
       {({ handleSubmit, isLoading }) => {
         return (
-          <div>
-            <h2>{data ? "Mahsulot o'zgartirish" : "Mahsulot yaratish"}</h2>
-            <CustomInput name="name" placeholder="Nomi" />
-            <CustomTextArea name="about" placeholder="Tavsifi" />
-            <CustomInput type="number" name="price" placeholder="Narxi" />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              padding: "30px",
+            }}
+          >
+            <p className="form-title">
+              {data ? "Mahsulot o'zgartirish" : "Mahsulot yaratish"}
+            </p>
+            <CustomInput name="name" label={"Nomi"} placeholder="Nomi" />
+            <CustomTextArea
+              name="about"
+              label={"Tavsifi"}
+              placeholder="Tavsifi"
+            />
+            <CustomInput
+              type="number"
+              name="price"
+              label={"Narxi"}
+              placeholder="Narxi"
+            />
             <AsyncSelect
               optionLabel={"name"}
               optionValue={"id"}
@@ -60,8 +78,9 @@ export const CreateProduct = ({data, setModal}) => {
               url={"/categories/"}
               name="category"
               placeholder="Mahsulot katego'riyasi"
+              label={"Mahsulot katego'riyasi"}
             />
-            <div style={{ display: "flex", justifyContent: "end" }}>
+            <div className="form-button-wrapper">
               <Button
                 type="primary"
                 onClick={handleSubmit}

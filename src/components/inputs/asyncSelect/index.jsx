@@ -10,6 +10,7 @@ export const AsyncSelect = ({
          optionLabel,
          optionValue,
          disabled = false,
+         label=null, 
          mode = 'default',
          ...props
        }) => {
@@ -46,28 +47,31 @@ export const AsyncSelect = ({
              }) => {
                return (
                  <div>
-                   <Select
-                     {...field}
-                     onChange={(e) => setFieldValue(props.name, e)}
-                     status={meta.touched && meta.error && "error"}
-                     disabled={disabled}
-                     mode={mode}
-                     showSearch
-                     placeholder={props.placeholder}
-                     optionFilterProp="children"
-                     filterOption={(input, option) =>
-                       option.label
-                         .toLowerCase()
-                         .indexOf(input.toLowerCase()) >= 0
-                     }
-                     loading={isLoading}
-                     notFoundContent={
-                       isLoading ? <Spin size="small" /> : "Not Found"
-                     }
-                     {...props}
-                     options={options}
-                     style={{ minWidth: "300px", width: "100%" }}
-                   />
+                   <label>
+                    {label && <span className="label">{label}</span>}
+                     <Select
+                       {...field}
+                       onChange={(e) => setFieldValue(props.name, e)}
+                       status={meta.touched && meta.error && "error"}
+                       disabled={disabled}
+                       mode={mode}
+                       showSearch
+                       placeholder={props.placeholder}
+                       optionFilterProp="children"
+                       filterOption={(input, option) =>
+                         option.label
+                           .toLowerCase()
+                           .indexOf(input.toLowerCase()) >= 0
+                       }
+                       loading={isLoading}
+                       notFoundContent={
+                         isLoading ? <Spin size="small" /> : "Not Found"
+                       }
+                       {...props}
+                       options={options}
+                       style={{ minWidth: "300px", width: "100%" }}
+                     />
+                   </label>
                    {meta.touched && meta.error && (
                      <small style={{ color: "red" }}>{meta.error}</small>
                    )}

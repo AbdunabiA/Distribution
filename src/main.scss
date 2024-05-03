@@ -246,3 +246,22 @@ $xxxxl: 1920px;
   align-items: center;
   justify-content: center;
 }
+
+.label{
+  color: #9cb1c9;
+}
+
+
+.form-title{
+  font-size: 22px;
+  font-weight: 600;
+  color: #3c518a;
+  text-align: center;
+}
+
+.form-button-wrapper{
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  margin-top: 10px;
+}

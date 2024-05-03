@@ -1,12 +1,17 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "antd";
-import { AsyncSelect, CustomInput, CustomTextArea, InputMask } from "components/inputs";
+import {
+  AsyncSelect,
+  CustomInput,
+  CustomTextArea,
+  InputMask,
+} from "components/inputs";
 import { get } from "lodash";
 import { ContainerForm } from "modules";
 import { toast } from "sonner";
 
-export const CreateClient = ({data, setModal}) => {
-  const queryClient = useQueryClient()
+export const CreateClient = ({ data, setModal }) => {
+  const queryClient = useQueryClient();
   return (
     <ContainerForm
       fields={[
@@ -27,7 +32,7 @@ export const CreateClient = ({data, setModal}) => {
         {
           name: "address",
           required: true,
-          value: get(data, "address",""),
+          value: get(data, "address", ""),
         },
         {
           name: "status",
@@ -39,10 +44,10 @@ export const CreateClient = ({data, setModal}) => {
           value: get(data, "warehouse", null),
         },
       ]}
-      url={`/customers/${data ? `${data.id}/detail`: "all"}/`}
+      url={`/customers/${data ? `${data.id}/detail` : "all"}/`}
       onSuccess={() => {
         queryClient.invalidateQueries("/customers/all/");
-        setModal({ isOpen: false, form: null, data: null });  
+        setModal({ isOpen: false, form: null, data: null });
         toast.success(`Client ${data ? "o'zgartirildi" : "yaratildi"}`);
       }}
       onError={() =>
@@ -52,20 +57,34 @@ export const CreateClient = ({data, setModal}) => {
     >
       {({ handleSubmit, isLoading }) => {
         return (
-          <div>
-            <h2>{data ? "Mijozni o'zgartirish" : "Mijoz yaratish"}</h2>
-            <CustomInput name="name" placeholder="Ism" />
-            <InputMask name="phone" mask="+998 (99) 999 99 99"/>
-            <CustomInput name="address" placeholder="Manzil" />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              padding: "30px",
+            }}
+          >
+            <p className="form-title">
+              {data ? "Mijozni o'zgartirish" : "Mijoz yaratish"}
+            </p>
+            <CustomInput name="name" label={"Ism"} placeholder="Ism" />
+            <InputMask
+              name="phone"
+              label={"Tel. raqam"}
+              mask="+998 (99) 999 99 99"
+            />
+            <CustomInput name="address" label={"Manzil"} placeholder="Manzil" />
             <AsyncSelect
               optionLabel={"name"}
               optionValue={"id"}
               queryKey={"warehouses"}
               url={"/warehouses/all"}
               name="warehouse"
-              placeholder="Client Filiali"
+              label={"Mijoz filiali"}
+              placeholder="Mijoz filiali"
             />
-            <div style={{ display: "flex", justifyContent: "end" }}>
+            <div className="form-input-wrapper">
               <Button
                 type="primary"
                 onClick={handleSubmit}
@@ -80,4 +99,3 @@ export const CreateClient = ({data, setModal}) => {
     </ContainerForm>
   );
 };
-

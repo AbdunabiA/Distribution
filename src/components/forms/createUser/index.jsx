@@ -121,39 +121,65 @@ export const CreateUserForm = ({ data, setModal }) => {
     >
       {({ handleSubmit, isLoading }) => {
         return (
-          <div>
-            <h2>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              padding: "30px",
+            }}
+          >
+            <p className="form-title">
               {data ? "Fouydalanuvchi ozgartirish" : "Fouydalanuvchi yaratish"}
-            </h2>
-            <CustomInput name="first_name" placeholder="Ism" />
-            <CustomInput name="last_name" placeholder="Familiya" />
-            <CustomInput name="username" placeholder="Username" />
-            <CustomInput name="password" placeholder="Parol" />
+            </p>
+            <CustomInput name="first_name" label={"Ism"} placeholder="Ism" />
+            <CustomInput
+              name="last_name"
+              label={"Familiya"}
+              placeholder="Familiya"
+            />
+            <CustomInput
+              name="username"
+              label={"Username"}
+              placeholder="Username"
+            />
+            <CustomInput name="password" label={"Parol"} placeholder="Parol" />
             <CustomSelect
               name="role"
+              label={"Lavozimi"}
               placeholder="Lavozimi"
-              options={
-                userData.role === "manager" ? options.slice(2) : options
-              }
+              options={userData.role === "manager" ? options.slice(2) : options}
             />
-            <InputMask name="phone_number" mask="+998 (99) 999 99 99" />
+            <InputMask
+              name="phone_number"
+              label={"Tel. raqam"}
+              mask="+998 (99) 999 99 99"
+            />
             <AsyncSelect
               name="warehouse"
               url={"/warehouses/all/"}
               queryKey={["/warehouses/all/"]}
               optionLabel={"name"}
               optionValue={"id"}
+              label={"Filial"}
               placeholder="Filial"
             />
-            <CustomInput name="address" placeholder="Manzil" />
+            <CustomInput name="address" label={"Manzil"} placeholder="Manzil" />
             <CustomInput
               name="birth_date"
-              placeholder="Tugilgan sana"
+              label={"Tug'ilgan sana"}
+              placeholder="Tug'ilgan sana"
               type="date"
             />
-            <Button type="primary" onClick={handleSubmit} disabled={isLoading}>
-              Saqlash
-            </Button>
+            <div className="form-button-wrapper">
+              <Button
+                type="primary"
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
+                Saqlash
+              </Button>
+            </div>
           </div>
         );
       }}
