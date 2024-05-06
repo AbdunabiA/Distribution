@@ -17,7 +17,7 @@ const AdminArchive = lazy(() => import("pages/admin/archive"));
 //?MANAGER PAGES
 const ManagerArchive = lazy(() => import("pages/manager/archive/archive"));
 const ManagerBranches = lazy(() => import("pages/manager/branches/branches"));
-const ManagerBranch = lazy(() => import('pages/manager/branches/branch'))
+const ManagerBranch = lazy(() => import("pages/manager/branches/branch"));
 const ManagerClients = lazy(() => import("pages/manager/clients/clients"));
 const ManagerEmployees = lazy(() => import("pages/manager/employee/employees"));
 const ManagerProducts = lazy(() => import("pages/manager/products/products"));
@@ -26,6 +26,19 @@ const ManagerProduct = lazy(() => import("pages/manager/products/product"));
 const ManagerSingleClient = lazy(() =>
   import("pages/manager/clients/singleClient")
 );
+const ManagerBranchTasks = lazy(() =>
+  import("pages/manager/branches/branchTasks")
+);
+const ManagerBranchProducts = lazy(() =>
+  import("pages/manager/branches/branchProducts")
+);
+const ManagerBranchClients = lazy(() =>
+  import("pages/manager/branches/branchClients")
+);
+const ManagerBranchEmployees = lazy(() =>
+  import("pages/manager/branches/branchEmployees")
+);
+
 
 //?BRANCH DIRECTOR PAGES
 const BranchDirectorProducts = lazy(() =>
@@ -46,19 +59,23 @@ const BranchDirectorOrders = lazy(() =>
 
 //?OPERATOR PAGES
 const OperatorOrders = lazy(() => import("pages/operator/orders/orders"));
-const OperatorProducts = lazy(()=>import('pages/operator/products/products'))
+const OperatorProducts = lazy(() => import("pages/operator/products/products"));
 const OperatorClients = lazy(() => import("pages/operator/clients/clients"));
 const OperatorDrivers = lazy(() => import("pages/operator/drivers/drivers"));
 
 //?OPERATOR PAGES
-const AgentTasks = lazy(()=>import('pages/agent/tasks/tasks'))
-const AgentClients = lazy(()=>import('pages/agent/clients/clients'))
-const AgentProducts = lazy(()=>import('pages/agent/products/products'))
+const AgentTasks = lazy(() => import("pages/agent/tasks/tasks"));
+const AgentClients = lazy(() => import("pages/agent/clients/clients"));
+const AgentProducts = lazy(() => import("pages/agent/products/products"));
 
 //?SUPERVISOR PAGES
-const SupervisorTasks = (lazy(()=>import('pages/supervisor/tasks/tasks')))
-const SupervisorClients = lazy(() => import("pages/supervisor/clients/clients"));
-const SupervisorProducts = lazy(() => import("pages/supervisor/products/products"));
+const SupervisorTasks = lazy(() => import("pages/supervisor/tasks/tasks"));
+const SupervisorClients = lazy(() =>
+  import("pages/supervisor/clients/clients")
+);
+const SupervisorProducts = lazy(() =>
+  import("pages/supervisor/products/products")
+);
 const SupervisorAgents = lazy(() => import("pages/supervisor/agents/agents"));
 
 export const pages = {
@@ -71,6 +88,12 @@ export const pages = {
                {
                  path: "/branches/:branchId",
                  component: <ManagerBranch />,
+                 children: [
+                   {
+                     path: "/branches/:branchId/tasks",
+                     component: <ManagerBranchTasks />,
+                   },
+                 ],
                },
              ],
            },
@@ -127,6 +150,24 @@ export const pages = {
                {
                  path: "/branches/:branchId",
                  component: <ManagerBranch />,
+                 children: [
+                   {
+                     path: "/branches/:branchId/tasks",
+                     component: <ManagerBranchTasks />,
+                   },
+                   {
+                     path: "/branches/:branchId/products",
+                     component: <ManagerBranchProducts />,
+                   },
+                   {
+                     path: "/branches/:branchId/clients",
+                     component: <ManagerBranchClients />,
+                   },
+                   {
+                     path: "/branches/:branchId/employees",
+                     component: <ManagerBranchEmployees />,
+                   },
+                 ],
                },
              ],
            },

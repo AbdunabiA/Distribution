@@ -4,13 +4,15 @@ import CustomTable from "components/table";
 import DateFilter from "components/dateFilter";
 import { useState } from "react";
 import { ProfileData } from "./profiledata";
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import { useSelector } from "react-redux";
 import { GetAll } from "modules";
+import { ChangePassword } from "components/forms";
 function Profile() {
   const [dateValue, setDateValue] = useState("");
   const { data: userData } = useSelector((store) => store.auth);
-  console.log(userData);
+  const [passwordModal, setPasswordModal] = useState({ isOpen: false });
+  // console.log(userData);
   const onChange = (value) => {
     setDateValue(value);
     console.log(dateValue);
@@ -226,11 +228,31 @@ function Profile() {
         console.log(data);
         return (
           <div className="container">
+            <Modal
+              open={passwordModal.isOpen}
+              centered
+              destroyOnClose
+              footer={false}
+              onCancel={()=>setPasswordModal({isOpen:false})}
+            >
+              <ChangePassword setModal={setPasswordModal} />
+            </Modal>
             <div className={profileScss.biggest_wrapper}>
               <div className={profileScss.flex_div}>
                 <ProfileData
                   userProfile={data?.data}
-                  buttons={[<Button type="primary" key={'1'}>O’zgartirish</Button>]}
+                  buttons={[
+                    <Button type="primary" key={"1"}>
+                      O’zgartirish
+                    </Button>,
+                    <Button
+                      type="primary"
+                      key={"2"}
+                      onClick={() => setPasswordModal({ isOpen: true })}
+                    >
+                      Parol o'zgartirish
+                    </Button>,
+                  ]}
                 />
                 <div className={profileScss.table}>
                   <CustomTable

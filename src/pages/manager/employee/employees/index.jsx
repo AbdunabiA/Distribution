@@ -81,10 +81,8 @@ const ManagerEmployees = () => {
                 hideColumns
                 hasDelete
                 hasUpdate
-                onRow={(data, index) => ({
-                  onClick: () => navigate(`/employee/${data.id}`),
-                  style: { cursor: "pointer" },
-                })}
+                updateAction={(data) => setUserModal({isOpen:true, data:data})}
+                onRowNavigationUrl={'/employees/'}
                 isLoading={isLoading}
                 items={data?.data}
                 buttons={[
