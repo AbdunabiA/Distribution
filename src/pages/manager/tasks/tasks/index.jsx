@@ -144,7 +144,8 @@ const ManagerTasks = () => {
                 // }),
                 // updateAction: (data) =>
                 //   setModal({ isOpen: true, form: "client", data: data }),
-                // scrollY: true,
+                scrollY: true,
+                height:250,
                 // hasPagination: true,
               }}
             />
