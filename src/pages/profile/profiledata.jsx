@@ -26,10 +26,10 @@ import ProfileImage from "components/profileImage";
       </div>
       <div className={profiledataScss.third_wrapper}>
         <ul>
-          {userProfile.phone_number && userProfile.phone_number ? (
+          {userProfile.phone_number || userProfile.phone && userProfile.phone_number || userProfile.phone ? (
             <li>
-              {userProfile.phone_number ? <span>Tel:</span> : null}
-              {userProfile.phone_number}
+              {userProfile.phone_number || userProfile.phone ? <span>Tel:</span> : null}
+              {userProfile.phone_number || userProfile.phone}
             </li>
           ) : null}
           {userProfile.username && userProfile.username ? (

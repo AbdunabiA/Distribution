@@ -118,6 +118,7 @@ const ManagerSingleClient = () => {
     url: `/customers/${clintId}/detail/`,
     queryKey: [`/customers/${clintId}/detail/`],
   });
+  console.log(data);
   // console.log(data.data);
   return (
     <>

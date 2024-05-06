@@ -8,130 +8,30 @@ import { Button, Modal } from "antd";
 import { useSelector } from "react-redux";
 import { GetAll } from "modules";
 import { ChangePassword } from "components/forms";
+import { useGet } from "crud";
+const columns1 = [
+  {
+    key: 1,
+    title: "Task",
+    dataIndex: "text",
+  },
+  {
+    key: 2,
+    title: "Deadline",
+    dataIndex: "deadline",
+    sorter: (a, b) => a.deadline.localeCompare(b.deadline),
+  },
+];
 function Profile() {
   const [dateValue, setDateValue] = useState("");
   const { data: userData } = useSelector((store) => store.auth);
   const [passwordModal, setPasswordModal] = useState({ isOpen: false });
   // console.log(userData);
+  let id = userData.id
   const onChange = (value) => {
     setDateValue(value);
     console.log(dateValue);
   };
-  const columns1 = [
-    {
-      key: 1,
-      title: "task",
-      dataIndex: "task",
-      sorter: (a, b) => a.task.localeCompare(b.task),
-    },
-    {
-      key: 2,
-      title: "date",
-      dataIndex: "date",
-      sorter: (a, b) => {
-        const dateA = new Date(
-          a.date
-            .split(".")
-            .reverse()
-            .join("-")
-        );
-        const dateB = new Date(
-          b.date
-            .split(".")
-            .reverse()
-            .join("-")
-        );
-        return dateA - dateB;
-      },
-      filters: [
-        {
-          text: "Newest",
-          value: "newest",
-        },
-      ],
-      onFilter: (value, record) => {
-        if (value === "newest") {
-          const today = new Date();
-          const recordDate = new Date(
-            record.date
-              .split(".")
-              .reverse()
-              .join("-")
-          );
-          return recordDate >= today;
-        } else {
-          return record.address.startsWith(value);
-        }
-      },
-      filterSearch: true,
-      width: "30%",
-      responsive: ["md"],
-    },
-  ];
-  const items1 = [
-    {
-      id: "1",
-      task: "Xodimlar bn uchrashuv",
-      date: "14.03.24",
-      address: "New York No. 1 Lake Park",
-    },
-    {
-      id: "2",
-      task: "Suxbat qilish",
-      date: "15.03.24",
-      address: "London No. 1 Lake Park",
-    },
-    {
-      id: "3",
-      task: "Mahsulotni sotish",
-      date: "16.03.24",
-      address: "London No. 1 Lake Park",
-    },
-
-    {
-      id: "4",
-      task: "Mahsulotni sotib olish",
-      date: "17.03.24",
-      address: "London No. 1 Lake Park",
-    },
-    {
-      id: "5",
-      task: "Mahsulotni tanlash",
-      date: "13.03.24",
-      address: "London No. 1 Lake Park",
-    },
-
-    {
-      id: "6",
-      task: "Mahsulotni qidirish",
-      date: "14.03.24",
-      address: "London No. 1 Lake Park",
-    },
-    {
-      id: "7",
-      task: "Xodimlar bn ishlash",
-      date: "14.03.24",
-      address: "London No. 1 Lake Park",
-    },
-    {
-      id: "8",
-      task: "Ularga vazifa berish",
-      date: "14.03.24",
-      address: "London No. 1 Lake Park",
-    },
-    {
-      id: "9",
-      task: "Vazifani bajartirish",
-      date: "14.03.24",
-      address: "London No. 1 Lake Park",
-    },
-    {
-      id: "10",
-      task: "Ishlash",
-      date: "29.03.24",
-      address: "London No. 1 Lake Park",
-    },
-  ];
   const items2 = [
     {
       id: "1",
@@ -217,15 +117,28 @@ function Profile() {
       sorter: (a, b) => a.jami - b.jami,
     },
   ];
+
+  const { data: olinganTaskData, isLoading: berilganTasksLoading } = useGet({
+    url: `/users/olgan_tasklari/${id}`,
+    queryKey: [`/users/olgan_tasklari/${id}`],
+  });
+
+
+  console.log(olinganTaskData, 'hello');
+
+
   return (
     <GetAll
       url={`/users/details/token/${userData.access}`}
       queryKey={["ProfileData"]}
     >
-      {({ data, isLoading, isError, error }) => {
+
+      {({ data: userProfileData, isLoading, isError, error }) => {
         if (isLoading) return <h1>Loading</h1>;
         if (isError) return <h1>Error</h1>;
-        console.log(data);
+
+
+
         return (
           <div className="container">
             <Modal
@@ -239,8 +152,8 @@ function Profile() {
             </Modal>
             <div className={profileScss.biggest_wrapper}>
               <div className={profileScss.flex_div}>
-                <ProfileData
-                  userProfile={data?.data}
+                <ProfileData height={'495px'}
+                  userProfile={userProfileData?.data}
                   buttons={[
                     <Button type="primary" key={"1"}>
                       O’zgartirish
@@ -258,14 +171,14 @@ function Profile() {
                   <CustomTable
                     {...{
                       columns: columns1,
-                      items: items1,
+                      items: olinganTaskData?.data,
                       title: "Topshiriqlar",
-                      minHeigth: "230px",
+                      minHeight: 340,
                       hasStatus: true,
-                      scrollY: true,
-                      height: 230,
+                      // scrollY: true,
+                      height: 285,
                       hideColumns: true,
-                      hasPagination: true,
+                      // hasPagination: true,
                     }}
                   />
                 </div>
