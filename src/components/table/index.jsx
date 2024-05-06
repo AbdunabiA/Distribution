@@ -20,7 +20,7 @@ const CustomTable = ({
   items,
   height = null,
   isLoading,
-  mineHeigth = null, 
+  minHeight = null,
   columns,
   onRowNavigationUrl,
   hideColumns = false,
@@ -146,14 +146,14 @@ const CustomTable = ({
           isLoading={isLoading}
           columns={newColumnss}
           onRow={(data) => {
-            if(onRowNavigationUrl){
+            if (onRowNavigationUrl) {
               return {
                 onClick: () => navigate(`${onRowNavigationUrl}${data.id}`),
                 style: { cursor: "pointer" },
               };
             }
           }}
-          style={{ marginTop: "20px", minHeight: `${mineHeigth}` }}
+          style={{ marginTop: "20px", minHeight: minHeight }}
           scroll={{
             x: scrollX,
             y: scrollY ? height : null,

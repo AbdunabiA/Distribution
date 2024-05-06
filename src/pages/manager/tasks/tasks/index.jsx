@@ -8,8 +8,9 @@ import { data } from "assets/db";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGet, usePost } from "crud";
 import { toast } from "sonner";
-import { CreateClient } from "components/forms/createClient";
+import { CreateTask } from "components/forms/createTask";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
+import { useSelector } from "react-redux";
 const columns = [
   {
     key: 1,
@@ -37,63 +38,121 @@ const columns = [
   },
 ];
 const ManagerTasks = () => {
+  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
   const [dateValue, setDateValue] = useState("");
+  const { data: userData } = useSelector((state) => state.auth);
+  let id = userData.id;
+  let role = userData.role;
   const onChange = (value) => {
     setDateValue(value);
     console.log(dateValue);
   };
-  const { data, isLoading } = useGet({
+  const { data: taskData, isLoading: tasksLoading } = useGet({
     url: "/tasks/all/",
     queryKey: ["/tasks/all/"],
   });
-  if (isLoading) return <h1>Loading...</h1>;
+
+  const { data: berilganTaskData, isLoading: berilganTasksLoading } = useGet({
+    url: `/users/bergan_tasklari/${id}`,
+    queryKey: [`/users/bergan_tasklari/${id}`],
+  });
+
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { mutate: deleteClient } = usePost();
   return (
     <div className="container">
       <div style={{ margin: "32px 10px" }}>
-          <DateFilter onChange={onchange} value={dateValue} />
-        </div>
+        <DateFilter onChange={onchange} value={dateValue} />
+      </div>
+      <Modal
+        destroyOnClose
+        centered
+        footer={false}
+        open={modal.isOpen}
+        onCancel={() => setModal({ isOpen: false, form: null, data: null })}
+      >
+        {modal.form === "task" ? (
+          <CreateTask {...{ setModal, data: modal.data }} />
+        ) : null}
+      </Modal>
+      {tasksLoading || berilganTasksLoading ? (
+        <h1>Loading...</h1>
+      ) : (
         <div>
-        <CustomTable
+          <CustomTable
+            {...{
+              columns: columns,
+              items: berilganTaskData?.data,
+              hasDelete: true,
+              hasUpdate: true,
+              title: `${role} bergan topshiriqlar: ${berilganTaskData?.data.length}`,
+              minHeigth: "230px",
+              // onRowNavigationUrl: `/clients/`,
+              hideColumns: true,
+              // deleteAction: (data) =>
+              // deleteClient({
+              //   url: `/customers/${data.id}/detail`,
+              //   method: "delete",
+              //   onSuccess: () => {
+              //     queryClient.invalidateQueries("/customers/all/");
+              //     toast.success("Client o'chirildi");
+              //   },
+              //   onError: () => toast.error("Client o'chirilmadi"),
+              // }),
+              // updateAction: (data) =>
+              //   setModal({ isOpen: true, form: "client", data: data }),
+              // scrollY: true,
+              // hasPagination: true,
+              buttons: [
+                <Button
+                  icon={<PlusIcon />}
+                  type="primary"
+                  key={"task"}
+                  onClick={() =>
+                    setModal({ isOpen: true, form: "task", data: null })
+                  }
+                  // onClick={() =>
+                  //   setModal({ isOpen: true, form: "client", data: null })
+                  // }
+                >
+                  Topshiriq qo'shish
+                </Button>,
+              ],
+            }}
+          />
+          <div style={{ marginTop: "40px" }}>
+            <CustomTable
               {...{
                 columns: columns,
-                items: data?.data,
-                hasDelete: true,
-                hasUpdate: true,
-                title: `Topshiriqlar ro’yxati ${data?.data.length}`,
+                items: taskData?.data,
+                // hasDelete: true,
+                // hasUpdate: true,
+                title: `Topshiriqlar ro’yxati: ${taskData?.data.length}`,
                 minHeigth: "230px",
                 // onRowNavigationUrl: `/clients/`,
                 hideColumns: true,
                 // deleteAction: (data) =>
-                  // deleteClient({
-                    //   url: `/customers/${data.id}/detail`,
-                    //   method: "delete",
-                    //   onSuccess: () => {
-                      //     queryClient.invalidateQueries("/customers/all/");
-                      //     toast.success("Client o'chirildi");
-                      //   },
-                      //   onError: () => toast.error("Client o'chirilmadi"),
-                      // }),
-                      // updateAction: (data) =>
-                        //   setModal({ isOpen: true, form: "client", data: data }),
-                      // scrollY: true,
+                // deleteClient({
+                //   url: `/customers/${data.id}/detail`,
+                //   method: "delete",
+                //   onSuccess: () => {
+                //     queryClient.invalidateQueries("/customers/all/");
+                //     toast.success("Client o'chirildi");
+                //   },
+                //   onError: () => toast.error("Client o'chirilmadi"),
+                // }),
+                // updateAction: (data) =>
+                //   setModal({ isOpen: true, form: "client", data: data }),
+                // scrollY: true,
                 // hasPagination: true,
-                buttons: [
-                  <Button
-                    icon={<PlusIcon/>}
-                    type="primary"
-                    key={"task"}
-                    // onClick={() =>
-                    //   setModal({ isOpen: true, form: "client", data: null })
-                    // }
-                  >
-                     Topshiriq qo'shish
-                  </Button>,
-                ],
               }}
             />
+          </div>
         </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default ManagerTasks
+export default ManagerTasks;

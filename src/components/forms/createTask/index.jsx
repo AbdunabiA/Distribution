@@ -1,4 +1,5 @@
 import { Button } from "antd";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   AsyncSelect,
   CustomInput,
@@ -42,6 +43,7 @@ const options = [
 ];
 
 export const CreateTask = ({ data, setModal }) => {
+  const queryClient = useQueryClient();
     const { data: userData } = useSelector((store) => store.auth);
   return (
     <ContainerForm
@@ -76,6 +78,7 @@ export const CreateTask = ({ data, setModal }) => {
         },
       ]}
       onSuccess={() => {
+        queryClient.invalidateQueries("/tasks/all/");
         setModal({isOpen:false, data:null})
         toast.success("Topshiriq yaratildi")
       }}
