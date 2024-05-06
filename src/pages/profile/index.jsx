@@ -4,65 +4,29 @@ import CustomTable from "components/table";
 import DateFilter from "components/dateFilter";
 import { useState } from "react";
 import { ProfileData } from "./profiledata";
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import { useSelector } from "react-redux";
 import { GetAll } from "modules";
+import { ChangePassword } from "components/forms";
 import { useGet } from "crud";
 const columns1 = [
   {
     key: 1,
     title: "Task",
     dataIndex: "text",
-    sorter: (a, b) => a.text.localeCompare(b.text),
   },
   {
     key: 2,
     title: "Deadline",
     dataIndex: "deadline",
-    // sorter: (a, b) => {
-    //   const dateA = new Date(
-    //     a.date
-    //       .split(".")
-    //       .reverse()
-    //       .join("-")
-    //   );
-    //   const dateB = new Date(
-    //     b.date
-    //       .split(".")
-    //       .reverse()
-    //       .join("-")
-    //   );
-    //   return dateA - dateB;
-    // },
-    // filters: [
-    //   {
-    //     text: "Newest",
-    //     value: "newest",
-    //   },
-    // ],
-    // onFilter: (value, record) => {
-    //   if (value === "newest") {
-    //     const today = new Date();
-    //     const recordDate = new Date(
-    //       record.date
-    //         .split(".")
-    //         .reverse()
-    //         .join("-")
-    //     );
-    //     return recordDate >= today;
-    //   } else {
-    //     return record.address.startsWith(value);
-    //   }
-    // },
-    // filterSearch: true,
-    // width: "30%",
-    // responsive: ["md"],
+    sorter: (a, b) => a.deadline.localeCompare(b.deadline),
   },
 ];
 function Profile() {
   const [dateValue, setDateValue] = useState("");
   const { data: userData } = useSelector((store) => store.auth);
-  console.log(userData);
+  const [passwordModal, setPasswordModal] = useState({ isOpen: false });
+  // console.log(userData);
   let id = userData.id
   const onChange = (value) => {
     setDateValue(value);
@@ -177,11 +141,31 @@ function Profile() {
 
         return (
           <div className="container">
+            <Modal
+              open={passwordModal.isOpen}
+              centered
+              destroyOnClose
+              footer={false}
+              onCancel={()=>setPasswordModal({isOpen:false})}
+            >
+              <ChangePassword setModal={setPasswordModal} />
+            </Modal>
             <div className={profileScss.biggest_wrapper}>
               <div className={profileScss.flex_div}>
-                <ProfileData height={'500px'}
+                <ProfileData height={'495px'}
                   userProfile={userProfileData?.data}
-                  buttons={[<Button type="primary" key={'1'}>O’zgartirish</Button>]}
+                  buttons={[
+                    <Button type="primary" key={"1"}>
+                      O’zgartirish
+                    </Button>,
+                    <Button
+                      type="primary"
+                      key={"2"}
+                      onClick={() => setPasswordModal({ isOpen: true })}
+                    >
+                      Parol o'zgartirish
+                    </Button>,
+                  ]}
                 />
                 <div className={profileScss.table}>
                   <CustomTable

@@ -63,11 +63,11 @@ export const CreateTask = ({ data, setModal }) => {
         },
         {
           name: "task_setter",
-          value: "",
+          value: userData.id,
         },
         {
           name: "role",
-          value:null,
+          value: null,
           disabled: true,
         },
         {
@@ -79,12 +79,12 @@ export const CreateTask = ({ data, setModal }) => {
       ]}
       onSuccess={() => {
         queryClient.invalidateQueries("/tasks/all/");
-        setModal({isOpen:false, data:null})
-        toast.success("Topshiriq yaratildi")
+        setModal({ isOpen: false, data: null });
+        toast.success("Topshiriq yaratildi");
       }}
       onError={(err) => toast.error(err.message)}
     >
-      {({handleSubmit, isLoading, values}) => {
+      {({ handleSubmit, isLoading, values }) => {
         console.log(values?.role);
         return (
           <div
