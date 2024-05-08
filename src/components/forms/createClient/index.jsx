@@ -84,7 +84,7 @@ export const CreateClient = ({ data, setModal }) => {
               label={"Mijoz filiali"}
               placeholder="Mijoz filiali"
             />
-            <div className="form-input-wrapper">
+            <div className="form-button-wrapper">
               <Button
                 type="primary"
                 onClick={handleSubmit}
