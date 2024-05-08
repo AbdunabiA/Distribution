@@ -38,7 +38,6 @@ const ManagerBranchClients = lazy(() =>
 const ManagerBranchEmployees = lazy(() =>
   import("pages/manager/branches/branchEmployees")
 );
-const ManagerEmployee = lazy(() => import("pages/manager/employee/employee"));
 
 
 
@@ -177,12 +176,6 @@ export const pages = {
              path: "/employees",
              component: <ManagerEmployees />,
              name: "Xodimlar",
-             children:[
-              {
-                path:'/employees/:employeeId',
-                component: <ManagerEmployee/>,
-              }
-             ]
            },
            {
              path: "/profile",
