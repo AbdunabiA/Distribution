@@ -133,8 +133,8 @@ const ManagerProducts = () => {
       ) : (
         <CustomTable
           columns={categoriesColumns}
-          items={categoriesData.data}
-          title={"Kategoriyalar"}
+          items={categoriesData?.data}
+          title={`Kategoriyalar soni: ${categoriesData?.data.length}`}
           hideColumns
           hasDelete
           hasUpdate
@@ -174,7 +174,7 @@ const ManagerProducts = () => {
             {...{
               columns: productsColumns,
               items: productsData?.data,
-              title: "Mahsulotlar",
+              title: `Mahsulotlar soni : ${productsData?.data.length}`,
               hideColumns: true,
               deleteAction: (data) =>
                 deleteProduct({

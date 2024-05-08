@@ -138,7 +138,7 @@ const ManagerClients = () => {
                 items: data?.data,
                 hasDelete: true,
                 hasUpdate: true,
-                title: `Mijozlar ro’yxati ${data?.data.length}`,
+                title: `Mijozlar soni: ${data?.data.length}`,
                 minHeigth: "230px",
                 // scrollY: true,
                 onRowNavigationUrl: `/clients/`,
