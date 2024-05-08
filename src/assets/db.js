@@ -64,7 +64,7 @@ export const menus = {
            },
            {
              title: "Xodimlar",
-             path: "/employees",
+             path: "/employee",
              icon: employee,
            },
            {
