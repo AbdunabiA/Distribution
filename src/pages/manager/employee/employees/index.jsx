@@ -77,14 +77,14 @@ const ManagerEmployees = () => {
             <div style={{ marginTop: "20px" }}>
               <CustomTable
                 columns={employeeColumns}
-                title={"Xodimlar"}
+                items={data?.data}
+                title={`Xodimlar soni: ${data?.data.length}`}
                 hideColumns
                 hasDelete
                 hasUpdate
                 updateAction={(data) => setUserModal({isOpen:true, data:data})}
-                onRowNavigationUrl={'/employees/'}
+                onRowNavigationUrl={'/employee/'}
                 isLoading={isLoading}
-                items={data?.data}
                 buttons={[
                   <Button
                     icon={<PlusIcon />}
