@@ -128,7 +128,7 @@ const ManagerTasks = () => {
                 items: taskData?.data,
                 // hasDelete: true,
                 // hasUpdate: true,
-                title: `Topshiriqlar ro’yxati: ${taskData?.data.length}`,
+                title: `Topshiriqlar soni : ${taskData?.data.length}`,
                 minHeigth: "230px",
                 // onRowNavigationUrl: `/clients/`,
                 hideColumns: true,

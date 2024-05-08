@@ -1,14 +1,15 @@
 import React from "react";
-import profileScss from "./profile.module.scss";
+import employeeProfileScss from "./employee.module.scss";
 import CustomTable from "components/table";
 import DateFilter from "components/dateFilter";
 import { useState } from "react";
-import { ProfileData } from "./profiledata";
+import { ProfileData } from "pages/profile/profiledata";
 import { Button, Modal } from "antd";
 import { useSelector } from "react-redux";
 import { GetAll } from "modules";
 import { ChangePassword } from "components/forms";
 import { useGet } from "crud";
+import { useParams } from "react-router-dom";
 const columns1 = [
   {
     key: 1,
@@ -22,7 +23,8 @@ const columns1 = [
     sorter: (a, b) => a.deadline.localeCompare(b.deadline),
   },
 ];
-function Profile() {
+function ManagerEmployeeSingle() {
+  const {employeeId} = useParams()
   const [dateValue, setDateValue] = useState("");
   const { data: userData } = useSelector((store) => store.auth);
   const [passwordModal, setPasswordModal] = useState({ isOpen: false });
@@ -118,16 +120,16 @@ function Profile() {
   ];
 
   const { data: olinganTaskData, isLoading: berilganTasksLoading } = useGet({
-    url: `/users/olgan_tasklari/${id}`,
-    queryKey: [`/users/olgan_tasklari/${id}`],
+    url: `/users/olgan_tasklari/${employeeId}`,
+    queryKey: [`/users/olgan_tasklari/${employeeId}`],
   });
 
   console.log(olinganTaskData, "hello");
 
   return (
     <GetAll
-      url={`/users/details/token/${userData.access}`}
-      queryKey={["ProfileData"]}
+      url={`/users/details/${employeeId}`}
+      queryKey={[`/users/details/${employeeId}`]}
     >
       {({ data: userProfileData, isLoading, isError, error }) => {
         if (isLoading) return <h1>Loading</h1>;
@@ -143,8 +145,8 @@ function Profile() {
             >
               <ChangePassword setModal={setPasswordModal} />
             </Modal>
-            <div className={profileScss.biggest_wrapper}>
-              <div className={profileScss.flex_div}>
+            <div className={employeeProfileScss.biggest_wrapper}>
+              <div className={employeeProfileScss.flex_div}>
                 <ProfileData
                   height={"495px"}
                   userProfile={userProfileData?.data}
@@ -152,16 +154,9 @@ function Profile() {
                     <Button type="primary" key={"1"}>
                       O’zgartirish
                     </Button>,
-                    <Button
-                      type="primary"
-                      key={"2"}
-                      onClick={() => setPasswordModal({ isOpen: true })}
-                    >
-                      Parol o'zgartirish
-                    </Button>,
                   ]}
                 />
-                <div className={profileScss.table}>
+                <div className={employeeProfileScss.table}>
                   <CustomTable
                     {...{
                       columns: columns1,
@@ -178,7 +173,7 @@ function Profile() {
                 </div>
               </div>
               <div>
-                <div className={profileScss.date}>
+                <div className={employeeProfileScss.date}>
                   <DateFilter onChange={onchange} value={dateValue} />
                   <div style={{ marginTop: "20px" }}>
                     <CustomTable
@@ -204,4 +199,4 @@ function Profile() {
     </GetAll>
   );
 }
-export default Profile;
+export default ManagerEmployeeSingle;

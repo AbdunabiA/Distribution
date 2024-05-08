@@ -97,7 +97,7 @@ const ManagerBranches = () => {
               <CustomTable
                 columns={branchesCoulmns}
                 items={data?.data}
-                title={"Filiallar"}
+                title={`Filiallar soni: ${data?.data.length}`}
                 hideColumns
                 hasDelete
                 hasUpdate
