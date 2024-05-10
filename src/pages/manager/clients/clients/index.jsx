@@ -10,6 +10,7 @@ import { useGet, usePost } from "crud";
 import { toast } from "sonner";
 import { CreateClient } from "components/forms/createClient";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
+import Loader from "components/loader";
 const ManagerClients = () => {
   const [dateValue, setDateValue] = useState("");
   // const navigate = useNavigate();
@@ -130,7 +131,7 @@ const ManagerClients = () => {
             ) : null}
           </Modal>
           {isLoading ? (
-            <h1>Loading...</h1>
+            <Loader/>
           ) : (
             <CustomTable
               {...{

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { CreateCar, CreateTask, CreateUserForm } from "components/forms";
 import { useNavigate } from "react-router-dom";
 import { ProductsSendForm } from "components/forms/productsSendForm";
+import Loader from "components/loader";
 
 const employeeColumns = [
   {
@@ -48,7 +49,7 @@ const ManagerEmployees = () => {
       // params={{ extra: { role: "agent" } }}
     >
       {({ data, isLoading, isError, error }) => {
-        if (isLoading) return <h1>Loading...</h1>;
+        if (isLoading) return <Loader/>;
         if (isError) return <h1>Error</h1>;
         console.log(data);
         return (

@@ -6,6 +6,7 @@ import ProductsIcon from 'assets/icons/Products.svg?react'
 import PeopleIcon from 'assets/icons/People.svg?react'
 import OrdersIcon from 'assets/icons/Orders.svg?react'
 import Cards from "components/cards"
+import Loader from "components/loader"
 
 
 const ManagerBranch = () => {
@@ -18,7 +19,7 @@ const ManagerBranch = () => {
     >
         {({data, isLoading, isError, error})=>{
             
-            if(isLoading) return <h1>Loading</h1>
+            if(isLoading) return <Loader/>
             if(isError) return <h2>Error</h2>
             console.log(data.data);
             const {warehouse, counts} = data?.data

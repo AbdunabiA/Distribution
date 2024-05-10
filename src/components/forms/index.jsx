@@ -7,3 +7,4 @@ export { CreateWarehouse } from './createWarehouse';
 export { ProductSend } from './productSend';
 export { CreateTask } from './createTask';
 export { ChangePassword } from './changePassword';
+export { CreateSalary } from './createSalary';

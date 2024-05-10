@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { CreateTask } from "components/forms/createTask";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
+import Loader from "components/loader";
 const columns = [
   {
     key: 1,
@@ -77,7 +78,7 @@ const ManagerTasks = () => {
         ) : null}
       </Modal>
       {tasksLoading || berilganTasksLoading ? (
-        <h1>Loading...</h1>
+        <Loader/>
       ) : (
         <div>
           <CustomTable

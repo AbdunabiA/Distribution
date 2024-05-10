@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
+import Loader from "components/loader";
 
 const categoriesColumns = [
   {
@@ -129,7 +130,7 @@ const ManagerProducts = () => {
         ) : null}
       </Modal>
       {categoriesLoading ? (
-        <h1>Categories loading...</h1>
+        <Loader />
       ) : (
         <CustomTable
           columns={categoriesColumns}
@@ -167,7 +168,7 @@ const ManagerProducts = () => {
         />
       )}
       {productsLoading ? (
-        <h1>Products loading...</h1>
+        <Loader />
       ) : (
         <div style={{ marginTop: "20px" }}>
           <CustomTable
