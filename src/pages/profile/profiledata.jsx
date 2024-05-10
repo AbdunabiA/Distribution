@@ -12,9 +12,9 @@ import ProfileImage from "components/profileImage";
       <div className={profiledataScss.second_wrapper}>
         <div>
           <h1 className={profiledataScss.name}>
-            {userProfile?.first_name ? userProfile?.first_name +
-              " " +
-              userProfile?.last_name : userProfile?.name}
+            {userProfile?.first_name
+              ? userProfile?.first_name + " " + userProfile?.last_name
+              : userProfile?.name}
           </h1>
           <p className={profiledataScss.lavozim}>
             {userProfile.role ? userProfile.role : null}
@@ -26,9 +26,13 @@ import ProfileImage from "components/profileImage";
       </div>
       <div className={profiledataScss.third_wrapper}>
         <ul>
-          {userProfile.phone_number || userProfile.phone && userProfile.phone_number || userProfile.phone ? (
+          {userProfile.phone_number ||
+          (userProfile.phone && userProfile.phone_number) ||
+          userProfile.phone ? (
             <li>
-              {userProfile.phone_number || userProfile.phone ? <span>Tel:</span> : null}
+              {userProfile.phone_number || userProfile.phone ? (
+                <span>Tel:</span>
+              ) : null}
               {userProfile.phone_number || userProfile.phone}
             </li>
           ) : null}
@@ -52,10 +56,26 @@ import ProfileImage from "components/profileImage";
           ) : null}
           {userProfile.created_by && userProfile.created_by ? (
             <li>
-              {userProfile.created_by ? (
-                <span>Kim tomonidan tizimga kiritilgan:</span>
-              ) : null}
+              <span>Kim tomonidan tizimga kiritilgan:</span>
               {userProfile.created_by}
+            </li>
+          ) : null}
+          {userProfile.car && userProfile.car.type ? (
+            <li>
+              <span>Mashina turi:</span>
+              {userProfile?.car?.type}
+            </li>
+          ) : null}
+          {userProfile.car && userProfile.car.number ? (
+            <li>
+              <span>Mashina raqami:</span>
+              {userProfile?.car?.number}
+            </li>
+          ) : null}
+          {userProfile.fixed ? (
+            <li>
+              <span>Oylik maosh:</span>
+              {userProfile?.fixed}
             </li>
           ) : null}
         </ul>
@@ -76,6 +96,12 @@ import ProfileImage from "components/profileImage";
             {userProfile.KPI ? <span>KPI:</span> : null}
             {userProfile.KPI ? userProfile.KPI : null}
           </li>
+          {userProfile.kpi_by_sales ? (
+            <li>
+              <span>KPI maosh:</span>
+              {userProfile?.kpi_by_sales}
+            </li>
+          ) : null}
         </ul>
       </div>
       <div className={profiledataScss.btn}>

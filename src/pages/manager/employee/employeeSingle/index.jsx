@@ -7,9 +7,10 @@ import { ProfileData } from "pages/profile/profiledata";
 import { Button, Modal } from "antd";
 import { useSelector } from "react-redux";
 import { GetAll } from "modules";
-import { ChangePassword } from "components/forms";
+import { ChangePassword, CreateSalary } from "components/forms";
 import { useGet } from "crud";
 import { useParams } from "react-router-dom";
+import Loader from "components/loader";
 const columns1 = [
   {
     key: 1,
@@ -26,9 +27,8 @@ const columns1 = [
 function ManagerEmployeeSingle() {
   const {employeeId} = useParams()
   const [dateValue, setDateValue] = useState("");
-  const { data: userData } = useSelector((store) => store.auth);
   const [passwordModal, setPasswordModal] = useState({ isOpen: false });
-  let id = userData.id;
+  const [salaryModal, setSalaryModal] = useState({ isOpen: false, data:null });
   const onChange = (value) => {
     setDateValue(value);
     console.log(dateValue);
@@ -124,7 +124,9 @@ function ManagerEmployeeSingle() {
     queryKey: [`/users/olgan_tasklari/${employeeId}`],
   });
 
-  console.log(olinganTaskData, "hello");
+  const { data:salaryData} = useGet({url: `/users/${employeeId}/salary_params`, queryKey:['salary_params']});
+  console.log('salary params', salaryData);
+  // console.log(olinganTaskData, "hello");
 
   return (
     <GetAll
@@ -132,8 +134,9 @@ function ManagerEmployeeSingle() {
       queryKey={[`/users/details/${employeeId}`]}
     >
       {({ data: userProfileData, isLoading, isError, error }) => {
-        if (isLoading) return <h1>Loading</h1>;
+        if (isLoading) return <Loader/>
         if (isError) return <h1>Error</h1>;
+        console.log(userProfileData.data);
         return (
           <div className="container">
             <Modal
@@ -145,14 +148,35 @@ function ManagerEmployeeSingle() {
             >
               <ChangePassword setModal={setPasswordModal} />
             </Modal>
+            <Modal
+              open={salaryModal.isOpen}
+              centered
+              destroyOnClose
+              footer={false}
+              onCancel={() => setSalaryModal({ isOpen: false, data:null })}
+            >
+              <CreateSalary data={salaryModal.data} setModal={setSalaryModal} />
+            </Modal>
             <div className={employeeProfileScss.biggest_wrapper}>
               <div className={employeeProfileScss.flex_div}>
                 <ProfileData
                   height={"495px"}
-                  userProfile={userProfileData?.data}
+                  userProfile={{...userProfileData?.data, ...salaryData?.data}}
                   buttons={[
                     <Button type="primary" key={"1"}>
                       O’zgartirish
+                    </Button>,
+                    <Button
+                      type="primary"
+                      key={"2"}
+                      onClick={() =>
+                        setSalaryModal({
+                          isOpen: true,
+                          data: salaryData?.data,
+                        })
+                      }
+                    >
+                      Maosh belgilash
                     </Button>,
                   ]}
                 />

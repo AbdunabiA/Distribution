@@ -12,6 +12,7 @@ import { useGet , usePost} from "crud";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { CreateClient } from "components/forms/createClient";
+import Loader from "components/loader";
 const ManagerSingleClient = () => {
   let { clintId } = useParams();
   const [dateValue, setDateValue] = useState("");
@@ -134,7 +135,7 @@ const ManagerSingleClient = () => {
         ) : null}
       </Modal>
       {isLoading ? (
-        <h1>Loading...</h1>
+        <Loader/>
       ) : (
         <div className="container">
           <div className={singleScss.wrapper}>
