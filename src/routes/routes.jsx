@@ -42,6 +42,11 @@ const ManagerBranchEmployees = lazy(() =>
 const ManagerEmployeeSingle = lazy(() =>
   import("pages/manager/employee/employeeSingle")
 );
+const ManagerBranchOrders = lazy(() =>
+  import("pages/manager/branches/branchOrders")
+);
+
+
 
 //?BRANCH DIRECTOR PAGES
 const BranchDirectorProducts = lazy(() =>
@@ -176,6 +181,10 @@ export const pages = {
               path: "/branches/:branchId/employees",
               component: <ManagerBranchEmployees />,
             },
+            {
+              path: "/branches/:branchId/orders",
+              component:<ManagerBranchOrders/>,
+            }
           ],
         },
       ],

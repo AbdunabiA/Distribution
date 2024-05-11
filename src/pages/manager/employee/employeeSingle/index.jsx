@@ -11,6 +11,7 @@ import { ChangePassword, CreateSalary } from "components/forms";
 import { useGet } from "crud";
 import { useParams } from "react-router-dom";
 import Loader from "components/loader";
+import dayjs from "dayjs";
 const columns1 = [
   {
     key: 1,
@@ -25,10 +26,10 @@ const columns1 = [
   },
 ];
 function ManagerEmployeeSingle() {
-  const {employeeId} = useParams()
+  const { employeeId } = useParams();
   const [dateValue, setDateValue] = useState("");
   const [passwordModal, setPasswordModal] = useState({ isOpen: false });
-  const [salaryModal, setSalaryModal] = useState({ isOpen: false, data:null });
+  const [salaryModal, setSalaryModal] = useState({ isOpen: false, data: null });
   const onChange = (value) => {
     setDateValue(value);
     console.log(dateValue);
@@ -124,17 +125,24 @@ function ManagerEmployeeSingle() {
     queryKey: [`/users/olgan_tasklari/${employeeId}`],
   });
 
-  const { data:salaryData} = useGet({url: `/users/${employeeId}/salary_params`, queryKey:['salary_params']});
-  console.log('salary params', salaryData);
+  const { data: salaryData } = useGet({
+    url: `/users/${employeeId}/salary_params`,
+    queryKey: ["salary_params"],
+  });
+  console.log("salary params", salaryData);
+  // const { data: currentSalary } = useGet({
+  //   url: `/users/salary_calculate/${employeeId}/${dayjs().year()}/${dayjs().month() + 1}`,
+  //   queryKey: ["salary_calculation"],
+  // });
   // console.log(olinganTaskData, "hello");
-
+  // console.log('calculated salary', currentSalary)
   return (
     <GetAll
       url={`/users/details/${employeeId}`}
       queryKey={[`/users/details/${employeeId}`]}
     >
       {({ data: userProfileData, isLoading, isError, error }) => {
-        if (isLoading) return <Loader/>
+        if (isLoading) return <Loader />;
         if (isError) return <h1>Error</h1>;
         console.log(userProfileData.data);
         return (
@@ -153,7 +161,7 @@ function ManagerEmployeeSingle() {
               centered
               destroyOnClose
               footer={false}
-              onCancel={() => setSalaryModal({ isOpen: false, data:null })}
+              onCancel={() => setSalaryModal({ isOpen: false, data: null })}
             >
               <CreateSalary data={salaryModal.data} setModal={setSalaryModal} />
             </Modal>
@@ -161,7 +169,10 @@ function ManagerEmployeeSingle() {
               <div className={employeeProfileScss.flex_div}>
                 <ProfileData
                   height={"495px"}
-                  userProfile={{...userProfileData?.data, ...salaryData?.data}}
+                  userProfile={{
+                    ...userProfileData?.data,
+                    ...salaryData?.data,
+                  }}
                   buttons={[
                     <Button type="primary" key={"1"}>
                       O’zgartirish

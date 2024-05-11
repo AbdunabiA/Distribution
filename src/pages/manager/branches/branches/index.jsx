@@ -7,6 +7,9 @@ import { useState } from "react";
 import { Button, Modal } from "antd";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { BarChart, LineGraph, PieChart } from "components/charts";
+import { usePost } from "crud";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ManagerBranches = () => {
   const [branchModal, setBranchModal] = useState({ isOpen: false, data: null });
@@ -14,7 +17,15 @@ const ManagerBranches = () => {
     isOpen: false,
     data: null,
   });
+  const queryClient = useQueryClient();
+  const { mutate: deleteBranch } = usePost();
   const branchesCoulmns = [
+    {
+      key: 0,
+      title: "#",
+      width: "70px",
+      render: (a, b, i) => i + 1,
+    },
     {
       key: "name",
       title: "Nomi",
@@ -45,7 +56,9 @@ const ManagerBranches = () => {
       title: "Masulot yuborish",
       render: (_, data) => {
         return (
-          <div style={{width:"100%",display:"flex", justifyContent:"center"}}>
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
             <Button
               type="primary"
               onClick={(e) => {
@@ -99,8 +112,22 @@ const ManagerBranches = () => {
                 items={data?.data}
                 title={`Filiallar soni: ${data?.data.length}`}
                 hideColumns
+                height={350}
+                minHeight={"200px"}
+                scrollY
                 hasDelete
                 hasUpdate
+                deleteAction={(data) =>
+                  deleteBranch({
+                    url: `/warehouses/details/${data?.id}/`,
+                    method: "delete",
+                    onSuccess: () => {
+                      toast.success("Filial o'chirildi");
+                      queryClient.invalidateQueries(["/warehouses/all/"]);
+                    },
+                    onError: (err) => toast.error(err?.message),
+                  })
+                }
                 onRowNavigationUrl={"/branches/"}
                 buttons={[
                   <Button
@@ -114,7 +141,6 @@ const ManagerBranches = () => {
                 ]}
               />
             </div>
-            
           </div>
         );
       }}

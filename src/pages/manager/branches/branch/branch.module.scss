@@ -6,43 +6,43 @@ $xxl: 1400px;
 $xxxl: 1600px;
 $xxxxl: 1920px;
 
-.warehouseDetailsWrapper{
+.warehouseDetailsWrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 300px;
+  @media (max-width: $xl) {
+    grid-template-columns: 1fr;
+  }
+  .warehouseDetails {
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 500px;
-    @media (max-width:$xl) {
-        grid-template-columns: 1fr;
+    height: 100%;
+    padding: 40px 20px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 4px 4px rgba(235, 230, 230, 0.356);
+    & > p {
+      font-family: Inter;
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 33.89px;
+      text-align: left;
+      color: #3c518a;
     }
-    .warehouseDetails{
-        width: 100%;
-        height: 100%;
-        padding: 40px 20px;
-        border-radius: 20px;
-        background-color: white;
-        box-shadow: 0px 0px 4px 4px rgba(235, 230, 230, 0.356);
-        &>p{
-            font-family: Inter;
-            font-size: 28px;
-            font-weight: 600;
-            line-height: 33.89px;
-            text-align: left;
-            color: #3C518A;
-        }
-        &>div{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            row-gap: 10px;
-            margin-top: 40px;
-            font-family: Inter;
-            font-size: 17px;
-            font-weight: 500;
-            line-height: 20.57px;
-            text-align: left;
-            color: #9CB1C9;
-            &>a{
-                color: #9CB1C9;
-            }
-        }
+    & > div {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 10px;
+      margin-top: 40px;
+      font-family: Inter;
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 20.57px;
+      text-align: left;
+      color: #9cb1c9;
+      & > a {
+        color: #9cb1c9;
+      }
     }
+  }
 }

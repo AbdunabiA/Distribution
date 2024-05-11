@@ -12,6 +12,12 @@ import Loader from "components/loader";
 
 const categoriesColumns = [
   {
+    key: 0,
+    title: "#",
+    width: "70px",
+    render: (a, b, i) => i + 1,
+  },
+  {
     key: "name",
     title: "Nomi",
     dataIndex: "name",
@@ -111,7 +117,7 @@ const ManagerProducts = () => {
     queryKey: ["/categories/"],
   });
   const { mutate: deleteProduct } = usePost();
-  const {mutate: deleteCategories } = usePost();
+  const { mutate: deleteCategories } = usePost();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   return (
@@ -129,85 +135,85 @@ const ManagerProducts = () => {
           <CreateProduct {...{ setModal, data: modal.data }} />
         ) : null}
       </Modal>
-      {categoriesLoading ? (
-        <Loader />
-      ) : (
+      <CustomTable
+        columns={categoriesColumns}
+        items={categoriesData?.data}
+        height={300}
+        minHeight={"200px"}
+        title={`Kategoriyalar soni: ${categoriesData?.data.length}`}
+        hideColumns
+        scrollY
+        isLoading={categoriesLoading}
+        hasDelete
+        hasUpdate
+        deleteAction={(data) =>
+          deleteCategories({
+            url: `category/${data.id}`,
+            method: "delete",
+            onSuccess: () => {
+              queryClient.invalidateQueries("/categories/");
+              toast.success("Kategoriya o'chirildi");
+            },
+            onError: () => toast.error("Kategoriya o'chirilmadi"),
+          })
+        }
+        updateAction={(data) =>
+          setModal({ isOpen: true, form: "category", data: data })
+        }
+        buttons={[
+          <Button
+            icon={<PlusIcon />}
+            key={"category"}
+            type="primary"
+            onClick={() =>
+              setModal({ isOpen: true, form: "category", data: null })
+            }
+          >
+            Kategoriya qo'shish
+          </Button>,
+        ]}
+      />
+      <div style={{ marginTop: "20px" }}>
         <CustomTable
-          columns={categoriesColumns}
-          items={categoriesData?.data}
-          title={`Kategoriyalar soni: ${categoriesData?.data.length}`}
-          hideColumns
-          hasDelete
-          hasUpdate
-          deleteAction={(data) =>
-            deleteCategories({
-              url: `category/${data.id}`,
-              method: "delete",
-              onSuccess: () => {
-                queryClient.invalidateQueries("/categories/");
-                toast.success("Kategoriya o'chirildi");
-              },
-              onError: () => toast.error("Kategoriya o'chirilmadi"),
-            })
-          }
-          updateAction={(data) =>
-            setModal({ isOpen: true, form: "category", data: data })
-          }
-          buttons={[
-            <Button
-              icon={<PlusIcon />}
-              key={"category"}
-              type="primary"
-              onClick={() =>
-                setModal({ isOpen: true, form: "category", data: null })
-              }
-            >
-              Kategoriya qo'shish
-            </Button>,
-          ]}
+          {...{
+            isLoading: productsLoading,
+            columns: productsColumns,
+            height: 300,
+            minHeight: "200px",
+            scrollY:true,
+            items: productsData?.data,
+            title: `Mahsulotlar soni : ${productsData?.data.length}`,
+            hideColumns: true,
+            deleteAction: (data) =>
+              deleteProduct({
+                url: `/products/${data.id}/`,
+                method: "delete",
+                onSuccess: () => {
+                  queryClient.invalidateQueries("/products/all/");
+                  toast.success("Mahsulot o'chirildi");
+                },
+                onError: () => toast.error("Mahsulot o'chirilmadi"),
+              }),
+            updateAction: (data) =>
+              setModal({ isOpen: true, form: "product", data: data }),
+            hasDelete: true,
+            hasUpdate: true,
+            onRowNavigationUrl: "/products/",
+            buttons: [
+              <Button
+                icon={<PlusIcon />}
+                key={"product"}
+                type="primary"
+                onClick={() =>
+                  setModal({ isOpen: true, form: "product", data: null })
+                }
+              >
+                Mahsulot qo'shish
+              </Button>,
+            ],
+          }}
         />
-      )}
-      {productsLoading ? (
-        <Loader />
-      ) : (
-        <div style={{ marginTop: "20px" }}>
-          <CustomTable
-            {...{
-              columns: productsColumns,
-              items: productsData?.data,
-              title: `Mahsulotlar soni : ${productsData?.data.length}`,
-              hideColumns: true,
-              deleteAction: (data) =>
-                deleteProduct({
-                  url: `/products/${data.id}/`,
-                  method: "delete",
-                  onSuccess: () => {
-                    queryClient.invalidateQueries("/products/all/");
-                    toast.success("Mahsulot o'chirildi");
-                  },
-                  onError: () => toast.error("Mahsulot o'chirilmadi"),
-                }),
-              updateAction: (data) =>
-                setModal({ isOpen: true, form: "product", data: data }),
-              hasDelete: true,
-              hasUpdate: true,
-              onRowNavigationUrl: "/products/",
-              buttons: [
-                <Button
-                  icon={<PlusIcon />}
-                  key={"product"}
-                  type="primary"
-                  onClick={() =>
-                    setModal({ isOpen: true, form: "product", data: null })
-                  }
-                >
-                  Mahsulot qo'shish
-                </Button>,
-              ],
-            }}
-          />
-        </div>
-      )}
+      </div>
     </div>
   );
 };
