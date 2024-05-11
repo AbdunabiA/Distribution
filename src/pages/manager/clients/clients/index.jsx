@@ -63,6 +63,12 @@ const ManagerClients = () => {
   // ];
   const columns2 = [
     {
+      key: 0,
+      title: "#",
+      width: "70px",
+      render: (a, b, i) => i + 1,
+    },
+    {
       key: 1,
       title: "name",
       dataIndex: "name",
@@ -131,7 +137,7 @@ const ManagerClients = () => {
             ) : null}
           </Modal>
           {isLoading ? (
-            <Loader/>
+            <Loader />
           ) : (
             <CustomTable
               {...{
@@ -141,32 +147,33 @@ const ManagerClients = () => {
                 hasUpdate: true,
                 title: `Mijozlar soni: ${data?.data.length}`,
                 minHeigth: "230px",
-                // scrollY: true,
+                height: 350,
+                scrollY: true,
                 onRowNavigationUrl: `/clients/`,
                 hideColumns: true,
                 deleteAction: (data) =>
-                deleteClient({
-                  url: `/customers/${data.id}/detail`,
-                  method: "delete",
-                  onSuccess: () => {
-                    queryClient.invalidateQueries("/customers/all/");
-                    toast.success("Client o'chirildi");
-                  },
-                  onError: () => toast.error("Client o'chirilmadi"),
-                }),
+                  deleteClient({
+                    url: `/customers/${data.id}/detail`,
+                    method: "delete",
+                    onSuccess: () => {
+                      queryClient.invalidateQueries("/customers/all/");
+                      toast.success("Client o'chirildi");
+                    },
+                    onError: () => toast.error("Client o'chirilmadi"),
+                  }),
                 updateAction: (data) =>
                   setModal({ isOpen: true, form: "client", data: data }),
                 // hasPagination: true,
                 buttons: [
                   <Button
-                    icon={<PlusIcon/>}
+                    icon={<PlusIcon />}
                     type="primary"
                     key={"client"}
                     onClick={() =>
                       setModal({ isOpen: true, form: "client", data: null })
                     }
                   >
-                     mijoz qo'shish
+                    mijoz qo'shish
                   </Button>,
                 ],
               }}

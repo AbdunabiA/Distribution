@@ -1,7 +1,31 @@
 import DateFilter from "components/dateFilter";
 import Loader from "components/loader";
+import CustomTable from "components/table";
 import { GetAll } from "modules";
 import { useParams } from "react-router-dom";
+
+const columns = [
+  {
+    key: "product",
+    title: "Nomi",
+    dataIndex: "product",
+  },
+  {
+    key: "amount",
+    title: "Miqdori",
+    dataIndex: "amount",
+  },
+  {
+    key: "invalids_amount",
+    title: "Yaroqsiz miqdori",
+    dataIndex: "invalids_amount",
+  },
+  {
+    key: "warehouse",
+    title: "Filial",
+    dataIndex: "warehouse",
+  },
+];
 
 const ManagerBranchProducts = () => {
   const { branchId } = useParams();
@@ -17,6 +41,14 @@ const ManagerBranchProducts = () => {
         return (
           <div className="container">
             <DateFilter />
+            <div style={{ marginTop: 20 }}>
+              <CustomTable
+                hideColumns
+                title={"Filial mahsulotlari"}
+                columns={columns}
+                items={data?.data}
+              />
+            </div>
           </div>
         );
       }}
