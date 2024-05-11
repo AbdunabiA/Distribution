@@ -9,8 +9,12 @@ const ManagerProduct = () => {
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>Error</h1>;
-        console.log(data?.data);
-        return <div className="container"></div>;
+        console.log(data, 'hello');
+        return <div className="container">
+
+
+        
+        </div>;
       }}
     </GetAll>
   );
