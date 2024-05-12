@@ -21,12 +21,12 @@ const ManagerBranches = () => {
   const queryClient = useQueryClient();
   const { mutate: deleteBranch } = usePost();
   const branchesCoulmns = [
-    // {
-    //   key: 0,
-    //   title: "#",
-    //   width: "70px",
-    //   render: (a, b, i) => i + 1,
-    // },
+    {
+      key: 0,
+      title: "#",
+      width: "70px",
+      render: (a, b, i) => i + 1,
+    },
     {
       key: "name",
       title: "Nomi",

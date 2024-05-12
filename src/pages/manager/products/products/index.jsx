@@ -36,6 +36,12 @@ const categoriesColumns = [
 
 const productsColumns = [
   {
+    key: 0,
+    title: "#",
+    width: "70px",
+    render: (a, b, i) => i + 1,
+  },
+  {
     key: 1,
     title: "Nomi",
     dataIndex: "name",

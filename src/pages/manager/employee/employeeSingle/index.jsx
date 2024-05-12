@@ -14,6 +14,12 @@ import Loader from "components/loader";
 import dayjs from "dayjs";
 const columns1 = [
   {
+    key: 0,
+    title: "#",
+    width: "70px",
+    render: (a, b, i) => i + 1,
+  },
+  {
     key: 1,
     title: "Task",
     dataIndex: "text",
@@ -83,6 +89,12 @@ function ManagerEmployeeSingle() {
     },
   ];
   const columns2 = [
+    {
+      key: 0,
+      title: "#",
+      width: "70px",
+      render: (a, b, i) => i + 1,
+    },
     {
       key: 1,
       title: "name",
