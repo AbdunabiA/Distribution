@@ -44,6 +44,8 @@ const Login = () => {
               <div className={s.buttonWrapper}>
                 <Button
                   type="primary"
+                  htmlType="submit"
+                  loading={isLoading}
                   onClick={handleSubmit}
                   disabled={isLoading}
                 >

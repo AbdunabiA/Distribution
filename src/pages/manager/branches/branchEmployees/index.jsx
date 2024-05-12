@@ -1,11 +1,14 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "antd";
 import DateFilter from "components/dateFilter";
 import { CreateUserForm } from "components/forms";
 import Loader from "components/loader";
 import CustomTable from "components/table";
+import { usePost } from "crud";
 import { GetAll } from "modules";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 const usersColumns = [
   {
@@ -28,6 +31,8 @@ const usersColumns = [
 const ManagerBranchEmployees = () => {
   const { branchId } = useParams();
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
+  const { mutate: deleteUsers } = usePost();
+  const queryClient = useQueryClient();
   return (
     <GetAll
       url={`/warehouses/${branchId}/employees`}
@@ -60,6 +65,18 @@ const ManagerBranchEmployees = () => {
                 hideColumns
                 title={"Filial xodimlari"}
                 hasUpdate
+                hasDelete
+                deleteAction={(data) =>
+                  deleteUsers({
+                    url: `/users/details/${data?.id}/`,
+                    method: "delete",
+                    onSuccess: () => {
+                      toast.success("Foydalanuvchi o'chirildi");
+                      queryClient.invalidateQueries("branchEmployees");
+                    },
+                    onError: (err) => toast.error(err?.message),
+                  })
+                }
                 updateAction={(data) =>
                   setUserModal({ isOpen: true, data: data })
                 }

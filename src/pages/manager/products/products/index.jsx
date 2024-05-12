@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-import Loader from "components/loader";
 
 const categoriesColumns = [
   {
@@ -56,6 +55,7 @@ const productsColumns = [
     key: 4,
     title: "Kategoriya",
     dataIndex: "category",
+    render: (text, record) => text?.name,
   },
 ];
 const items2 = [

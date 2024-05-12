@@ -11,7 +11,8 @@ import { toast } from "sonner";
 import { CreateTask } from "components/forms/createTask";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
-import Loader from "components/loader";
+
+
 const columns = [
   {
     key: 0,
@@ -49,7 +50,6 @@ const ManagerTasks = () => {
   const [dateValue, setDateValue] = useState("");
   const { data: userData } = useSelector((state) => state.auth);
   let id = userData.id;
-  let role = userData.role;
   const onChange = (value) => {
     setDateValue(value);
     console.log(dateValue);
@@ -91,7 +91,7 @@ const ManagerTasks = () => {
             isLoading: berilganTasksLoading,
             hasDelete: true,
             hasUpdate: true,
-            title: `${role} bergan topshiriqlar: ${berilganTaskData?.data.length}`,
+            title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data.length}`,
             minHeigth: "230px",
             // onRowNavigationUrl: `/clients/`,
             hideColumns: true,

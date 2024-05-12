@@ -9,6 +9,7 @@ const columns = [
     key: "product",
     title: "Nomi",
     dataIndex: "product",
+    render: (text, record) => text?.name,
   },
   {
     key: "amount",
@@ -24,6 +25,13 @@ const columns = [
     key: "warehouse",
     title: "Filial",
     dataIndex: "warehouse",
+    render: (text, record) => text?.name,
+  },
+  {
+    key: "added_by",
+    title: "Qo'shgan",
+    dataIndex: "added_by",
+    // render: (text, record) => text?.first_name + " " + text?.last_name,
   },
 ];
 

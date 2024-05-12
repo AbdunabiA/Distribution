@@ -86,7 +86,7 @@ import ProfileImage from "components/profileImage";
           </li>
           <li>
             {userProfile.warehouse ? <span>Filial:</span> : null}
-            {userProfile.warehouse ? userProfile.warehouse : null}
+            {userProfile.warehouse ? userProfile.warehouse?.name : null}
           </li>
           <li>
             {userProfile.birth_date ? <span>Tugulgan sana:</span> : null}

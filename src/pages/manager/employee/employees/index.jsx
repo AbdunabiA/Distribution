@@ -5,8 +5,6 @@ import { GetAll } from "modules";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useState } from "react";
 import { CreateCar, CreateTask, CreateUserForm } from "components/forms";
-import { useNavigate } from "react-router-dom";
-import { ProductsSendForm } from "components/forms/productsSendForm";
 import Loader from "components/loader";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePost } from "crud";
@@ -44,15 +42,19 @@ const employeeColumns = [
     title: "Tel raqam",
     dataIndex: "phone_number",
   },
+  {
+    key: "warehouse",
+    title: "Filial",
+    dataIndex: "warehouse",
+    render: (text) => text?.name,
+  },
 ];
 
 const ManagerEmployees = () => {
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const [carModal, setCarModal] = useState({ isOpen: false, data: null });
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { mutate: deleteUsers } = usePost();
-  // const {mutation} = usePost({url:""})
   return (
     <GetAll
       queryKey={["/users/all/"]}

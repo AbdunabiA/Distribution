@@ -8,3 +8,5 @@ export { ProductSend } from './productSend';
 export { CreateTask } from './createTask';
 export { ChangePassword } from './changePassword';
 export { CreateSalary } from './createSalary';
+export { CreateOrder } from './createOrder';
+

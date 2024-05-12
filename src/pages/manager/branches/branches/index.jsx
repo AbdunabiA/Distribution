@@ -10,6 +10,7 @@ import { BarChart, LineGraph, PieChart } from "components/charts";
 import { usePost } from "crud";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import Loader from "components/loader";
 
 const ManagerBranches = () => {
   const [branchModal, setBranchModal] = useState({ isOpen: false, data: null });
@@ -20,12 +21,12 @@ const ManagerBranches = () => {
   const queryClient = useQueryClient();
   const { mutate: deleteBranch } = usePost();
   const branchesCoulmns = [
-    {
-      key: 0,
-      title: "#",
-      width: "70px",
-      render: (a, b, i) => i + 1,
-    },
+    // {
+    //   key: 0,
+    //   title: "#",
+    //   width: "70px",
+    //   render: (a, b, i) => i + 1,
+    // },
     {
       key: "name",
       title: "Nomi",
@@ -76,7 +77,7 @@ const ManagerBranches = () => {
   return (
     <GetAll url={"/warehouses/all/"} queryKey={["/warehouses/all/"]}>
       {({ data, isLoading, isError, error }) => {
-        if (isLoading) return <h1>Loading</h1>;
+        if (isLoading) return <Loader />;
         if (isError) return <h1>Error</h1>;
         console.log(data);
         return (

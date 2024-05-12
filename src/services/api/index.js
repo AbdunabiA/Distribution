@@ -2,7 +2,7 @@ import axios from "axios";
 import storage from "services/storage";
 
 const api = axios.create({
-  baseURL: "http://64.225.110.95",
+  baseURL: "https://apis.distrox.uz",
   timeout: 30000,
 });
 
