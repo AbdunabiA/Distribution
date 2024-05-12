@@ -4,7 +4,7 @@ import singleScss from "./singleClient.module.scss";
 import { useState } from "react";
 import { Button, Modal } from "antd";
 import { useParams } from "react-router-dom";
-import { useGet, } from "crud";
+import { useGet } from "crud";
 import { CreateClient } from "components/forms/createClient";
 import Loader from "components/loader";
 
@@ -100,7 +100,7 @@ const items1 = [
   },
 ];
 
-const ManagerSingleClient = () => {
+const BranchDirectorSingleClient = () => {
   let { clintId } = useParams();
   const [dateValue, setDateValue] = useState("");
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
@@ -200,4 +200,4 @@ const ManagerSingleClient = () => {
     </>
   );
 };
-export default ManagerSingleClient;
+export default BranchDirectorSingleClient;

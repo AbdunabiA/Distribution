@@ -1,66 +1,15 @@
 import { useState } from "react";
 import DateFilter from "components/dateFilter";
-import { LineGraph } from "components/charts";
 import CustomTable from "components/table";
 import { Button, Modal } from "antd";
-import { useNavigate } from "react-router-dom";
-import { data } from "assets/db";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGet, usePost } from "crud";
 import { toast } from "sonner";
 import { CreateClient } from "components/forms/createClient";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import Loader from "components/loader";
-const ManagerClients = () => {
-  const [dateValue, setDateValue] = useState("");
-  // const navigate = useNavigate();
-  const onChange = (value) => {
-    setDateValue(value);
-    console.log(dateValue);
-  };
-  // const items2 = [
-  //   {
-  //     id: "1",
-  //     famismshar: "Mordayev Akmaljon",
-  //     telefonraqam: +998905200350,
-  //     manzil: "Tashkent",
-  //     status: "active",
-  //     filial: "Novza",
-  //   },
-  //   {
-  //     id: "2",
-  //     famismshar: "Mordayev Akmaljon",
-  //     telefonraqam: +998905200350,
-  //     manzil: "Tashkent",
-  //     status: "active",
-  //     filial: "Novza",
-  //   },
 
-  //   {
-  //     id: "3",
-  //     famismshar: "Mordayev Akmaljon",
-  //     telefonraqam: +998905200350,
-  //     manzil: "Tashkent",
-  //     status: "active",
-  //     filial: "Novza",
-  //   },
-  //   {
-  //     id: "4",
-  //     famismshar: "Mordayev Akmaljon",
-  //     telefonraqam: +998905200350,
-  //     manzil: "Tashkent",
-  //     status: "active",
-  //     filial: "Novza",
-  //   },
-  //   {
-  //     id: "5",
-  //     famismshar: "Mordayev Akmaljon",
-  //     telefonraqam: +998905200350,
-  //     manzil: "Tashkent",
-  //     status: "active",
-  //     filial: "Novza",
-  //   },
-  // ];
+
   const columns2 = [
     {
       key: 0,
@@ -93,13 +42,23 @@ const ManagerClients = () => {
       sorter: (a, b) => a.status - b.status,
     },
   ];
+
+
+
+const ManagerClients = () => {
+  const [dateValue, setDateValue] = useState("");
+  const onChange = (value) => {
+    setDateValue(value);
+    console.log(dateValue);
+  };
+
+
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
   const { data, isLoading } = useGet({
     url: "/customers/all/",
     queryKey: ["/customers/all/"],
   });
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const { mutate: deleteClient } = usePost();
   return (
     <>

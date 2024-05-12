@@ -82,10 +82,6 @@ const BarnchDirectorEmployees = () => {
                 hideColumns
                 hasDelete
                 hasUpdate
-                onRow={(data, index) => ({
-                  onClick: () => navigate(`/employee/${data.id}`),
-                  style: { cursor: "pointer" },
-                })}
                 isLoading={isLoading}
                 items={data?.data}
                 buttons={[

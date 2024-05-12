@@ -44,7 +44,7 @@ const options = [
 
 export const CreateTask = ({ data, setModal }) => {
   const queryClient = useQueryClient();
-    const { data: userData } = useSelector((store) => store.auth);
+  const { data: userData } = useSelector((store) => store.auth);
   return (
     <ContainerForm
       url={data ? "" : "/users/task_create/"}
@@ -113,7 +113,13 @@ export const CreateTask = ({ data, setModal }) => {
               name="role"
               label={"Lavozim"}
               placeholder={"Lavozim"}
-              options={userData.role === "manager" ? options.slice(2) : options}
+              options={
+                userData.role === "manager"
+                  ? options.slice(2)
+                  : userData.role === "branch_director"
+                  ? options.slice(3)
+                  : options
+              }
             />
             <AsyncSelect
               name="task_executors"
@@ -142,5 +148,3 @@ export const CreateTask = ({ data, setModal }) => {
     </ContainerForm>
   );
 };
-
-

@@ -44,6 +44,12 @@ const employeeColumns = [
     title: "Tel raqam",
     dataIndex: "phone_number",
   },
+  {
+    key: "warehouse",
+    title: "Filial",
+    dataIndex: "warehouse",
+    render: (text) => text?.name,
+  },
 ];
 
 const ManagerEmployees = () => {
