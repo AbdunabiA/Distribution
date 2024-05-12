@@ -4,10 +4,19 @@ import CustomTable from "components/table";
 import { GetAll } from "modules";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useState } from "react";
-import { CreateCar, CreateUserForm } from "components/forms";
-import { useNavigate } from "react-router-dom";
+import { CreateCar, CreateTask, CreateUserForm } from "components/forms";
+import Loader from "components/loader";
+import { useQueryClient } from "@tanstack/react-query";
+import { usePost } from "crud";
+import { toast } from "sonner";
 
 const employeeColumns = [
+  {
+    key: 0,
+    title: "#",
+    width: "70px",
+    render: (a, b, i) => i + 1,
+  },
   {
     key: "name",
     title: "Ism",
@@ -33,13 +42,19 @@ const employeeColumns = [
     title: "Tel raqam",
     dataIndex: "phone_number",
   },
+  {
+    key: "warehouse",
+    title: "Filial",
+    dataIndex: "warehouse",
+    render: (text) => text?.name,
+  },
 ];
 
 const BarnchDirectorEmployees = () => {
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
-  const [carModal, setCarModal] = useState({ isOpen: false, data:null})
-  const navigate = useNavigate();
-  // const {mutation} = usePost({url:""})
+  const [carModal, setCarModal] = useState({ isOpen: false, data: null });
+  const queryClient = useQueryClient();
+  const { mutate: deleteUsers } = usePost();
   return (
     <GetAll
       queryKey={["/users/all/"]}
@@ -47,7 +62,7 @@ const BarnchDirectorEmployees = () => {
       // params={{ extra: { role: "agent" } }}
     >
       {({ data, isLoading, isError, error }) => {
-        if (isLoading) return <h1>Loading...</h1>;
+        if (isLoading) return <Loader />;
         if (isError) return <h1>Error</h1>;
         console.log(data);
         return (
@@ -71,19 +86,35 @@ const BarnchDirectorEmployees = () => {
               footer={false}
               onCancel={() => setCarModal({ isOpen: false, data: null })}
             >
-              <CreateCar
-                {...{ setModal: setCarModal, data: carModal.data }}
-              />
+              <CreateCar {...{ setModal: setCarModal, data: carModal.data }} />
             </Modal>
             <div style={{ marginTop: "20px" }}>
               <CustomTable
                 columns={employeeColumns}
-                title={"Xodimlar"}
+                items={data?.data}
+                title={`Xodimlar soni: ${data?.data.length}`}
                 hideColumns
+                height={300}
+                minHeight={"200px"}
+                scrollY
                 hasDelete
                 hasUpdate
+                deleteAction={(data) =>
+                  deleteUsers({
+                    url: `/users/details/${data?.id}/`,
+                    method: "delete",
+                    onSuccess: () => {
+                      toast.success("Foydalanuvchi o'chirildi");
+                      queryClient.invalidateQueries(["/users/all/"]);
+                    },
+                    onError: (err) => toast.error(err?.message),
+                  })
+                }
+                updateAction={(data) =>
+                  setUserModal({ isOpen: true, data: data })
+                }
+                onRowNavigationUrl={"/employee/"}
                 isLoading={isLoading}
-                items={data?.data}
                 buttons={[
                   <Button
                     icon={<PlusIcon />}

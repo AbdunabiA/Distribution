@@ -7,6 +7,7 @@ import { get } from "lodash";
 // import { useTranslation } from "react-i18next";
 import Layout from "components/layout";
 import NotFound from 'components/not-found'
+import Loader from "components/loader";
 // import { useSelector } from "react-redux";
 // import { get } from "lodash";
 
@@ -16,7 +17,7 @@ const appRoutes = (routes) => {
     <React.Fragment key={key}>
       <Route
         path={route.path}
-        element={<Suspense fallback={<></>}>{route.component}</Suspense>}
+        element={<Suspense fallback={<Loader/>}>{route.component}</Suspense>}
       />
       {route.children && appRoutes(route.children)}
     </React.Fragment>

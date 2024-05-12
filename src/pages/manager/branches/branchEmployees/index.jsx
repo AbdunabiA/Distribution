@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "antd";
 import DateFilter from "components/dateFilter";
 import { CreateUserForm } from "components/forms";
@@ -7,6 +8,7 @@ import { usePost } from "crud";
 import { GetAll } from "modules";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 const usersColumns = [
   {
@@ -30,6 +32,7 @@ const ManagerBranchEmployees = () => {
   const { branchId } = useParams();
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const { mutate: deleteUsers } = usePost();
+  const queryClient = useQueryClient();
   return (
     <GetAll
       url={`/warehouses/${branchId}/employees`}
@@ -69,7 +72,7 @@ const ManagerBranchEmployees = () => {
                     method: "delete",
                     onSuccess: () => {
                       toast.success("Foydalanuvchi o'chirildi");
-                      queryClient.invalidateQueries(["branchEmployees"]);
+                      queryClient.invalidateQueries("branchEmployees");
                     },
                     onError: (err) => toast.error(err?.message),
                   })
