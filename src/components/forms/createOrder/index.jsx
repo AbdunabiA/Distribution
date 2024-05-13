@@ -11,8 +11,8 @@ export const CreateOrder = ({ data, setModal }) => {
   const [prodMaxAmount, setProdMaxAmount] = useState(0);
   return (
     <ContainerForm
-      url={data ? `/orders/${data.id}/details/` : "/orders/all/"}
-      method={data ? "put" : "post"}
+      url={data?.id ? `/orders/${data.id}/details/` : "/orders/all/"}
+      method={data?.id ? "put" : "post"}
       fields={[
         {
           name: "customer",
@@ -70,7 +70,7 @@ export const CreateOrder = ({ data, setModal }) => {
       ]}
       onSuccess={() => {
         queryClient.invalidateQueries("/orders/all/");
-        toast.success("Buyurtma " + (data ? "o'zgartirildi" : "yaratildi"));
+        toast.success("Buyurtma " + (data?.id ? "o'zgartirildi" : "yaratildi"));
         setModal({ isOpen: false, data: null });
       }}
       onError={(error) => {
@@ -81,7 +81,7 @@ export const CreateOrder = ({ data, setModal }) => {
         return (
           <div>
             <p className="form-title">{`Buyurtma ${
-              data ? "o'zgartirish" : "yaratish"
+              data?.id ? "o'zgartirish" : "yaratish"
             }`}</p>
             <AsyncSelect
               name="customer"

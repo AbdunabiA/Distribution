@@ -7,6 +7,7 @@ import { usePost } from "crud";
 import { GetAll } from "modules";
 import { useState } from "react";
 import { toast } from "sonner";
+import PlusIcon from "assets/icons/PlusIcon.svg?react";
 
 const columns = [
   {
@@ -79,6 +80,9 @@ const BranchDirectorOrders = () => {
               columns={columns}
               hasDelete
               hasUpdate
+              minHeight={"200px"}
+              height={"300px"}
+              scrollY
               updateAction={(data) => setOrderModal({ isOpen: true, data })}
               deleteAction={(data) => {
                 orderDelete({
@@ -97,6 +101,7 @@ const BranchDirectorOrders = () => {
               items={data?.data?.orders}
               buttons={[
                 <Button
+                  icon={<PlusIcon/>}
                   type="primary"
                   onClick={() => setOrderModal({ isOpen: true, data: null })}
                   key={"1"}

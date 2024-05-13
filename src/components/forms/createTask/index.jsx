@@ -10,6 +10,7 @@ import { ContainerForm } from "modules";
 import React from "react";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
+import { get } from "lodash";
 
 const options = [
   {
@@ -47,19 +48,21 @@ export const CreateTask = ({ data, setModal }) => {
   const { data: userData } = useSelector((store) => store.auth);
   return (
     <ContainerForm
-      url={data ? "" : "/users/task_create/"}
-      method={data ? "put" : "post"}
+      url={data?.id ? "" : "/users/task_create/"}
+      method={data?.id ? "put" : "post"}
       fields={[
         {
           name: "text",
           required: true,
+          value: get(data, "text", null),
         },
         {
           name: "deadline",
+          value: get(data, "deadline", null),
         },
         {
           name: "status",
-          value: "active",
+          value: get(data, "status", "active"),
         },
         {
           name: "task_setter",
@@ -67,12 +70,12 @@ export const CreateTask = ({ data, setModal }) => {
         },
         {
           name: "role",
-          value: null,
+          value: get(data, "role", null),
           disabled: true,
         },
         {
           name: "task_executors",
-          value: null,
+          value: get(data, "task_executors", null),
           required: true,
           type: "array",
         },
@@ -80,7 +83,7 @@ export const CreateTask = ({ data, setModal }) => {
       onSuccess={() => {
         queryClient.invalidateQueries("/tasks/all/");
         setModal({ isOpen: false, data: null });
-        toast.success("Topshiriq yaratildi");
+        toast.success(`Topshiriq ${data?.id ? "o'zgartirildi" : "yaratildi"}`);
       }}
       onError={(err) => toast.error(err.message)}
     >
@@ -96,7 +99,7 @@ export const CreateTask = ({ data, setModal }) => {
             }}
           >
             <p className="form-title">{`Topshiriq ${
-              data ? "o'zgartirish" : "yaratish"
+              data?.id ? "o'zgartirish" : "yaratish"
             }`}</p>
             <CustomTextArea
               name="text"

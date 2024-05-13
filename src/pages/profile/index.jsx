@@ -168,9 +168,10 @@ function Profile() {
                       items: olinganTaskData?.data,
                       title: `Topshiriqlar soni: ${olinganTaskData?.data.length}`,
                       minHeight: 340,
-                      hasStatus: true,
-                      // scrollY: true,
-                      height: 285,
+                      // hasStatus: true,
+                      scrollY: true,
+                      scrollX: true,
+                      height: "100%",
                       hideColumns: true,
                       // hasPagination: true,
                     }}
@@ -178,7 +179,7 @@ function Profile() {
                 </div>
               </div>
               <div>
-                <div className={profileScss.date}>
+                {/* <div className={profileScss.date}>
                   <DateFilter onChange={onchange} value={dateValue} />
                   <div style={{ marginTop: "20px" }}>
                     <CustomTable
@@ -195,7 +196,7 @@ function Profile() {
                       }}
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

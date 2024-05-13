@@ -45,6 +45,8 @@ const columns = [
     sorter: (a, b) => a.status - b.status,
   },
 ];
+
+
 const ManagerTasks = () => {
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
   const [dateValue, setDateValue] = useState("");
