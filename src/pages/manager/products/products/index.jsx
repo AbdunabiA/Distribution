@@ -186,7 +186,7 @@ const ManagerProducts = () => {
             columns: productsColumns,
             height: 300,
             minHeight: "200px",
-            scrollY:true,
+            scrollY: true,
             items: productsData?.data,
             title: `Mahsulotlar soni : ${productsData?.data.length}`,
             hideColumns: true,
