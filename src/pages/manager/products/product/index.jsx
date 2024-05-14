@@ -13,8 +13,6 @@ import { Button, Modal } from "antd";
 const ManagerProduct = () => {
   const { productId } = useParams();
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
-  const { mutate: deleteProduct } = usePost();
-  const { mutate: deleteCategories } = usePost();
   const queryClient = useQueryClient();
   return (
     <GetAll url={`/products/${productId}`} queryKey={["product"]}>
@@ -58,7 +56,7 @@ const ManagerProduct = () => {
                     {data?.data.photo === null ? null : (
                       <img
                         src={`https://apis.distrox.uz${data?.data.photo}`}
-                        alt=""
+                        alt="Product-image"
                       />
                     )}
                   </div>
