@@ -47,6 +47,7 @@ const columns = [
 ];
 const ManagerTasks = () => {
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
+  console.log(data, 'dataaa');
   const [dateValue, setDateValue] = useState("");
   const { data: userData } = useSelector((state) => state.auth);
   let id = userData.id;
@@ -91,7 +92,7 @@ const ManagerTasks = () => {
             isLoading: berilganTasksLoading,
             hasDelete: true,
             hasUpdate: true,
-            title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data.length}`,
+            title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data ? berilganTaskData?.data.length : ''}`,
             minHeigth: "230px",
             // onRowNavigationUrl: `/clients/`,
             hideColumns: true,
@@ -108,12 +109,8 @@ const ManagerTasks = () => {
                 onError: (err) => toast.error(err?.message),
               });
             },
-            //   onError: () => toast.error("Client o'chirilmadi"),
-            // }),
-            // updateAction: (data) =>
-            //   setModal({ isOpen: true, form: "client", data: data }),
-            // scrollY: true,
-            // hasPagination: true,
+            updateAction: (data) =>
+              setModal({ isOpen: true, form: "task", data: data}),
             buttons: [
               <Button
                 icon={<PlusIcon />}
@@ -137,9 +134,7 @@ const ManagerTasks = () => {
               columns: columns,
               items: taskData?.data,
               isLoading: tasksLoading,
-              // hasDelete: true,
-              // hasUpdate: true,
-              title: `Topshiriqlar soni : ${taskData?.data.length}`,
+              title: `Topshiriqlar soni : ${taskData?.data ? taskData.data.length : ''}`,
               minHeigth: "230px",
               // onRowNavigationUrl: `/clients/`,
               hideColumns: true,
@@ -158,7 +153,7 @@ const ManagerTasks = () => {
               scrollY: true,
               height: 250,
               // hasPagination: true,
-            }}
+            }}  
           />
         </div>
       </div>

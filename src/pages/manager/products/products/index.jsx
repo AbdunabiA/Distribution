@@ -64,6 +64,7 @@ const productsColumns = [
     render: (text, record) => text?.name,
   },
 ];
+
 const items2 = [
   {
     id: "1",
@@ -146,7 +147,7 @@ const ManagerProducts = () => {
         items={categoriesData?.data}
         height={300}
         minHeight={"200px"}
-        title={`Kategoriyalar soni: ${categoriesData?.data.length}`}
+        title={`Kategoriyalar soni: ${categoriesData?.data ? categoriesData?.data.length : ''}`}
         hideColumns
         scrollY
         isLoading={categoriesLoading}
@@ -188,7 +189,7 @@ const ManagerProducts = () => {
             minHeight: "200px",
             scrollY: true,
             items: productsData?.data,
-            title: `Mahsulotlar soni : ${productsData?.data.length}`,
+            title: `Mahsulotlar soni : ${productsData?.data ? productsData?.data.length : ''}`,
             hideColumns: true,
             deleteAction: (data) =>
               deleteProduct({

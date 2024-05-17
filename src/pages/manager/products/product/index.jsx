@@ -98,8 +98,7 @@ const ManagerProduct = () => {
                   >
                     O'zgartirish
                   </Button>
-                  ,
-                </div>
+                </div>  
               </div>
             </div>
           </div>

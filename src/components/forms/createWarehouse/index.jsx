@@ -9,8 +9,6 @@ export const CreateWarehouse = ({ data, setModal }) => {
   const queryClient = useQueryClient();
   return (
     <ContainerForm
-      url="/warehouses/all/"
-      method={data ? "put" : "post"}
       fields={[
         {
           name: "name",
@@ -40,12 +38,16 @@ export const CreateWarehouse = ({ data, setModal }) => {
           value: get(data, "status", "active"),
         },
       ]}
+      url={data.id ? `warehouses/details/${data?.id}/` : `/warehouses/all/`}
       onSuccess={() => {
         queryClient.invalidateQueries("/warehouses/all/");
-        setModal({ isOpen: false, data: null });
+        setModal({ isOpen: false, form: null, data: null });
         toast.success(`Filial ${data ? "o'zgartirildi" : "yaratildi"}`);
       }}
-      onError={() => toast.error("Filial yaratilmadi")}
+      onError={() =>
+        toast.error(`Filial ${data ? "o'zgartirilmadi" : "yaratilmadi"}`)
+      }
+      method={data ? "put" : "post"}
     >
       {({ handleSubmit, isLoading }) => {
         return (
@@ -68,7 +70,7 @@ export const CreateWarehouse = ({ data, setModal }) => {
             <InputMask
               name="phone"
               label={"Tel. raqam"}
-              mask={"+998 (99) 999 99 99"}
+              mask={"+998 (99) 999 99 99"}  
             />
             <CustomInput
               name="address"

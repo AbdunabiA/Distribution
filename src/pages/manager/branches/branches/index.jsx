@@ -13,11 +13,13 @@ import { useQueryClient } from "@tanstack/react-query";
 import Loader from "components/loader";
 
 const ManagerBranches = () => {
-  const [branchModal, setBranchModal] = useState({ isOpen: false, data: null });
+  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
   const [sendProdModal, setSendProdModal] = useState({
     isOpen: false,
     data: null,
+    form: null,
   });
+
   const queryClient = useQueryClient();
   const { mutate: deleteBranch } = usePost();
   const branchesCoulmns = [
@@ -94,11 +96,11 @@ const ManagerBranches = () => {
                 setModal={setSendProdModal}
               />
             </Modal>
-            <Modal
-              open={branchModal.isOpen}
+            {/* <Modal
+              open={modal.isOpen}
               centered
               destroyOnClose
-              onCancel={() => setBranchModal({ isOpen: false, data: null })}
+              onCancel={() => setModal({ isOpen: false, data: null })}
               footer={false}
             >
               <CreateWarehouse
@@ -106,12 +108,36 @@ const ManagerBranches = () => {
                 setModal={setBranchModal}
               />
             </Modal>
+            <Modal
+              open={branchModal.isOpen}
+              centered
+              destroyOnClose
+              onCancel={() => setBranchModal({ isOpen: false, data: null })}
+              footer={false}
+            >
+            {branchModal.form === "filial" ? (
+              <CreateWarehouse {...{ setBranchModal, data: branchModal.data }} />
+            ) : null}
+            </Modal> */}
+            <Modal
+              destroyOnClose
+              centered
+              footer={false}
+              open={modal.isOpen}
+              onCancel={() =>
+                setModal({ isOpen: false, form: null, data: null })
+              }
+            >
+              {modal.form === "filial" ? (
+                <CreateWarehouse {...{ setModal, data: modal.data }} />
+              ) : null}
+            </Modal>
             <DateFilter />
             <div style={{ marginTop: "20px" }}>
               <CustomTable
                 columns={branchesCoulmns}
                 items={data?.data}
-                title={`Filiallar soni: ${data?.data.length}`}
+                title={`Filiallar soni: ${data?.data ? data?.data.length : ''}`}
                 hideColumns
                 height={350}
                 minHeight={"200px"}
@@ -129,13 +155,22 @@ const ManagerBranches = () => {
                     onError: (err) => toast.error(err?.message),
                   })
                 }
+                updateAction={(data) =>
+                  setModal({ isOpen: true, form: "filial", data: data })
+                }
                 onRowNavigationUrl={"/branches/"}
                 buttons={[
                   <Button
                     icon={<PlusIcon />}
                     key={1}
                     type="primary"
-                    onClick={() => setBranchModal({ isOpen: true, data: null })}
+                    onClick={() =>
+                      setModal({
+                        isOpen: true,
+                        form: "filial",
+                        data: null,
+                      })
+                    }
                   >
                     Filial qo'shish
                   </Button>,
