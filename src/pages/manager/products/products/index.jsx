@@ -192,7 +192,7 @@ const ManagerProducts = () => {
                   queryClient.invalidateQueries("/products/all/");
                   toast.success("Mahsulot o'chirildi");
                 },
-                onError: () => toast.error("Mahsulot o'chirilmadi"),
+                onError: (err) => toast.error(err.message),
               }),
             updateAction: (data) =>
               setModal({ isOpen: true, form: "product", data: data }),

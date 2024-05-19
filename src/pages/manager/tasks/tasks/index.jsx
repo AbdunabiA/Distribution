@@ -12,7 +12,6 @@ import { CreateTask } from "components/forms/createTask";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
 
-
 const columns = [
   {
     key: 0,
@@ -46,9 +45,8 @@ const columns = [
   },
 ];
 
-
 const ManagerTasks = () => {
-  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
+  const [modal, setModal] = useState({ isOpen: false, data: null });
   const [dateValue, setDateValue] = useState("");
   const { data: userData } = useSelector((state) => state.auth);
   let id = userData.id;
@@ -67,7 +65,6 @@ const ManagerTasks = () => {
   });
 
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const { mutate: deleteTask } = usePost();
   return (
     <div className="container">
@@ -79,11 +76,9 @@ const ManagerTasks = () => {
         centered
         footer={false}
         open={modal.isOpen}
-        onCancel={() => setModal({ isOpen: false, form: null, data: null })}
+        onCancel={() => setModal({ isOpen: false, data: null })}
       >
-        {modal.form === "task" ? (
           <CreateTask {...{ setModal, data: modal.data }} />
-        ) : null}
       </Modal>
       <div>
         <CustomTable
@@ -95,6 +90,7 @@ const ManagerTasks = () => {
             hasUpdate: true,
             title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data.length}`,
             minHeigth: "230px",
+            height: "300px",
             // onRowNavigationUrl: `/clients/`,
             hideColumns: true,
             deleteAction: (data) => {
@@ -102,9 +98,7 @@ const ManagerTasks = () => {
                 url: `/tasks/${data?.id}/delete/`,
                 method: "delete",
                 onSuccess: () => {
-                  queryClient.invalidateQueries([
-                    `/users/bergan_tasklari/${id}`,
-                  ]);
+                  queryClient.invalidateQueries(`/users/bergan_tasklari/${id}`);
                   toast.success("Topshiriq o'chirildi");
                 },
                 onError: (err) => toast.error(err?.message),
@@ -112,9 +106,8 @@ const ManagerTasks = () => {
             },
             //   onError: () => toast.error("Client o'chirilmadi"),
             // }),
-            // updateAction: (data) =>
-            //   setModal({ isOpen: true, form: "client", data: data }),
-            // scrollY: true,
+            updateAction: (data) => setModal({ isOpen: true, data: data }),
+            scrollY: true,
             // hasPagination: true,
             buttons: [
               <Button

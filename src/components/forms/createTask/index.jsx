@@ -46,9 +46,10 @@ const options = [
 export const CreateTask = ({ data, setModal }) => {
   const queryClient = useQueryClient();
   const { data: userData } = useSelector((store) => store.auth);
+  console.log("modal data", data);
   return (
     <ContainerForm
-      url={data?.id ? "" : "/users/task_create/"}
+      url={data?.id ? `tasks/${data?.id}/update/` : "/users/task_create/"}
       method={data?.id ? "put" : "post"}
       fields={[
         {
@@ -70,7 +71,7 @@ export const CreateTask = ({ data, setModal }) => {
         },
         {
           name: "role",
-          value: get(data, "role", null),
+          value: get(data, "role.id", null),
           disabled: true,
         },
         {
