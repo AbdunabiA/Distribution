@@ -36,6 +36,12 @@ const categoriesColumns = [
 
 const productsColumns = [
   {
+    key: 0,
+    title: "#",
+    width: "70px",
+    render: (a, b, i) => i + 1,
+  },
+  {
     key: 1,
     title: "Nomi",
     dataIndex: "name",
@@ -58,6 +64,7 @@ const productsColumns = [
     render: (text, record) => text?.name,
   },
 ];
+
 const items2 = [
   {
     id: "1",
@@ -140,7 +147,7 @@ const ManagerProducts = () => {
         items={categoriesData?.data}
         height={300}
         minHeight={"200px"}
-        title={`Kategoriyalar soni: ${categoriesData?.data.length}`}
+        title={`Kategoriyalar soni: ${categoriesData?.data ? categoriesData?.data.length : ''}`}
         hideColumns
         scrollY
         isLoading={categoriesLoading}
@@ -180,9 +187,9 @@ const ManagerProducts = () => {
             columns: productsColumns,
             height: 300,
             minHeight: "200px",
-            scrollY:true,
+            scrollY: true,
             items: productsData?.data,
-            title: `Mahsulotlar soni : ${productsData?.data.length}`,
+            title: `Mahsulotlar soni : ${productsData?.data ? productsData?.data.length : ''}`,
             hideColumns: true,
             deleteAction: (data) =>
               deleteProduct({

@@ -92,7 +92,7 @@ const ManagerEmployees = () => {
               <CustomTable
                 columns={employeeColumns}
                 items={data?.data}
-                title={`Xodimlar soni: ${data?.data.length}`}
+                title={`Xodimlar soni: ${data?.data ? data.data.length : '' }`}
                 hideColumns
                 height={300}
                 minHeight={"200px"}
