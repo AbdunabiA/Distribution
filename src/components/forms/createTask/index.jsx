@@ -56,6 +56,7 @@ export const CreateTask = ({ data, setModal }) => {
           name: "text",
           value: get(data, "text", ""),
           required: true,
+          value: get(data, "text", null),
         },
         {
           name: "deadline",
@@ -63,7 +64,7 @@ export const CreateTask = ({ data, setModal }) => {
         },
         {
           name: "status",
-          value: "active",
+          value: get(data, "status", "active"),
         },
         {
           name: "task_setter",
@@ -71,12 +72,12 @@ export const CreateTask = ({ data, setModal }) => {
         },
         {
           name: "role",
-          value: null,
+          value: get(data, "role.id", null),
           disabled: true,
         },
         {
           name: "task_executors",
-          value: null,
+          value: get(data, "task_executors", null),
           required: true,
           type: "array",
         },
@@ -100,7 +101,7 @@ export const CreateTask = ({ data, setModal }) => {
             }}
           >
             <p className="form-title">{`Topshiriq ${
-              data ? "o'zgartirish" : "yaratish"
+              data?.id ? "o'zgartirish" : "yaratish"
             }`}</p>
             <CustomTextArea
               name="text"
