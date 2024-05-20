@@ -43,20 +43,31 @@ const columns = [
     dataIndex: "status",
     sorter: (a, b) => a.status - b.status,
   },
+  {
+    key: 5,
+    title: "Kim bergan",
+    dataIndex: "task_setter",
+    render: (text, record) => text?.first_name + " " + text?.last_name,
+  },
+  {
+    key: 5,
+    title: "Kimga berilgan",
+    dataIndex: "task_executors",
+    render: (text, record) =>
+      text?.reduce(
+        (acc, user) => acc + user?.first_name + " " + user?.last_name + ", ",
+        ""
+      ),
+  },
 ];
 
 const BranchDiretorTasks = () => {
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
-  const [dateValue, setDateValue] = useState("");
   const { data: userData } = useSelector((state) => state.auth);
   let id = userData.id;
-  const onChange = (value) => {
-    setDateValue(value);
-    console.log(dateValue);
-  };
   const { data: taskData, isLoading: tasksLoading } = useGet({
-    url: "/tasks/all/",
-    queryKey: ["/tasks/all/"],
+    url: `/warehouses/${userData?.warehouse?.id}/tasks/`,
+    queryKey: [`/warehouses/${userData?.warehouse?.id}/tasks/`],
   });
 
   const { data: berilganTaskData, isLoading: berilganTasksLoading } = useGet({
@@ -65,13 +76,13 @@ const BranchDiretorTasks = () => {
   });
 
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const { mutate: deleteTask } = usePost();
+  console.log(taskData);
   return (
     <div className="container">
-      <div style={{ margin: "32px 10px" }}>
+      {/* <div style={{ margin: "32px 10px" }}>
         <DateFilter onChange={onchange} value={dateValue} />
-      </div>
+      </div> */}
       <Modal
         destroyOnClose
         centered

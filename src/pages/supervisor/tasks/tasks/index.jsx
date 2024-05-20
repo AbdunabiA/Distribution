@@ -12,7 +12,6 @@ import { CreateTask } from "components/forms/createTask";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
 
-
 const columns = [
   {
     key: 0,
@@ -47,18 +46,13 @@ const columns = [
 ];
 
 const SupervisorTasks = () => {
-  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
-  const [dateValue, setDateValue] = useState("");
+  const [modal, setModal] = useState({ isOpen: false, data: null });
   const { data: userData } = useSelector((state) => state.auth);
   let id = userData.id;
-  const onChange = (value) => {
-    setDateValue(value);
-    console.log(dateValue);
-  };
-  const { data: taskData, isLoading: tasksLoading } = useGet({
-    url: "/tasks/all/",
-    queryKey: ["/tasks/all/"],
-  });
+  // const { data: taskData, isLoading: tasksLoading } = useGet({
+  //   url: "/tasks/all/",
+  //   queryKey: ["/tasks/all/"],
+  // });
 
   const { data: berilganTaskData, isLoading: berilganTasksLoading } = useGet({
     url: `/users/bergan_tasklari/${id}`,
@@ -66,23 +60,20 @@ const SupervisorTasks = () => {
   });
 
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const { mutate: deleteTask } = usePost();
   return (
     <div className="container">
-      <div style={{ margin: "32px 10px" }}>
+      {/* <div style={{ margin: "32px 10px" }}>
         <DateFilter onChange={onchange} value={dateValue} />
-      </div>
+      </div> */}
       <Modal
         destroyOnClose
         centered
         footer={false}
         open={modal.isOpen}
-        onCancel={() => setModal({ isOpen: false, form: null, data: null })}
+        onCancel={() => setModal({ isOpen: false, data: null })}
       >
-        {modal.form === "task" ? (
-          <CreateTask {...{ setModal, data: modal.data }} />
-        ) : null}
+        <CreateTask {...{ setModal, data: modal.data }} />
       </Modal>
       <div>
         <CustomTable
@@ -133,7 +124,7 @@ const SupervisorTasks = () => {
           }}
         />
         <div style={{ marginTop: "40px" }}>
-          <CustomTable
+          {/* <CustomTable
             {...{
               columns: columns,
               items: taskData?.data,
@@ -160,11 +151,11 @@ const SupervisorTasks = () => {
               height: 250,
               // hasPagination: true,
             }}
-          />
+          /> */}
         </div>
       </div>
     </div>
   );
 };
 
-export default SupervisorTasks
+export default SupervisorTasks;

@@ -38,16 +38,16 @@ export const CreateWarehouse = ({ data, setModal }) => {
           value: get(data, "status", "active"),
         },
       ]}
-      url={data.id ? `warehouses/details/${data?.id}/` : `/warehouses/all/`}
+      url={data?.id ? `warehouses/details/${data?.id}/` : `/warehouses/all/`}
       onSuccess={() => {
         queryClient.invalidateQueries("/warehouses/all/");
         setModal({ isOpen: false, form: null, data: null });
-        toast.success(`Filial ${data ? "o'zgartirildi" : "yaratildi"}`);
+        toast.success(`Filial ${data?.id ? "o'zgartirildi" : "yaratildi"}`);
       }}
       onError={() =>
-        toast.error(`Filial ${data ? "o'zgartirilmadi" : "yaratilmadi"}`)
+        toast.error(`Filial ${data?.id ? "o'zgartirilmadi" : "yaratilmadi"}`)
       }
-      method={data ? "put" : "post"}
+      method={data?.id ? "put" : "post"}
     >
       {({ handleSubmit, isLoading }) => {
         return (

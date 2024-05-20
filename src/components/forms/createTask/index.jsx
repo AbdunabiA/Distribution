@@ -54,7 +54,6 @@ export const CreateTask = ({ data, setModal }) => {
       fields={[
         {
           name: "text",
-          value: get(data, "text", ""),
           required: true,
           value: get(data, "text", null),
         },

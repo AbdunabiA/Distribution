@@ -7,6 +7,7 @@ import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
+import { useSelector } from "react-redux";
 
 const categoriesColumns = [
   {
@@ -37,41 +38,44 @@ const productsColumns = [
   {
     key: 1,
     title: "Nomi",
-    dataIndex: "name",
+    dataIndex: "product",
+    render: (text, record) => text?.name,
   },
   {
     key: 2,
     title: "Narxi",
-    dataIndex: "price",
+    dataIndex: "product",
+    render: (text, record) => text?.price,
     sorter: (a, b) => a.price - b.price,
   },
   {
     key: 3,
-    title: "Status",
-    dataIndex: "status",
+    title: "Miqdori",
+    dataIndex: "amount",
   },
   {
     key: 4,
+    title: "Yroqsizlar miqdori",
+    dataIndex: "invalids_amount",
+  },
+  {
+    key: 5,
     title: "Kategoriya",
-    dataIndex: "category",
-    render: (text, record) => text?.name,
+    dataIndex: "product",
+    render: (text, record) => text?.category?.name,
   },
 ];
 
 const BranchDirectorProducts = () => {
-  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
+  const [modal, setModal] = useState({ isOpen: false, data: null });
+  const { data: userData } = useSelector((state) => state?.auth);
   const { data: productsData, isLoading: productsLoading } = useGet({
-    url: "/products/all/",
-    queryKey: ["/products/all/"],
-  });
-  const { data: categoriesData, isLoading: categoriesLoading } = useGet({
-    url: "/categories/",
-    queryKey: ["/categories/"],
+    url: `/warehouses/${userData?.warehouse?.id}/products/`,
+    queryKey: ["/warehouses/", userData?.warehouse?.id, "/products/"],
   });
   const { mutate: deleteProduct } = usePost();
-  const { mutate: deleteCategories } = usePost();
   const queryClient = useQueryClient();
-  console.log(productsData);
+  console.log(productsData?.data);
   return (
     <div className="container">
       <Modal
@@ -79,52 +83,10 @@ const BranchDirectorProducts = () => {
         centered
         footer={false}
         open={modal.isOpen}
-        onCancel={() => setModal({ isOpen: false, form: null, data: null })}
+        onCancel={() => setModal({ isOpen: false, data: null })}
       >
-        {modal.form === "category" ? (
-          <CreateProductCategory {...{ setModal, data: modal.data }} />
-        ) : modal.form === "product" ? (
-          <CreateProduct {...{ setModal, data: modal.data }} />
-        ) : null}
+        <CreateProduct {...{ setModal, data: modal.data }} />
       </Modal>
-      <CustomTable
-        columns={categoriesColumns}
-        items={categoriesData?.data}
-        height={300}
-        minHeight={"200px"}
-        title={`Kategoriyalar soni: ${categoriesData?.data.length}`}
-        hideColumns
-        scrollY
-        isLoading={categoriesLoading}
-        hasDelete
-        hasUpdate
-        deleteAction={(data) =>
-          deleteCategories({
-            url: `category/${data.id}`,
-            method: "delete",
-            onSuccess: () => {
-              queryClient.invalidateQueries("/categories/");
-              toast.success("Kategoriya o'chirildi");
-            },
-            onError: () => toast.error("Kategoriya o'chirilmadi"),
-          })
-        }
-        updateAction={(data) =>
-          setModal({ isOpen: true, form: "category", data: data })
-        }
-        buttons={[
-          <Button
-            icon={<PlusIcon />}
-            key={"category"}
-            type="primary"
-            onClick={() =>
-              setModal({ isOpen: true, form: "category", data: null })
-            }
-          >
-            Kategoriya qo'shish
-          </Button>,
-        ]}
-      />
       <div style={{ marginTop: "20px" }}>
         <CustomTable
           {...{
@@ -136,33 +98,19 @@ const BranchDirectorProducts = () => {
             items: productsData?.data,
             title: `Mahsulotlar soni : ${productsData?.data.length}`,
             hideColumns: true,
-            deleteAction: (data) =>
-              deleteProduct({
-                url: `/products/${data.id}/`,
-                method: "delete",
-                onSuccess: () => {
-                  queryClient.invalidateQueries("/products/all/");
-                  toast.success("Mahsulot o'chirildi");
-                },
-                onError: () => toast.error("Mahsulot o'chirilmadi"),
-              }),
-            updateAction: (data) =>
-              setModal({ isOpen: true, form: "product", data: data }),
-            hasDelete: true,
-            hasUpdate: true,
-            onRowNavigationUrl: "/products/",
-            buttons: [
-              <Button
-                icon={<PlusIcon />}
-                key={"product"}
-                type="primary"
-                onClick={() =>
-                  setModal({ isOpen: true, form: "product", data: null })
-                }
-              >
-                Mahsulot qo'shish
-              </Button>,
-            ],
+            // deleteAction: (data) =>
+            //   deleteProduct({
+            //     url: `/products/${data.id}/`,
+            //     method: "delete",
+            //     onSuccess: () => {
+            //       queryClient.invalidateQueries("/products/all/");
+            //       toast.success("Mahsulot o'chirildi");
+            //     },
+            //     onError: () => toast.error("Mahsulot o'chirilmadi"),
+            //   }),
+            // updateAction: (data) => setModal({ isOpen: true, data: data }),
+            // hasDelete: true,
+            // hasUpdate: true,
           }}
         />
       </div>
