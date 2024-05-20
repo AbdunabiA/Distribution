@@ -9,6 +9,7 @@ import Loader from "components/loader";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePost } from "crud";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
 
 const employeeColumns = [
   {
@@ -53,12 +54,13 @@ const employeeColumns = [
 const BarnchDirectorEmployees = () => {
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const [carModal, setCarModal] = useState({ isOpen: false, data: null });
+  const {data:userData} = useSelector(state=>state.auth)
   const queryClient = useQueryClient();
   const { mutate: deleteUsers } = usePost();
   return (
     <GetAll
-      queryKey={["/users/all/"]}
-      url={"/users/all/"}
+      queryKey={[`/warehouses/${userData?.warehouse?.id}/employees/`]}
+      url={`/warehouses/${userData?.warehouse?.id}/employees/`}
       // params={{ extra: { role: "agent" } }}
     >
       {({ data, isLoading, isError, error }) => {

@@ -91,294 +91,289 @@ const SupervisorSingleClient = lazy(() =>
 );
 
 export const pages = {
-  admin: [
-    {
-      path: "/",
-      component: <ManagerBranches />,
-      name: "Filiallar",
-      children: [
-        {
-          path: "/branches/:branchId",
-          component: <ManagerBranch />,
-          children: [
-            {
-              path: "/branches/:branchId/tasks",
-              component: <ManagerBranchTasks />,
-            },
-            {
-              path: "/branches/:branchId/products",
-              component: <ManagerBranchProducts />,
-            },
-            {
-              path: "/branches/:branchId/clients",
-              component: <ManagerBranchClients />,
-            },
-            {
-              path: "/branches/:branchId/employees",
-              component: <ManagerBranchEmployees />,
-            },
-            {
-              path: "/branches/:branchId/orders",
-              component: <ManagerBranchOrders />,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      path: "/employee",
-      component: <ManagerEmployees />,
-      name: "Xodimlar",
-      children: [
-        {
-          path: "/employee/:employeeId",
-          component: <ManagerEmployeeSingle />,
-        },
-      ],
-    },
-    {
-      path: "/profile",
-      component: <Profile />,
-      name: "Profil",
-    },
-    {
-      path: "/clients",
-      component: <ManagerClients />,
-      name: "Mijozlar",
-      children: [
-        {
-          path: "/clients/:clintId",
-          component: <ManagerSingleClient />,
-        },
-      ],
-    },
-    {
-      path: "/products",
-      component: <ManagerProducts />,
-      name: "Mahsulotlar",
-      children: [
-        {
-          path: "/products/:productId",
-          component: <ManagerProduct />,
-          name: "Mahsulot",
-        },
-      ],
-    },
-    {
-      path: "/tasks",
-      component: <ManagerTasks />,
-      name: "Topshiriqlar",
-    },
-    {
-      path: "/archive",
-      component: <ManagerArchive />,
-      name: "Arxiv",
-    },
-  ],
-  manager: [
-    {
-      path: "/",
-      component: <ManagerBranches />,
-      name: "Filiallar",
-      children: [
-        {
-          path: "/branches/:branchId",
-          component: <ManagerBranch />,
-          children: [
-            {
-              path: "/branches/:branchId/tasks",
-              component: <ManagerBranchTasks />,
-            },
-            {
-              path: "/branches/:branchId/products",
-              component: <ManagerBranchProducts />,
-            },
-            {
-              path: "/branches/:branchId/clients",
-              component: <ManagerBranchClients />,
-            },
-            {
-              path: "/branches/:branchId/employees",
-              component: <ManagerBranchEmployees />,
-            },
-            {
-              path: "/branches/:branchId/orders",
-              component: <ManagerBranchOrders />,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      path: "/employee",
-      component: <ManagerEmployees />,
-      name: "Xodimlar",
-      children: [
-        {
-          path: "/employee/:employeeId",
-          component: <ManagerEmployeeSingle />,
-        },
-      ],
-    },
-    {
-      path: "/profile",
-      component: <Profile />,
-      name: "Profil",
-    },
-    {
-      path: "/clients",
-      component: <ManagerClients />,
-      name: "Mijozlar",
-      children: [
-        {
-          path: "/clients/:clintId",
-          component: <ManagerSingleClient />,
-        },
-      ],
-    },
-    {
-      path: "/products",
-      component: <ManagerProducts />,
-      name: "Mahsulotlar",
-      children: [
-        {
-          path: "/products/:productId",
-          component: <ManagerProduct />,
-          name: "Mahsulot",
-        },
-      ],
-    },
-    {
-      path: "/tasks",
-      component: <ManagerTasks />,
-      name: "Topshiriqlar",
-    },
-    {
-      path: "/archive",
-      component: <ManagerArchive />,
-      name: "Arxiv",
-    },
-  ],
-  branch_director: [
-    {
-      path: "/",
-      component: <BranchDirectorProducts />,
-      name: "Mahsulotlar",
-    },
-    {
-      path: "/clients",
-      component: <BranchDirectorClients />,
-      name: "Mijozlar",
-    },
-    {
-      path: "/clients/:clintId",
-      component: <BranchDirectorSingleClient />,
-      name: "Mijoz",
-    },
-    {
-      path: "/tasks",
-      component: <BranchDirectorTasks />,
-      name: "Topshiriqlar",
-    },
-    {
-      path: "/employee",
-      component: <ManagerEmployees />,
-      name: "Xodimlar",
-    },
-    {
-      path: "/profile",
-      component: <Profile />,
-      name: "Profil",
-    },
+         admin: [
+           {
+             path: "/",
+             component: <ManagerBranches />,
+             name: "Filiallar",
+             children: [
+               {
+                 path: "/branches/:branchId",
+                 component: <ManagerBranch />,
+                 children: [
+                   {
+                     path: "/branches/:branchId/tasks",
+                     component: <ManagerBranchTasks />,
+                   },
+                   {
+                     path: "/branches/:branchId/products",
+                     component: <ManagerBranchProducts />,
+                   },
+                   {
+                     path: "/branches/:branchId/clients",
+                     component: <ManagerBranchClients />,
+                   },
+                   {
+                     path: "/branches/:branchId/employees",
+                     component: <ManagerBranchEmployees />,
+                   },
+                   {
+                     path: "/branches/:branchId/orders",
+                     component: <ManagerBranchOrders />,
+                   },
+                 ],
+               },
+             ],
+           },
+           {
+             path: "/employee",
+             component: <ManagerEmployees />,
+             name: "Xodimlar",
+             children: [
+               {
+                 path: "/employee/:employeeId",
+                 component: <ManagerEmployeeSingle />,
+               },
+             ],
+           },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
+           {
+             path: "/clients",
+             component: <ManagerClients />,
+             name: "Mijozlar",
+             children: [
+               {
+                 path: "/clients/:clintId",
+                 component: <ManagerSingleClient />,
+               },
+             ],
+           },
+           {
+             path: "/products",
+             component: <ManagerProducts />,
+             name: "Mahsulotlar",
+             children: [
+               {
+                 path: "/products/:productId",
+                 component: <ManagerProduct />,
+                 name: "Mahsulot",
+               },
+             ],
+           },
+           {
+             path: "/tasks",
+             component: <ManagerTasks />,
+             name: "Topshiriqlar",
+           },
+           {
+             path: "/archive",
+             component: <ManagerArchive />,
+             name: "Arxiv",
+           },
+         ],
+         manager: [
+           {
+             path: "/",
+             component: <ManagerBranches />,
+             name: "Filiallar",
+             children: [
+               {
+                 path: "/branches/:branchId",
+                 component: <ManagerBranch />,
+                 children: [
+                   {
+                     path: "/branches/:branchId/tasks",
+                     component: <ManagerBranchTasks />,
+                   },
+                   {
+                     path: "/branches/:branchId/products",
+                     component: <ManagerBranchProducts />,
+                   },
+                   {
+                     path: "/branches/:branchId/clients",
+                     component: <ManagerBranchClients />,
+                   },
+                   {
+                     path: "/branches/:branchId/employees",
+                     component: <ManagerBranchEmployees />,
+                   },
+                   {
+                     path: "/branches/:branchId/orders",
+                     component: <ManagerBranchOrders />,
+                   },
+                 ],
+               },
+             ],
+           },
+           {
+             path: "/employee",
+             component: <ManagerEmployees />,
+             name: "Xodimlar",
+             children: [
+               {
+                 path: "/employee/:employeeId",
+                 component: <ManagerEmployeeSingle />,
+               },
+             ],
+           },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
+           {
+             path: "/clients",
+             component: <ManagerClients />,
+             name: "Mijozlar",
+             children: [
+               {
+                 path: "/clients/:clintId",
+                 component: <ManagerSingleClient />,
+               },
+             ],
+           },
+           {
+             path: "/products",
+             component: <ManagerProducts />,
+             name: "Mahsulotlar",
+             children: [
+               {
+                 path: "/products/:productId",
+                 component: <ManagerProduct />,
+                 name: "Mahsulot",
+               },
+             ],
+           },
+           {
+             path: "/tasks",
+             component: <ManagerTasks />,
+             name: "Topshiriqlar",
+           },
+           {
+             path: "/archive",
+             component: <ManagerArchive />,
+             name: "Arxiv",
+           },
+         ],
+         branch_director: [
+           {
+             path: "/",
+             component: <BranchDirectorProducts />,
+             name: "Mahsulotlar",
+           },
+           {
+             path: "/clients",
+             component: <BranchDirectorClients />,
+             name: "Mijozlar",
+           },
+           {
+             path: "/clients/:clintId",
+             component: <BranchDirectorSingleClient />,
+             name: "Mijoz",
+           },
+           {
+             path: "/tasks",
+             component: <BranchDirectorTasks />,
+             name: "Topshiriqlar",
+           },
+           {
+             path: "/employee",
+             component: <BranchDirectorEmployees />,
+             name: "Xodimlar",
+           },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
 
-    {
-      path: "/orders",
-      component: <BranchDirectorOrders />,
-      name: "Buyurtmalar",
-    },
-    {
-      path: "/profile",
-      component: <Profile />,
-      name: "Profil",
-    },
-  ],
-  operator: [
-    {
-      path: "/",
-      component: <OperatorOrders />,
-      name: "Buyurtmalar",
-    },
-    {
-      path: "/products",
-      component: <OperatorProducts />,
-      name: "Mahsulotlar",
-    },
-    {
-      path: "/clients",
-      component: <OperatorClients />,
-      name: "Mijozlar",
-    },
-    {
-      path: "/drivers",
-      component: <OperatorDrivers />,
-      name: "Yetkazib beruvchilar",
-    },
-    {
-      path: "/profile",
-      component: <Profile />,
-      name: "Profil",
-    },
-  ],
-  agent: [
-    {
-      path: "/",
-      component: <AgentTasks />,
-      name: "Topshiriqlar",
-    },
-    {
-      path: "/products",
-      component: <AgentProducts />,
-      name: "Mahsulotlar",
-    },
-    {
-      path: "/clients",
-      component: <AgentClients />,
-      name: "Mijozlar",
-    },
-  ],
-  supervisor: [
-    {
-      path: "/",
-      component: <SupervisorTasks />,
-      name: "Topshiriqlar",
-    },
-    {
-      path: "/products",
-      component: <SupervisorProducts />,
-      name: "Mahsulotlar",
-    },
-    {
-      path: "/clients",
-      component: <SupervisorClients />,
-      name: "Mijozlar",
-    },
-    {
-      path: "/clients/:clintId",
-      component: <SupervisorSingleClient />,
-      name: "Mijoz",
-    },
-    {
-      path: "/agents",
-      component: <SupervisorAgents />,
-      name: "Agentlar",
-    },
-    {
-      path: "/profile",
-      component: <Profile />,
-      name: "Profil",
-    },
-  ],
-};
+           {
+             path: "/orders",
+             component: <BranchDirectorOrders />,
+             name: "Buyurtmalar",
+           },
+         ],
+         operator: [
+           {
+             path: "/",
+             component: <OperatorOrders />,
+             name: "Buyurtmalar",
+           },
+           {
+             path: "/products",
+             component: <OperatorProducts />,
+             name: "Mahsulotlar",
+           },
+           {
+             path: "/clients",
+             component: <OperatorClients />,
+             name: "Mijozlar",
+           },
+           {
+             path: "/drivers",
+             component: <OperatorDrivers />,
+             name: "Yetkazib beruvchilar",
+           },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
+         ],
+         agent: [
+           {
+             path: "/",
+             component: <AgentTasks />,
+             name: "Topshiriqlar",
+           },
+           {
+             path: "/products",
+             component: <AgentProducts />,
+             name: "Mahsulotlar",
+           },
+           {
+             path: "/clients",
+             component: <AgentClients />,
+             name: "Mijozlar",
+           },
+         ],
+         supervisor: [
+           {
+             path: "/",
+             component: <SupervisorTasks />,
+             name: "Topshiriqlar",
+           },
+           {
+             path: "/products",
+             component: <SupervisorProducts />,
+             name: "Mahsulotlar",
+           },
+           {
+             path: "/clients",
+             component: <SupervisorClients />,
+             name: "Mijozlar",
+           },
+           {
+             path: "/clients/:clintId",
+             component: <SupervisorSingleClient />,
+             name: "Mijoz",
+           },
+           {
+             path: "/agents",
+             component: <SupervisorAgents />,
+             name: "Agentlar",
+           },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
+         ],
+       };
 
 export const authPages = [
   {

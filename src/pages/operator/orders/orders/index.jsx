@@ -8,6 +8,7 @@ import { GetAll } from "modules";
 import { useState } from "react";
 import { toast } from "sonner";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
+import { useSelector } from "react-redux";
 
 const columns = [
   {
@@ -54,11 +55,15 @@ const columns = [
 
 const OperatorOrders = () => {
   const [orderModal, setOrderModal] = useState({ isOpen: false, data: null });
+  const { data: userData } = useSelector((state) => state.auth);
   const { mutate: orderDelete } = usePost();
   const queryClient = useQueryClient();
 
   return (
-    <GetAll url="/orders/all/" queryKey={["/orders/all/"]}>
+    <GetAll
+      url={`/warehouses/${userData?.warehouse?.id}/orders/`}
+      queryKey={[`/warehouses/${userData?.warehouse?.id}/orders/`]}
+    >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>{error.message}</h1>;
@@ -76,7 +81,7 @@ const OperatorOrders = () => {
               <CreateOrder data={orderModal.data} setModal={setOrderModal} />
             </Modal>
             <CustomTable
-              title={`Buyurtmalar: ${data?.data?.orders?.length} ta`}
+              title={`Buyurtmalar: ${data?.data?.length} ta`}
               columns={columns}
               hasDelete
               hasUpdate

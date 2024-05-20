@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { CreateClient } from "components/forms/createClient";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import Loader from "components/loader";
+import { useSelector } from "react-redux";
 
 const columns2 = [
   {
@@ -40,28 +41,30 @@ const columns2 = [
     dataIndex: "status",
     sorter: (a, b) => a.status - b.status,
   },
+  {
+    key:5,
+    title: "Qo'shgan",
+    dataIndex: "added_by",
+    render: (text, record) => text?.first_name + " " + text?.last_name,
+  },
 ];
 
 const OperatorClients = () => {
-  const [dateValue, setDateValue] = useState("");
-  const onChange = (value) => {
-    setDateValue(value);
-    console.log(dateValue);
-  };
-
-  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
+  const { data: userData } = useSelector((state) => state.auth);
+  const [modal, setModal] = useState({ isOpen: false, data: null });
   const { data, isLoading } = useGet({
-    url: "/customers/all/",
-    queryKey: ["/customers/all/"],
+    url: `/warehouses/${userData?.warehouse?.id}/customers/`,
+    queryKey: [`/warehouses/${userData?.warehouse?.id}/customers/`],
   });
   const queryClient = useQueryClient();
   const { mutate: deleteClient } = usePost();
+  console.log(data?.data);
   return (
     <>
       <div className="container">
-        <div style={{ margin: "32px 20px" }}>
+        {/* <div style={{ margin: "32px 20px" }}>
           <DateFilter onChange={onchange} value={dateValue} />
-        </div>
+        </div> */}
         {/* <div> */}
         {/* <LineGraph
           //   data={[
@@ -85,11 +88,9 @@ const OperatorClients = () => {
             centered
             footer={false}
             open={modal.isOpen}
-            onCancel={() => setModal({ isOpen: false, form: null, data: null })}
+            onCancel={() => setModal({ isOpen: false, data: null })}
           >
-            {modal.form === "client" ? (
-              <CreateClient {...{ setModal, data: modal.data }} />
-            ) : null}
+            <CreateClient {...{ setModal, data: modal.data }} />
           </Modal>
           {isLoading ? (
             <Loader />

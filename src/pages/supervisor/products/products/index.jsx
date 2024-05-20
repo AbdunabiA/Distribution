@@ -9,7 +9,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
-
 const productsColumns = [
   {
     key: 1,
@@ -33,6 +32,12 @@ const productsColumns = [
     dataIndex: "category",
     render: (text, record) => text?.name,
   },
+  {
+    key: 5,
+    title: "Filial",
+    dataIndex: "warehouse",
+    render: (text, record) => text?.name,
+  },
 ];
 
 const SupervisorProducts = () => {
@@ -41,8 +46,7 @@ const SupervisorProducts = () => {
     url: "/products/all/",
     queryKey: ["/products/all/"],
   });
-  const { mutate: deleteProduct } = usePost();
-  const queryClient = useQueryClient();
+  console.log(productsData?.data);
   return (
     <div className="container">
       <div style={{ marginTop: "20px" }}>

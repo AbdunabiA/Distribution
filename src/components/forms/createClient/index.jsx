@@ -41,7 +41,7 @@ export const CreateClient = ({ data, setModal }) => {
         },
         {
           name: "warehouse",
-          value: get(data, "warehouse", null),
+          value: get(data, "warehouse.id", null),
         },
       ]}
       url={`/customers/${data ? `${data.id}/detail` : "all"}/`}
