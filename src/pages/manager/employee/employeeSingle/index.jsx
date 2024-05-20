@@ -8,11 +8,20 @@ import { Button, Modal } from "antd";
 import { useSelector } from "react-redux";
 import { GetAll } from "modules";
 import { ChangePassword, CreateSalary } from "components/forms";
-import { useGet } from "crud";
+import { useGet, usePost } from "crud";
 import { useParams } from "react-router-dom";
 import Loader from "components/loader";
 import dayjs from "dayjs";
+import { CreateUserForm } from "components/forms";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 const columns1 = [
+  {
+    key: 0,
+    title: "#",
+    width: "70px",
+    render: (a, b, i) => i + 1,
+  },
   {
     key: 1,
     title: "Task",
@@ -30,6 +39,11 @@ function ManagerEmployeeSingle() {
   const [dateValue, setDateValue] = useState("");
   const [passwordModal, setPasswordModal] = useState({ isOpen: false });
   const [salaryModal, setSalaryModal] = useState({ isOpen: false, data: null });
+  const [userModal, setUserModal] = useState({ isOpen: false, data: null });
+  
+  const queryClient = useQueryClient();
+  const { mutate: deleteUsers } = usePost();
+
   const onChange = (value) => {
     setDateValue(value);
     console.log(dateValue);
@@ -83,6 +97,12 @@ function ManagerEmployeeSingle() {
     },
   ];
   const columns2 = [
+    {
+      key: 0,
+      title: "#",
+      width: "70px",
+      render: (a, b, i) => i + 1,
+    },
     {
       key: 1,
       title: "name",
@@ -157,6 +177,15 @@ function ManagerEmployeeSingle() {
               <ChangePassword setModal={setPasswordModal} />
             </Modal>
             <Modal
+              open={passwordModal.isOpen}
+              centered
+              destroyOnClose
+              footer={false}
+              onCancel={() => setUserModal({ isOpen: false })}
+            >
+              <CreateUserForm setModal={setUserModal} />
+            </Modal>
+            <Modal
               open={salaryModal.isOpen}
               centered
               destroyOnClose
@@ -174,7 +203,11 @@ function ManagerEmployeeSingle() {
                     ...salaryData?.data,
                   }}
                   buttons={[
-                    <Button type="primary" key={"1"}>
+                    <Button 
+                    type="primary" 
+                    key={"1"}
+                    // onClick={setUserModal({ isOpen: true, data: userProfileData })}
+                    >
                       O’zgartirish
                     </Button>,
                     <Button

@@ -10,7 +10,7 @@ import { ContainerForm } from "modules";
 import React from "react";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
-
+import { get } from "lodash";
 const options = [
   {
     label: "Admin",
@@ -45,17 +45,21 @@ const options = [
 export const CreateTask = ({ data, setModal }) => {
   const queryClient = useQueryClient();
   const { data: userData } = useSelector((store) => store.auth);
+  console.log(data, 'hellosssss');
   return (
     <ContainerForm
-      url={data ? "" : "/users/task_create/"}
+      // url={data ? "" : "/users/task_create/"}
+      url={data ? `tasks/${data?.id}/update/` : `/users/task_create/`}
       method={data ? "put" : "post"}
       fields={[
         {
           name: "text",
+          value: get(data, "text", ""),
           required: true,
         },
         {
           name: "deadline",
+          value: get(data, "deadline", ""),
         },
         {
           name: "status",
@@ -80,7 +84,7 @@ export const CreateTask = ({ data, setModal }) => {
       onSuccess={() => {
         queryClient.invalidateQueries("/tasks/all/");
         setModal({ isOpen: false, data: null });
-        toast.success("Topshiriq yaratildi");
+        toast.success(`Toshiriq ${data ? "o'zgartirildi" : "yaratildi"}`);
       }}
       onError={(err) => toast.error(err.message)}
     >
