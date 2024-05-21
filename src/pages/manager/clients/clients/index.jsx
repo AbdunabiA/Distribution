@@ -9,41 +9,38 @@ import { CreateClient } from "components/forms/createClient";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import Loader from "components/loader";
 
-
-  const columns2 = [
-    {
-      key: 0,
-      title: "#",
-      width: "70px",
-      render: (a, b, i) => i + 1,
-    },
-    {
-      key: 1,
-      title: "name",
-      dataIndex: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
-    },
-    {
-      key: 2,
-      title: "phone",
-      dataIndex: "phone",
-      sorter: (a, b) => a.phone.localeCompare(b.phone),
-    },
-    {
-      key: 3,
-      title: "address",
-      dataIndex: "address",
-      sorter: (a, b) => a.address - b.address,
-    },
-    {
-      key: 4,
-      title: "Status",
-      dataIndex: "status",
-      sorter: (a, b) => a.status - b.status,
-    },
-  ];
-
-
+const columns2 = [
+  {
+    key: 0,
+    title: "#",
+    width: "70px",
+    render: (a, b, i) => i + 1,
+  },
+  {
+    key: 1,
+    title: "name",
+    dataIndex: "name",
+    sorter: (a, b) => a.name.localeCompare(b.name),
+  },
+  {
+    key: 2,
+    title: "phone",
+    dataIndex: "phone",
+    sorter: (a, b) => a.phone.localeCompare(b.phone),
+  },
+  {
+    key: 3,
+    title: "address",
+    dataIndex: "address",
+    sorter: (a, b) => a.address - b.address,
+  },
+  {
+    key: 4,
+    title: "Status",
+    dataIndex: "status",
+    sorter: (a, b) => a.status - b.status,
+  },
+];
 
 const ManagerClients = () => {
   const [dateValue, setDateValue] = useState("");
@@ -52,8 +49,7 @@ const ManagerClients = () => {
     console.log(dateValue);
   };
 
-
-  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
+  const [modal, setModal] = useState({ isOpen: false, data: null });
   const { data, isLoading } = useGet({
     url: "/customers/all/",
     queryKey: ["/customers/all/"],
@@ -63,9 +59,9 @@ const ManagerClients = () => {
   return (
     <>
       <div className="container">
-        <div style={{ margin: "32px 20px" }}>
+        {/* <div style={{ margin: "32px 20px" }}>
           <DateFilter onChange={onchange} value={dateValue} />
-        </div>
+        </div> */}
         {/* <div> */}
         {/* <LineGraph
           //   data={[
@@ -89,11 +85,9 @@ const ManagerClients = () => {
             centered
             footer={false}
             open={modal.isOpen}
-            onCancel={() => setModal({ isOpen: false, form: null, data: null })}
+            onCancel={() => setModal({ isOpen: false, data: null })}
           >
-            {modal.form === "client" ? (
-              <CreateClient {...{ setModal, data: modal.data }} />
-            ) : null}
+            <CreateClient {...{ setModal, data: modal.data }} />
           </Modal>
           {isLoading ? (
             <Loader />
@@ -104,7 +98,7 @@ const ManagerClients = () => {
                 items: data?.data,
                 hasDelete: true,
                 hasUpdate: true,
-                title: `Mijozlar soni: ${data?.data ? data?.data.length : ''}`,
+                title: `Mijozlar soni: ${data?.data.length}`,
                 minHeigth: "230px",
                 height: 350,
                 scrollY: true,
@@ -120,19 +114,16 @@ const ManagerClients = () => {
                     },
                     onError: () => toast.error("Client o'chirilmadi"),
                   }),
-                updateAction: (data) =>
-                  setModal({ isOpen: true, form: "client", data: data }),
+                updateAction: (data) => setModal({ isOpen: true, data: data }),
                 // hasPagination: true,
                 buttons: [
                   <Button
                     icon={<PlusIcon />}
                     type="primary"
                     key={"client"}
-                    onClick={() =>
-                      setModal({ isOpen: true, form: "client", data: null })
-                    }
+                    onClick={() => setModal({ isOpen: true, data: null })}
                   >
-                    mijoz qo'shish
+                    Mijoz qo'shish
                   </Button>,
                 ],
               }}

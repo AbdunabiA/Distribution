@@ -48,7 +48,7 @@ const ManagerBranchProducts = () => {
         console.log(data?.data);
         return (
           <div className="container">
-            <DateFilter />
+            {/* <DateFilter /> */}
             <div style={{ marginTop: 20 }}>
               <CustomTable
                 hideColumns
