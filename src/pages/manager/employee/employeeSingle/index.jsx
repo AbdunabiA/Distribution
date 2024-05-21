@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import { CreateUserForm } from "components/forms";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+// import {CreateUserForm } from "components/forms";
 const columns1 = [
   {
     key: 0,
@@ -146,7 +147,7 @@ function ManagerEmployeeSingle() {
   });
 
   const { data: salaryData } = useGet({
-    url: `/users/${employeeId}/salary_params`,
+    url: `/users/${employeeId}/salary_params/`,
     queryKey: ["salary_params"],
   });
   console.log("salary params", salaryData);
@@ -164,7 +165,7 @@ function ManagerEmployeeSingle() {
       {({ data: userProfileData, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>Error</h1>;
-        console.log(userProfileData.data);
+        console.log(userProfileData.data, 'dataa');
         return (
           <div className="container">
             <Modal
@@ -177,13 +178,13 @@ function ManagerEmployeeSingle() {
               <ChangePassword setModal={setPasswordModal} />
             </Modal>
             <Modal
-              open={passwordModal.isOpen}
+              open={userModal.isOpen}
               centered
               destroyOnClose
               footer={false}
               onCancel={() => setUserModal({ isOpen: false })}
             >
-              <CreateUserForm setModal={setUserModal} />
+              <CreateUserForm setModal={setUserModal} data={userProfileData?.data}/>
             </Modal>
             <Modal
               open={salaryModal.isOpen}
@@ -206,7 +207,12 @@ function ManagerEmployeeSingle() {
                     <Button 
                     type="primary" 
                     key={"1"}
-                    // onClick={setUserModal({ isOpen: true, data: userProfileData })}
+                    onClick={() =>
+                      setUserModal({
+                        isOpen: true,
+                        data: userProfileData?.data,
+                      })
+                    }
                     >
                       O’zgartirish
                     </Button>,
