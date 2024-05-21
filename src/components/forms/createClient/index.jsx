@@ -44,16 +44,16 @@ export const CreateClient = ({ data, setModal }) => {
           value: get(data, "warehouse.id", null),
         },
       ]}
-      url={`/customers/${data ? `${data.id}/detail` : "all"}/`}
+      url={`/customers/${data?.id ? `${data.id}/detail` : "all"}/`}
       onSuccess={() => {
         queryClient.invalidateQueries("/customers/all/");
         setModal({ isOpen: false, form: null, data: null });
-        toast.success(`Client ${data ? "o'zgartirildi" : "yaratildi"}`);
+        toast.success(`Client ${data?.id ? "o'zgartirildi" : "yaratildi"}`);
       }}
       onError={() =>
-        toast.error(`Client ${data ? "o'zgartirilmadi" : "yaratilmadi"}`)
+        toast.error(`Client ${data?.id ? "o'zgartirilmadi" : "yaratilmadi"}`)
       }
-      method={data ? "put" : "post"}
+      method={data?.id ? "put" : "post"}
     >
       {({ handleSubmit, isLoading }) => {
         return (
@@ -66,7 +66,7 @@ export const CreateClient = ({ data, setModal }) => {
             }}
           >
             <p className="form-title">
-              {data ? "Mijozni o'zgartirish" : "Mijoz yaratish"}
+              {data?.id ? "Mijozni o'zgartirish" : "Mijoz yaratish"}
             </p>
             <CustomInput name="name" label={"Ism"} placeholder="Ism" />
             <InputMask
