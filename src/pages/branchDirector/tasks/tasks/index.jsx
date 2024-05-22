@@ -117,6 +117,7 @@ const BranchDiretorTasks = () => {
                   toast.success("Topshiriq o'chirildi");
                 },
                 onError: (err) => toast.error(err?.message),
+                
               });
             },
             //   onError: () => toast.error("Client o'chirilmadi"),

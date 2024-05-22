@@ -2,6 +2,18 @@ import React from "react";
 import profiledataScss from "./profiledata.module.scss";
 import ProfileImage from "components/profileImage";
 
+
+const roles = {
+  admin: "Admin",
+  manager: "Menejer",
+  branch_director: "Filial direktor",
+  supervisor: "Supervisor",
+  operator: "Operator",
+  agent: "Agent",
+  driver: "Yetkazib beruvchi",
+}
+
+
  export function ProfileData({
   userProfile,
   buttons = null,
@@ -17,7 +29,7 @@ import ProfileImage from "components/profileImage";
               : userProfile?.name}
           </h1>
           <p className={profiledataScss.lavozim}>
-            {userProfile.role ? userProfile.role : null}
+            {userProfile.role ? roles[userProfile.role] : null}
           </p>
         </div>
         <div>
@@ -81,7 +93,7 @@ import ProfileImage from "components/profileImage";
         </ul>
         <ul>
           <li>
-            {userProfile.address ? <span>Adres:</span> : null}
+            {userProfile.address ? <span>Manzil:</span> : null}
             {userProfile.address ? userProfile.address : null}
           </li>
           <li>
@@ -89,7 +101,7 @@ import ProfileImage from "components/profileImage";
             {userProfile.warehouse ? userProfile.warehouse?.name : null}
           </li>
           <li>
-            {userProfile.birth_date ? <span>Tugulgan sana:</span> : null}
+            {userProfile.birth_date ? <span>Tug'ulgan sana:</span> : null}
             {userProfile.birth_date ? userProfile.birth_date : null}
           </li>
           <li>

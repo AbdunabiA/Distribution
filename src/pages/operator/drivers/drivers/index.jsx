@@ -93,22 +93,6 @@ const OperatorDrivers = () => {
                 minHeight={"200px"}
                 scrollY
                 scrollX
-                hasDelete
-                hasUpdate
-                deleteAction={(data) =>
-                  deleteUsers({
-                    url: `/users/details/${data?.id}/`,
-                    method: "delete",
-                    onSuccess: () => {
-                      toast.success("Foydalanuvchi o'chirildi");
-                      queryClient.invalidateQueries(["/users/all/"]);
-                    },
-                    onError: (err) => toast.error(err?.message),
-                  })
-                }
-                updateAction={(data) =>
-                  setUserModal({ isOpen: true, data: data })
-                }
                 onRowNavigationUrl={"/employee/"}
                 isLoading={isLoading}
               />
