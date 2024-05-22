@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
+import { useSelector } from "react-redux";
 
 const productsColumns = [
   {
@@ -32,23 +33,67 @@ const productsColumns = [
     dataIndex: "category",
     render: (text, record) => text?.name,
   },
+  // {
+  //   key: 5,
+  //   title: "Filial",
+  //   dataIndex: "warehouse",
+  //   render: (text, record) => text?.name,
+  // },
+];
+
+const columns = [
   {
-    key: 5,
+    key: "product",
+    title: "Nomi",
+    dataIndex: "product",
+    render: (text, record) => text?.name,
+  },
+  {
+    key: "amount",
+    title: "Miqdori",
+    dataIndex: "amount",
+  },
+  {
+    key: "invalids_amount",
+    title: "Yaroqsiz miqdori",
+    dataIndex: "invalids_amount",
+  },
+  {
+    key: "warehouse",
     title: "Filial",
     dataIndex: "warehouse",
     render: (text, record) => text?.name,
   },
+  // {
+  //   key: "added_by",
+  //   title: "Qo'shgan",
+  //   dataIndex: "added_by",
+  //   // render: (text, record) => text?.first_name + " " + text?.last_name,
+  // },
 ];
 
 const SupervisorProducts = () => {
-  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
+  const { data: userData } = useSelector((state) => state.auth);
   const { data: productsData, isLoading: productsLoading } = useGet({
     url: "/products/all/",
     queryKey: ["/products/all/"],
   });
-  console.log(productsData?.data);
+  const { data: warehouseProducts, isLoading: warehouseProdLoading } = useGet({
+    url: `/warehouses/${userData?.warehouse?.id}/products/`,
+    queryKey: [`/warehouses/${userData?.warehouse?.id}/products/`],
+  });
+  console.log(warehouseProducts?.data);
   return (
     <div className="container">
+      <div>
+        <CustomTable
+          hideColumns
+          title={"Filial mahsulotlari"}
+          columns={columns}
+          isLoading={warehouseProdLoading}
+          items={warehouseProducts?.data}
+        />
+      </div>
       <div style={{ marginTop: "20px" }}>
         <CustomTable
           {...{

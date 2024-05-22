@@ -50,7 +50,7 @@ const SupervisorClients = () => {
     console.log(dateValue);
   };
 
-  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
+  const [modal, setModal] = useState({ isOpen: false, data: null });
   const { data, isLoading } = useGet({
     url: "/customers/all/",
     queryKey: ["/customers/all/"],
@@ -60,9 +60,9 @@ const SupervisorClients = () => {
   return (
     <>
       <div className="container">
-        <div style={{ margin: "32px 20px" }}>
+        {/* <div style={{ margin: "32px 20px" }}>
           <DateFilter onChange={onchange} value={dateValue} />
-        </div>
+        </div> */}
         {/* <div> */}
         {/* <LineGraph
           //   data={[
@@ -88,9 +88,7 @@ const SupervisorClients = () => {
             open={modal.isOpen}
             onCancel={() => setModal({ isOpen: false, form: null, data: null })}
           >
-            {modal.form === "client" ? (
               <CreateClient {...{ setModal, data: modal.data }} />
-            ) : null}
           </Modal>
           {isLoading ? (
             <Loader />
@@ -118,7 +116,7 @@ const SupervisorClients = () => {
                     onError: () => toast.error("Client o'chirilmadi"),
                   }),
                 updateAction: (data) =>
-                  setModal({ isOpen: true, form: "client", data: data }),
+                  setModal({ isOpen: true, data: data }),
                 // hasPagination: true,
                 buttons: [
                   <Button
@@ -126,7 +124,7 @@ const SupervisorClients = () => {
                     type="primary"
                     key={"client"}
                     onClick={() =>
-                      setModal({ isOpen: true, form: "client", data: null })
+                      setModal({ isOpen: true, data: null })
                     }
                   >
                     mijoz qo'shish
