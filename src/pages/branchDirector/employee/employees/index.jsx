@@ -99,42 +99,8 @@ const BarnchDirectorEmployees = () => {
                 height={300}
                 minHeight={"200px"}
                 scrollY
-                hasDelete
-                hasUpdate
-                deleteAction={(data) =>
-                  deleteUsers({
-                    url: `/users/details/${data?.id}/`,
-                    method: "delete",
-                    onSuccess: () => {
-                      toast.success("Foydalanuvchi o'chirildi");
-                      queryClient.invalidateQueries(["/users/all/"]);
-                    },
-                    onError: (err) => toast.error(err?.message),
-                  })
-                }
-                updateAction={(data) =>
-                  setUserModal({ isOpen: true, data: data })
-                }
                 onRowNavigationUrl={"/employee/"}
                 isLoading={isLoading}
-                buttons={[
-                  <Button
-                    icon={<PlusIcon />}
-                    type="primary"
-                    key={"1"}
-                    onClick={() => setCarModal({ isOpen: true, data: null })}
-                  >
-                    Mashina qo'shish
-                  </Button>,
-                  <Button
-                    icon={<PlusIcon />}
-                    type="primary"
-                    key={"2"}
-                    onClick={() => setUserModal({ isOpen: true, data: null })}
-                  >
-                    Xodim qo'shish
-                  </Button>,
-                ]}
               />
             </div>
           </div>

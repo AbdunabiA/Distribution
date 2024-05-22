@@ -81,7 +81,7 @@ import ProfileImage from "components/profileImage";
         </ul>
         <ul>
           <li>
-            {userProfile.address ? <span>Adres:</span> : null}
+            {userProfile.address ? <span>Manzil:</span> : null}
             {userProfile.address ? userProfile.address : null}
           </li>
           <li>
@@ -89,7 +89,7 @@ import ProfileImage from "components/profileImage";
             {userProfile.warehouse ? userProfile.warehouse?.name : null}
           </li>
           <li>
-            {userProfile.birth_date ? <span>Tugulgan sana:</span> : null}
+            {userProfile.birth_date ? <span>Tug'ulgan sana:</span> : null}
             {userProfile.birth_date ? userProfile.birth_date : null}
           </li>
           <li>

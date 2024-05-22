@@ -66,12 +66,6 @@ export const ProductSend = ({ data, setModal }) => {
               label={"Mahsulot miqdori"}
               placeholder={"Mahsulot miqdori"}
             />
-            <CustomInput
-              type="number"
-              name="invalids_amount"
-              label={"Yaroqsiz mahsulot miqdori"}
-              placeholder={"Yaroqsiz mahsulot miqdori"}
-            />
             <CustomTextArea
               name="comment"
               label={"Komentariy"}
