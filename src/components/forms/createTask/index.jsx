@@ -133,7 +133,7 @@ export const CreateTask = ({ data, setModal }) => {
               optionLabel={(data) => data?.first_name + " " + data?.last_name}
               optionValue={"id"}
               mode="multiple"
-              disabled={!values?.role}
+              // disabled={!values?.role}
               label={"Bajaruvchilar"}
               placeholder={"Bajaruvchilar"}
             />
