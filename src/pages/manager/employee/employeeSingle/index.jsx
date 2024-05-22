@@ -1,21 +1,17 @@
 import React from "react";
 import employeeProfileScss from "./employee.module.scss";
 import CustomTable from "components/table";
-import DateFilter from "components/dateFilter";
 import { useState } from "react";
 import { ProfileData } from "pages/profile/profiledata";
 import { Button, Modal } from "antd";
-import { useSelector } from "react-redux";
 import { GetAll } from "modules";
-import { ChangePassword, CreateCar, CreateSalary } from "components/forms";
-import { useGet, usePost } from "crud";
+import { CreateCar, CreateSalary } from "components/forms";
+import { useGet} from "crud";
 import { useParams } from "react-router-dom";
 import Loader from "components/loader";
-import dayjs from "dayjs";
 import { CreateUserForm } from "components/forms";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-// import {CreateUserForm } from "components/forms";
+
+
 const columns1 = [
   {
     key: 0,
@@ -37,12 +33,10 @@ const columns1 = [
 ];
 function ManagerEmployeeSingle() {
   const { employeeId } = useParams();
-  const [dateValue, setDateValue] = useState("");
-  const [passwordModal, setPasswordModal] = useState({ isOpen: false });
   const [salaryModal, setSalaryModal] = useState({ isOpen: false, data: null });
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const [carModal, setCarModal] = useState({ isOpen: false, data: null });
-  // console.log(userData);
+  
 
   const { data: olinganTaskData, isLoading: berilganTasksLoading } = useGet({
     url: `/users/olgan_tasklari/${employeeId}`,
