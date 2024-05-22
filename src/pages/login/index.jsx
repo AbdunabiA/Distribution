@@ -8,6 +8,7 @@ import { storage } from "services";
 import { toast } from "sonner";
 import { signIn } from "store/auth";
 import s from "./login.module.scss";
+import { get } from "lodash";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const Login = () => {
             required: true,
           },
         ]}
-        onError={(err) => toast.error(err.message)}
+        onError={(err) => toast.error(get(err, "response.data.message", err?.message))}
         onSuccess={(data) => {
           storage.set("token", data?.access);
           dispatch(

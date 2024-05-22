@@ -56,7 +56,7 @@ const ManagerBranches = () => {
     },
     {
       key: "productSend",
-      title: "Masulot yuborish",
+      title: "Mahsulot yuborish",
       render: (_, data) => {
         return (
           <div
