@@ -13,97 +13,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { CreateUserForm } from "components/forms";
-const items2 = [
-  {
-    id: "1",
-    name: "Mordayev Akmaljon",
-    month: "Yanvar",
-    salary: 2000000,
-    bonus: 30000,
-    jarima: 50000,
-    jami: 2250000,
-  },
-  {
-    id: "2",
-    name: "Mordayev Akmaljon",
-    month: "Fevral",
-    salary: 3000000,
-    bonus: 400000,
-    jarima: 50000,
-    jami: 3350000,
-  },
 
-  {
-    id: "3",
-    name: "Mordayev Akmaljon",
-    month: "Mart",
-    salary: 4000000,
-    bonus: 500000,
-    jarima: 50000,
-    jami: 4450000,
-  },
-  {
-    id: "4",
-    name: "Mordayev Akmaljon",
-    month: "Aprel",
-    salary: 2000000,
-    bonus: 600000,
-    jarima: 50000,
-    jami: 2550000,
-  },
-  {
-    id: "5",
-    name: "Mordayev Akmaljon",
-    month: "May",
-    salary: 2000000,
-    bonus: 700000,
-    jarima: 50000,
-    jami: 2650000,
-  },
-];
-const columns2 = [
-  {
-    key: 0,
-    title: "#",
-    width: "70px",
-    render: (a, b, i) => i + 1,
-  },
-  {
-    key: 1,
-    title: "name",
-    dataIndex: "name",
-  },
-  {
-    key: 2,
-    title: "month",
-    dataIndex: "month",
-    sorter: (a, b) => a.month.localeCompare(b.month),
-  },
-  {
-    key: 3,
-    title: "salary",
-    dataIndex: "salary",
-    sorter: (a, b) => a.salary - b.salary,
-  },
-  {
-    key: 4,
-    title: "bonus",
-    dataIndex: "bonus",
-    sorter: (a, b) => a.bonus - b.bonus,
-  },
-  {
-    key: 5,
-    title: "jarima",
-    dataIndex: "jarima",
-    sorter: (a, b) => a.jarima - b.jarima,
-  },
-  {
-    key: 6,
-    title: "jami",
-    dataIndex: "jami",
-    sorter: (a, b) => a.jami - b.jami,
-  },
-];
 const columns1 = [
   {
     key: 0,
@@ -133,11 +43,21 @@ function Profile() {
     setDateValue(value);
     console.log(dateValue);
   };
-   
-  const queryClient = useQueryClient();
-  const { mutate: deleteUsers } = usePost();
 
-  
+  const date = new Date();
+
+  console.log(
+    "month",
+    date.getMonth(),
+    "year",
+    date.getFullYear()
+  );
+
+  const { data: salaryData } = useGet({
+    url: `/users/salary_calculate/${id}/${date.getMonth() + 1}/${date.getFullYear()}`,
+    queryKey: [`/users/salary_calculate/${id}/${date.getMonth() + 1}/${date.getFullYear()}`],
+  });
+  console.log('salaryData', salaryData);
 
   const { data: olinganTaskData, isLoading: berilganTasksLoading } = useGet({
     url: `/users/olgan_tasklari/${id}`,
@@ -173,7 +93,10 @@ function Profile() {
               footer={false}
               onCancel={() => setUserModal({ isOpen: false })}
             >
-              <CreateUserForm setModal={setUserModal} data={userProfileData?.data}/>
+              <CreateUserForm
+                setModal={setUserModal}
+                data={userProfileData?.data}
+              />
             </Modal>
 
             <div className={profileScss.biggest_wrapper}>
@@ -182,15 +105,16 @@ function Profile() {
                   height={"495px"}
                   userProfile={userProfileData?.data}
                   buttons={[
-                    <Button type="primary"
-                     key={"1"}
-                     onClick={() =>
-                      setUserModal({
-                        isOpen: true,
-                        data: userProfileData?.data,
-                      })
-                    }
-                     >
+                    <Button
+                      type="primary"
+                      key={"1"}
+                      onClick={() =>
+                        setUserModal({
+                          isOpen: true,
+                          data: userProfileData?.data,
+                        })
+                      }
+                    >
                       O’zgartirish
                     </Button>,
                     <Button
@@ -209,6 +133,7 @@ function Profile() {
                       items: olinganTaskData?.data,
                       title: `Topshiriqlar soni: ${olinganTaskData?.data.length}`,
                       minHeight: 340,
+                      isLoading: berilganTasksLoading,
                       // hasStatus: true,
                       scrollY: true,
                       scrollX: true,

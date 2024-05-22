@@ -9,7 +9,7 @@ export const CreateCar = ({ data, setModal }) => {
   return (
     <ContainerForm
       url="/users/car_create/"
-      method={data ? "put" : "post"}
+      method={data?.id ? "put" : "post"}
       fields={[
         {
           name: "type",
@@ -29,7 +29,7 @@ export const CreateCar = ({ data, setModal }) => {
       ]}
       onSuccess={() => {
         setModal({ isOpen: false, data: null });
-        toast.success(`Avtomashina ${data ? "o'zgartirildi" : "yaratildi"}`);
+        toast.success(`Avtomashina ${data?.id ? "o'zgartirildi" : "yaratildi"}`);
       }}
       onError={() => toast.error("Mashina qo'shilmadi")}
     >
@@ -37,7 +37,7 @@ export const CreateCar = ({ data, setModal }) => {
         return (
           <div style={{display:"flex", flexDirection:"column", gap:"10px", padding:"30px"}}>
             <p className="form-title">
-              {data ? "Avtomashina o'zgartirish" : "Avtomashina qo'shish"}
+              {data?.id ? "Avtomashina o'zgartirish" : "Avtomashina qo'shish"}
             </p>
             <CustomInput
               name="type"
