@@ -27,8 +27,8 @@ export const CreateProductCategory = ({data, setModal}) => {
         setModal({ isOpen: false, form: null, data: null });
         toast.success(`Kategoriya ${data ? "o'zgartirildi" : "yaratildi"}`);
       }}
-      onError={() =>
-        toast.error(`Kategoriya ${data ? "o'zgartirilmadi" : "yaratilmadi"}`)
+      onError={(err) =>
+        toast.error(get(err, "response.data.message", err?.message))
       }
     >
       {({ handleSubmit, isLoading }) => {

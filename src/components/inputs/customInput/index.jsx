@@ -1,7 +1,7 @@
 import { Input } from "antd";
 import { Field } from "formik";
 
-export const CustomInput = ({type='text', placeholder, label=null, ...props}) => {
+export const CustomInput = ({type='text', placeholder, label=null,onChange=()=>{}, ...props}) => {
   //   console.log({ ...props });
   return (
     <Field {...props}>
@@ -21,7 +21,9 @@ export const CustomInput = ({type='text', placeholder, label=null, ...props}) =>
               status={meta.touched && meta.error && "error"}
               // value={values[props.name]}
               // onChange={() => setFieldValue(props.name, values[props.name])}
-              onInput={(e) => setFieldValue(props.name, e.target.value)}
+              onInput={(e) => {
+                onChange(e.target.value)
+                setFieldValue(props.name, e.target.value)}}
             />
           </label>
           {meta.touched && meta.error && (

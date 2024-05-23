@@ -46,7 +46,7 @@ const columns = [
 ];
 
 const ManagerTasks = () => {
-  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
+  const [modal, setModal] = useState({ isOpen: false, data: null });
   console.log(data, 'dataaa');
   const [dateValue, setDateValue] = useState("");
   const { data: userData } = useSelector((state) => state.auth);
@@ -67,6 +67,7 @@ const ManagerTasks = () => {
 
   const queryClient = useQueryClient();
   const { mutate: deleteTask } = usePost();
+  console.log(berilganTaskData, 'berilganTaskData');
   return (
     <div className="container">
       <div style={{ margin: "32px 10px" }}>
@@ -106,14 +107,14 @@ const ManagerTasks = () => {
               });
             },
             updateAction: (data) =>
-              setModal({ isOpen: true, form: "task", data: data}),
+              setModal({ isOpen: true, data: {...data, task_executors: data?.task_executors?.map(item=>item.id)}}), 
             buttons: [
               <Button
                 icon={<PlusIcon />}
                 type="primary"
                 key={"task"}
                 onClick={() =>
-                  setModal({ isOpen: true, form: "task", data: null })
+                  setModal({ isOpen: true, data: null })
                 }
                 // onClick={() =>
                 //   setModal({ isOpen: true, form: "client", data: null })

@@ -29,13 +29,24 @@ export const CreateCar = ({ data, setModal }) => {
       ]}
       onSuccess={() => {
         setModal({ isOpen: false, data: null });
-        toast.success(`Avtomashina ${data?.id ? "o'zgartirildi" : "yaratildi"}`);
+        toast.success(
+          `Avtomashina ${data?.id ? "o'zgartirildi" : "yaratildi"}`
+        );
       }}
-      onError={() => toast.error("Mashina qo'shilmadi")}
+      onError={(err) =>
+        toast.error(get(err, "response.data.message", err?.message))
+      }
     >
       {({ handleSubmit, isLoading }) => {
         return (
-          <div style={{display:"flex", flexDirection:"column", gap:"10px", padding:"30px"}}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              padding: "30px",
+            }}
+          >
             <p className="form-title">
               {data?.id ? "Avtomashina o'zgartirish" : "Avtomashina qo'shish"}
             </p>

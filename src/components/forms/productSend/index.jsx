@@ -11,7 +11,7 @@ export const ProductSend = ({ data, setModal }) => {
       fields={[
         {
           name: "product",
-          value:null,
+          value: null,
           required: true,
         },
         {
@@ -32,11 +32,13 @@ export const ProductSend = ({ data, setModal }) => {
           required: true,
         },
       ]}
-      onSuccess={()=> {
-        toast.success("Mahsulot yuborildi")
-        setModal({isOpen:false, data:null})
+      onSuccess={() => {
+        toast.success("Mahsulot yuborildi");
+        setModal({ isOpen: false, data: null });
       }}
-      onError={(err)=> toast.error(err.message) }
+      onError={(err) =>
+        toast.error(get(err, "response.data.message", err?.message))
+      }
     >
       {({ handleSubmit, isLoading }) => {
         return (

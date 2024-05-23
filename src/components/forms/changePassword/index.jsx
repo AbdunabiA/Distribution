@@ -24,10 +24,12 @@ export const ChangePassword = ({setModal}) => {
         },
       ]}
       onSuccess={() => {
-        toast.success("Parol o'zgartirildi")
-        setModal({isOpen:false})
+        toast.success("Parol o'zgartirildi");
+        setModal({ isOpen: false });
       }}
-      onError={(err) => toast.error(err.message)}
+      onError={(err) =>
+        toast.error(get(err, "response.data.message", err?.message))
+      }
     >
       {({ handleSubmit, isLoading }) => {
         return (

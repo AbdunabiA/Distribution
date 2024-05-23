@@ -95,8 +95,8 @@ const BranchDirectorProducts = () => {
             height: 300,
             minHeight: "200px",
             scrollY: true,
-            items: productsData?.data,
-            title: `Mahsulotlar soni : ${productsData?.data.length}`,
+            items: productsData?.data?.results,
+            title: `Mahsulotlar soni : ${productsData?.data?.results.length}`,
             hideColumns: true,
             // deleteAction: (data) =>
             //   deleteProduct({

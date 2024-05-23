@@ -62,7 +62,7 @@ const columns = [
 ];
 
 const BranchDiretorTasks = () => {
-  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
+  const [modal, setModal] = useState({ isOpen: false, data: null });
   const { data: userData } = useSelector((state) => state.auth);
   let id = userData.id;
   const { data: taskData, isLoading: tasksLoading } = useGet({
@@ -88,11 +88,9 @@ const BranchDiretorTasks = () => {
         centered
         footer={false}
         open={modal.isOpen}
-        onCancel={() => setModal({ isOpen: false, form: null, data: null })}
+        onCancel={() => setModal({ isOpen: false, data: null })}
       >
-        {modal.form === "task" ? (
           <CreateTask {...{ setModal, data: modal.data }} />
-        ) : null}
       </Modal>
       <div>
         <CustomTable
@@ -117,13 +115,18 @@ const BranchDiretorTasks = () => {
                   toast.success("Topshiriq o'chirildi");
                 },
                 onError: (err) => toast.error(err?.message),
-                
               });
             },
             //   onError: () => toast.error("Client o'chirilmadi"),
             // }),
-            // updateAction: (data) =>
-            //   setModal({ isOpen: true, form: "client", data: data }),
+            updateAction: (data) =>
+              setModal({
+                isOpen: true,
+                data: {
+                  ...data,
+                  task_executors: data?.task_executors?.map((item) => item.id),
+                },
+              }),
             // scrollY: true,
             // hasPagination: true,
             buttons: [
