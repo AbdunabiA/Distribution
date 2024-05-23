@@ -2,6 +2,18 @@ import React from "react";
 import profiledataScss from "./profiledata.module.scss";
 import ProfileImage from "components/profileImage";
 
+
+const roles = {
+  admin: "Admin",
+  manager: "Menejer",
+  branch_director: "Filial direktor",
+  supervisor: "Supervisor",
+  operator: "Operator",
+  agent: "Agent",
+  driver: "Yetkazib beruvchi",
+}
+
+
  export function ProfileData({
   userProfile,
   buttons = null,
@@ -17,7 +29,7 @@ import ProfileImage from "components/profileImage";
               : userProfile?.name}
           </h1>
           <p className={profiledataScss.lavozim}>
-            {userProfile.role ? userProfile.role : null}
+            {userProfile.role ? roles[userProfile.role] : null}
           </p>
         </div>
         <div>

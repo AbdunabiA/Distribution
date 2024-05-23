@@ -25,7 +25,7 @@ export const ProductSend = ({ data, setModal }) => {
         },
         {
           name: "invalids_amount",
-          required: true,
+          value: 0,
         },
         {
           name: "comment",

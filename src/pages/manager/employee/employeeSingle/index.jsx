@@ -1,21 +1,17 @@
 import React from "react";
 import employeeProfileScss from "./employee.module.scss";
 import CustomTable from "components/table";
-import DateFilter from "components/dateFilter";
 import { useState } from "react";
 import { ProfileData } from "pages/profile/profiledata";
 import { Button, Modal } from "antd";
-import { useSelector } from "react-redux";
 import { GetAll } from "modules";
-import { ChangePassword, CreateSalary } from "components/forms";
-import { useGet, usePost } from "crud";
+import { CreateCar, CreateSalary } from "components/forms";
+import { useGet} from "crud";
 import { useParams } from "react-router-dom";
 import Loader from "components/loader";
-import dayjs from "dayjs";
 import { CreateUserForm } from "components/forms";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-// import {CreateUserForm } from "components/forms";
+
+
 const columns1 = [
   {
     key: 0,
@@ -37,109 +33,10 @@ const columns1 = [
 ];
 function ManagerEmployeeSingle() {
   const { employeeId } = useParams();
-  const [dateValue, setDateValue] = useState("");
-  const [passwordModal, setPasswordModal] = useState({ isOpen: false });
   const [salaryModal, setSalaryModal] = useState({ isOpen: false, data: null });
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
+  const [carModal, setCarModal] = useState({ isOpen: false, data: null });
   
-  const queryClient = useQueryClient();
-  const { mutate: deleteUsers } = usePost();
-
-  const onChange = (value) => {
-    setDateValue(value);
-    console.log(dateValue);
-  };
-  const items2 = [
-    {
-      id: "1",
-      name: "Mordayev Akmaljon",
-      month: "Yanvar",
-      salary: 2000000,
-      bonus: 30000,
-      jarima: 50000,
-      jami: 2250000,
-    },
-    {
-      id: "2",
-      name: "Mordayev Akmaljon",
-      month: "Fevral",
-      salary: 3000000,
-      bonus: 400000,
-      jarima: 50000,
-      jami: 3350000,
-    },
-
-    {
-      id: "3",
-      name: "Mordayev Akmaljon",
-      month: "Mart",
-      salary: 4000000,
-      bonus: 500000,
-      jarima: 50000,
-      jami: 4450000,
-    },
-    {
-      id: "4",
-      name: "Mordayev Akmaljon",
-      month: "Aprel",
-      salary: 2000000,
-      bonus: 600000,
-      jarima: 50000,
-      jami: 2550000,
-    },
-    {
-      id: "5",
-      name: "Mordayev Akmaljon",
-      month: "May",
-      salary: 2000000,
-      bonus: 700000,
-      jarima: 50000,
-      jami: 2650000,
-    },
-  ];
-  const columns2 = [
-    {
-      key: 0,
-      title: "#",
-      width: "70px",
-      render: (a, b, i) => i + 1,
-    },
-    {
-      key: 1,
-      title: "name",
-      dataIndex: "name",
-    },
-    {
-      key: 2,
-      title: "month",
-      dataIndex: "month",
-      sorter: (a, b) => a.month.localeCompare(b.month),
-    },
-    {
-      key: 3,
-      title: "salary",
-      dataIndex: "salary",
-      sorter: (a, b) => a.salary - b.salary,
-    },
-    {
-      key: 4,
-      title: "bonus",
-      dataIndex: "bonus",
-      sorter: (a, b) => a.bonus - b.bonus,
-    },
-    {
-      key: 5,
-      title: "jarima",
-      dataIndex: "jarima",
-      sorter: (a, b) => a.jarima - b.jarima,
-    },
-    {
-      key: 6,
-      title: "jami",
-      dataIndex: "jami",
-      sorter: (a, b) => a.jami - b.jami,
-    },
-  ];
 
   const { data: olinganTaskData, isLoading: berilganTasksLoading } = useGet({
     url: `/users/olgan_tasklari/${employeeId}`,
@@ -165,17 +62,17 @@ function ManagerEmployeeSingle() {
       {({ data: userProfileData, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>Error</h1>;
-        console.log(userProfileData.data, 'dataa');
+        console.log(userProfileData.data, "dataa");
         return (
           <div className="container">
             <Modal
-              open={passwordModal.isOpen}
+              open={carModal.isOpen}
               centered
               destroyOnClose
               footer={false}
-              onCancel={() => setPasswordModal({ isOpen: false })}
+              onCancel={() => setCarModal({ isOpen: false, data: null })}
             >
-              <ChangePassword setModal={setPasswordModal} />
+              <CreateCar data={carModal.data} setModal={setCarModal} />
             </Modal>
             <Modal
               open={userModal.isOpen}
@@ -184,7 +81,10 @@ function ManagerEmployeeSingle() {
               footer={false}
               onCancel={() => setUserModal({ isOpen: false })}
             >
-              <CreateUserForm setModal={setUserModal} data={userProfileData?.data}/>
+              <CreateUserForm
+                setModal={setUserModal}
+                data={userProfileData?.data}
+              />
             </Modal>
             <Modal
               open={salaryModal.isOpen}
@@ -204,15 +104,15 @@ function ManagerEmployeeSingle() {
                     ...salaryData?.data,
                   }}
                   buttons={[
-                    <Button 
-                    type="primary" 
-                    key={"1"}
-                    onClick={() =>
-                      setUserModal({
-                        isOpen: true,
-                        data: userProfileData?.data,
-                      })
-                    }
+                    <Button
+                      type="primary"
+                      key={"1"}
+                      onClick={() =>
+                        setUserModal({
+                          isOpen: true,
+                          data: userProfileData?.data,
+                        })
+                      }
                     >
                       O’zgartirish
                     </Button>,
@@ -228,6 +128,20 @@ function ManagerEmployeeSingle() {
                     >
                       Maosh belgilash
                     </Button>,
+                    userProfileData?.data?.role === "driver" && (
+                      <Button
+                        type="primary"
+                        key={"3"}
+                        onClick={() =>
+                          setCarModal({
+                            isOpen: true,
+                            data: userProfileData?.data?.car,
+                          })
+                        }
+                      >
+                        Mashina o'zgartirish
+                      </Button>
+                    ),
                   ]}
                 />
                 <div className={employeeProfileScss.table}>
@@ -248,9 +162,9 @@ function ManagerEmployeeSingle() {
               </div>
               <div>
                 <div className={employeeProfileScss.date}>
-                  <DateFilter onChange={onchange} value={dateValue} />
+                  {/* <DateFilter onChange={onchange} value={dateValue} /> */}
                   <div style={{ marginTop: "20px" }}>
-                    <CustomTable
+                    {/* <CustomTable
                       {...{
                         columns: columns2,
                         items: items2,
@@ -262,7 +176,7 @@ function ManagerEmployeeSingle() {
                         hideColumns: true,
                         hasPagination: true,
                       }}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
