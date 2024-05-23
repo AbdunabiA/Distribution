@@ -90,9 +90,7 @@ const BranchDiretorTasks = () => {
         open={modal.isOpen}
         onCancel={() => setModal({ isOpen: false, data: null })}
       >
-        {modal.form === "task" ? (
           <CreateTask {...{ setModal, data: modal.data }} />
-        ) : null}
       </Modal>
       <div>
         <CustomTable

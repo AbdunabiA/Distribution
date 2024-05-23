@@ -116,12 +116,9 @@ export const CreateUserForm = ({
         setModal({ isOpen: false, data: null });
         toast.success(`Foydalanuvchi ${data ? "o'zgartirildi" : "yaratildi"}`);
       }}
-      onError={(err) => {
-        console.log("userError", err);
-        toast.error(
-          `Foydalanuvchi ${data ? "o'zgartirilmadi" : "yaratilmadi"}`
-        );
-      }}
+      onError={(err) =>
+        toast.error(get(err, "response.data.message", err?.message))
+      }
     >
       {({ handleSubmit, isLoading }) => {
         return (

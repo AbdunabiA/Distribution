@@ -130,7 +130,7 @@ function Profile() {
                   <CustomTable
                     {...{
                       columns: columns1,
-                      items: olinganTaskData?.data,
+                      items: olinganTaskData?.data?.results,
                       title: `Topshiriqlar soni: ${olinganTaskData?.data.length}`,
                       minHeight: 340,
                       isLoading: berilganTasksLoading,

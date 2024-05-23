@@ -45,7 +45,7 @@ const options = [
 export const CreateTask = ({ data, setModal }) => {
   const queryClient = useQueryClient();
   const { data: userData } = useSelector((store) => store.auth);
-  console.log(data, 'hellosssss');
+  console.log(data, "hellosssss");
   return (
     <ContainerForm
       // url={data ? "" : "/users/task_create/"}
@@ -86,7 +86,9 @@ export const CreateTask = ({ data, setModal }) => {
         setModal({ isOpen: false, data: null });
         toast.success(`Toshiriq ${data ? "o'zgartirildi" : "yaratildi"}`);
       }}
-      onError={(err) => toast.error(err.message)}
+      onError={(err) =>
+        toast.error(get(err, "response.data.message", err?.message))
+      }
     >
       {({ handleSubmit, isLoading, values }) => {
         console.log(values?.role);
@@ -137,7 +139,7 @@ export const CreateTask = ({ data, setModal }) => {
               label={"Bajaruvchilar"}
               placeholder={"Bajaruvchilar"}
             />
-            <div>
+            <div className="form-button-wrapper">
               <Button
                 onClick={handleSubmit}
                 type="primary"

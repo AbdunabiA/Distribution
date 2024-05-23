@@ -44,8 +44,8 @@ export const CreateWarehouse = ({ data, setModal }) => {
         setModal({ isOpen: false, form: null, data: null });
         toast.success(`Filial ${data?.id ? "o'zgartirildi" : "yaratildi"}`);
       }}
-      onError={() =>
-        toast.error(`Filial ${data?.id ? "o'zgartirilmadi" : "yaratilmadi"}`)
+      onError={(err) =>
+        toast.error(get(err, "response.data.message", err?.message))
       }
       method={data?.id ? "put" : "post"}
     >
@@ -70,7 +70,7 @@ export const CreateWarehouse = ({ data, setModal }) => {
             <InputMask
               name="phone"
               label={"Tel. raqam"}
-              mask={"+998 (99) 999 99 99"}  
+              mask={"+998 (99) 999 99 99"}
             />
             <CustomInput
               name="address"
