@@ -150,10 +150,10 @@ function ManagerEmployeeSingle() {
                       columns: columns1,
                       items: olinganTaskData?.data,
                       title: `Topshiriqlar soni: ${olinganTaskData?.data.length}`,
-                      minHeight: 0,
+                      minHeight: 335,
                       hasStatus: true,
                       scrollY: true,
-                      height: 285,
+                      height: 280,
                       hideColumns: true,
                       // hasPagination: true,
                     }}

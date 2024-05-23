@@ -97,6 +97,7 @@ const BranchDirectorProducts = () => {
             scrollY: true,
             items: productsData?.data,
             title: `Mahsulotlar soni : ${productsData?.data.length}`,
+            // hasDelete: true,
             hideColumns: true,
             // deleteAction: (data) =>
             //   deleteProduct({
@@ -108,8 +109,7 @@ const BranchDirectorProducts = () => {
             //     },
             //     onError: () => toast.error("Mahsulot o'chirilmadi"),
             //   }),
-            // updateAction: (data) => setModal({ isOpen: true, data: data }),
-            // hasDelete: true,
+            // updateAction: (data) => setModal({ isOpen: true, data: data?.data }),
             // hasUpdate: true,
           }}
         />

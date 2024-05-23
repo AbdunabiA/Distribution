@@ -27,12 +27,12 @@ const columns = [
     dataIndex: "warehouse",
     render: (text, record) => text?.name,
   },
-  // {
-  //   key: "added_by",
-  //   title: "Qo'shgan",
-  //   dataIndex: "added_by",
-  //   // render: (text, record) => text?.first_name + " " + text?.last_name,
-  // },
+  {
+    key: "jami",
+    title: "Jami Summa",
+    dataIndex: "product",
+    render: (text, record) => text?.price * record?.amount,
+  },
 ];
 
 const ManagerBranchProducts = () => {

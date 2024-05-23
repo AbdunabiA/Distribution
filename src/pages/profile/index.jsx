@@ -117,13 +117,13 @@ function Profile() {
                     >
                       O’zgartirish
                     </Button>,
-                    <Button
-                      type="primary"
-                      key={"2"}
-                      onClick={() => setPasswordModal({ isOpen: true })}
-                    >
-                      Parol o'zgartirish
-                    </Button>,
+                    // <Button
+                    //   type="primary"
+                    //   key={"2"}
+                    //   onClick={() => setPasswordModal({ isOpen: true })}
+                    // >
+                    //   Parol o'zgartirish
+                    // </Button>,
                   ]}
                 />
                 <div className={profileScss.table}>
