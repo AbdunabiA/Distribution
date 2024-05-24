@@ -41,8 +41,8 @@ export const CreateProduct = ({data, setModal}) => {
         setModal({ isOpen: false, form: null, data: null });
         toast.success(`Mahsulot ${data ? "o'zgartirildi" : "yaratildi"}`);
       }}
-      onError={() =>
-        toast.error(`Mahsulot ${data ? "o'zgartirilmadi" : "yaratilmadi"}`)
+      onError={(err) =>
+        toast.error(get(err, "response.data.message", err?.message))
       }
       method={data ? "put" : "post"}
     >

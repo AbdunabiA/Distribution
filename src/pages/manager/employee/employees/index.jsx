@@ -91,8 +91,8 @@ const ManagerEmployees = () => {
             <div style={{ marginTop: "20px" }}>
               <CustomTable
                 columns={employeeColumns}
-                items={data?.data}
-                title={`Xodimlar soni: ${data?.data ? data.data.length : '' }`}
+                items={data?.data?.results}
+                title={`Xodimlar soni: ${data?.data?.results ? data.data?.results.length : '' }`}
                 hideColumns
                 height={300}
                 minHeight={"200px"}
@@ -104,7 +104,8 @@ const ManagerEmployees = () => {
                     url: `/users/details/${data?.id}/`,
                     method: "delete",
                     onSuccess: () => {
-                      toast.success("Foydalanuvchi o'chirildi");
+                      toast.success("Xodim o'chirildi");
+                      toast.success("Xodim arxivlandi");
                       queryClient.invalidateQueries(["/users/all/"]);
                     },
                     onError: (err) => toast.error(err?.message),

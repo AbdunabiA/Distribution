@@ -45,7 +45,6 @@ const ManagerBranchProducts = () => {
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>{error.message}</h1>;
-        console.log(data?.data);
         return (
           <div className="container">
             {/* <DateFilter /> */}
@@ -54,7 +53,7 @@ const ManagerBranchProducts = () => {
                 hideColumns
                 title={"Filial mahsulotlari"}
                 columns={columns}
-                items={data?.data}
+                items={data?.data?.results}
               />
             </div>
           </div>

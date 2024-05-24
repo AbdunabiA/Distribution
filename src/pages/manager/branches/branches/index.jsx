@@ -17,7 +17,7 @@ const ManagerBranches = () => {
   const [sendProdModal, setSendProdModal] = useState({
     isOpen: false,
     data: null,
-    form: null,
+    form: null, 
   });
 
   const queryClient = useQueryClient();
@@ -81,7 +81,6 @@ const ManagerBranches = () => {
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>Error</h1>;
-        console.log(data);
         return (
           <div className="container">
             <Modal
@@ -136,8 +135,8 @@ const ManagerBranches = () => {
             <div style={{ marginTop: "20px" }}>
               <CustomTable
                 columns={branchesCoulmns}
-                items={data?.data}
-                title={`Filiallar soni: ${data?.data ? data?.data.length : ''}`}
+                items={data?.data?.results}
+                title={`Filiallar soni: ${data?.data?.results ? data?.data?.results.length : ''}`}
                 hideColumns
                 height={350}
                 minHeight={"200px"}
@@ -150,6 +149,7 @@ const ManagerBranches = () => {
                     method: "delete",
                     onSuccess: () => {
                       toast.success("Filial o'chirildi");
+                      toast.success("Filial nomi arxivlandi");
                       queryClient.invalidateQueries(["/warehouses/all/"]);
                     },
                     onError: (err) => toast.error(err?.message),

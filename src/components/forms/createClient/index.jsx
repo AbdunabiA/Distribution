@@ -50,8 +50,8 @@ export const CreateClient = ({ data, setModal }) => {
         setModal({ isOpen: false, form: null, data: null });
         toast.success(`Client ${data?.id ? "o'zgartirildi" : "yaratildi"}`);
       }}
-      onError={() =>
-        toast.error(`Client ${data?.id ? "o'zgartirilmadi" : "yaratilmadi"}`)
+      onError={(err) =>
+        toast.error(get(err, "response.data.message", err?.message))
       }
       method={data?.id ? "put" : "post"}
     >

@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-
+import Loader from "components/loader";
 const categoriesColumns = [
   {
     key: 0,
@@ -115,14 +115,14 @@ const items2 = [
 ];
 const ManagerProducts = () => {
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
-  const { data: productsData, isLoading: productsLoading } = useGet({
+  const { data: productsData, isLoading: productsLoading, error } = useGet({
     url: "/products/all/",
     queryKey: ["/products/all/"],
   });
-  const { data: categoriesData, isLoading: categoriesLoading } = useGet({
+  const { data: categoriesData, isLoading: categoriesLoading, err } = useGet({
     url: "/categories/",
     queryKey: ["/categories/"],
-  });
+  });  
   const { mutate: deleteProduct } = usePost();
   const { mutate: deleteCategories } = usePost();
   const queryClient = useQueryClient();
@@ -144,10 +144,10 @@ const ManagerProducts = () => {
       </Modal>
       <CustomTable
         columns={categoriesColumns}
-        items={categoriesData?.data}
+        items={categoriesData?.data?.results}
         height={300}
         minHeight={"200px"}
-        title={`Kategoriyalar soni: ${categoriesData?.data ? categoriesData?.data.length : ''}`}
+        title={`Kategoriyalar soni: ${categoriesData?.data?.results ? categoriesData?.data?.results.length : ''}`}
         hideColumns
         scrollY
         isLoading={categoriesLoading}
@@ -188,8 +188,8 @@ const ManagerProducts = () => {
             height: 300,
             minHeight: "200px",
             scrollY: true,
-            items: productsData?.data,
-            title: `Mahsulotlar soni : ${productsData?.data ? productsData?.data.length : ''}`,
+            items: productsData?.data?.results,
+            title: `Mahsulotlar soni : ${productsData?.data?.results ? productsData?.data?.results.length : ''}`,
             hideColumns: true,
             deleteAction: (data) =>
               deleteProduct({

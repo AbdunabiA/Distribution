@@ -117,21 +117,21 @@ function Profile() {
                     >
                       O’zgartirish
                     </Button>,
-                    // <Button
-                    //   type="primary"
-                    //   key={"2"}
-                    //   onClick={() => setPasswordModal({ isOpen: true })}
-                    // >
-                    //   Parol o'zgartirish
-                    // </Button>,
+                    <Button
+                      type="primary"
+                      key={"2"}
+                      onClick={() => setPasswordModal({ isOpen: true })}
+                    >
+                      Parol o'zgartirish
+                    </Button>,
                   ]}
                 />
                 <div className={profileScss.table}>
                   <CustomTable
                     {...{
                       columns: columns1,
-                      items: olinganTaskData?.data,
-                      title: `Topshiriqlar soni: ${olinganTaskData?.data.length}`,
+                      items: olinganTaskData?.data?.results,
+                      title: `Topshiriqlar soni: ${olinganTaskData?.data?.results.length}`,
                       minHeight: 340,
                       isLoading: berilganTasksLoading,
                       // hasStatus: true,

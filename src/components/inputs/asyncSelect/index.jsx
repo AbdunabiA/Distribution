@@ -9,6 +9,7 @@ export const AsyncSelect = ({
   params = {},
   optionLabel,
   optionValue,
+  onChange = () => {},
   onSuccess = () => {},
   disabled = false,
   label = null,
@@ -32,7 +33,7 @@ export const AsyncSelect = ({
   // console.log("asyncSelectData", data?.data);
 
   useEffect(() => {
-    const transformedOptions = data?.data?.map((item) => ({
+    const transformedOptions = data?.data?.results?.map((item) => ({
       label:
         typeof optionLabel === "string" ? item[optionLabel] : optionLabel(item), // The text to display
       value: item[optionValue], // The corresponding value
@@ -54,7 +55,10 @@ export const AsyncSelect = ({
               {label && <span className="label">{label}</span>}
               <Select
                 {...field}
-                onChange={(e) => setFieldValue(props.name, e)}
+                onChange={(e) => {
+                  onChange(e);
+                  setFieldValue(props.name, e);
+                }}
                 status={meta.touched && meta.error && "error"}
                 disabled={disabled}
                 mode={mode}

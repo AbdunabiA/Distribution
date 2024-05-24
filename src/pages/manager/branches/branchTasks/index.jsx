@@ -49,9 +49,9 @@ const ManagerBranchTasks = () => {
           <CustomTable
             {...{
               columns: columns,
-              items: data?.data,
+              items: data?.data?.results,
               isLoading: isLoading,
-              title: `Topshiriqlar soni : ${data?.data ? data?.data.length : ''}`,
+              title: `Topshiriqlar soni : ${data?.data?.results ? data?.data?.results.length : ''}`,
               minHeigth: "230px",
               hideColumns: true,
               // scrollY: true,

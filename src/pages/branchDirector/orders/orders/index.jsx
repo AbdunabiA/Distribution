@@ -9,6 +9,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
+import dayjs from "dayjs";
 
 const columns = [
   {
@@ -61,8 +62,6 @@ const columns = [
 const BranchDirectorOrders = () => {
   const [orderModal, setOrderModal] = useState({ isOpen: false, data: null });
   const { data: userData } = useSelector((state) => state.auth);
-  const { mutate: orderDelete } = usePost();
-  const queryClient = useQueryClient();
 
   return (
     <GetAll
@@ -86,7 +85,7 @@ const BranchDirectorOrders = () => {
               <CreateOrder data={orderModal.data} setModal={setOrderModal} />
             </Modal>
             <CustomTable
-              title={`Buyurtmalar: ${data?.data?.length} ta`}
+              title={`Buyurtmalar: ${data?.data?.results.length} ta`}
               columns={columns}
               // hasDelete
               // hasUpdate
@@ -108,7 +107,7 @@ const BranchDirectorOrders = () => {
               //   });
               // }}
               hideColumns
-              items={data?.data?.orders}
+              items={data?.data?.results}
               buttons={[
                 <Button
                   icon={<PlusIcon />}

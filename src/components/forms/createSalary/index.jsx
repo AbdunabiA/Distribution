@@ -30,10 +30,12 @@ export const CreateSalary = ({ setModal, data }) => {
         },
       ]}
       onSuccess={() => {
-        setModal({isOpen:false, data:null})
-        toast.success("Oylik maosh saqlandi")
+        setModal({ isOpen: false, data: null });
+        toast.success("Oylik maosh saqlandi");
       }}
-      onError={(err) => toast.error(err.message)}
+      onError={(err) =>
+        toast.error(get(err, "response.data.message", err?.message))
+      }
     >
       {({ handleSubmit, isLoading }) => {
         return (

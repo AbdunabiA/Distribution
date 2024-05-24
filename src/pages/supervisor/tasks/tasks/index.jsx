@@ -102,8 +102,14 @@ const SupervisorTasks = () => {
             },
             //   onError: () => toast.error("Client o'chirilmadi"),
             // }),
-            // updateAction: (data) =>
-            //   setModal({ isOpen: true, form: "client", data: data }),
+            updateAction: (data) =>
+              setModal({
+                isOpen: true,
+                data: {
+                  ...data,
+                  task_executors: data?.task_executors?.map((item) => item.id),
+                },
+              }),
             // scrollY: true,
             // hasPagination: true,
             buttons: [

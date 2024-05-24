@@ -41,7 +41,6 @@ const ManagerBranchEmployees = () => {
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>{error.message}</h1>;
-        console.log(data?.data);
         return (
           <div className="container">
             <DateFilter />
@@ -61,7 +60,7 @@ const ManagerBranchEmployees = () => {
             <div style={{ marginTop: "20px" }}>
               <CustomTable
                 columns={usersColumns}
-                items={data?.data}
+                items={data?.data?.results}
                 hideColumns
                 title={"Filial xodimlari"}
                 hasUpdate
