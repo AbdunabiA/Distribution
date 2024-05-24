@@ -108,8 +108,7 @@ const BranchDirectorProducts = () => {
             //     },
             //     onError: () => toast.error("Mahsulot o'chirilmadi"),
             //   }),
-            // updateAction: (data) => setModal({ isOpen: true, data: data }),
-            // hasDelete: true,
+            // updateAction: (data) => setModal({ isOpen: true, data: data?.data }),
             // hasUpdate: true,
           }}
         />

@@ -86,11 +86,11 @@ const ManagerTasks = () => {
         <CustomTable
           {...{
             columns: columns,
-            items: berilganTaskData?.data,
+            items: berilganTaskData?.data?.results,
             isLoading: berilganTasksLoading,
             hasDelete: true,
             hasUpdate: true,
-            title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data ? berilganTaskData?.data.length : ''}`,
+            title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data?.results ? berilganTaskData?.data?.results.length : ''}`,
             minHeigth: "230px",
             height: "300px",
             // onRowNavigationUrl: `/clients/`,
@@ -129,9 +129,9 @@ const ManagerTasks = () => {
           <CustomTable
             {...{
               columns: columns,
-              items: taskData?.data,
+              items: taskData?.data?.results,
               isLoading: tasksLoading,
-              title: `Topshiriqlar soni : ${taskData?.data ? taskData.data.length : ''}`,
+              title: `Topshiriqlar soni : ${taskData?.data?.results ? taskData.data?.results.length : ''}`,
               minHeigth: "230px",
               // onRowNavigationUrl: `/clients/`,
               hideColumns: true,

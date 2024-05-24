@@ -19,7 +19,6 @@ const ManagerBranch = () => {
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h2>Error</h2>;
-        console.log(data.data);
         const { warehouse, counts } = data?.data;
         const cardsData = [
           {

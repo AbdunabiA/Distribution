@@ -27,12 +27,12 @@ const columns = [
     dataIndex: "warehouse",
     render: (text, record) => text?.name,
   },
-  // {
-  //   key: "added_by",
-  //   title: "Qo'shgan",
-  //   dataIndex: "added_by",
-  //   // render: (text, record) => text?.first_name + " " + text?.last_name,
-  // },
+  {
+    key: "jami",
+    title: "Jami Summa",
+    dataIndex: "product",
+    render: (text, record) => text?.price * record?.amount,
+  },
 ];
 
 const ManagerBranchProducts = () => {
@@ -45,7 +45,6 @@ const ManagerBranchProducts = () => {
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>{error.message}</h1>;
-        console.log(data?.data);
         return (
           <div className="container">
             {/* <DateFilter /> */}
@@ -54,7 +53,7 @@ const ManagerBranchProducts = () => {
                 hideColumns
                 title={"Filial mahsulotlari"}
                 columns={columns}
-                items={data?.data}
+                items={data?.data?.results}
               />
             </div>
           </div>

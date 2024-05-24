@@ -131,7 +131,7 @@ function Profile() {
                     {...{
                       columns: columns1,
                       items: olinganTaskData?.data?.results,
-                      title: `Topshiriqlar soni: ${olinganTaskData?.data.length}`,
+                      title: `Topshiriqlar soni: ${olinganTaskData?.data?.results.length}`,
                       minHeight: 340,
                       isLoading: berilganTasksLoading,
                       // hasStatus: true,

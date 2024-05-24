@@ -113,7 +113,6 @@ const ManagerSingleClient = () => {
     url: `/customers/${clintId}/detail/`,
     queryKey: [`/customers/${clintId}/detail/`],
   });
-  console.log(data?.data);
   // const { data: orders } = useGet({
   //   url: `/orders/${clintId}/details/`,
   //   queryKey: [`/orders/${clintId}/details/`],

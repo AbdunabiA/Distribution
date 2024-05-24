@@ -148,12 +148,12 @@ function ManagerEmployeeSingle() {
                   <CustomTable
                     {...{
                       columns: columns1,
-                      items: olinganTaskData?.data,
-                      title: `Topshiriqlar soni: ${olinganTaskData?.data.length}`,
-                      minHeight: 0,
+                      items: olinganTaskData?.data?.results,
+                      title: `Topshiriqlar soni: ${olinganTaskData?.data?.results.length}`,
+                      minHeight: 335,
                       hasStatus: true,
                       scrollY: true,
-                      height: 285,
+                      height: 280,
                       hideColumns: true,
                       // hasPagination: true,
                     }}

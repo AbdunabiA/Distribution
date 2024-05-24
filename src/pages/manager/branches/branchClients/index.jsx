@@ -37,13 +37,12 @@ const ManagerBranchClients = () => {
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>{error.message}</h1>;
-        console.log(data?.data);
         return (
           <div className="container">
             <DateFilter />
 
             <div style={{ marginTop: 20 }}>
-              <CustomTable columns={columns} items={data?.data} />
+              <CustomTable columns={columns} items={data?.data?.results} />
             </div>
           </div>
         );

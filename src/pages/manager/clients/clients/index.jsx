@@ -95,10 +95,10 @@ const ManagerClients = () => {
             <CustomTable
               {...{
                 columns: columns2,
-                items: data?.data,
+                items: data?.data?.results,
                 hasDelete: true,
                 hasUpdate: true,
-                title: `Mijozlar soni: ${data?.data.length}`,
+                title: `Mijozlar soni: ${data?.data?.results.length}`,
                 minHeigth: "230px",
                 height: 350,
                 scrollY: true,
@@ -111,6 +111,7 @@ const ManagerClients = () => {
                     onSuccess: () => {
                       queryClient.invalidateQueries("/customers/all/");
                       toast.success("Client o'chirildi");
+                      toast.success("Client arxivlandi");
                     },
                     onError: () => toast.error("Client o'chirilmadi"),
                   }),
