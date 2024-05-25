@@ -1,6 +1,7 @@
 import { Button, Modal } from "antd";
 import DateFilter from "components/dateFilter";
 import CustomTable from "components/table";
+import qs from "qs";
 import { GetAll } from "modules";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useState } from "react";
@@ -9,14 +10,10 @@ import Loader from "components/loader";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePost } from "crud";
 import { toast } from "sonner";
+import { get } from "lodash";
+import { useLocation } from "react-router-dom";
 
 const employeeColumns = [
-  {
-    key: 0,
-    title: "#",
-    width: "70px",
-    render: (a, b, i) => i + 1,
-  },
   {
     key: "name",
     title: "Ism",
@@ -51,15 +48,18 @@ const employeeColumns = [
 ];
 
 const ManagerEmployees = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const [carModal, setCarModal] = useState({ isOpen: false, data: null });
   const queryClient = useQueryClient();
   const { mutate: deleteUsers } = usePost();
+  // console.log(params);
   return (
     <GetAll
-      queryKey={["/users/all/"]}
+      queryKey={["/users/all/", params]}
       url={"/users/all/"}
-      // params={{ extra: { role: "agent" } }}
+      params={{ page: get(params, "page", 1) }}
     >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
@@ -67,7 +67,7 @@ const ManagerEmployees = () => {
         console.log(data);
         return (
           <div className="container">
-            <DateFilter />
+            {/* <DateFilter /> */}
             <Modal
               open={userModal.isOpen}
               destroyOnClose
@@ -90,9 +90,13 @@ const ManagerEmployees = () => {
             </Modal>
             <div style={{ marginTop: "20px" }}>
               <CustomTable
+                hasPagination
+                meta={{ total: data?.data?.count }}
                 columns={employeeColumns}
                 items={data?.data?.results}
-                title={`Xodimlar soni: ${data?.data?.results ? data.data?.results.length : '' }`}
+                title={`Xodimlar soni: ${
+                  data?.data?.results ? data.data?.results.length : ""
+                }`}
                 hideColumns
                 height={300}
                 minHeight={"200px"}

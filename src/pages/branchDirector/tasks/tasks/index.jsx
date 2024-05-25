@@ -90,13 +90,13 @@ const BranchDiretorTasks = () => {
         open={modal.isOpen}
         onCancel={() => setModal({ isOpen: false, data: null })}
       >
-          <CreateTask {...{ setModal, data: modal.data }} />
+        <CreateTask {...{ setModal, data: modal.data }} />
       </Modal>
       <div>
         <CustomTable
           {...{
             columns: columns,
-            items: berilganTaskData?.data,
+            items: berilganTaskData?.data?.results,
             isLoading: berilganTasksLoading,
             hasDelete: true,
             hasUpdate: true,
@@ -150,7 +150,7 @@ const BranchDiretorTasks = () => {
           <CustomTable
             {...{
               columns: columns,
-              items: taskData?.data,
+              items: taskData?.data?.results,
               isLoading: tasksLoading,
               // hasDelete: true,
               // hasUpdate: true,

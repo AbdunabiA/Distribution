@@ -80,7 +80,7 @@ const BranchDirectorClients = () => {
             {...{
               isLoading,
               columns: columns2,
-              items: data?.data,
+              items: data?.data?.results,
               hasDelete: true,
               hasUpdate: true,
               title: `Mijozlar soni: ${data?.data.length}`,

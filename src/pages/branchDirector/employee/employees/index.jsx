@@ -93,7 +93,7 @@ const BarnchDirectorEmployees = () => {
             <div style={{ marginTop: "20px" }}>
               <CustomTable
                 columns={employeeColumns}
-                items={data?.data}
+                items={data?.data?.results}
                 title={`Xodimlar soni: ${data?.data.length}`}
                 hideColumns
                 height={300}
