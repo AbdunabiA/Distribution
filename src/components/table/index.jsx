@@ -163,8 +163,8 @@ const CustomTable = ({
               ? {
                   total: get(meta, "total"),
                   current: +get(params, "page", 1),
-                  pageSize: get(meta, "perPage", 10),
-                  showSizeChanger: true,
+                  pageSize: 10,
+                  // showSizeChanger: true,
                 }
               : false
           }
@@ -173,7 +173,6 @@ const CustomTable = ({
             navigate({
               search: qs.stringify({
                 page: page.current,
-                pageSize: page.pageSize,
               }),
             });
           }}

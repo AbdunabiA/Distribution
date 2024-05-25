@@ -75,7 +75,7 @@ const BranchDirectorProducts = () => {
   });
   const { mutate: deleteProduct } = usePost();
   const queryClient = useQueryClient();
-  console.log(productsData?.data);
+  console.log(productsData?.data?.results);
   return (
     <div className="container">
       <Modal
