@@ -7,12 +7,14 @@ import { Button, Modal } from "antd";
 import { GetAll } from "modules";
 import { CreateCar, CreateSalary } from "components/forms";
 import { useGet } from "crud";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Loader from "components/loader";
 import { CreateUserForm } from "components/forms";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "services";
+import { api, queryBuilder } from "services";
 import dayjs from "dayjs";
+import qs from "qs";
+import { get } from "lodash";
 
 const columns1 = [
   {
@@ -88,6 +90,8 @@ const orderColumns = [
 ];
 
 function ManagerEmployeeSingle() {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const { employeeId } = useParams();
   const [role, setRole] = useState(null);
   const [salaryModal, setSalaryModal] = useState({ isOpen: false, data: null });
@@ -102,6 +106,7 @@ function ManagerEmployeeSingle() {
   const { data: olinganTaskData, isLoading: berilganTasksLoading } = useGet({
     url: `/users/olgan_tasklari/${employeeId}`,
     queryKey: [`/users/olgan_tasklari/${employeeId}`],
+    params: { page: +get(params, "tasksPage", 1) },
   });
 
   const { data: salaryData } = useGet({
@@ -110,11 +115,26 @@ function ManagerEmployeeSingle() {
   });
 
   const { data: operatorOrders, isLoading: operatorOrdersLoading } = useQuery({
-    queryFn: () => api.get(`/orders/operator_orders/${employeeId}`),
+    queryFn: () =>
+      api.get(
+        queryBuilder(`/orders/operator_orders/${employeeId}`, {
+          page: +get(params, "ordersPage", 1),
+        })
+      ),
     queryKey: [`/orders/operator_orders/${employeeId}`],
     enabled: !isLoading && userProfileData?.data?.role === "operator",
   });
 
+  const { data: driverOrders, isLoading: driverOrdersLoading } = useQuery({
+    queryFn: () =>
+      api.get(
+        queryBuilder(`/orders/driver_orders/${employeeId}`, {
+          page: +get(params, "ordersPage", 1),
+        })
+      ),
+    queryKey: [`/orders/driver_orders/${employeeId}`],
+    enabled: !isLoading && userProfileData?.data?.role === "driver",
+  });
   // const { data: currentSalary } = useGet({
   //   url: `/users/salary_calculate/${employeeId}/${dayjs().year()}/${dayjs().month() + 1}`,
   //   queryKey: ["salary_calculation"],
@@ -124,9 +144,10 @@ function ManagerEmployeeSingle() {
 
   if (isLoading) return <Loader />;
   if (isError) return <h1>Error</h1>;
-  console.log("salary params", salaryData?.data);
-  console.log("OperatorOrders", operatorOrders?.data);
-  console.log("dataa", userProfileData?.data);
+  // console.log("salary params", salaryData?.data);
+  // console.log("OperatorOrders", operatorOrders?.data);
+  // console.log("dataa", userProfileData?.data);
+  console.log("OperatorOrders", driverOrders?.data);
   return (
     <div className="container">
       <Modal
@@ -207,12 +228,19 @@ function ManagerEmployeeSingle() {
               {...{
                 columns: columns1,
                 items: olinganTaskData?.data?.results,
-                title: `Topshiriqlar soni: ${olinganTaskData?.data?.results.length}`,
+                title: `Topshiriqlar soni: ${olinganTaskData?.data?.count}`,
                 minHeight: 335,
                 scrollY: true,
                 height: 280,
                 hideColumns: true,
-                // hasPagination: true,
+                onChangeNavigate: (page) => {
+                  return {
+                    navigate: { tasksPage: page },
+                    paramsKey: "tasksPage",
+                  };
+                },
+                hasPagination: true,
+                meta: { total: olinganTaskData?.data?.count },
               }}
             />
           </div>
@@ -248,6 +276,37 @@ function ManagerEmployeeSingle() {
                     height: 230,
                     hideColumns: true,
                     hasPagination: true,
+                    meta: { total: operatorOrders?.data?.count },
+                    onChangeNavigate: (page) => {
+                      return {
+                        navigate: { ordersPage: page },
+                        paramsKey: "ordersPage",
+                      };
+                    },
+                  }}
+                />
+              </div>
+            ) : null}
+            {driverOrders?.data &&
+            userProfileData?.data?.role === "driver" ? (
+              <div style={{ marginTop: "20px" }}>
+                <CustomTable
+                  {...{
+                    columns: orderColumns,
+                    items: driverOrders?.data?.results?.orders,
+                    title: "Buyurtmalar",
+                    minHeigth: "230px",
+                    scrollY: true,
+                    height: 230,
+                    hideColumns: true,
+                    hasPagination: true,
+                    meta: { total: driverOrders?.data?.count },
+                    onChangeNavigate: (page) => {
+                      return {
+                        navigate: { ordersPage: page },
+                        paramsKey: "ordersPage",
+                      };
+                    },
                   }}
                 />
               </div>

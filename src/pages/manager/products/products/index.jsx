@@ -6,9 +6,12 @@ import { useGet, usePost } from "crud";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import Loader from "components/loader";
+import qs from "qs";
+import { get } from "lodash";
+
 const categoriesColumns = [
   {
     key: 0,
@@ -114,15 +117,19 @@ const items2 = [
   },
 ];
 const ManagerProducts = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
   const { data: productsData, isLoading: productsLoading, error } = useGet({
     url: "/products/all/",
     queryKey: ["/products/all/"],
+    params: { page: +get(params, "productsPage", 1) },
   });
   const { data: categoriesData, isLoading: categoriesLoading, err } = useGet({
     url: "/categories/",
     queryKey: ["/categories/"],
-  });  
+    params: { page: +get(params, "categoriesPage", 1) },
+  });
   const { mutate: deleteProduct } = usePost();
   const { mutate: deleteCategories } = usePost();
   const queryClient = useQueryClient();
@@ -147,8 +154,20 @@ const ManagerProducts = () => {
         items={categoriesData?.data?.results}
         height={300}
         minHeight={"200px"}
-        title={`Kategoriyalar soni: ${categoriesData?.data?.results ? categoriesData?.data?.results.length : ''}`}
+        title={`Kategoriyalar soni: ${
+          categoriesData?.data?.results
+            ? categoriesData?.data?.results.length
+            : ""
+        }`}
         hideColumns
+        hasPagination
+        meta={{total:categoriesData?.data?.count}}
+        onChangeNavigate={(page) => {
+              return {
+                navigate: { categoriesPage: page },
+                paramsKey: "categoriesPage",
+              };
+            }}
         scrollY
         isLoading={categoriesLoading}
         hasDelete
@@ -188,8 +207,16 @@ const ManagerProducts = () => {
             height: 300,
             minHeight: "200px",
             scrollY: true,
+            meta:{total:productsData?.data?.count},
+            hasPagination: true,
+            onChangeNavigate: (page) => {
+              return {
+                navigate: { productsPage: page },
+                paramsKey: "productsPage",
+              };
+            },
             items: productsData?.data?.results,
-            title: `Mahsulotlar soni : ${productsData?.data?.results ? productsData?.data?.results.length : ''}`,
+            title: `Mahsulotlar soni : ${productsData?.data?.count}`,
             hideColumns: true,
             deleteAction: (data) =>
               deleteProduct({
