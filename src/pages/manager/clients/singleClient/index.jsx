@@ -9,110 +9,69 @@ import { CreateClient } from "components/forms/createClient";
 import Loader from "components/loader";
 import dayjs from "dayjs";
 import CustomTable from "components/table";
+import { formatNums } from "services/formatNums";
 
 const columns1 = [
   {
-    key: 1,
-    title: "Mahsulot",
-    dataIndex: "product",
-    render: (prod, b) => prod?.product?.name,
-  },
-  {
-    key: 2,
-    title: "Buyurtma qilingan sana",
-    dataIndex: "date_time",
-    render: (date) => dayjs(date).format("DD-MM-YYYY"),
-  },
-  {
-    key: 3,
-    title: "Deadline",
-    dataIndex: "deadline",
-    render: (date) => dayjs(date).format("DD-MM-YYYY"),
-  },
-  {
-    key: 4,
-    title: "Miqdori",
-    dataIndex: "amount",
-  },
-  {
-    key: 5,
-    title: "Umumiy narxi",
-    dataIndex: "total_price",
-  },
-  {
-    key: 6,
-    title: "Chegirma",
-    dataIndex: "discount",
-  },
-  {
-    key: 7,
-    title: "Tvsif",
-    dataIndex: "comment",
-  },
-  {
-    key: 8,
-    title: "Yetkazib beruvchi",
-    dataIndex: "driver",
-    render: (driver) => driver?.first_name + " " + driver?.last_name,
-  },
-  {
-    key: 9,
+    key: "operator",
     title: "Operator",
     dataIndex: "operator",
-    render: (operator) => operator?.first_name + " " + operator?.last_name,
+    render: (data) => data?.first_name + " " + data?.last_name,
   },
   {
-    key: 10,
+    key: "customer",
+    title: "Mijoz",
+    dataIndex: "customer",
+    render: (data) => data?.name,
+  },
+  {
+    key: "driver",
+    title: "Yetkazib beruvchi",
+    dataIndex: "driver",
+    render: (data) => data?.first_name + " " + data?.last_name,
+  },
+  {
+    key: "warehouse",
     title: "Filial",
     dataIndex: "warehouse",
     render: (data) => data?.name,
   },
   {
-    key: 11,
+    key: "comment",
+    title: "Comment",
+    dataIndex: "comment",
+  },
+  {
+    key: "deadline",
+    title: "Deadline",
+    dataIndex: "deadline",
+    render: (data) => dayjs(data).format("DD-MM-YYYY"),
+  },
+  {
+    key: "discount",
+    title: "Chegirma",
+    dataIndex: "discount",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "sum",
+    title: "Jami narxi",
+    dataIndex: "sum",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "final_price",
+    title: "Yakuniy narx",
+    dataIndex: "final_price",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "status",
     title: "Status",
     dataIndex: "status",
   },
 ];
-const items1 = [
-  {
-    id: "1",
-    order: "Olma",
-    date: "14.03.24",
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    id: "2",
-    order: "Banan",
-    date: "15.03.24",
-    address: "London No. 1 Lake Park",
-  },
-  {
-    id: "3",
-    order: "Gilos",
-    date: "16.03.24",
-    address: "London No. 1 Lake Park",
-  },
 
-  {
-    id: "4",
-    order: "Anor",
-    date: "17.03.24",
-    address: "London No. 1 Lake Park",
-  },
-  {
-    id: "5",
-    order: "Behi",
-    date: "13.03.24",
-    address: "London No. 1 Lake Park",
-  },
-
-  {
-    id: "6",
-    order: "Uzum",
-    date: "14.03.24",
-    address: "London No. 1 Lake Park",
-  },
-];
 
 const ManagerSingleClient = () => {
   let { clintId } = useParams();

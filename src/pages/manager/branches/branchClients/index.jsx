@@ -2,7 +2,9 @@ import DateFilter from "components/dateFilter";
 import Loader from "components/loader";
 import CustomTable from "components/table";
 import { GetAll } from "modules";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import qs from "qs";
+import { get } from "lodash";
 
 const columns = [
   {
@@ -28,21 +30,33 @@ const columns = [
 ];
 
 const ManagerBranchClients = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const { branchId } = useParams();
   return (
     <GetAll
       url={`/warehouses/${branchId}/customers`}
       queryKey={["branchCustomers"]}
+      params={{ page: +get(params, "page", 1) }}
     >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>{error.message}</h1>;
         return (
           <div className="container">
-            <DateFilter />
+            {/* <DateFilter /> */}
 
             <div style={{ marginTop: 20 }}>
-              <CustomTable columns={columns} items={data?.data?.results} />
+              <CustomTable
+                columns={columns}
+                title={`Filial mijozlari:${data?.data?.count}`}
+                hasPagination
+                meta={{ total: data?.data?.count }}
+                height={"300px"}
+                minHeight={"250px"}
+                scrollY
+                items={data?.data?.results}
+              />
             </div>
           </div>
         );
