@@ -9,11 +9,14 @@ import { usePost } from "crud";
 import { toast } from "sonner";
 import { useState } from "react";
 import { CreateOrder, CreateTask } from "components/forms";
+import { useSelector } from "react-redux";
 
 const SupervisorAgents = () => {
   const queryClient = useQueryClient();
+  const { data: userData } = useSelector((state) => state.auth);
   const [taskModal, setTaskModal] = useState({ isOpen: false, data: null });
   const { mutate: deleteUsers } = usePost();
+  // console.log(userData);
   const employeeColumns = [
     {
       key: 0,
@@ -73,9 +76,14 @@ const SupervisorAgents = () => {
   ];
   return (
     <GetAll
-      queryKey={["/users/drivers/"]}
+      queryKey={["/users/all/"]}
       url={"/users/all/"}
-      params={{ extra: { role: "agent" } }}
+      params={{
+        extra: {
+          role: "agent",
+          warehouse_id: userData?.warehouse?.id,
+        },
+      }}
     >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
@@ -95,8 +103,8 @@ const SupervisorAgents = () => {
               </Modal>
               <CustomTable
                 columns={employeeColumns}
-                items={data?.data}
-                title={`Agentlar soni: ${data?.data.length}`}
+                items={data?.data?.results}
+                title={`Agentlar soni: ${data?.data?.results.length}`}
                 hideColumns
                 height={300}
                 minHeight={"200px"}

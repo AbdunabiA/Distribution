@@ -4,59 +4,73 @@ import singleScss from "./singleClient.module.scss";
 import { useState } from "react";
 import { Button, Modal } from "antd";
 import { useParams } from "react-router-dom";
-import { useGet, } from "crud";
+import { useGet } from "crud";
 import { CreateClient } from "components/forms/createClient";
 import Loader from "components/loader";
+import dayjs from "dayjs";
+import CustomTable from "components/table";
 
 const columns1 = [
   {
     key: 1,
-    title: "order",
-    dataIndex: "order",
-    sorter: (a, b) => a.order.localeCompare(b.order),
+    title: "Mahsulot",
+    dataIndex: "product",
+    render: (prod, b) => prod?.product?.name,
   },
   {
     key: 2,
-    title: "date",
-    dataIndex: "date",
-    sorter: (a, b) => {
-      const dateA = new Date(
-        a.date
-          .split(".")
-          .reverse()
-          .join("-")
-      );
-      const dateB = new Date(
-        b.date
-          .split(".")
-          .reverse()
-          .join("-")
-      );
-      return dateA - dateB;
-    },
-    filters: [
-      {
-        text: "Newest",
-        value: "newest",
-      },
-    ],
-    onFilter: (value, record) => {
-      if (value === "newest") {
-        const today = new Date();
-        const recordDate = new Date(
-          record.date
-            .split(".")
-            .reverse()
-            .join("-")
-        );
-        return recordDate >= today;
-      } else {
-        return record.address.startsWith(value);
-      }
-    },
-    filterSearch: true,
-    width: "30%",
-    responsive: ["md"],
+    title: "Buyurtma qilingan sana",
+    dataIndex: "date_time",
+    render: (date) => dayjs(date).format("DD-MM-YYYY"),
+  },
+  {
+    key: 3,
+    title: "Deadline",
+    dataIndex: "deadline",
+    render: (date) => dayjs(date).format("DD-MM-YYYY"),
+  },
+  {
+    key: 4,
+    title: "Miqdori",
+    dataIndex: "amount",
+  },
+  {
+    key: 5,
+    title: "Umumiy narxi",
+    dataIndex: "total_price",
+  },
+  {
+    key: 6,
+    title: "Chegirma",
+    dataIndex: "discount",
+  },
+  {
+    key: 7,
+    title: "Tvsif",
+    dataIndex: "comment",
+  },
+  {
+    key: 8,
+    title: "Yetkazib beruvchi",
+    dataIndex: "driver",
+    render: (driver) => driver?.first_name + " " + driver?.last_name,
+  },
+  {
+    key: 9,
+    title: "Operator",
+    dataIndex: "operator",
+    render: (operator) => operator?.first_name + " " + operator?.last_name,
+  },
+  {
+    key: 10,
+    title: "Filial",
+    dataIndex: "warehouse",
+    render: (data) => data?.name,
+  },
+  {
+    key: 11,
+    title: "Status",
+    dataIndex: "status",
   },
 ];
 const items1 = [
@@ -113,11 +127,11 @@ const ManagerSingleClient = () => {
     url: `/customers/${clintId}/detail/`,
     queryKey: [`/customers/${clintId}/detail/`],
   });
-  // const { data: orders } = useGet({
-  //   url: `/orders/${clintId}/details/`,
-  //   queryKey: [`/orders/${clintId}/details/`],
-  // });
-  // console.log(orders?.data);
+  const { data: orders } = useGet({
+    url: `/orders/customer_orders/${clintId}/`,
+    queryKey: [`/orders/customer_orders/${clintId}/`],
+  });
+  console.log(orders?.data);
   return (
     <>
       <Modal
@@ -180,20 +194,20 @@ const ManagerSingleClient = () => {
           <div className={singleScss.date}>
             {/* <DateFilter onChange={onChange} value={dateValue} /> */}
           </div>
-          {/* <div className={singleScss.orderTable}>
+          <div className={singleScss.orderTable}>
             <CustomTable
               {...{
                 columns: columns1,
-                items: items1,
-                title: "Buyurtmalar tarixi",
+                items: orders?.data?.results,
+                title: "Buyurtmalar",
                 minHeigth: "230px",
-                hasDelete: true,
                 scrollY: true,
-                height: 230,
+                // scrollX: "400px",
+                height: 300,
                 hideColumns: true,
               }}
             />
-          </div> */}
+          </div>
         </div>
       )}
     </>

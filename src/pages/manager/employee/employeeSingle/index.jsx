@@ -6,11 +6,13 @@ import { ProfileData } from "pages/profile/profiledata";
 import { Button, Modal } from "antd";
 import { GetAll } from "modules";
 import { CreateCar, CreateSalary } from "components/forms";
-import { useGet} from "crud";
+import { useGet } from "crud";
 import { useParams } from "react-router-dom";
 import Loader from "components/loader";
 import { CreateUserForm } from "components/forms";
-
+import { useQuery } from "@tanstack/react-query";
+import { api } from "services";
+import dayjs from "dayjs";
 
 const columns1 = [
   {
@@ -31,12 +33,71 @@ const columns1 = [
     sorter: (a, b) => a.deadline.localeCompare(b.deadline),
   },
 ];
+
+const orderColumns = [
+  {
+    key: "operator",
+    title: "Operator",
+    dataIndex: "operator",
+    render: (data) => data?.first_name + " " + data?.last_name,
+  },
+  {
+    key: "customer",
+    title: "Mijoz",
+    dataIndex: "customer",
+    render: (data) => data?.name,
+  },
+  {
+    key: "driver",
+    title: "Yetkazib beruvchi",
+    dataIndex: "driver",
+    render: (data) => data?.first_name + " " + data?.last_name,
+  },
+  {
+    key: "warehouse",
+    title: "Filial",
+    dataIndex: "warehouse",
+    render: (data) => data?.name,
+  },
+  {
+    key: "comment",
+    title: "Comment",
+    dataIndex: "comment",
+  },
+  {
+    key: "deadline",
+    title: "Deadline",
+    dataIndex: "deadline",
+    render: (data) => dayjs(data).format("DD-MM-YYYY"),
+  },
+  {
+    key: "discount",
+    title: "Chegirma",
+    dataIndex: "discount",
+  },
+  {
+    key: "final_price",
+    title: "Yakuniy narx",
+    dataIndex: "final_price",
+  },
+  {
+    key: "status",
+    title: "Status",
+    dataIndex: "status",
+  },
+];
+
 function ManagerEmployeeSingle() {
   const { employeeId } = useParams();
+  const [role, setRole] = useState(null);
   const [salaryModal, setSalaryModal] = useState({ isOpen: false, data: null });
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const [carModal, setCarModal] = useState({ isOpen: false, data: null });
-  
+
+  const { data: userProfileData, isLoading, isError, error } = useGet({
+    url: `/users/details/${employeeId}`,
+    queryKey: [`/users/details/${employeeId}`],
+  });
 
   const { data: olinganTaskData, isLoading: berilganTasksLoading } = useGet({
     url: `/users/olgan_tasklari/${employeeId}`,
@@ -45,126 +106,122 @@ function ManagerEmployeeSingle() {
 
   const { data: salaryData } = useGet({
     url: `/users/${employeeId}/salary_params/`,
-    queryKey: ["salary_params"],
+    queryKey: [`/users/${employeeId}/salary_params/`],
   });
-  console.log("salary params", salaryData);
+
+  const { data: operatorOrders, isLoading: operatorOrdersLoading } = useQuery({
+    queryFn: () => api.get(`/orders/operator_orders/${employeeId}`),
+    queryKey: [`/orders/operator_orders/${employeeId}`],
+    enabled: !isLoading && userProfileData?.data?.role === "operator",
+  });
+
   // const { data: currentSalary } = useGet({
   //   url: `/users/salary_calculate/${employeeId}/${dayjs().year()}/${dayjs().month() + 1}`,
   //   queryKey: ["salary_calculation"],
   // });
   // console.log(olinganTaskData, "hello");
   // console.log('calculated salary', currentSalary)
+
+  if (isLoading) return <Loader />;
+  if (isError) return <h1>Error</h1>;
+  console.log("salary params", salaryData?.data);
+  console.log("OperatorOrders", operatorOrders?.data);
+  console.log("dataa", userProfileData?.data);
   return (
-    <GetAll
-      url={`/users/details/${employeeId}`}
-      queryKey={[`/users/details/${employeeId}`]}
-    >
-      {({ data: userProfileData, isLoading, isError, error }) => {
-        if (isLoading) return <Loader />;
-        if (isError) return <h1>Error</h1>;
-        console.log(userProfileData.data, "dataa");
-        return (
-          <div className="container">
-            <Modal
-              open={carModal.isOpen}
-              centered
-              destroyOnClose
-              footer={false}
-              onCancel={() => setCarModal({ isOpen: false, data: null })}
-            >
-              <CreateCar data={carModal.data} setModal={setCarModal} />
-            </Modal>
-            <Modal
-              open={userModal.isOpen}
-              centered
-              destroyOnClose
-              footer={false}
-              onCancel={() => setUserModal({ isOpen: false })}
-            >
-              <CreateUserForm
-                setModal={setUserModal}
-                data={userProfileData?.data}
-              />
-            </Modal>
-            <Modal
-              open={salaryModal.isOpen}
-              centered
-              destroyOnClose
-              footer={false}
-              onCancel={() => setSalaryModal({ isOpen: false, data: null })}
-            >
-              <CreateSalary data={salaryModal.data} setModal={setSalaryModal} />
-            </Modal>
-            <div className={employeeProfileScss.biggest_wrapper}>
-              <div className={employeeProfileScss.flex_div}>
-                <ProfileData
-                  height={"495px"}
-                  userProfile={{
-                    ...userProfileData?.data,
-                    ...salaryData?.data,
-                  }}
-                  buttons={[
-                    <Button
-                      type="primary"
-                      key={"1"}
-                      onClick={() =>
-                        setUserModal({
-                          isOpen: true,
-                          data: userProfileData?.data,
-                        })
-                      }
-                    >
-                      O’zgartirish
-                    </Button>,
-                    <Button
-                      type="primary"
-                      key={"2"}
-                      onClick={() =>
-                        setSalaryModal({
-                          isOpen: true,
-                          data: salaryData?.data,
-                        })
-                      }
-                    >
-                      Maosh belgilash
-                    </Button>,
-                    userProfileData?.data?.role === "driver" && (
-                      <Button
-                        type="primary"
-                        key={"3"}
-                        onClick={() =>
-                          setCarModal({
-                            isOpen: true,
-                            data: userProfileData?.data?.car,
-                          })
-                        }
-                      >
-                        Mashina o'zgartirish
-                      </Button>
-                    ),
-                  ]}
-                />
-                <div className={employeeProfileScss.table}>
-                  <CustomTable
-                    {...{
-                      columns: columns1,
-                      items: olinganTaskData?.data?.results,
-                      title: `Topshiriqlar soni: ${olinganTaskData?.data?.results.length}`,
-                      minHeight: 335,
-                      hasStatus: true,
-                      scrollY: true,
-                      height: 280,
-                      hideColumns: true,
-                      // hasPagination: true,
-                    }}
-                  />
-                </div>
-              </div>
-              <div>
-                <div className={employeeProfileScss.date}>
-                  {/* <DateFilter onChange={onchange} value={dateValue} /> */}
-                  <div style={{ marginTop: "20px" }}>
-                    {/* <CustomTable
+    <div className="container">
+      <Modal
+        open={carModal.isOpen}
+        centered
+        destroyOnClose
+        footer={false}
+        onCancel={() => setCarModal({ isOpen: false, data: null })}
+      >
+        <CreateCar data={carModal.data} setModal={setCarModal} />
+      </Modal>
+      <Modal
+        open={userModal.isOpen}
+        centered
+        destroyOnClose
+        footer={false}
+        onCancel={() => setUserModal({ isOpen: false })}
+      >
+        <CreateUserForm setModal={setUserModal} data={userProfileData?.data} />
+      </Modal>
+      <Modal
+        open={salaryModal.isOpen}
+        centered
+        destroyOnClose
+        footer={false}
+        onCancel={() => setSalaryModal({ isOpen: false, data: null })}
+      >
+        <CreateSalary data={salaryModal.data} setModal={setSalaryModal} />
+      </Modal>
+      <div className={employeeProfileScss.biggest_wrapper}>
+        <div className={employeeProfileScss.flex_div}>
+          <ProfileData
+            height={"495px"}
+            userProfile={{ ...userProfileData?.data, ...salaryData?.data }}
+            buttons={[
+              <Button
+                type="primary"
+                key={"1"}
+                onClick={() =>
+                  setUserModal({
+                    isOpen: true,
+                    data: userProfileData?.data,
+                  })
+                }
+              >
+                O’zgartirish
+              </Button>,
+              <Button
+                type="primary"
+                key={"2"}
+                onClick={() =>
+                  setSalaryModal({
+                    isOpen: true,
+                    data: salaryData?.data,
+                  })
+                }
+              >
+                Maosh belgilash
+              </Button>,
+              userProfileData?.data?.role === "driver" && (
+                <Button
+                  type="primary"
+                  key={"3"}
+                  onClick={() =>
+                    setCarModal({
+                      isOpen: true,
+                      data: userProfileData?.data?.car,
+                    })
+                  }
+                >
+                  Mashina o'zgartirish
+                </Button>
+              ),
+            ]}
+          />
+          <div className={employeeProfileScss.table}>
+            <CustomTable
+              {...{
+                columns: columns1,
+                items: olinganTaskData?.data?.results,
+                title: `Topshiriqlar soni: ${olinganTaskData?.data?.results.length}`,
+                minHeight: 335,
+                scrollY: true,
+                height: 280,
+                hideColumns: true,
+                // hasPagination: true,
+              }}
+            />
+          </div>
+        </div>
+        <div>
+          <div className={employeeProfileScss.date}>
+            {/* <DateFilter onChange={onchange} value={dateValue} /> */}
+            <div style={{ marginTop: "20px" }}>
+              {/* <CustomTable
                       {...{
                         columns: columns2,
                         items: items2,
@@ -177,14 +234,28 @@ function ManagerEmployeeSingle() {
                         hasPagination: true,
                       }}
                     /> */}
-                  </div>
-                </div>
-              </div>
             </div>
+            {operatorOrders?.data &&
+            userProfileData?.data?.role === "operator" ? (
+              <div style={{ marginTop: "20px" }}>
+                <CustomTable
+                  {...{
+                    columns: orderColumns,
+                    items: operatorOrders?.data?.results,
+                    title: "Buyurtmalar",
+                    minHeigth: "230px",
+                    scrollY: true,
+                    height: 230,
+                    hideColumns: true,
+                    hasPagination: true,
+                  }}
+                />
+              </div>
+            ) : null}
           </div>
-        );
-      }}
-    </GetAll>
+        </div>
+      </div>
+    </div>
   );
 }
 export default ManagerEmployeeSingle;

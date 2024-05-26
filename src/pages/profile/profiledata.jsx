@@ -19,6 +19,7 @@ const roles = {
   buttons = null,
   height = null
 }) {
+  
   return (
     <div style={{ height: height }} className={profiledataScss.main_wrapper}>
       <div className={profiledataScss.second_wrapper}>

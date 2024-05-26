@@ -13,10 +13,6 @@ import { toast } from "sonner";
 import { get } from "lodash";
 const options = [
   {
-    label: "Admin",
-    value: "admin",
-  },
-  {
     label: "Menejer",
     value: "manager",
   },
@@ -33,12 +29,12 @@ const options = [
     value: "operator",
   },
   {
-    label: "Agent",
-    value: "agent",
-  },
-  {
     label: "Yetkazib beruvchi",
     value: "driver",
+  },
+  {
+    label: "Agent",
+    value: "agent",
   },
 ];
 
@@ -121,21 +117,28 @@ export const CreateTask = ({ data, setModal }) => {
               placeholder={"Lavozim"}
               options={
                 userData.role === "manager"
-                  ? options.slice(2)
+                  ? options.slice(1)
                   : userData.role === "branch_director"
-                  ? options.slice(3)
+                  ? options.slice(2)
+                  : userData.role === "supervisor"
+                  ? options.slice(5)
                   : options
               }
             />
             <AsyncSelect
               name="task_executors"
               url={`/users/all/`}
-              params={{ extra: { role: values?.role } }}
+              params={{
+                extra: {
+                  role: values?.role,
+                  ...(userData?.role === 'branch_director' || userData?.role === 'supervisor' ? { warehouse_id: userData?.warehouse?.id } : {})
+                },
+              }}
               queryKey={["/users/all/?role"]}
               optionLabel={(data) => data?.first_name + " " + data?.last_name}
               optionValue={"id"}
               mode="multiple"
-              // disabled={!values?.role}
+              disabled={!values?.role}
               label={"Bajaruvchilar"}
               placeholder={"Bajaruvchilar"}
             />

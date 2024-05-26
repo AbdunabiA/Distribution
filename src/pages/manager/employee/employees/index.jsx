@@ -54,17 +54,17 @@ const ManagerEmployees = () => {
   const [carModal, setCarModal] = useState({ isOpen: false, data: null });
   const queryClient = useQueryClient();
   const { mutate: deleteUsers } = usePost();
-  // console.log(params);
+  console.log(get(params, "page", 1));
   return (
     <GetAll
-      queryKey={["/users/all/", params]}
+      queryKey={["/users/all/"]}
       url={"/users/all/"}
       params={{ page: get(params, "page", 1) }}
     >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>Error</h1>;
-        console.log(data);
+        console.log(data?.data);
         return (
           <div className="container">
             {/* <DateFilter /> */}
@@ -94,9 +94,7 @@ const ManagerEmployees = () => {
                 meta={{ total: data?.data?.count }}
                 columns={employeeColumns}
                 items={data?.data?.results}
-                title={`Xodimlar soni: ${
-                  data?.data?.results ? data.data?.results.length : ""
-                }`}
+                title={`Xodimlar soni: ${data?.data?.count}`}
                 hideColumns
                 height={300}
                 minHeight={"200px"}

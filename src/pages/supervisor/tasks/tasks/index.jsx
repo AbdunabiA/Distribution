@@ -79,7 +79,7 @@ const SupervisorTasks = () => {
         <CustomTable
           {...{
             columns: columns,
-            items: berilganTaskData?.data,
+            items: berilganTaskData?.data?.results,
             isLoading: berilganTasksLoading,
             hasDelete: true,
             hasUpdate: true,

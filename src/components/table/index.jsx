@@ -155,7 +155,7 @@ const CustomTable = ({
           }}
           style={{ marginTop: "20px", minHeight: minHeight }}
           scroll={{
-            x: scrollX,
+            x: scrollX || 'max-content', // Ensure this is either a specific value or 'max-content'
             y: scrollY ? height : null,
           }}
           pagination={
@@ -164,12 +164,10 @@ const CustomTable = ({
                   total: get(meta, "total"),
                   current: +get(params, "page", 1),
                   pageSize: 10,
-                  // showSizeChanger: true,
                 }
               : false
           }
           onChange={(page) => {
-            // console.log('PAGE', page);
             navigate({
               search: qs.stringify({
                 page: page.current,
@@ -185,7 +183,6 @@ const CustomTable = ({
               pageSize={get(meta, "perPage", 10)}
               showSizeChanger
               onChange={(page, pageSize) => {
-                // console.log(page, pageSize);
                 navigate({
                   search: qs.stringify({
                     page: page,
