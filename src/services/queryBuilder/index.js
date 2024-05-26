@@ -10,7 +10,7 @@ const queryBuilder = (
     limit = 0,
     sort = "",
     filter = {},
-    page = 1,
+    page = 0,
     extra = {},
   } = {}
 ) => {
@@ -57,7 +57,7 @@ const queryBuilder = (
     });
   }
 
-  if (page > 1) {
+  if (page > 0) {
     queryObj.page(Number(page));
   }
 

@@ -340,6 +340,11 @@ export const pages = {
              component: <AgentClients />,
              name: "Mijozlar",
            },
+           {
+             path: "/profile",
+             component: <Profile />,
+             name: "Profil",
+           },
          ],
          supervisor: [
            {

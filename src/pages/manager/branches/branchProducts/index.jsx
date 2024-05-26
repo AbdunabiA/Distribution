@@ -30,8 +30,7 @@ const columns = [
   {
     key: "jami",
     title: "Jami Summa",
-    dataIndex: "product",
-    render: (text, record) => text?.price * record?.amount,
+    dataIndex: "total_sum",
   },
 ];
 
@@ -45,6 +44,7 @@ const ManagerBranchProducts = () => {
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>{error.message}</h1>;
+        // console.log(data?.data);
         return (
           <div className="container">
             {/* <DateFilter /> */}

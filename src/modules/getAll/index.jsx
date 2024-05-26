@@ -1,8 +1,9 @@
-import { useGet } from "crud"
-import { get } from "lodash"
+import { useGet } from "crud";
+import { get } from "lodash";
 
-const GetAll = ({url, queryKey, params, onSuccess, onError, children}) => {
-    const data = useGet({url, queryKey, params, onSuccess, onError})
+const GetAll = ({ url, queryKey, params, onSuccess, onError, children }) => {
+  // console.log(url, params);
+  const data = useGet({ url, queryKey, params, onSuccess, onError });
   return children({
     items: get(data, "data.data"),
     meta: {
@@ -13,6 +14,6 @@ const GetAll = ({url, queryKey, params, onSuccess, onError, children}) => {
     },
     ...data,
   });
-}
+};
 
-export default GetAll
+export default GetAll;
