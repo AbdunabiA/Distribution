@@ -7,8 +7,10 @@ import CustomTable from "components/table";
 import { usePost } from "crud";
 import { GetAll } from "modules";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import qs from "qs";
+import { get } from "lodash";
 
 const usersColumns = [
   {
@@ -29,6 +31,8 @@ const usersColumns = [
 ];
 
 const ManagerBranchEmployees = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const { branchId } = useParams();
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const { mutate: deleteUsers } = usePost();
@@ -37,13 +41,14 @@ const ManagerBranchEmployees = () => {
     <GetAll
       url={`/warehouses/${branchId}/employees`}
       queryKey={["branchEmployees"]}
+      params={{ page: +get(params, "page", 1) }}
     >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>{error.message}</h1>;
         return (
           <div className="container">
-            <DateFilter />
+            {/* <DateFilter /> */}
             <Modal
               open={userModal.isOpen}
               centered
@@ -62,7 +67,12 @@ const ManagerBranchEmployees = () => {
                 columns={usersColumns}
                 items={data?.data?.results}
                 hideColumns
-                title={"Filial xodimlari"}
+                title={`Filial xodimlari:${data?.data?.count}`}
+                hasPagination
+                meta={{ total: data?.data?.count }}
+                height={"300px"}
+                minHeight={"250px"}
+                scrollY
                 hasUpdate
                 hasDelete
                 deleteAction={(data) =>

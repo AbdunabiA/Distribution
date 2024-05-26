@@ -11,13 +11,17 @@ import { usePost } from "crud";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import Loader from "components/loader";
+import { useLocation } from "react-router-dom";
+import qs from "qs";
+import { get } from "lodash";
 
 const ManagerBranches = () => {
-  const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
+  const [modal, setModal] = useState({ isOpen: false,  data: null });
   const [sendProdModal, setSendProdModal] = useState({
     isOpen: false,
     data: null,
-    form: null, 
   });
 
   const queryClient = useQueryClient();
@@ -77,7 +81,11 @@ const ManagerBranches = () => {
     },
   ];
   return (
-    <GetAll url={"/warehouses/all/"} queryKey={["/warehouses/all/"]}>
+    <GetAll
+      url={"/warehouses/all/"}
+      queryKey={["/warehouses/all/"]}
+      params={{ page: +get(params, "page", 1) }}
+    >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
         if (isError) return <h1>Error</h1>;
@@ -95,48 +103,25 @@ const ManagerBranches = () => {
                 setModal={setSendProdModal}
               />
             </Modal>
-            {/* <Modal
-              open={modal.isOpen}
-              centered
-              destroyOnClose
-              onCancel={() => setModal({ isOpen: false, data: null })}
-              footer={false}
-            >
-              <CreateWarehouse
-                data={branchModal.data}
-                setModal={setBranchModal}
-              />
-            </Modal>
-            <Modal
-              open={branchModal.isOpen}
-              centered
-              destroyOnClose
-              onCancel={() => setBranchModal({ isOpen: false, data: null })}
-              footer={false}
-            >
-            {branchModal.form === "filial" ? (
-              <CreateWarehouse {...{ setBranchModal, data: branchModal.data }} />
-            ) : null}
-            </Modal> */}
             <Modal
               destroyOnClose
               centered
               footer={false}
               open={modal.isOpen}
               onCancel={() =>
-                setModal({ isOpen: false, form: null, data: null })
+                setModal({ isOpen: false, data: null })
               }
             >
-              {modal.form === "filial" ? (
                 <CreateWarehouse {...{ setModal, data: modal.data }} />
-              ) : null}
             </Modal>
-            <DateFilter />
+            {/* <DateFilter /> */}
             <div style={{ marginTop: "20px" }}>
               <CustomTable
+                hasPagination
+                meta={{ total: data?.data?.count }}
                 columns={branchesCoulmns}
                 items={data?.data?.results}
-                title={`Filiallar soni: ${data?.data?.results ? data?.data?.results.length : ''}`}
+                title={`Filiallar soni: ${data?.data?.count}`}
                 hideColumns
                 height={350}
                 minHeight={"200px"}

@@ -2,7 +2,9 @@ import DateFilter from "components/dateFilter";
 import Loader from "components/loader";
 import CustomTable from "components/table";
 import { GetAll } from "modules";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import qs from "qs";
+import { get } from "lodash";
 
 const columns = [
   {
@@ -35,11 +37,14 @@ const columns = [
 ];
 
 const ManagerBranchProducts = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const { branchId } = useParams();
   return (
     <GetAll
       url={`/warehouses/${branchId}/products`}
       queryKey={["branchProducts"]}
+      params={{ page: +get(params, "page", 1) }}
     >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
@@ -51,8 +56,14 @@ const ManagerBranchProducts = () => {
             <div style={{ marginTop: 20 }}>
               <CustomTable
                 hideColumns
-                title={"Filial mahsulotlari"}
+                title={`Filial mahsulotlari: ${data?.data?.count}`}
                 columns={columns}
+                hasPagination
+                meta={{ total: data?.data?.count }}
+                height={"300px"}
+                minHeight={"250px"}
+                scrollY
+                scrollX={"800px"}
                 items={data?.data?.results}
               />
             </div>

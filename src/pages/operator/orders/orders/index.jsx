@@ -9,23 +9,15 @@ import { useState } from "react";
 import { toast } from "sonner";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
+import dayjs from "dayjs";
+import { formatNums } from "services/formatNums";
 
 const columns = [
   {
-    key: "product",
-    title: "Mahsulot",
-    dataIndex: "product",
-    render: (data) => data?.product?.name,
-  },
-  {
-    key: "amount",
-    title: "Miqdori",
-    dataIndex: "amount",
-  },
-  {
-    key: "total_price",
-    title: "Jami narxi",
-    dataIndex: "total_price",
+    key: "operator",
+    title: "Operator",
+    dataIndex: "operator",
+    render: (data) => data?.first_name + " " + data?.last_name,
   },
   {
     key: "customer",
@@ -40,16 +32,44 @@ const columns = [
     render: (data) => data?.first_name + " " + data?.last_name,
   },
   {
-    key: "operator",
-    title: "Operator",
-    dataIndex: "operator",
-    render: (data) => data?.first_name + " " + data?.last_name,
-  },
-  {
     key: "warehouse",
     title: "Filial",
     dataIndex: "warehouse",
     render: (data) => data?.name,
+  },
+  {
+    key: "comment",
+    title: "Comment",
+    dataIndex: "comment",
+  },
+  {
+    key: "deadline",
+    title: "Deadline",
+    dataIndex: "deadline",
+    render: (data) => dayjs(data).format("DD-MM-YYYY"),
+  },
+  {
+    key: "discount",
+    title: "Chegirma",
+    dataIndex: "discount",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "sum",
+    title: "Jami narxi",
+    dataIndex: "sum",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "final_price",
+    title: "Yakuniy narx",
+    dataIndex: "final_price",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "status",
+    title: "Status",
+    dataIndex: "status",
   },
 ];
 
@@ -81,11 +101,11 @@ const OperatorOrders = () => {
               <CreateOrder data={orderModal.data} setModal={setOrderModal} />
             </Modal>
             <CustomTable
-              title={`Buyurtmalar: ${data?.data?.length} ta`}
+              title={`Buyurtmalar: ${data?.data?.count} ta`}
               columns={columns}
               hasDelete
               hasUpdate
-              updateAction={(data) => setOrderModal({ isOpen: true, data })}
+              updateAction={(data) => setOrderModal({ isOpen: true, data:{...data, deadline:dayjs(data?.deadline).format('YYYY-MM-DD')} })}
               deleteAction={(data) => {
                 orderDelete({
                   url: `/orders/${data?.id}/details`,
@@ -100,7 +120,7 @@ const OperatorOrders = () => {
                 });
               }}
               hideColumns
-              items={data?.data?.orders}
+              items={data?.data?.results}
               minHeight={"200px"}
               height={"300px"}
               scrollY

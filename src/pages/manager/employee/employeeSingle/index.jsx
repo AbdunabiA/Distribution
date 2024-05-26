@@ -15,28 +15,9 @@ import { api, queryBuilder } from "services";
 import dayjs from "dayjs";
 import qs from "qs";
 import { get } from "lodash";
+import { formatNums } from "services/formatNums";
 
 const columns1 = [
-  {
-    key: 0,
-    title: "#",
-    width: "70px",
-    render: (a, b, i) => i + 1,
-  },
-  {
-    key: 1,
-    title: "Task",
-    dataIndex: "text",
-  },
-  {
-    key: 2,
-    title: "Deadline",
-    dataIndex: "deadline",
-    sorter: (a, b) => a.deadline.localeCompare(b.deadline),
-  },
-];
-
-const orderColumns = [
   {
     key: "operator",
     title: "Operator",
@@ -76,11 +57,19 @@ const orderColumns = [
     key: "discount",
     title: "Chegirma",
     dataIndex: "discount",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "sum",
+    title: "Jami narxi",
+    dataIndex: "sum",
+    render: (data) => formatNums(data),
   },
   {
     key: "final_price",
     title: "Yakuniy narx",
     dataIndex: "final_price",
+    render: (data) => formatNums(data),
   },
   {
     key: "status",
