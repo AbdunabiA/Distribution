@@ -3,9 +3,9 @@ import employeeProfileScss from "./employee.module.scss";
 import CustomTable from "components/table";
 import { useState } from "react";
 import { ProfileData } from "pages/profile/profiledata";
-import { Button, Modal } from "antd";
+import { Button, Modal, Tooltip } from "antd";
 import { GetAll } from "modules";
-import { CreateCar, CreateSalary } from "components/forms";
+import { CreateCar, CreateSalary, SalaryPay } from "components/forms";
 import { useGet } from "crud";
 import { useLocation, useParams } from "react-router-dom";
 import Loader from "components/loader";
@@ -17,7 +17,7 @@ import qs from "qs";
 import { get } from "lodash";
 import { formatNums } from "services/formatNums";
 
-const columns1 = [
+const orderColumns = [
   {
     key: "operator",
     title: "Operator",
@@ -77,12 +77,48 @@ const columns1 = [
     dataIndex: "status",
   },
 ];
+const tasksColumns = [
+  {
+    key: "text",
+    title: "Topshiriq",
+    dataIndex: "text",
+    width: "200px",
+    render: (text) => (
+      <Tooltip title={text} placement="topLeft">
+        <span className={employeeProfileScss.clamped}>{text}</span>
+      </Tooltip>
+    ),
+  },
+  {
+    key: "deadline",
+    title: "Deadline",
+    dataIndex: "deadline",
+    render: (date) => dayjs(date).format("DD-MM-YYYY"),
+  },
+  {
+    key: "created_at",
+    title: "Berilgan",
+    dataIndex: "created_at",
+    render: (date) => dayjs(date).format("DD-MM-YYYY"),
+  },
+  {
+    key: "task_setter",
+    title: "Bergan",
+    dataIndex: "task_setter",
+    render: (data) => data?.first_name + " " + data?.last_name,
+  },
+  {
+    key: "status",
+    title: "Status",
+    dataIndex: "status",
+  },
+];
 
 function ManagerEmployeeSingle() {
   const location = useLocation();
   const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const { employeeId } = useParams();
-  const [role, setRole] = useState(null);
+  const [salaryPay, setSalaryPay] = useState({isOpen:false, data:null})
   const [salaryModal, setSalaryModal] = useState({ isOpen: false, data: null });
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const [carModal, setCarModal] = useState({ isOpen: false, data: null });
@@ -101,6 +137,11 @@ function ManagerEmployeeSingle() {
   const { data: salaryData } = useGet({
     url: `/users/${employeeId}/salary_params/`,
     queryKey: [`/users/${employeeId}/salary_params/`],
+  });
+
+  const { data: payedSalaries } = useGet({
+    url: "/users/salary_payments/",
+    queryKey: ["/users/salary_payments/"],
   });
 
   const { data: operatorOrders, isLoading: operatorOrdersLoading } = useQuery({
@@ -124,21 +165,39 @@ function ManagerEmployeeSingle() {
     queryKey: [`/orders/driver_orders/${employeeId}`],
     enabled: !isLoading && userProfileData?.data?.role === "driver",
   });
-  // const { data: currentSalary } = useGet({
-  //   url: `/users/salary_calculate/${employeeId}/${dayjs().year()}/${dayjs().month() + 1}`,
-  //   queryKey: ["salary_calculation"],
-  // });
-  // console.log(olinganTaskData, "hello");
-  // console.log('calculated salary', currentSalary)
+  const { data: calculatedSalary } = useGet({
+    url: `/users/salary_calculate/${employeeId}/${dayjs().year()}/${dayjs().month() +
+      1}`,
+    queryKey: [
+      `/users/salary_calculate/${employeeId}/${dayjs().year()}/${dayjs().month() +
+        1}`,
+    ],
+  });
+  console.log("tasksData", olinganTaskData?.data);
+  console.log("calculated salary", calculatedSalary?.data);
+  console.log('PayedSalary', payedSalaries?.data);
 
   if (isLoading) return <Loader />;
   if (isError) return <h1>Error</h1>;
   // console.log("salary params", salaryData?.data);
   // console.log("OperatorOrders", operatorOrders?.data);
   // console.log("dataa", userProfileData?.data);
-  console.log("OperatorOrders", driverOrders?.data);
+  // console.log("OperatorOrders", driverOrders?.data);
   return (
     <div className="container">
+      <Modal
+        open={salaryPay.isOpen}
+        centered
+        destroyOnClose
+        footer={false}
+        onCancel={() => setSalaryPay({ isOpen: false, data: null })}
+      >
+        <SalaryPay
+          data={salaryPay?.data}
+          setModal={setSalaryPay}
+          invalidateQuery={"/users/salary_payments/"}
+        />
+      </Modal>
       <Modal
         open={carModal.isOpen}
         centered
@@ -164,13 +223,21 @@ function ManagerEmployeeSingle() {
         footer={false}
         onCancel={() => setSalaryModal({ isOpen: false, data: null })}
       >
-        <CreateSalary data={salaryModal.data} setModal={setSalaryModal} />
+        <CreateSalary
+          data={salaryModal.data}
+          invalidateQuery={`/users/${employeeId}/salary_params/`}
+          setModal={setSalaryModal}
+        />
       </Modal>
       <div className={employeeProfileScss.biggest_wrapper}>
         <div className={employeeProfileScss.flex_div}>
           <ProfileData
             height={"495px"}
-            userProfile={{ ...userProfileData?.data, ...salaryData?.data }}
+            userProfile={{
+              ...userProfileData?.data,
+              ...salaryData?.data,
+              ...calculatedSalary?.data,
+            }}
             buttons={[
               <Button
                 type="primary"
@@ -196,6 +263,23 @@ function ManagerEmployeeSingle() {
               >
                 Maosh belgilash
               </Button>,
+              <Button
+                key={"4"}
+                type="primary"
+                onClick={() =>
+                  setSalaryPay({
+                    isOpen: true,
+                    data: {
+                      ...calculatedSalary?.data,
+                      month: dayjs().month() + 1,
+                      year: dayjs().year(),
+                      user: userProfileData?.data,
+                    },
+                  })
+                }
+              >
+                Oylik to'lash
+              </Button>,
               userProfileData?.data?.role === "driver" && (
                 <Button
                   type="primary"
@@ -215,7 +299,7 @@ function ManagerEmployeeSingle() {
           <div className={employeeProfileScss.table}>
             <CustomTable
               {...{
-                columns: columns1,
+                columns: tasksColumns,
                 items: olinganTaskData?.data?.results,
                 title: `Topshiriqlar soni: ${olinganTaskData?.data?.count}`,
                 minHeight: 335,
@@ -276,8 +360,7 @@ function ManagerEmployeeSingle() {
                 />
               </div>
             ) : null}
-            {driverOrders?.data &&
-            userProfileData?.data?.role === "driver" ? (
+            {driverOrders?.data && userProfileData?.data?.role === "driver" ? (
               <div style={{ marginTop: "20px" }}>
                 <CustomTable
                   {...{

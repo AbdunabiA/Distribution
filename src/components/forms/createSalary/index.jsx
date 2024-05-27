@@ -1,13 +1,15 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "antd";
 import { CustomInput, CustomTextArea } from "components/inputs";
 import { get } from "lodash";
 import { ContainerForm } from "modules";
 import { toast } from "sonner";
 
-export const CreateSalary = ({ setModal, data }) => {
+export const CreateSalary = ({ setModal, data, invalidateQuery }) => {
+  const queryClient = useQueryClient()
   return (
     <ContainerForm
-      url={`/users/${data?.id}/salary_params/`}
+      url={`/users/${data?.user?.id}/salary_params/`}
       method={"post"}
       fields={[
         {
@@ -26,10 +28,11 @@ export const CreateSalary = ({ setModal, data }) => {
         },
         {
           name: "user",
-          value: get(data, "id", null),
+          value: get(data, "user.id", null),
         },
       ]}
       onSuccess={() => {
+        queryClient.invalidateQueries(invalidateQuery)
         setModal({ isOpen: false, data: null });
         toast.success("Oylik maosh saqlandi");
       }}

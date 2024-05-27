@@ -42,7 +42,14 @@ export const ProductSend = ({ data, setModal }) => {
     >
       {({ handleSubmit, isLoading }) => {
         return (
-          <div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              padding: "30px",
+            }}
+          >
             <p className="form-title">{data?.name}ga mahsulot yuborish</p>
             <AsyncSelect
               name="product"
@@ -76,6 +83,8 @@ export const ProductSend = ({ data, setModal }) => {
             <div className="form-button-wrapper">
               <Button
                 type="primary"
+                htmlType="submit"
+                loading={isLoading}
                 onClick={handleSubmit}
                 disabled={isLoading}
               >

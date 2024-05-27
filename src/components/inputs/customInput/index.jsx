@@ -1,7 +1,14 @@
 import { Input } from "antd";
 import { Field } from "formik";
 
-export const CustomInput = ({type='text', placeholder, label=null,onChange=()=>{}, ...props}) => {
+export const CustomInput = ({
+  type = "text",
+  disabled = false,
+  placeholder,
+  label = null,
+  onChange = () => {},
+  ...props
+}) => {
   //   console.log({ ...props });
   return (
     <Field {...props}>
@@ -15,6 +22,7 @@ export const CustomInput = ({type='text', placeholder, label=null,onChange=()=>{
             {label && <span className="label">{label}</span>}
             <Input
               {...field}
+              disabled={disabled}
               placeholder={placeholder}
               autoComplete="off"
               type={type}
@@ -22,8 +30,9 @@ export const CustomInput = ({type='text', placeholder, label=null,onChange=()=>{
               // value={values[props.name]}
               // onChange={() => setFieldValue(props.name, values[props.name])}
               onInput={(e) => {
-                onChange(e.target.value)
-                setFieldValue(props.name, e.target.value)}}
+                onChange(e.target.value);
+                setFieldValue(props.name, e.target.value);
+              }}
             />
           </label>
           {meta.touched && meta.error && (
