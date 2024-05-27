@@ -91,6 +91,12 @@ const roles = {
               {userProfile?.fixed}
             </li>
           ) : null}
+          {userProfile?.total_amount ? (
+            <li>
+              <span>Xisoblangan oylik:</span>
+              {userProfile?.total_amount}
+            </li>
+          ) : null}
         </ul>
         <ul>
           <li>

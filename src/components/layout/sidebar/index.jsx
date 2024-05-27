@@ -3,6 +3,7 @@ import close from "assets/icons/close.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./sidebar.module.scss";
 import { useSelector } from "react-redux";
+import Logo from "components/logo";
 const Sidebar = ({ active, setActive }) => {
   const navigate = useNavigate();
   // const role = "manager";
@@ -24,7 +25,7 @@ const Sidebar = ({ active, setActive }) => {
         <div className={styles.sidebar_wrapper}>
           <div className={styles.logo_wrapper} onClick={() => navigate("/")}>
             {/* <img src={logo} alt='logo' /> */}
-            <h1>Logo</h1>
+            <Logo/>
           </div>
           <div className={styles.menus_wrapper}>
             <div className={`${!active && styles.closed}`}>

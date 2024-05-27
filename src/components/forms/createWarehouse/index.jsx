@@ -41,7 +41,7 @@ export const CreateWarehouse = ({ data, setModal }) => {
       url={data?.id ? `warehouses/details/${data?.id}/` : `/warehouses/all/`}
       onSuccess={() => {
         queryClient.invalidateQueries("/warehouses/all/");
-        setModal({ isOpen: false, form: null, data: null });
+        setModal({ isOpen: false, data: null });
         toast.success(`Filial ${data?.id ? "o'zgartirildi" : "yaratildi"}`);
       }}
       onError={(err) =>

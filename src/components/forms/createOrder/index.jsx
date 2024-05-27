@@ -102,7 +102,7 @@ export const CreateOrder = ({
         setModal({ isOpen: false, data: null });
       }}
       onError={(error) => {
-        toast.error(error.message);
+        toast.error(get(err, "response.data.message", err?.message));
       }}
     >
       {({ handleSubmit, isLoading, values, setFieldValue }) => {
@@ -272,12 +272,15 @@ export const CreateOrder = ({
               label="Mahsulotlar jami narxi"
               placeholder={"Jami narxi"}
               type="number"
+              disabled
+              
             />
             <CustomInput
               name={`final_price`}
               label="Mahsulotlar yakuniy narxi"
               placeholder={"Yakuniy narx"}
               type="number"
+              disabled
             />
             <div className="form-button-wrapper">
               <Button

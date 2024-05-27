@@ -265,3 +265,16 @@ $xxxxl: 1920px;
   gap: 10px;
   margin-top: 10px;
 }
+
+.logo{
+    filter: drop-shadow(0px 3px 1px rgb(17, 16, 16)) ;
+    transition: 50ms linear;
+}
+.logo:hover{
+    transform: translateY(-2px);
+    filter: drop-shadow(0px 5px 2px rgb(17, 16, 16));
+}
+.logo:active{
+    transform: translateY(2px);
+    filter: drop-shadow(0px 3px 1px rgb(17, 16, 16));
+}
