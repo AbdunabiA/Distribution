@@ -118,7 +118,7 @@ function ManagerEmployeeSingle() {
   const location = useLocation();
   const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const { employeeId } = useParams();
-  const [salaryPay, setSalaryPay] = useState({isOpen:false, data:null})
+  const [salaryPay, setSalaryPay] = useState({ isOpen: false, data: null });
   const [salaryModal, setSalaryModal] = useState({ isOpen: false, data: null });
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const [carModal, setCarModal] = useState({ isOpen: false, data: null });
@@ -175,7 +175,7 @@ function ManagerEmployeeSingle() {
   });
   console.log("tasksData", olinganTaskData?.data);
   console.log("calculated salary", calculatedSalary?.data);
-  console.log('PayedSalary', payedSalaries?.data);
+  console.log("PayedSalary", payedSalaries?.data);
 
   if (isLoading) return <Loader />;
   if (isError) return <h1>Error</h1>;

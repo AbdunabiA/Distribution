@@ -3,9 +3,11 @@ import CustomTable from "components/table";
 import { GetAll } from "modules";
 import Loader from "components/loader";
 import DateFilter from "components/dateFilter";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useGet } from "crud";
 import dayjs from "dayjs";
+import qs from "qs";
+import { get } from "lodash";
 const categoriesColumns = [
   {
     key: 0,
@@ -186,26 +188,32 @@ const branchesCoulmns = [
   // },
 ];
 const ManagerArchive = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const {
     data: archivedCategories,
     isLoading: archivedCategoriesLoading,
   } = useGet({
     url: "/archived/categories/",
     queryKey: ["/archived/categories/"],
+    params: { page: +get(params, "categoryArchived", 1) },
   });
   const { data: archivedClients, isLoading: archivedClientsLoading } = useGet({
     url: "/archived/customers/",
     queryKey: ["/archived/customers/"],
+    params: { page: +get(params, "archivedCustomers", 1) },
   });
   const { data: archivedProducts, isLoading: archivedProductsLoading } = useGet(
     {
       url: "/archived/products/",
       queryKey: ["/archived/products/"],
+      params: { page: +get(params, "productsArchived", 1) },
     }
   );
   const { data: archivedUsers, isLoading: archivedUsersLoading } = useGet({
     url: "/archived/users/",
     queryKey: ["/archived/users/"],
+    params: { page: +get(params, "usersArchived", 1) },
   });
   const {
     data: archivedWarehouses,
@@ -213,6 +221,7 @@ const ManagerArchive = () => {
   } = useGet({
     url: "/archived/warehouses/",
     queryKey: ["/archived/warehouses/"],
+    params: { page: +get(params, "warehousesArchived", 1) },
   });
   return (
     <div className="container">
@@ -226,6 +235,14 @@ const ManagerArchive = () => {
         <div style={{ marginTop: 20 }}>
         <CustomTable
           hideColumns
+          hasPagination
+          meta={{total:archivedCategories?.data?.count}}
+          onChangeNavigate={(page) => {
+                return {
+                  navigate: { categoryArchived: page },
+                  paramsKey: "categoryArchived",
+                };
+              }}
           title={`Arxivlangan categoriyalar: ${
             archivedCategories?.data?.results
               ? archivedCategories?.data?.results.length
@@ -238,6 +255,14 @@ const ManagerArchive = () => {
       <div style={{ marginTop: 20 }}>
         <CustomTable
           hideColumns
+          hasPagination
+          meta={{total:archivedClients?.data?.count}}
+          onChangeNavigate={(page) => {
+                return {
+                  navigate: { productsArchived: page },
+                  paramsKey: "productsArchived",
+                };
+              }}
           title={`Arxivlangan mahsulotlar: ${
             archivedProducts?.data?.results
               ? archivedProducts?.data?.results.length
@@ -250,6 +275,14 @@ const ManagerArchive = () => {
       <div style={{ marginTop: 20 }}>
         <CustomTable
           hideColumns
+          hasPagination
+          meta={{total:archivedClients?.data?.count}}
+          onChangeNavigate={(page) => {
+                return {
+                  navigate: { archivedCustomers: page },
+                  paramsKey: "archivedCustomers",
+                };
+              }}
           title={`Arxivlangan mijozlar: ${
             archivedClients?.data?.results
               ? archivedClients?.data?.results.length
@@ -262,6 +295,14 @@ const ManagerArchive = () => {
       <div style={{ marginTop: 20 }}>
         <CustomTable
           hideColumns
+          hasPagination
+          meta={{total:archivedUsers?.data?.count}}
+          onChangeNavigate={(page) => {
+                return {
+                  navigate: { usersArchived: page },
+                  paramsKey: "usersArchived",
+                };
+              }}
           title={`Arxivlangan xodimlar: ${
             archivedUsers?.data?.results
               ? archivedUsers?.data?.results.length
@@ -274,6 +315,14 @@ const ManagerArchive = () => {
       <div style={{ marginTop: 20 }}>
         <CustomTable
           hideColumns
+          hasPagination
+          meta={{total:archivedWarehouses?.data?.count}}
+          onChangeNavigate={(page) => {
+                return {
+                  navigate: { warehousesArchived: page },
+                  paramsKey: "warehousesArchived",
+                };
+              }}
           title={`Arxivlangan filiallar: ${
             archivedWarehouses?.data?.results
               ? archivedWarehouses?.data?.results.length

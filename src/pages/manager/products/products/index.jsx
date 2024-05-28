@@ -154,7 +154,7 @@ const ManagerProducts = () => {
         items={categoriesData?.data?.results}
         height={300}
         minHeight={"200px"}
-        title={`Kategoriyalar soni: ${
+        title={`Kategoriyalar: ${
           categoriesData?.data?.results
             ? categoriesData?.data?.results.length
             : ""
@@ -216,7 +216,7 @@ const ManagerProducts = () => {
               };
             },
             items: productsData?.data?.results,
-            title: `Mahsulotlar soni : ${productsData?.data?.count}`,
+            title: `Mahsulotlar: ${productsData?.data?.count}`,
             hideColumns: true,
             deleteAction: (data) =>
               deleteProduct({
