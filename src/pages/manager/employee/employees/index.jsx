@@ -15,6 +15,12 @@ import { useLocation } from "react-router-dom";
 
 const employeeColumns = [
   {
+    key: 'id',
+    title: "#",
+    dataIndex: "id",
+    render: (a, b, i) => i + 1,
+  },
+  {
     key: "name",
     title: "Ism",
     render: (_, row) => `${row.first_name + " " + row.last_name}`,
@@ -94,7 +100,7 @@ const ManagerEmployees = () => {
                 meta={{ total: data?.data?.count }}
                 columns={employeeColumns}
                 items={data?.data?.results}
-                title={`Xodimlar soni: ${data?.data?.count}`}
+                title={`Xodimlar: ${data?.data?.count}`}
                 hideColumns
                 height={300}
                 minHeight={"200px"}
@@ -107,7 +113,6 @@ const ManagerEmployees = () => {
                     method: "delete",
                     onSuccess: () => {
                       toast.success("Xodim o'chirildi");
-                      toast.success("Xodim arxivlandi");
                       queryClient.invalidateQueries(["/users/all/"]);
                     },
                     onError: (err) => toast.error(err?.message),
