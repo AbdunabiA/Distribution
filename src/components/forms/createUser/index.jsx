@@ -1,4 +1,4 @@
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import {  useQueryClient } from "@tanstack/react-query";
 import { Button } from "antd";
 import {
   AsyncSelect,
@@ -81,7 +81,7 @@ export const CreateUserForm = ({
         },
         {
           name: "phone_number",
-          min: 13,
+          min: 12,
           value: get(data, "phone_number", "+998"),
           required: true,
           onSubmitValue: (value) => {
