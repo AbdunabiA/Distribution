@@ -105,7 +105,7 @@ const ManagerClients = () => {
                 items: data?.data?.results,
                 hasDelete: true,
                 hasUpdate: true,
-                title: `Mijozlar: ${data?.data?.results.length}`,
+                title: `Mijozlar: ${data?.data?.count}`,
                 minHeigth: "230px",
                 height: 350,
                 scrollY: true,

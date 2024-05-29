@@ -244,10 +244,7 @@ const ManagerArchive = () => {
                 };
               }}
           title={`Arxivlangan categoriyalar: ${
-            archivedCategories?.data?.results
-              ? archivedCategories?.data?.results.length
-              : ""
-          }`}
+            archivedCategories?.data?.count}`}
           columns={categoriesColumns}
           items={archivedCategories?.data?.results}
         />
@@ -264,10 +261,7 @@ const ManagerArchive = () => {
                 };
               }}
           title={`Arxivlangan mahsulotlar: ${
-            archivedProducts?.data?.results
-              ? archivedProducts?.data?.results.length
-              : ""
-          }`}
+            archivedProducts?.data?.count}`}
           columns={productsColumns}
           items={archivedProducts?.data?.results}
         />
@@ -284,10 +278,7 @@ const ManagerArchive = () => {
                 };
               }}
           title={`Arxivlangan mijozlar: ${
-            archivedClients?.data?.results
-              ? archivedClients?.data?.results.length
-              : ""
-          }`}
+            archivedClients?.data?.count}`}
           columns={clientsColumns}
           items={archivedClients?.data?.results}
         />
@@ -304,10 +295,7 @@ const ManagerArchive = () => {
                 };
               }}
           title={`Arxivlangan xodimlar: ${
-            archivedUsers?.data?.results
-              ? archivedUsers?.data?.results.length
-              : ""
-          }`}
+            archivedUsers?.data?.count}`}
           columns={employeeColumns}
           items={archivedUsers?.data?.results}
         />
@@ -324,10 +312,7 @@ const ManagerArchive = () => {
                 };
               }}
           title={`Arxivlangan filiallar: ${
-            archivedWarehouses?.data?.results
-              ? archivedWarehouses?.data?.results.length
-              : ""
-          }`}
+            archivedWarehouses?.data?.count}`}
           columns={branchesCoulmns}
           items={archivedWarehouses?.data?.results}
         />

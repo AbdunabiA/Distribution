@@ -92,7 +92,7 @@ const ManagerTasks = () => {
           {...{
             hasPagination: true,
             meta: { total: berilganTaskData?.data?.count },
-            onChangeNavigate:(page) => {
+            onChangeNavigate: (page) => {
               return {
                 navigate: { berilganTask: page },
                 paramsKey: "berilganTask",
@@ -103,11 +103,7 @@ const ManagerTasks = () => {
             isLoading: berilganTasksLoading,
             hasDelete: true,
             hasUpdate: true,
-            title: `${userData?.first_name} bergan topshiriqlar: ${
-              berilganTaskData?.data?.results
-                ? berilganTaskData?.data?.results.length
-                : ""
-            }`,
+            title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data?.count}`,
             minHeigth: "230px",
             height: "300px",
             // onRowNavigationUrl: `/clients/`,
@@ -151,7 +147,7 @@ const ManagerTasks = () => {
             {...{
               hasPagination: true,
               meta: { total: taskData?.data?.count },
-              onChangeNavigate:(page) => {
+              onChangeNavigate: (page) => {
                 return {
                   navigate: { tasks: page },
                   paramsKey: "tasks",
@@ -160,9 +156,7 @@ const ManagerTasks = () => {
               columns: columns,
               items: taskData?.data?.results,
               isLoading: tasksLoading,
-              title: `Topshiriqlar: ${
-                taskData?.data?.results ? taskData.data?.results.length : ""
-              }`,
+              title: `Topshiriqlar: ${taskData?.data?.count}`,
               minHeigth: "230px",
               // onRowNavigationUrl: `/clients/`,
               hideColumns: true,
