@@ -1,7 +1,8 @@
 import CustomTable from "components/table";
 import { useGet } from "crud";
 import { useSelector } from "react-redux";
-
+import { useLocation } from "react-router-dom";
+import qs from 'qs'
 
 const productsColumns = [
   {
@@ -66,36 +67,56 @@ const columns = [
 ];
 
 const AgentProducts = () => {
+    const location = useLocation();
+    const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const { data: userData } = useSelector((state) => state.auth);
   const { data: productsData, isLoading: productsLoading } = useGet({
     url: "/products/all/",
     queryKey: ["/products/all/"],
+    params: { page: +get(params, "productsPage", 1) },
   });
   const { data: warehouseProducts, isLoading: warehouseProdLoading } = useGet({
     url: `/warehouses/${userData?.warehouse?.id}/products/`,
     queryKey: [`/warehouses/${userData?.warehouse?.id}/products/`],
+    params: { page: +get(params, "wraehouseProductsPage", 1) },
   });
   return (
     <div className="container">
       <div>
         <CustomTable
           hideColumns
-          title={"Filial mahsulotlari"}
+          title={`Filial mahsulotlari: ${warehouseProducts?.data?.count}`}
           columns={columns}
           isLoading={warehouseProdLoading}
-          items={warehouseProducts?.data}
+          items={warehouseProducts?.data?.results}
+          hasPagination
+          meta={{total:warehouseProducts?.data?.count}}
+          onChangeNavigate={(page) => {
+              return {
+                navigate: { wraehouseProductsPage: page },
+                paramsKey: "wraehouseProductsPage",
+              };
+            }}
         />
       </div>
       <div style={{ marginTop: "20px" }}>
         <CustomTable
           {...{
+            hasPagination: true,
+            meta: { total: productsData?.data?.count },
+            onChangeNavigate: (page) => {
+              return {
+                navigate: { productsPage: page },
+                paramsKey: "productsPage",
+              };
+            },
             isLoading: productsLoading,
             columns: productsColumns,
             height: 300,
             minHeight: "200px",
             scrollY: true,
-            items: productsData?.data,
-            title: `Tizimdagi mahsulotlar soni : ${productsData?.data.length}`,
+            items: productsData?.data?.results,
+            title: `Tizimdagi mahsulotlar soni : ${productsData?.data.count}`,
             hideColumns: true,
             onRowNavigationUrl: "/products/",
           }}
