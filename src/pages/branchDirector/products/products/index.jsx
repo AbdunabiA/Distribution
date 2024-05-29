@@ -26,7 +26,7 @@ const BranchDirectorProducts = () => {
   const { data: productsData, isLoading: productsLoading } = useGet({
     url: `/warehouses/${userData?.warehouse?.id}/products/`,
     queryKey: ["/warehouses/", userData?.warehouse?.id, "/products/"],
-    params: { page: get(params, "page", 1) },
+    params: { page: +get(params, "page", 1) },
   });
   const { mutate: deleteProduct } = usePost();
   const queryClient = useQueryClient();

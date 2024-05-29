@@ -9,6 +9,9 @@ import { CreateClient } from "components/forms/createClient";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import Loader from "components/loader";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import qs from 'qs'
+import { get } from "lodash";
 
 const columns2 = [
   {
@@ -50,11 +53,14 @@ const columns2 = [
 ];
 
 const OperatorClients = () => {
+    const location = useLocation();
+    const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const { data: userData } = useSelector((state) => state.auth);
   const [modal, setModal] = useState({ isOpen: false, data: null });
   const { data, isLoading } = useGet({
     url: `/warehouses/${userData?.warehouse?.id}/customers/`,
     queryKey: [`/warehouses/${userData?.warehouse?.id}/customers/`],
+    params:{page: +get(params, 'page', 1)}
   });
   const queryClient = useQueryClient();
   const { mutate: deleteClient } = usePost();
@@ -97,11 +103,13 @@ const OperatorClients = () => {
           ) : (
             <CustomTable
               {...{
+                hasPagination:true,
+                meta:{total:data?.data?.count},
                 columns: columns2,
-                items: data?.data,
+                items: data?.data?.results,
                 hasDelete: true,
                 hasUpdate: true,
-                title: `Mijozlar soni: ${data?.data.length}`,
+                title: `Mijozlar soni: ${data?.data?.count}`,
                 minHeigth: "230px",
                 height: 350,
                 scrollY: true,

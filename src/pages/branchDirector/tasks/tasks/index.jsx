@@ -1,9 +1,8 @@
 import { useState } from "react";
-import DateFilter from "components/dateFilter";
-import { LineGraph } from "components/charts";
+import s from './tasks.module.scss'
 import CustomTable from "components/table";
-import { Button, Modal } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Button, Modal, Tooltip } from "antd";
+import { useLocation, useNavigate } from "react-router-dom";
 import { data } from "assets/db";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGet, usePost } from "crud";
@@ -11,19 +10,21 @@ import { toast } from "sonner";
 import { CreateTask } from "components/forms/createTask";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
+import qs from 'qs'
+import { get } from "lodash";
 
 const columns = [
-  {
-    key: 0,
-    title: "#",
-    width: "70px",
-    render: (a, b, i) => i + 1,
-  },
   {
     key: 1,
     title: "Task",
     dataIndex: "text",
-    sorter: (a, b) => a.text.localeCompare(b.text),
+    // sorter: (a, b) => a.text.localeCompare(b.text),
+    width:"200px",
+    render: (comment) => (
+      <Tooltip title={comment} placement="topLeft">
+        <span className={s.clamped}>{comment}</span>
+      </Tooltip>
+    ),
   },
   {
     key: 2,
@@ -53,6 +54,7 @@ const columns = [
     key: 5,
     title: "Kimga berilgan",
     dataIndex: "task_executors",
+    width:"300px",
     render: (text, record) =>
       text?.reduce(
         (acc, user) => acc + user?.first_name + " " + user?.last_name + ", ",
@@ -62,17 +64,21 @@ const columns = [
 ];
 
 const BranchDiretorTasks = () => {
+    const location = useLocation();
+    const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const [modal, setModal] = useState({ isOpen: false, data: null });
   const { data: userData } = useSelector((state) => state.auth);
   let id = userData.id;
   const { data: taskData, isLoading: tasksLoading } = useGet({
     url: `/warehouses/${userData?.warehouse?.id}/tasks/`,
     queryKey: [`/warehouses/${userData?.warehouse?.id}/tasks/`],
+    params: { page: +get(params, "allTasks", 1) },
   });
 
   const { data: berilganTaskData, isLoading: berilganTasksLoading } = useGet({
     url: `/users/bergan_tasklari/${id}`,
     queryKey: [`/users/bergan_tasklari/${id}`],
+    params: { page: +get(params, "givenTasks",1)},
   });
 
   const queryClient = useQueryClient();
@@ -127,8 +133,16 @@ const BranchDiretorTasks = () => {
                   task_executors: data?.task_executors?.map((item) => item.id),
                 },
               }),
-            // scrollY: true,
-            // hasPagination: true,
+            height: "300px",
+            scrollY: true,
+            hasPagination: true,
+            meta: { total: berilganTaskData?.data?.count },
+            onChangeNavigate: (page) => {
+              return {
+                navigate: { givenTasks: page },
+                paramsKey: "givenTasks",
+              };
+            },
             buttons: [
               <Button
                 icon={<PlusIcon />}
@@ -154,25 +168,20 @@ const BranchDiretorTasks = () => {
               isLoading: tasksLoading,
               // hasDelete: true,
               // hasUpdate: true,
-              title: `Topshiriqlar soni : ${taskData?.data.length}`,
+              title: `Topshiriqlar soni : ${taskData?.data?.count}`,
               minHeigth: "230px",
               // onRowNavigationUrl: `/clients/`,
               hideColumns: true,
-              // deleteAction: (data) =>
-              // deleteClient({
-              //   url: `/customers/${data.id}/detail`,
-              //   method: "delete",
-              //   onSuccess: () => {
-              //     queryClient.invalidateQueries("/customers/all/");
-              //     toast.success("Client o'chirildi");
-              //   },
-              //   onError: () => toast.error("Client o'chirilmadi"),
-              // }),
-              // updateAction: (data) =>
-              //   setModal({ isOpen: true, form: "client", data: data }),
               scrollY: true,
               height: 250,
-              // hasPagination: true,
+              hasPagination: true,
+              meta: { total: taskData?.data?.count },
+              onChangeNavigate: (page) => {
+                return {
+                  navigate: { allTasks: page },
+                  paramsKey: "allTasks",
+                };
+              },
             }}
           />
         </div>

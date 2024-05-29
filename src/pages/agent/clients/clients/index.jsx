@@ -63,7 +63,7 @@ const AgentClients = () => {
               <CustomTable
                 hasPagination
                 meta={{ total: data?.data?.count }}
-                title="Filial Mijozlari"
+                title={`Filial mijozlari: ${data?.data?.count}`}
                 columns={columns}
                 items={data?.data?.results}
                 buttons={[

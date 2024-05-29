@@ -3,104 +3,80 @@ import { ProfileData } from "pages/profile/profiledata";
 import singleScss from "./singleClient.module.scss";
 import { useState } from "react";
 import { Button, Modal } from "antd";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useGet } from "crud";
 import { CreateClient } from "components/forms/createClient";
 import Loader from "components/loader";
+import CustomTable from "components/table";
+import dayjs from "dayjs";
+import { formatNums } from "services/formatNums";
+import { get } from "lodash";
+import qs from 'qs'
 
-const columns1 = [
+const ordersColumns = [
   {
-    key: 1,
-    title: "order",
-    dataIndex: "order",
-    sorter: (a, b) => a.order.localeCompare(b.order),
+    key: "operator",
+    title: "Operator",
+    dataIndex: "operator",
+    render: (data) => data?.first_name + " " + data?.last_name,
   },
   {
-    key: 2,
-    title: "date",
-    dataIndex: "date",
-    sorter: (a, b) => {
-      const dateA = new Date(
-        a.date
-          .split(".")
-          .reverse()
-          .join("-")
-      );
-      const dateB = new Date(
-        b.date
-          .split(".")
-          .reverse()
-          .join("-")
-      );
-      return dateA - dateB;
-    },
-    filters: [
-      {
-        text: "Newest",
-        value: "newest",
-      },
-    ],
-    onFilter: (value, record) => {
-      if (value === "newest") {
-        const today = new Date();
-        const recordDate = new Date(
-          record.date
-            .split(".")
-            .reverse()
-            .join("-")
-        );
-        return recordDate >= today;
-      } else {
-        return record.address.startsWith(value);
-      }
-    },
-    filterSearch: true,
-    width: "30%",
-    responsive: ["md"],
-  },
-];
-const items1 = [
-  {
-    id: "1",
-    order: "Olma",
-    date: "14.03.24",
-    address: "New York No. 1 Lake Park",
+    key: "customer",
+    title: "Mijoz",
+    dataIndex: "customer",
+    render: (data) => data?.name,
   },
   {
-    id: "2",
-    order: "Banan",
-    date: "15.03.24",
-    address: "London No. 1 Lake Park",
+    key: "driver",
+    title: "Yetkazib beruvchi",
+    dataIndex: "driver",
+    render: (data) => data?.first_name + " " + data?.last_name,
   },
   {
-    id: "3",
-    order: "Gilos",
-    date: "16.03.24",
-    address: "London No. 1 Lake Park",
-  },
-
-  {
-    id: "4",
-    order: "Anor",
-    date: "17.03.24",
-    address: "London No. 1 Lake Park",
+    key: "warehouse",
+    title: "Filial",
+    dataIndex: "warehouse",
+    render: (data) => data?.name,
   },
   {
-    id: "5",
-    order: "Behi",
-    date: "13.03.24",
-    address: "London No. 1 Lake Park",
+    key: "comment",
+    title: "Comment",
+    dataIndex: "comment",
   },
-
   {
-    id: "6",
-    order: "Uzum",
-    date: "14.03.24",
-    address: "London No. 1 Lake Park",
+    key: "deadline",
+    title: "Deadline",
+    dataIndex: "deadline",
+    render: (data) => dayjs(data).format("DD-MM-YYYY"),
+  },
+  {
+    key: "discount",
+    title: "Chegirma",
+    dataIndex: "discount",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "sum",
+    title: "Jami narxi",
+    dataIndex: "sum",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "final_price",
+    title: "Yakuniy narx",
+    dataIndex: "final_price",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "status",
+    title: "Status",
+    dataIndex: "status",
   },
 ];
 
 const BranchDirectorSingleClient = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   let { clintId } = useParams();
   const [dateValue, setDateValue] = useState("");
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
@@ -112,6 +88,11 @@ const BranchDirectorSingleClient = () => {
   const { data, isLoading } = useGet({
     url: `/customers/${clintId}/detail/`,
     queryKey: [`/customers/${clintId}/detail/`],
+  });
+  const { data: orders } = useGet({
+    url: `/orders/customer_orders/${clintId}/`,
+    queryKey: [`/orders/customer_orders/${clintId}/`],
+    params: { page: +get(params, "page", 1) },
   });
   console.log(data?.data);
   // const { data: orders } = useGet({
@@ -181,20 +162,23 @@ const BranchDirectorSingleClient = () => {
           <div className={singleScss.date}>
             {/* <DateFilter onChange={onChange} value={dateValue} /> */}
           </div>
-          {/* <div className={singleScss.orderTable}>
+          <div className={singleScss.orderTable}>
             <CustomTable
               {...{
-                columns: columns1,
-                items: items1,
-                title: "Buyurtmalar tarixi",
+                hasPagination: true,
+                meta: { total: orders?.data?.count },
+                scrollX: true,
+                columns: ordersColumns,
+                items: orders?.data?.results,
+                title: `Buyurtmalar: ${orders?.data?.count}`,
                 minHeigth: "230px",
-                hasDelete: true,
                 scrollY: true,
-                height: 230,
+                // scrollX: "400px",
+                height: 300,
                 hideColumns: true,
               }}
             />
-          </div> */}
+          </div>
         </div>
       )}
     </>

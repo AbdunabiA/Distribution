@@ -29,7 +29,7 @@ const OperatorProducts = () => {
   const { data: productsData, isLoading: productsLoading } = useGet({
     url: `/warehouses/${userData?.warehouse?.id}/products/`,
     queryKey: [`/warehouses/${userData?.warehouse?.id}/products/`],
-    params:{page:get(params, 'page', 1)}
+    params:{page:+get(params, 'page', 1)}
   });
   console.log(productsData?.data);
   const productsColumns = [
