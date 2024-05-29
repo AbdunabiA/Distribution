@@ -8,7 +8,9 @@ import { toast } from "sonner";
 import { CreateClient } from "components/forms/createClient";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import Loader from "components/loader";
-
+import { useLocation } from "react-router-dom";
+import qs from "qs";
+import { get } from "lodash";
 const columns2 = [
   {
     key: 0,
@@ -43,6 +45,8 @@ const columns2 = [
 ];
 
 const ManagerClients = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const [dateValue, setDateValue] = useState("");
   const onChange = (value) => {
     setDateValue(value);
@@ -53,6 +57,7 @@ const ManagerClients = () => {
   const { data, isLoading } = useGet({
     url: "/customers/all/",
     queryKey: ["/customers/all/"],
+    params: { page: +get(params, "page", 1) },
   });
   const queryClient = useQueryClient();
   const { mutate: deleteClient } = usePost();
@@ -95,10 +100,12 @@ const ManagerClients = () => {
             <CustomTable
               {...{
                 columns: columns2,
+                hasPagination: true,
+                meta: { total: data?.data?.count },
                 items: data?.data?.results,
                 hasDelete: true,
                 hasUpdate: true,
-                title: `Mijozlar soni: ${data?.data?.results.length}`,
+                title: `Mijozlar: ${data?.data?.count}`,
                 minHeigth: "230px",
                 height: 350,
                 scrollY: true,

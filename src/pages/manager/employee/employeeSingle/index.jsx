@@ -118,7 +118,7 @@ function ManagerEmployeeSingle() {
   const location = useLocation();
   const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const { employeeId } = useParams();
-  const [salaryPay, setSalaryPay] = useState({isOpen:false, data:null})
+  const [salaryPay, setSalaryPay] = useState({ isOpen: false, data: null });
   const [salaryModal, setSalaryModal] = useState({ isOpen: false, data: null });
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const [carModal, setCarModal] = useState({ isOpen: false, data: null });
@@ -175,7 +175,7 @@ function ManagerEmployeeSingle() {
   });
   console.log("tasksData", olinganTaskData?.data);
   console.log("calculated salary", calculatedSalary?.data);
-  console.log('PayedSalary', payedSalaries?.data);
+  console.log("PayedSalary", payedSalaries?.data);
 
   if (isLoading) return <Loader />;
   if (isError) return <h1>Error</h1>;
@@ -337,12 +337,12 @@ function ManagerEmployeeSingle() {
                     /> */}
             </div>
             {operatorOrders?.data &&
-            userProfileData?.data?.role === "operator" ? (
+            userProfileData?.data?.role === "operator" || driverOrders?.data && userProfileData?.data?.role === "driver" ? (
               <div style={{ marginTop: "20px" }}>
                 <CustomTable
                   {...{
                     columns: orderColumns,
-                    items: operatorOrders?.data?.results,
+                    items: userProfileData?.data?.role === "operator" ? operatorOrders?.data?.results : driverOrders?.data?.results?.orders,
                     title: "Buyurtmalar",
                     minHeigth: "230px",
                     scrollY: true,
@@ -350,29 +350,6 @@ function ManagerEmployeeSingle() {
                     hideColumns: true,
                     hasPagination: true,
                     meta: { total: operatorOrders?.data?.count },
-                    onChangeNavigate: (page) => {
-                      return {
-                        navigate: { ordersPage: page },
-                        paramsKey: "ordersPage",
-                      };
-                    },
-                  }}
-                />
-              </div>
-            ) : null}
-            {driverOrders?.data && userProfileData?.data?.role === "driver" ? (
-              <div style={{ marginTop: "20px" }}>
-                <CustomTable
-                  {...{
-                    columns: orderColumns,
-                    items: driverOrders?.data?.results?.orders,
-                    title: "Buyurtmalar",
-                    minHeigth: "230px",
-                    scrollY: true,
-                    height: 230,
-                    hideColumns: true,
-                    hasPagination: true,
-                    meta: { total: driverOrders?.data?.count },
                     onChangeNavigate: (page) => {
                       return {
                         navigate: { ordersPage: page },

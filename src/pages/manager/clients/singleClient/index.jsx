@@ -10,8 +10,16 @@ import Loader from "components/loader";
 import dayjs from "dayjs";
 import CustomTable from "components/table";
 import { formatNums } from "services/formatNums";
-
+import { useLocation } from "react-router-dom";
+import qs from "qs";
+import { get } from "lodash";
 const columns1 = [
+  {
+    key: 0,
+    title: "#",
+    width: "30px",
+    render: (a, b, i) => i + 1,
+  },
   {
     key: "operator",
     title: "Operator",
@@ -74,6 +82,8 @@ const columns1 = [
 
 
 const ManagerSingleClient = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   let { clintId } = useParams();
   const [dateValue, setDateValue] = useState("");
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
@@ -89,6 +99,7 @@ const ManagerSingleClient = () => {
   const { data: orders } = useGet({
     url: `/orders/customer_orders/${clintId}/`,
     queryKey: [`/orders/customer_orders/${clintId}/`],
+    params:{ page: +get(params, "page", 1) }
   });
   console.log(orders?.data);
   return (
@@ -156,6 +167,9 @@ const ManagerSingleClient = () => {
           <div className={singleScss.orderTable}>
             <CustomTable
               {...{
+                hasPagination: true,
+                meta: { total: orders?.data?.count},
+                scrollX:true,
                 columns: columns1,
                 items: orders?.data?.results,
                 title: "Buyurtmalar",

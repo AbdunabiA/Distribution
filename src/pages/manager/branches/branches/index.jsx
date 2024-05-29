@@ -121,7 +121,7 @@ const ManagerBranches = () => {
                 meta={{ total: data?.data?.count }}
                 columns={branchesCoulmns}
                 items={data?.data?.results}
-                title={`Filiallar soni: ${data?.data?.count}`}
+                title={`Filiallar: ${data?.data?.count}`}
                 hideColumns
                 height={350}
                 minHeight={"200px"}

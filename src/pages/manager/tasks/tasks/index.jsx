@@ -3,7 +3,7 @@ import DateFilter from "components/dateFilter";
 import { LineGraph } from "components/charts";
 import CustomTable from "components/table";
 import { Button, Modal } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { data } from "assets/db";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGet, usePost } from "crud";
@@ -11,7 +11,8 @@ import { toast } from "sonner";
 import { CreateTask } from "components/forms/createTask";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
-
+import qs from "qs";
+import { get } from "lodash";
 const columns = [
   {
     key: 0,
@@ -46,8 +47,10 @@ const columns = [
 ];
 
 const ManagerTasks = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const [modal, setModal] = useState({ isOpen: false, data: null });
-  console.log(data, 'dataaa');
+  console.log(data, "dataaa");
   const [dateValue, setDateValue] = useState("");
   const { data: userData } = useSelector((state) => state.auth);
   let id = userData.id;
@@ -58,16 +61,18 @@ const ManagerTasks = () => {
   const { data: taskData, isLoading: tasksLoading } = useGet({
     url: "/tasks/all/",
     queryKey: ["/tasks/all/"],
+    params: { page: +get(params, "tasks", 1) },
   });
 
   const { data: berilganTaskData, isLoading: berilganTasksLoading } = useGet({
     url: `/users/bergan_tasklari/${id}`,
     queryKey: [`/users/bergan_tasklari/${id}`],
+    params: { page: +get(params, "berilganTask", 1) },
   });
 
   const queryClient = useQueryClient();
   const { mutate: deleteTask } = usePost();
-  console.log(berilganTaskData, 'berilganTaskData');
+  console.log(berilganTaskData, "berilganTaskData");
   return (
     <div className="container">
       <div style={{ margin: "32px 10px" }}>
@@ -80,17 +85,25 @@ const ManagerTasks = () => {
         open={modal.isOpen}
         onCancel={() => setModal({ isOpen: false, data: null })}
       >
-          <CreateTask {...{ setModal, data: modal.data }} />
+        <CreateTask {...{ setModal, data: modal.data }} />
       </Modal>
       <div>
         <CustomTable
           {...{
+            hasPagination: true,
+            meta: { total: berilganTaskData?.data?.count },
+            onChangeNavigate: (page) => {
+              return {
+                navigate: { berilganTask: page },
+                paramsKey: "berilganTask",
+              };
+            },
             columns: columns,
             items: berilganTaskData?.data?.results,
             isLoading: berilganTasksLoading,
             hasDelete: true,
             hasUpdate: true,
-            title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data?.results ? berilganTaskData?.data?.results.length : ''}`,
+            title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data?.count}`,
             minHeigth: "230px",
             height: "300px",
             // onRowNavigationUrl: `/clients/`,
@@ -107,15 +120,19 @@ const ManagerTasks = () => {
               });
             },
             updateAction: (data) =>
-              setModal({ isOpen: true, data: {...data, task_executors: data?.task_executors?.map(item=>item.id)}}), 
+              setModal({
+                isOpen: true,
+                data: {
+                  ...data,
+                  task_executors: data?.task_executors?.map((item) => item.id),
+                },
+              }),
             buttons: [
               <Button
                 icon={<PlusIcon />}
                 type="primary"
                 key={"task"}
-                onClick={() =>
-                  setModal({ isOpen: true, data: null })
-                }
+                onClick={() => setModal({ isOpen: true, data: null })}
                 // onClick={() =>
                 //   setModal({ isOpen: true, form: "client", data: null })
                 // }
@@ -128,10 +145,18 @@ const ManagerTasks = () => {
         <div style={{ marginTop: "40px" }}>
           <CustomTable
             {...{
+              hasPagination: true,
+              meta: { total: taskData?.data?.count },
+              onChangeNavigate: (page) => {
+                return {
+                  navigate: { tasks: page },
+                  paramsKey: "tasks",
+                };
+              },
               columns: columns,
               items: taskData?.data?.results,
               isLoading: tasksLoading,
-              title: `Topshiriqlar soni : ${taskData?.data?.results ? taskData.data?.results.length : ''}`,
+              title: `Topshiriqlar: ${taskData?.data?.count}`,
               minHeigth: "230px",
               // onRowNavigationUrl: `/clients/`,
               hideColumns: true,
@@ -150,7 +175,7 @@ const ManagerTasks = () => {
               scrollY: true,
               height: 250,
               // hasPagination: true,
-            }}  
+            }}
           />
         </div>
       </div>
