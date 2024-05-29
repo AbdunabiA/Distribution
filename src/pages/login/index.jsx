@@ -29,6 +29,9 @@ const Login = () => {
         ]}
         onError={(err) => toast.error(get(err, "response.data.message", err?.message))}
         onSuccess={(data) => {
+          if(data?.role === 'driver'){
+            throw new Error("Xaydovchi uchun ilovadan foydalaning")
+          }
           storage.set("token", data?.access);
           dispatch(
             signIn({ isAuthenticated: true, access: data?.access, user: data })
