@@ -83,7 +83,7 @@ const SupervisorTasks = () => {
             isLoading: berilganTasksLoading,
             hasDelete: true,
             hasUpdate: true,
-            title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data.length}`,
+            title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data?.count}`,
             minHeigth: "230px",
             // onRowNavigationUrl: `/clients/`,
             hideColumns: true,
