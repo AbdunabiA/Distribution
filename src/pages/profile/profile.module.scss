@@ -18,6 +18,15 @@ $xxxxl: 1920px;
   }
 }
 
+.clamped{
+  cursor: pointer;
+  width: 100%;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
 @media (max-width: $lg) {
   .flex_div {
     flex-direction: column;

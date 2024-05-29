@@ -304,7 +304,8 @@ function ManagerEmployeeSingle() {
                 title: `Topshiriqlar soni: ${olinganTaskData?.data?.count}`,
                 minHeight: 335,
                 scrollY: true,
-                height: 280,
+                // scrollX: true,
+                height: '100%',
                 hideColumns: true,
                 onChangeNavigate: (page) => {
                   return {
