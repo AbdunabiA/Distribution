@@ -56,6 +56,7 @@ const BranchDirectorProducts = () => {
        key: "category",
        title: "Kategoriya",
        dataIndex: "product",
+       width: "150px",
        render: (text, record) => text?.category?.name,
      },
      {
@@ -68,7 +69,7 @@ const BranchDirectorProducts = () => {
        key: "total_sum",
        title: "Jami narxi",
        dataIndex: "total_sum",
-       width:"200px",
+       width:"150px",
        render: (data) => formatNums(data),
      },
      {

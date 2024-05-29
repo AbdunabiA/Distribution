@@ -14,28 +14,22 @@ export const SetInvalidProducts = ({ data, setModal, invalidateQuery }) => {
   const queryClient = useQueryClient();
   return (
     <ContainerForm
-      url={`/warehouses/${data?.warehouse?.id}/products/${data?.id}/`}
-      method="put"
+      url={`/warehouses/warehouse_product/arrival/`}
+      method="post"
       fields={[
         {
-          name: "warehouse",
-          value: get(data, "warehouse.id", null),
-          // required: true,
-          disabled: true,
-        },
-        {
-          name: "product",
+          name: "warehouse_product",
           value: get(data, "product.id", null),
-          // required: true,
-          disabled: true,
-          // onSubmitValue: () => data?.id,
+          required: true,
+          // disabled: true,
+          onSubmitValue: () => data?.id,
         },
         {
           name: "invalids_amount",
           value: 0,
           type: "number",
           max: data?.amount,
-          min:0,
+          min: 0,
           required: true,
         },
         {
@@ -43,7 +37,12 @@ export const SetInvalidProducts = ({ data, setModal, invalidateQuery }) => {
           value: get(data, "amount", 0),
           min: 0,
           type: "number",
+          onSubmitValue: () => 0,
           required: true,
+        },
+        {
+          name: "comment",
+          value: get(data, "comment", null),
         },
       ]}
       onSuccess={() => {
@@ -67,14 +66,7 @@ export const SetInvalidProducts = ({ data, setModal, invalidateQuery }) => {
           >
             <p className="form-title">Mahsulotlarni yaroqsizga chiqarish</p>
             <CustomSelect
-              name="warehouse"
-              options={[
-                { label: data?.warehouse?.name, value: data?.warehouse?.id },
-              ]}
-              label={"Filial"}
-            />
-            <CustomSelect
-              name="product"
+              name="warehouse_product"
               options={[
                 { label: data?.product?.name, value: data?.product?.id },
               ]}
@@ -99,8 +91,8 @@ export const SetInvalidProducts = ({ data, setModal, invalidateQuery }) => {
               label={"Status"}
               type="text"
               disabled
-            />
-            <CustomTextArea name="comment" label={"Tavsif"} disabled /> */}
+            /> */}
+            <CustomTextArea name="comment" label={"Tavsif"} />
             <div className="form-button-wrapper">
               <Button
                 type="primary"
