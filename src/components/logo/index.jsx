@@ -1,9 +1,10 @@
 import CompanyLogo from 'assets/icons/DistroX.svg?react'
+import logo from 'assets/icons/logo.webp'
 
 const Logo = () => {
   return (
     <>
-      <CompanyLogo />
+      <img src={logo} className='logo' alt="" />
     </>
   );
 }
