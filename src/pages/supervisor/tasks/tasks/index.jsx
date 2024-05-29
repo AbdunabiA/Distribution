@@ -3,7 +3,7 @@ import DateFilter from "components/dateFilter";
 import { LineGraph } from "components/charts";
 import CustomTable from "components/table";
 import { Button, Modal } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { data } from "assets/db";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGet, usePost } from "crud";
@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { CreateTask } from "components/forms/createTask";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
+import qs from 'qs'
+import { get } from "lodash";
 
 const columns = [
   {
@@ -46,6 +48,8 @@ const columns = [
 ];
 
 const SupervisorTasks = () => {
+    const location = useLocation();
+    const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const [modal, setModal] = useState({ isOpen: false, data: null });
   const { data: userData } = useSelector((state) => state.auth);
   let id = userData.id;
@@ -57,6 +61,7 @@ const SupervisorTasks = () => {
   const { data: berilganTaskData, isLoading: berilganTasksLoading } = useGet({
     url: `/users/bergan_tasklari/${id}`,
     queryKey: [`/users/bergan_tasklari/${id}`],
+    params:{page: +get(params, 'page', 1)}
   });
 
   const queryClient = useQueryClient();
@@ -85,6 +90,7 @@ const SupervisorTasks = () => {
             hasUpdate: true,
             title: `${userData?.first_name} bergan topshiriqlar: ${berilganTaskData?.data?.count}`,
             minHeigth: "230px",
+            height: "300px",
             // onRowNavigationUrl: `/clients/`,
             hideColumns: true,
             deleteAction: (data) => {
@@ -110,8 +116,9 @@ const SupervisorTasks = () => {
                   task_executors: data?.task_executors?.map((item) => item.id),
                 },
               }),
-            // scrollY: true,
-            // hasPagination: true,
+            scrollY: true,
+            hasPagination: true,
+            meta: { total: berilganTaskData?.data?.count },
             buttons: [
               <Button
                 icon={<PlusIcon />}

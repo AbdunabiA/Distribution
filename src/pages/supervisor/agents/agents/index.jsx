@@ -10,8 +10,13 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { CreateOrder, CreateTask } from "components/forms";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import qs from 'qs'
+import { get } from "lodash";
 
 const SupervisorAgents = () => {
+    const location = useLocation();
+    const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const queryClient = useQueryClient();
   const { data: userData } = useSelector((state) => state.auth);
   const [taskModal, setTaskModal] = useState({ isOpen: false, data: null });
@@ -83,6 +88,7 @@ const SupervisorAgents = () => {
           role: "agent",
           warehouse_id: userData?.warehouse?.id,
         },
+        page: +get(params, 'page', 1)
       }}
     >
       {({ data, isLoading, isError, error }) => {
@@ -104,12 +110,14 @@ const SupervisorAgents = () => {
               <CustomTable
                 columns={employeeColumns}
                 items={data?.data?.results}
-                title={`Agentlar soni: ${data?.data?.results.length}`}
+                title={`Agentlar soni: ${data?.data?.count}`}
                 hideColumns
                 height={300}
                 minHeight={"200px"}
                 scrollY
                 scrollX
+                meta={{total: data?.data?.count}}
+                hasPagination
                 hasDelete
                 hasUpdate
                 deleteAction={(data) =>

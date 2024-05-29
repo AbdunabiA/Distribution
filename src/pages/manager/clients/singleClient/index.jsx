@@ -13,13 +13,7 @@ import { formatNums } from "services/formatNums";
 import { useLocation } from "react-router-dom";
 import qs from "qs";
 import { get } from "lodash";
-const columns1 = [
-  {
-    key: 0,
-    title: "#",
-    width: "30px",
-    render: (a, b, i) => i + 1,
-  },
+const ordersColumns = [
   {
     key: "operator",
     title: "Operator",
@@ -170,7 +164,7 @@ const ManagerSingleClient = () => {
                 hasPagination: true,
                 meta: { total: orders?.data?.count},
                 scrollX:true,
-                columns: columns1,
+                columns: ordersColumns,
                 items: orders?.data?.results,
                 title: "Buyurtmalar",
                 minHeigth: "230px",

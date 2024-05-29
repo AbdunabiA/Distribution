@@ -10,6 +10,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { usePost } from "crud";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import qs from "qs";
+import { get } from "lodash";
 
 const employeeColumns = [
   {
@@ -52,16 +55,16 @@ const employeeColumns = [
 ];
 
 const BarnchDirectorEmployees = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const [carModal, setCarModal] = useState({ isOpen: false, data: null });
-  const {data:userData} = useSelector(state=>state.auth)
-  const queryClient = useQueryClient();
-  const { mutate: deleteUsers } = usePost();
+  const { data: userData } = useSelector((state) => state.auth);
   return (
     <GetAll
       queryKey={[`/warehouses/${userData?.warehouse?.id}/employees/`]}
       url={`/warehouses/${userData?.warehouse?.id}/employees/`}
-      // params={{ extra: { role: "agent" } }}
+      params={{ page: +get(params, "page", 1) }}
     >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
@@ -69,7 +72,7 @@ const BarnchDirectorEmployees = () => {
         console.log(data);
         return (
           <div className="container">
-            <DateFilter />
+            {/* <DateFilter /> */}
             <Modal
               open={userModal.isOpen}
               destroyOnClose
@@ -92,9 +95,11 @@ const BarnchDirectorEmployees = () => {
             </Modal>
             <div style={{ marginTop: "20px" }}>
               <CustomTable
+              hasPagination
+              meta={{total: data?.data?.count}}
                 columns={employeeColumns}
                 items={data?.data?.results}
-                title={`Xodimlar soni: ${data?.data.length}`}
+                title={`Xodimlar soni: ${data?.data?.count}`}
                 hideColumns
                 height={300}
                 minHeight={"200px"}

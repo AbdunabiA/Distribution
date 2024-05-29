@@ -11,6 +11,9 @@ import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { formatNums } from "services/formatNums";
+import { useLocation } from "react-router-dom";
+import qs from "qs";
+import { get } from "lodash";
 
 const columns = [
   {
@@ -74,6 +77,8 @@ const columns = [
 ];
 
 const OperatorOrders = () => {
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const [orderModal, setOrderModal] = useState({ isOpen: false, data: null });
   const { data: userData } = useSelector((state) => state.auth);
   const { mutate: orderDelete } = usePost();
@@ -83,6 +88,7 @@ const OperatorOrders = () => {
     <GetAll
       url={`/warehouses/${userData?.warehouse?.id}/orders/`}
       queryKey={[`/warehouses/${userData?.warehouse?.id}/orders/`]}
+      params={{ page: +get(params, "page", 1) }}
     >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
@@ -101,11 +107,21 @@ const OperatorOrders = () => {
               <CreateOrder data={orderModal.data} setModal={setOrderModal} />
             </Modal>
             <CustomTable
+              hasPagination
+              meta={{ total: data?.data?.count }}
               title={`Buyurtmalar: ${data?.data?.count} ta`}
               columns={columns}
               hasDelete
               hasUpdate
-              updateAction={(data) => setOrderModal({ isOpen: true, data:{...data, deadline:dayjs(data?.deadline).format('YYYY-MM-DD')} })}
+              updateAction={(data) =>
+                setOrderModal({
+                  isOpen: true,
+                  data: {
+                    ...data,
+                    deadline: dayjs(data?.deadline).format("YYYY-MM-DD"),
+                  },
+                })
+              }
               deleteAction={(data) => {
                 orderDelete({
                   url: `/orders/${data?.id}/details`,

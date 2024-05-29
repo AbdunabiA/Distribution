@@ -1,0 +1,8 @@
+.clamped{
+  cursor: pointer;
+  width: 100%;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}

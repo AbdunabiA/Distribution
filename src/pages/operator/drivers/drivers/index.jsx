@@ -9,10 +9,14 @@ import { usePost } from "crud";
 import { toast } from "sonner";
 import { useState } from "react";
 import { CreateOrder } from "components/forms";
-
+import { useLocation } from "react-router-dom";
+import qs from 'qs'
+import { get } from "lodash";
 
 
 const OperatorDrivers = () => {
+    const location = useLocation();
+    const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const queryClient = useQueryClient();
   const [orderModal, setOrderModal] = useState({isOpen:false, data:null})
   const { mutate: deleteUsers } = usePost();
@@ -66,7 +70,7 @@ const OperatorDrivers = () => {
     <GetAll
       queryKey={["/users/drivers/"]}
       url={"/users/all/"}
-      params={{ extra: { role: "driver" } }}
+      params={{ extra: { role: "driver" }, page: +get(params, 'page', 1) }}
     >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
@@ -85,9 +89,11 @@ const OperatorDrivers = () => {
                 <CreateOrder data={orderModal.data} setModal={setOrderModal} />
               </Modal>
               <CustomTable
+              hasPagination
+              meta={{total:data?.data?.count}}
                 columns={employeeColumns}
-                items={data?.data}
-                title={`Xodimlar soni: ${data?.data.length}`}
+                items={data?.data?.results}
+                title={`Xodimlar soni: ${data?.data?.count}`}
                 hideColumns
                 height={300}
                 minHeight={"200px"}

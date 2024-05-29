@@ -10,47 +10,64 @@ import { toast } from "sonner";
 import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
+import { formatNums } from "services/formatNums";
+import { useLocation } from "react-router-dom";
+import qs from 'qs'
+import { get } from "lodash";
 
-const columns = [
+const ordersColumns = [
   {
-    key: "product",
-    title: "Mahsulot",
-    dataIndex: "product",
-    render: (text, record) => <span>{record?.product?.product?.name}</span>,
-  },
-  {
-    key: "amount",
-    title: "Miqdori",
-    dataIndex: "amount",
-  },
-  {
-    key: "total_price",
-    title: "Umumiy narxi",
-    dataIndex: "total_price",
-  },
-  {
-    key: "deadline",
-    title: "Deadline",
-    dataIndex: "deadline",
-    render: (text) => dayjs(text).format("DD/MM/YYYY"),
-  },
-  {
-    key: "driver",
-    title: "Yetkazib beruvchi",
-    dataIndex: "driver",
-    render: (text, record) => text?.first_name + " " + text?.last_name,
+    key: "operator",
+    title: "Operator",
+    dataIndex: "operator",
+    render: (data) => data?.first_name + " " + data?.last_name,
   },
   {
     key: "customer",
     title: "Mijoz",
     dataIndex: "customer",
-    render: (text, record) => text?.name,
+    render: (data) => data?.name,
   },
   {
-    key: "operator",
-    title: "Operator",
-    dataIndex: "operator",
-    render: (text, record) => text?.first_name + " " + text?.last_name,
+    key: "driver",
+    title: "Yetkazib beruvchi",
+    dataIndex: "driver",
+    render: (data) => data?.first_name + " " + data?.last_name,
+  },
+  {
+    key: "warehouse",
+    title: "Filial",
+    dataIndex: "warehouse",
+    render: (data) => data?.name,
+  },
+  {
+    key: "comment",
+    title: "Comment",
+    dataIndex: "comment",
+  },
+  {
+    key: "deadline",
+    title: "Deadline",
+    dataIndex: "deadline",
+    render: (data) => dayjs(data).format("DD-MM-YYYY"),
+  },
+  {
+    key: "discount",
+    title: "Chegirma",
+    dataIndex: "discount",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "sum",
+    title: "Jami narxi",
+    dataIndex: "sum",
+    render: (data) => formatNums(data),
+  },
+  {
+    key: "final_price",
+    title: "Yakuniy narx",
+    dataIndex: "final_price",
+    render: (data) => formatNums(data),
   },
   {
     key: "status",
@@ -60,6 +77,8 @@ const columns = [
 ];
 
 const BranchDirectorOrders = () => {
+    const location = useLocation();
+    const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const [orderModal, setOrderModal] = useState({ isOpen: false, data: null });
   const { data: userData } = useSelector((state) => state.auth);
 
@@ -67,6 +86,7 @@ const BranchDirectorOrders = () => {
     <GetAll
       url={`/warehouses/${userData?.warehouse?.id}/orders/`}
       queryKey={[`/warehouses/${userData?.warehouse?.id}/orders/`]}
+      params={{page: +get(params, 'page', 1)}}
     >
       {({ data, isLoading, isError, error }) => {
         if (isLoading) return <Loader />;
@@ -85,27 +105,15 @@ const BranchDirectorOrders = () => {
               <CreateOrder data={orderModal.data} setModal={setOrderModal} />
             </Modal>
             <CustomTable
-              title={`Buyurtmalar: ${data?.data?.results.length} ta`}
-              columns={columns}
+              title={`Buyurtmalar: ${data?.data?.count} ta`}
+              columns={ordersColumns}
               // hasDelete
               // hasUpdate
               minHeight={"200px"}
               height={"300px"}
               scrollY
-              // updateAction={(data) => setOrderModal({ isOpen: true, data })}
-              // deleteAction={(data) => {
-              //   orderDelete({
-              //     url: `/orders/${data?.id}/details`,
-              //     method: "delete",
-              //     onSuccess: () => {
-              //       toast.success("Buyurtma o'chirildi");
-              //       queryClient.invalidateQueries("/orders/all/");
-              //     },
-              //     onError: (error) => {
-              //       toast.error(error.message);
-              //     },
-              //   });
-              // }}
+              hasPagination
+              meta={{total:data?.data?.count}}
               hideColumns
               items={data?.data?.results}
               buttons={[
