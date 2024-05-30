@@ -86,6 +86,7 @@ const SupervisorProducts = lazy(() =>
   import("pages/supervisor/products/products")
 );
 const SupervisorAgents = lazy(() => import("pages/supervisor/agents/agents"));
+const SupervisorAgent = lazy(() => import('pages/supervisor/agents/agent'))
 const SupervisorSingleClient = lazy(() =>
   import("pages/supervisor/clients/singleClient")
 );
@@ -96,45 +97,46 @@ export const pages = {
              path: "/",
              component: <ManagerBranches />,
              name: "Filiallar",
-             children: [
-               {
-                 path: "/branches/:branchId",
-                 component: <ManagerBranch />,
-                 children: [
-                   {
-                     path: "/branches/:branchId/tasks",
-                     component: <ManagerBranchTasks />,
-                   },
-                   {
-                     path: "/branches/:branchId/products",
-                     component: <ManagerBranchProducts />,
-                   },
-                   {
-                     path: "/branches/:branchId/clients",
-                     component: <ManagerBranchClients />,
-                   },
-                   {
-                     path: "/branches/:branchId/employees",
-                     component: <ManagerBranchEmployees />,
-                   },
-                   {
-                     path: "/branches/:branchId/orders",
-                     component: <ManagerBranchOrders />,
-                   },
-                 ],
-               },
-             ],
+           },
+           {
+             path: "/branches/:branchId",
+             component: <ManagerBranch />,
+             name: "Filial",
+           },
+           {
+             path: "/branches/:branchId/tasks",
+             component: <ManagerBranchTasks />,
+             name: "Filial topshiriqlari",
+           },
+           {
+             path: "/branches/:branchId/products",
+             component: <ManagerBranchProducts />,
+             name: "Filial mahsulotlari",
+           },
+           {
+             path: "/branches/:branchId/clients",
+             component: <ManagerBranchClients />,
+             name: "Filial mijozlari",
+           },
+           {
+             path: "/branches/:branchId/employees",
+             component: <ManagerBranchEmployees />,
+             name: "Filial xodimlari",
+           },
+           {
+             path: "/branches/:branchId/orders",
+             component: <ManagerBranchOrders />,
+             name: "Filial buyurtmalari",
            },
            {
              path: "/employee",
              component: <ManagerEmployees />,
              name: "Xodimlar",
-             children: [
-               {
-                 path: "/employee/:employeeId",
-                 component: <ManagerEmployeeSingle />,
-               },
-             ],
+           },
+           {
+             path: "/employee/:employeeId",
+             component: <ManagerEmployeeSingle />,
+             name: "Xodim",
            },
            {
              path: "/profile",
@@ -145,24 +147,21 @@ export const pages = {
              path: "/clients",
              component: <ManagerClients />,
              name: "Mijozlar",
-             children: [
-               {
-                 path: "/clients/:clintId",
-                 component: <ManagerSingleClient />,
-               },
-             ],
+           },
+           {
+             path: "/clients/:clintId",
+             component: <ManagerSingleClient />,
+             name: "Mijoz",
            },
            {
              path: "/products",
              component: <ManagerProducts />,
              name: "Mahsulotlar",
-             children: [
-               {
-                 path: "/products/:productId",
-                 component: <ManagerProduct />,
-                 name: "Mahsulot",
-               },
-             ],
+           },
+           {
+             path: "/products/:productId",
+             component: <ManagerProduct />,
+             name: "Mahsulot",
            },
            {
              path: "/tasks",
@@ -180,45 +179,46 @@ export const pages = {
              path: "/",
              component: <ManagerBranches />,
              name: "Filiallar",
-             children: [
-               {
-                 path: "/branches/:branchId",
-                 component: <ManagerBranch />,
-                 children: [
-                   {
-                     path: "/branches/:branchId/tasks",
-                     component: <ManagerBranchTasks />,
-                   },
-                   {
-                     path: "/branches/:branchId/products",
-                     component: <ManagerBranchProducts />,
-                   },
-                   {
-                     path: "/branches/:branchId/clients",
-                     component: <ManagerBranchClients />,
-                   },
-                   {
-                     path: "/branches/:branchId/employees",
-                     component: <ManagerBranchEmployees />,
-                   },
-                   {
-                     path: "/branches/:branchId/orders",
-                     component: <ManagerBranchOrders />,
-                   },
-                 ],
-               },
-             ],
+           },
+           {
+             path: "/branches/:branchId",
+             component: <ManagerBranch />,
+             name: "Filial",
+           },
+           {
+             path: "/branches/:branchId/tasks",
+             component: <ManagerBranchTasks />,
+             name: "Filial topshiriqlari",
+           },
+           {
+             path: "/branches/:branchId/products",
+             component: <ManagerBranchProducts />,
+             name: "Filial mahsulotlari",
+           },
+           {
+             path: "/branches/:branchId/clients",
+             component: <ManagerBranchClients />,
+             name: "Filial mijozlari",
+           },
+           {
+             path: "/branches/:branchId/employees",
+             component: <ManagerBranchEmployees />,
+             name: "Filial xodimlari",
+           },
+           {
+             path: "/branches/:branchId/orders",
+             component: <ManagerBranchOrders />,
+             name: "Filial buyurtmalari",
            },
            {
              path: "/employee",
              component: <ManagerEmployees />,
              name: "Xodimlar",
-             children: [
-               {
-                 path: "/employee/:employeeId",
-                 component: <ManagerEmployeeSingle />,
-               },
-             ],
+           },
+           {
+             path: "/employee/:employeeId",
+             component: <ManagerEmployeeSingle />,
+             name: "Xodim",
            },
            {
              path: "/profile",
@@ -229,24 +229,21 @@ export const pages = {
              path: "/clients",
              component: <ManagerClients />,
              name: "Mijozlar",
-             children: [
-               {
-                 path: "/clients/:clintId",
-                 component: <ManagerSingleClient />,
-               },
-             ],
+           },
+           {
+             path: "/clients/:clintId",
+             component: <ManagerSingleClient />,
+             name: "Mijoz",
            },
            {
              path: "/products",
              component: <ManagerProducts />,
              name: "Mahsulotlar",
-             children: [
-               {
-                 path: "/products/:productId",
-                 component: <ManagerProduct />,
-                 name: "Mahsulot",
-               },
-             ],
+           },
+           {
+             path: "/products/:productId",
+             component: <ManagerProduct />,
+             name: "Mahsulot",
            },
            {
              path: "/tasks",
@@ -358,6 +355,11 @@ export const pages = {
              name: "Mahsulotlar",
            },
            {
+             path: "/products/:productId",
+             component: <ManagerProduct />,
+             name: "Mahsulot",
+           },
+           {
              path: "/clients",
              component: <SupervisorClients />,
              name: "Mijozlar",
@@ -371,6 +373,11 @@ export const pages = {
              path: "/agents",
              component: <SupervisorAgents />,
              name: "Agentlar",
+           },
+           {
+             path: "/agents/:employeeId",
+             component: <SupervisorAgent />,
+             name: "Agent",
            },
            {
              path: "/profile",

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import DateFilter from "components/dateFilter";
-import { LineGraph } from "components/charts";
 import CustomTable from "components/table";
-import { Button, Modal } from "antd";
+import { Button, Modal, Tooltip } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { data } from "assets/db";
 import { useQueryClient } from "@tanstack/react-query";
@@ -13,19 +12,20 @@ import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
 import qs from 'qs'
 import { get } from "lodash";
+import s from './tasks.module.scss'
 
 const columns = [
-  {
-    key: 0,
-    title: "#",
-    width: "70px",
-    render: (a, b, i) => i + 1,
-  },
   {
     key: 1,
     title: "Task",
     dataIndex: "text",
-    sorter: (a, b) => a.text.localeCompare(b.text),
+    // sorter: (a, b) => a.text.localeCompare(b.text),
+    width: "200px",
+    render: (comment) => (
+      <Tooltip title={comment}>
+        <span className={s.clamped}>{comment}</span>
+      </Tooltip>
+    ),
   },
   {
     key: 2,
