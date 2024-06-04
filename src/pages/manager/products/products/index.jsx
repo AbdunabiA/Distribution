@@ -130,6 +130,9 @@ const ManagerProducts = () => {
     queryKey: ["/categories/"],
     params: { page: +get(params, "categoriesPage", 1) },
   });
+
+
+  console.log(productsData);
   const { mutate: deleteProduct } = usePost();
   const { mutate: deleteCategories } = usePost();
   const queryClient = useQueryClient();

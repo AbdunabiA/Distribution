@@ -8,6 +8,12 @@ import { get } from "lodash";
 
 const columns = [
   {
+    key: 0,
+    title: "#",
+    width: "70px",
+    render: (a, b, i) => i + 1,
+  },
+  {
     key: "product",
     title: "Nomi",
     dataIndex: "product",

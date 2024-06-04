@@ -14,6 +14,12 @@ import { get } from "lodash";
 
 const usersColumns = [
   {
+    key: 0,
+    title: "#",
+    width: "70px",
+    render: (a, b, i) => i + 1,
+  },
+  {
     key: "name",
     title: "Ism",
     render: (_, data) => data?.first_name + " " + data.last_name,

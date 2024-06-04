@@ -19,6 +19,12 @@ import { formatNums } from "services/formatNums";
 
 const orderColumns = [
   {
+    key: 0,
+    title: "#",
+    width: "70px",
+    render: (a, b, i) => i + 1,
+  },
+  {
     key: "operator",
     title: "Operator",
     dataIndex: "operator",
