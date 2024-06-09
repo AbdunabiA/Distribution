@@ -28,8 +28,8 @@ export const SetInvalidProducts = ({ data, setModal, invalidateQuery }) => {
           name: "invalids_amount",
           value: 0,
           type: "number",
-          max: data?.amount,
-          min: 0,
+          max: +data?.amount,
+          onlyPositive:true,
           required: true,
         },
         {

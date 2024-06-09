@@ -144,7 +144,23 @@ const OperatorOrders = () => {
                 <Button
                   icon={<PlusIcon />}
                   type="primary"
-                  onClick={() => setOrderModal({ isOpen: true, data: null })}
+                  onClick={() => {
+                    const today = dayjs();
+
+                    // Add one day to get tomorrow's date
+                    const tomorrow = today.add(1, "day");
+
+                    // Format the date as needed (optional)
+                    const formattedTomorrow = tomorrow.format("YYYY-MM-DD");
+                    console.log("DEADLINE: " + formattedTomorrow);
+                    setOrderModal({
+                      isOpen: true,
+                      data: {
+                        operator: { id: userData?.id },
+                        deadline: formattedTomorrow,
+                      },
+                    });
+                  }}
                   key={"1"}
                 >
                   Buyurtma qo'shish

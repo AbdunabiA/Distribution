@@ -55,7 +55,7 @@ export const CreateSalary = ({ setModal, data, invalidateQuery }) => {
             <CustomInput
               name="kpi_by_sales"
               placeholder={"KPI"}
-              label={"KPI"}
+              label={"KPI (har bir buyurtmadan foyiz)"}
             />
             <CustomTextArea
               name="comment"

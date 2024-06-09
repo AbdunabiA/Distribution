@@ -33,11 +33,22 @@ export const AsyncSelect = ({
   // console.log("asyncSelectData", data?.data);
 
   useEffect(() => {
-    const transformedOptions = data?.data?.results?.map((item) => ({
-      label:
-        typeof optionLabel === "string" ? item[optionLabel] : optionLabel(item), // The text to display
-      value: item[optionValue], // The corresponding value
-    }));
+    const transformedOptions =
+      props?.name === "task_executors" || url === `/users/all/`
+        ? data?.data?.map((item) => ({
+            label:
+              typeof optionLabel === "string"
+                ? item[optionLabel]
+                : optionLabel(item), // The text to display
+            value: item[optionValue], // The corresponding value
+          }))
+        : data?.data?.results?.map((item) => ({
+            label:
+              typeof optionLabel === "string"
+                ? item[optionLabel]
+                : optionLabel(item), // The text to display
+            value: item[optionValue], // The corresponding value
+          }));
     setOptions(transformedOptions);
   }, [data?.data]);
 

@@ -28,10 +28,14 @@ const ManagerBranches = () => {
   const { mutate: deleteBranch } = usePost();
   const branchesCoulmns = [
     {
-      key: 0,
-      title: "#",
+      key: "num",
+      title: "№",
       width: "70px",
-      render: (a, b, i) => i + 1,
+      render: (text, record, index) => {
+        // Calculate the correct index considering pagination
+        const orderNumber = (get(params, "page", 1) - 1) * 10 + index + 1;
+        return orderNumber;
+      },
     },
     {
       key: "name",

@@ -13,38 +13,7 @@ import PlusIcon from "assets/icons/PlusIcon.svg?react";
 import { useSelector } from "react-redux";
 import qs from "qs";
 import { get } from "lodash";
-const columns = [
-  {
-    key: 0,
-    title: "#",
-    width: "70px",
-    render: (a, b, i) => i + 1,
-  },
-  {
-    key: 1,
-    title: "Task",
-    dataIndex: "text",
-    sorter: (a, b) => a.text.localeCompare(b.text),
-  },
-  {
-    key: 2,
-    title: "Berilgan sana",
-    dataIndex: "created_at",
-    sorter: (a, b) => a.created_at.localeCompare(b.created_at),
-  },
-  {
-    key: 3,
-    title: "Deadline",
-    dataIndex: "deadline",
-    sorter: (a, b) => a.deadline - b.deadline,
-  },
-  {
-    key: 4,
-    title: "status",
-    dataIndex: "status",
-    sorter: (a, b) => a.status - b.status,
-  },
-];
+
 
 const ManagerTasks = () => {
   const location = useLocation();
@@ -72,7 +41,79 @@ const ManagerTasks = () => {
 
   const queryClient = useQueryClient();
   const { mutate: deleteTask } = usePost();
-  console.log(berilganTaskData, "berilganTaskData");
+    const allTasksColumns = [
+      {
+        key: "num",
+        title: "№",
+        width: "70px",
+        render: (text, record, index) => {
+          // Calculate the correct index considering pagination
+          const orderNumber = (get(params, "tasks", 1) - 1) * 10 + index + 1;
+          return orderNumber;
+        },
+      },
+      {
+        key: 1,
+        title: "Task",
+        dataIndex: "text",
+        sorter: (a, b) => a.text.localeCompare(b.text),
+      },
+      {
+        key: 2,
+        title: "Berilgan sana",
+        dataIndex: "created_at",
+        sorter: (a, b) => a.created_at.localeCompare(b.created_at),
+      },
+      {
+        key: 3,
+        title: "Deadline",
+        dataIndex: "deadline",
+        sorter: (a, b) => a.deadline - b.deadline,
+      },
+      {
+        key: 4,
+        title: "status",
+        dataIndex: "status",
+        sorter: (a, b) => a.status - b.status,
+      },
+    ];
+  const columns = [
+    {
+      key: "num",
+      title: "№",
+      width: "70px",
+      render: (text, record, index) => {
+        // Calculate the correct index considering pagination
+        const orderNumber =
+          (get(params, "berilganTask", 1) - 1) * 10 + index + 1;
+        return orderNumber;
+      },
+    },
+    {
+      key: 1,
+      title: "Task",
+      dataIndex: "text",
+      sorter: (a, b) => a.text.localeCompare(b.text),
+    },
+    {
+      key: 2,
+      title: "Berilgan sana",
+      dataIndex: "created_at",
+      sorter: (a, b) => a.created_at.localeCompare(b.created_at),
+    },
+    {
+      key: 3,
+      title: "Deadline",
+      dataIndex: "deadline",
+      sorter: (a, b) => a.deadline - b.deadline,
+    },
+    {
+      key: 4,
+      title: "status",
+      dataIndex: "status",
+      sorter: (a, b) => a.status - b.status,
+    },
+  ];
   return (
     <div className="container">
       <div style={{ margin: "32px 10px" }}>
@@ -153,7 +194,7 @@ const ManagerTasks = () => {
                   paramsKey: "tasks",
                 };
               },
-              columns: columns,
+              columns: allTasksColumns,
               items: taskData?.data?.results,
               isLoading: tasksLoading,
               title: `Topshiriqlar: ${taskData?.data?.count}`,
