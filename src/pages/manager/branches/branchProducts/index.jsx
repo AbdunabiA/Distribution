@@ -6,40 +6,51 @@ import { useLocation, useParams } from "react-router-dom";
 import qs from "qs";
 import { get } from "lodash";
 
-const columns = [
-  {
-    key: "product",
-    title: "Nomi",
-    dataIndex: "product",
-    render: (text, record) => text?.name,
-  },
-  {
-    key: "amount",
-    title: "Miqdori",
-    dataIndex: "amount",
-  },
-  {
-    key: "invalids_amount",
-    title: "Yaroqsiz miqdori",
-    dataIndex: "invalids_amount",
-  },
-  {
-    key: "warehouse",
-    title: "Filial",
-    dataIndex: "warehouse",
-    render: (text, record) => text?.name,
-  },
-  {
-    key: "jami",
-    title: "Jami Summa",
-    dataIndex: "total_sum",
-  },
-];
+
 
 const ManagerBranchProducts = () => {
   const location = useLocation();
   const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const { branchId } = useParams();
+  const columns = [
+    {
+      key: "num",
+      title: "№",
+      width: "70px",
+      render: (text, record, index) => {
+        // Calculate the correct index considering pagination
+        const orderNumber = (get(params, "page", 1) - 1) * 10 + index + 1;
+        return orderNumber;
+      },
+    },
+    {
+      key: "product",
+      title: "Nomi",
+      dataIndex: "product",
+      render: (text, record) => text?.name,
+    },
+    {
+      key: "amount",
+      title: "Miqdori",
+      dataIndex: "amount",
+    },
+    {
+      key: "invalids_amount",
+      title: "Yaroqsiz miqdori",
+      dataIndex: "invalids_amount",
+    },
+    {
+      key: "warehouse",
+      title: "Filial",
+      dataIndex: "warehouse",
+      render: (text, record) => text?.name,
+    },
+    {
+      key: "jami",
+      title: "Jami Summa",
+      dataIndex: "total_sum",
+    },
+  ];
   return (
     <GetAll
       url={`/warehouses/${branchId}/products`}

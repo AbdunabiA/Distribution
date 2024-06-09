@@ -68,54 +68,7 @@ const productsColumns = [
   },
 ];
 
-const items2 = [
-  {
-    id: "1",
-    name: "Mordayev Akmaljon",
-    month: "Yanvar",
-    salary: 2000000,
-    bonus: 30000,
-    jarima: 50000,
-    jami: 2250000,
-  },
-  {
-    id: "2",
-    name: "Mordayev Akmaljon",
-    month: "Fevral",
-    salary: 3000000,
-    bonus: 400000,
-    jarima: 50000,
-    jami: 3350000,
-  },
 
-  {
-    id: "3",
-    name: "Mordayev Akmaljon",
-    month: "Mart",
-    salary: 4000000,
-    bonus: 500000,
-    jarima: 50000,
-    jami: 4450000,
-  },
-  {
-    id: "4",
-    name: "Mordayev Akmaljon",
-    month: "Aprel",
-    salary: 2000000,
-    bonus: 600000,
-    jarima: 50000,
-    jami: 2550000,
-  },
-  {
-    id: "5",
-    name: "Mordayev Akmaljon",
-    month: "May",
-    salary: 2000000,
-    bonus: 700000,
-    jarima: 50000,
-    jami: 2650000,
-  },
-];
 const ManagerProducts = () => {
   const location = useLocation();
   const params = qs.parse(location.search, { ignoreQueryPrefix: true });
@@ -134,6 +87,71 @@ const ManagerProducts = () => {
   const { mutate: deleteCategories } = usePost();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const categoriesColumns = [
+    {
+      key: "num",
+      title: "№",
+      width: "70px",
+      render: (text, record, index) => {
+        // Calculate the correct index considering pagination
+        const orderNumber =
+          (get(params, "categoriesPage", 1) - 1) * 10 + index + 1;
+        return orderNumber;
+      },
+    },
+    {
+      key: "name",
+      title: "Nomi",
+      dataIndex: "name",
+    },
+    {
+      key: "status",
+      title: "Status",
+      dataIndex: "status",
+    },
+    {
+      key: "created_at",
+      title: "Qo'shilgan sana",
+      dataIndex: "created_at",
+      render: (date) => dayjs(date).format("YYYY-MM-DD"),
+    },
+  ];
+
+  const productsColumns = [
+    {
+      key: "num",
+      title: "№",
+      width: "70px",
+      render: (text, record, index) => {
+        // Calculate the correct index considering pagination
+        const orderNumber =
+          (get(params, "productsPage", 1) - 1) * 10 + index + 1;
+        return orderNumber;
+      },
+    },
+    {
+      key: 1,
+      title: "Nomi",
+      dataIndex: "name",
+    },
+    {
+      key: 2,
+      title: "Narxi",
+      dataIndex: "price",
+      sorter: (a, b) => a.price - b.price,
+    },
+    {
+      key: 3,
+      title: "Status",
+      dataIndex: "status",
+    },
+    {
+      key: 4,
+      title: "Kategoriya",
+      dataIndex: "category",
+      render: (text, record) => text?.name,
+    },
+  ];
   return (
     <div className="container">
       <Modal

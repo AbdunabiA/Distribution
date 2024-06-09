@@ -17,102 +17,7 @@ import qs from "qs";
 import { get } from "lodash";
 import { formatNums } from "services/formatNums";
 
-const orderColumns = [
-  {
-    key: "operator",
-    title: "Operator",
-    dataIndex: "operator",
-    render: (data) => data?.first_name + " " + data?.last_name,
-  },
-  {
-    key: "customer",
-    title: "Mijoz",
-    dataIndex: "customer",
-    render: (data) => data?.name,
-  },
-  {
-    key: "driver",
-    title: "Yetkazib beruvchi",
-    dataIndex: "driver",
-    render: (data) => data?.first_name + " " + data?.last_name,
-  },
-  {
-    key: "warehouse",
-    title: "Filial",
-    dataIndex: "warehouse",
-    render: (data) => data?.name,
-  },
-  {
-    key: "comment",
-    title: "Comment",
-    dataIndex: "comment",
-  },
-  {
-    key: "deadline",
-    title: "Deadline",
-    dataIndex: "deadline",
-    render: (data) => dayjs(data).format("DD-MM-YYYY"),
-  },
-  {
-    key: "discount",
-    title: "Chegirma",
-    dataIndex: "discount",
-    render: (data) => formatNums(data),
-  },
-  {
-    key: "sum",
-    title: "Jami narxi",
-    dataIndex: "sum",
-    render: (data) => formatNums(data),
-  },
-  {
-    key: "final_price",
-    title: "Yakuniy narx",
-    dataIndex: "final_price",
-    render: (data) => formatNums(data),
-  },
-  {
-    key: "status",
-    title: "Status",
-    dataIndex: "status",
-  },
-];
-const tasksColumns = [
-  {
-    key: "text",
-    title: "Topshiriq",
-    dataIndex: "text",
-    width: "200px",
-    render: (text) => (
-      <Tooltip title={text} placement="topLeft">
-        <span className={employeeProfileScss.clamped}>{text}</span>
-      </Tooltip>
-    ),
-  },
-  {
-    key: "deadline",
-    title: "Deadline",
-    dataIndex: "deadline",
-    render: (date) => dayjs(date).format("DD-MM-YYYY"),
-  },
-  {
-    key: "created_at",
-    title: "Berilgan",
-    dataIndex: "created_at",
-    render: (date) => dayjs(date).format("DD-MM-YYYY"),
-  },
-  {
-    key: "task_setter",
-    title: "Bergan",
-    dataIndex: "task_setter",
-    render: (data) => data?.first_name + " " + data?.last_name,
-  },
-  {
-    key: "status",
-    title: "Status",
-    dataIndex: "status",
-  },
-];
+
 
 function ManagerEmployeeSingle() {
   const location = useLocation();
@@ -183,6 +88,125 @@ function ManagerEmployeeSingle() {
   // console.log("OperatorOrders", operatorOrders?.data);
   // console.log("dataa", userProfileData?.data);
   // console.log("OperatorOrders", driverOrders?.data);
+
+  const orderColumns = [
+    {
+      key: "num",
+      title: "№",
+      width: "70px",
+      render: (text, record, index) => {
+        // Calculate the correct index considering pagination
+        const orderNumber = (get(params, "ordersPage", 1) - 1) * 10 + index + 1;
+        return orderNumber;
+      },
+    },
+    {
+      key: "operator",
+      title: "Operator",
+      dataIndex: "operator",
+      render: (data) => data?.first_name + " " + data?.last_name,
+    },
+    {
+      key: "customer",
+      title: "Mijoz",
+      dataIndex: "customer",
+      render: (data) => data?.name,
+    },
+    {
+      key: "driver",
+      title: "Yetkazib beruvchi",
+      dataIndex: "driver",
+      render: (data) => data?.first_name + " " + data?.last_name,
+    },
+    {
+      key: "warehouse",
+      title: "Filial",
+      dataIndex: "warehouse",
+      render: (data) => data?.name,
+    },
+    {
+      key: "comment",
+      title: "Comment",
+      dataIndex: "comment",
+    },
+    {
+      key: "deadline",
+      title: "Deadline",
+      dataIndex: "deadline",
+      render: (data) => dayjs(data).format("DD-MM-YYYY"),
+    },
+    {
+      key: "discount",
+      title: "Chegirma",
+      dataIndex: "discount",
+      render: (data) => formatNums(data),
+    },
+    {
+      key: "sum",
+      title: "Jami narxi",
+      dataIndex: "sum",
+      render: (data) => formatNums(data),
+    },
+    {
+      key: "final_price",
+      title: "Yakuniy narx",
+      dataIndex: "final_price",
+      render: (data) => formatNums(data),
+    },
+    {
+      key: "status",
+      title: "Status",
+      dataIndex: "status",
+    },
+  ];
+  const tasksColumns = [
+    {
+      key: "num",
+      title: "№",
+      width: "70px",
+      render: (text, record, index) => {
+        // Calculate the correct index considering pagination
+        const orderNumber = (get(params, "tasksPage", 1) - 1) * 10 + index + 1;
+        return orderNumber;
+      },
+    },
+    {
+      key: "text",
+      title: "Topshiriq",
+      dataIndex: "text",
+      width: "200px",
+      render: (text) => (
+        <Tooltip title={text} placement="topLeft">
+          <span className={employeeProfileScss.clamped}>{text}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      key: "deadline",
+      title: "Deadline",
+      dataIndex: "deadline",
+      render: (date) => dayjs(date).format("DD-MM-YYYY"),
+    },
+    {
+      key: "created_at",
+      title: "Berilgan",
+      dataIndex: "created_at",
+      render: (date) => dayjs(date).format("DD-MM-YYYY"),
+    },
+    {
+      key: "task_setter",
+      title: "Bergan",
+      dataIndex: "task_setter",
+      render: (data) => data?.first_name + " " + data?.last_name,
+    },
+    {
+      key: "status",
+      title: "Status",
+      dataIndex: "status",
+    },
+  ];
+
+
   return (
     <div className="container">
       <Modal

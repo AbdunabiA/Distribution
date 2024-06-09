@@ -13,45 +13,7 @@ import { toast } from "sonner";
 import { get } from "lodash";
 import { useLocation } from "react-router-dom";
 
-const employeeColumns = [
-  {
-    key: 'id',
-    title: "#",
-    dataIndex: "id",
-    render: (a, b, i) => i + 1,
-  },
-  {
-    key: "name",
-    title: "Ism",
-    render: (_, row) => `${row.first_name + " " + row.last_name}`,
-  },
-  {
-    key: "username",
-    title: "Username",
-    dataIndex: "username",
-  },
-  {
-    key: "status",
-    title: "Status",
-    dataIndex: "status",
-  },
-  {
-    key: "role",
-    title: "Role",
-    dataIndex: "role",
-  },
-  {
-    key: "number",
-    title: "Tel raqam",
-    dataIndex: "phone_number",
-  },
-  {
-    key: "warehouse",
-    title: "Filial",
-    dataIndex: "warehouse",
-    render: (text) => text?.name,
-  },
-];
+
 
 const ManagerEmployees = () => {
   const location = useLocation();
@@ -60,7 +22,49 @@ const ManagerEmployees = () => {
   const [carModal, setCarModal] = useState({ isOpen: false, data: null });
   const queryClient = useQueryClient();
   const { mutate: deleteUsers } = usePost();
-  console.log(get(params, "page", 1));
+  const employeeColumns = [
+    {
+      key: "num",
+      title: "№",
+      width: "70px",
+      render: (text, record, index) => {
+        // Calculate the correct index considering pagination
+        const orderNumber = (get(params, "page", 1) - 1) * 10 + index + 1;
+        return orderNumber;
+      },
+    },
+    {
+      key: "name",
+      title: "Ism",
+      render: (_, row) => `${row.first_name + " " + row.last_name}`,
+    },
+    {
+      key: "username",
+      title: "Username",
+      dataIndex: "username",
+    },
+    {
+      key: "status",
+      title: "Status",
+      dataIndex: "status",
+    },
+    {
+      key: "role",
+      title: "Role",
+      dataIndex: "role",
+    },
+    {
+      key: "number",
+      title: "Tel raqam",
+      dataIndex: "phone_number",
+    },
+    {
+      key: "warehouse",
+      title: "Filial",
+      dataIndex: "warehouse",
+      render: (text) => text?.name,
+    },
+  ];
   return (
     <GetAll
       queryKey={["/users/all/"]}

@@ -134,7 +134,7 @@ const SupervisorAgents = () => {
                 updateAction={(data) =>
                   setUserModal({ isOpen: true, data: data })
                 }
-                onRowNavigationUrl={"/employee/"}
+                onRowNavigationUrl={"/agents/"}
                 isLoading={isLoading}
               />
             </div>

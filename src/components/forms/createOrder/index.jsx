@@ -52,7 +52,7 @@ export const CreateOrder = ({
             },
           ]),
           required: true,
-          type:"array"
+          type: "array",
         },
         {
           name: "warehouse",
@@ -105,7 +105,15 @@ export const CreateOrder = ({
         toast.error(get(err, "response.data.message", err?.message));
       }}
     >
-      {({ handleSubmit, isLoading, values, setFieldValue }) => {
+      {({
+        handleSubmit,
+        isLoading,
+        values,
+        setFieldValue,
+        setFieldError,
+        setErrors,
+        errors,
+      }) => {
         if (values?.customer) {
           customers?.data?.results?.forEach((customer) => {
             if (customer?.id === values.customer) {
@@ -136,6 +144,9 @@ export const CreateOrder = ({
               queryKey={["/customers/all/"]}
               optionLabel={"name"}
               optionValue={"id"}
+              onChange={()=>{
+                // setFieldError('customer', 'error')
+              }}
             />
             <AsyncSelect
               name="warehouse"
@@ -192,6 +203,18 @@ export const CreateOrder = ({
                               values?.items[index].warehouse_product ===
                               prod?.id
                             ) {
+                              if (prod?.amount < val) {
+                                setFieldError(
+                                  `items[${index}].amount`,
+                                  "Insufficient quantity available"
+                                );
+                                console.log("errors", errors);
+                              } else {
+                                // Clear the error if the condition no longer applies
+                                setFieldError(`items[${index}].amount`, "");
+                                console.log("errors", errors);
+                              }
+
                               console.log("prod", val * prod?.product?.price);
                               setFieldValue(
                                 `items[${index}].tot_price`,
@@ -256,8 +279,8 @@ export const CreateOrder = ({
               name="operator"
               label={"Operator"}
               placeholder={"Operator"}
-              url={`/warehouses/${values.warehouse}/employees/`}
-              queryKey={[`/warehouses/${values.warehouse}/employees/`]}
+              url={`/users/all/`}
+              queryKey={[`/users/all/`]}
               params={{ extra: { role: "operator" } }}
               optionLabel={(data) => data?.first_name + " " + data?.last_name}
               optionValue={"id"}
@@ -273,7 +296,6 @@ export const CreateOrder = ({
               placeholder={"Jami narxi"}
               type="number"
               disabled
-              
             />
             <CustomInput
               name={`final_price`}

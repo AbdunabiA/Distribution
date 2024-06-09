@@ -12,23 +12,7 @@ import { toast } from "sonner";
 import qs from "qs";
 import { get } from "lodash";
 
-const usersColumns = [
-  {
-    key: "name",
-    title: "Ism",
-    render: (_, data) => data?.first_name + " " + data.last_name,
-  },
-  {
-    key: "phone",
-    title: "Tel. raqam",
-    dataIndex: "phone_number",
-  },
-  {
-    key: "role",
-    title: "Lavozimi",
-    dataIndex: "role",
-  },
-];
+
 
 const ManagerBranchEmployees = () => {
   const location = useLocation();
@@ -37,6 +21,33 @@ const ManagerBranchEmployees = () => {
   const [userModal, setUserModal] = useState({ isOpen: false, data: null });
   const { mutate: deleteUsers } = usePost();
   const queryClient = useQueryClient();
+  const usersColumns = [
+    {
+      key: "num",
+      title: "№",
+      width: "70px",
+      render: (text, record, index) => {
+        // Calculate the correct index considering pagination
+        const orderNumber = (get(params, "page", 1) - 1) * 10 + index + 1;
+        return orderNumber;
+      },
+    },
+    {
+      key: "name",
+      title: "Ism",
+      render: (_, data) => data?.first_name + " " + data.last_name,
+    },
+    {
+      key: "phone",
+      title: "Tel. raqam",
+      dataIndex: "phone_number",
+    },
+    {
+      key: "role",
+      title: "Lavozimi",
+      dataIndex: "role",
+    },
+  ];
   return (
     <GetAll
       url={`/warehouses/${branchId}/employees`}

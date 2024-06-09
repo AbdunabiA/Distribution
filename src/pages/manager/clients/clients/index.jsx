@@ -11,38 +11,7 @@ import Loader from "components/loader";
 import { useLocation } from "react-router-dom";
 import qs from "qs";
 import { get } from "lodash";
-const columns2 = [
-  {
-    key: 0,
-    title: "#",
-    width: "70px",
-    render: (a, b, i) => i + 1,
-  },
-  {
-    key: 1,
-    title: "name",
-    dataIndex: "name",
-    sorter: (a, b) => a.name.localeCompare(b.name),
-  },
-  {
-    key: 2,
-    title: "phone",
-    dataIndex: "phone",
-    sorter: (a, b) => a.phone.localeCompare(b.phone),
-  },
-  {
-    key: 3,
-    title: "address",
-    dataIndex: "address",
-    sorter: (a, b) => a.address - b.address,
-  },
-  {
-    key: 4,
-    title: "Status",
-    dataIndex: "status",
-    sorter: (a, b) => a.status - b.status,
-  },
-];
+
 
 const ManagerClients = () => {
   const location = useLocation();
@@ -61,6 +30,44 @@ const ManagerClients = () => {
   });
   const queryClient = useQueryClient();
   const { mutate: deleteClient } = usePost();
+
+  const columns2 = [
+    {
+      key: "num",
+      title: "№",
+      width: "70px",
+      render: (text, record, index) => {
+        // Calculate the correct index considering pagination
+        const orderNumber = (get(params, "page", 1) - 1) * 10 + index + 1;
+        return orderNumber;
+      },
+    },
+    {
+      key: 1,
+      title: "name",
+      dataIndex: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    },
+    {
+      key: 2,
+      title: "phone",
+      dataIndex: "phone",
+      sorter: (a, b) => a.phone.localeCompare(b.phone),
+    },
+    {
+      key: 3,
+      title: "address",
+      dataIndex: "address",
+      sorter: (a, b) => a.address - b.address,
+    },
+    {
+      key: 4,
+      title: "Status",
+      dataIndex: "status",
+      sorter: (a, b) => a.status - b.status,
+    },
+  ];
+
   return (
     <>
       <div className="container">

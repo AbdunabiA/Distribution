@@ -7,8 +7,8 @@ import { usePost } from "crud";
 
 const Main = ({
   url = "",
-  method='post',
-  params={},
+  method = "post",
+  params = {},
   children,
   fields,
   onSuccess = () => {},
@@ -47,9 +47,11 @@ const Main = ({
               validationField = Yup.object().typeError("Must be a object");
               break;
             case "number":
-              validationField = Yup.number("Must be a number").typeError(
-                "Must be a number"
-              );
+              validationField = field?.onlyPositive
+                ? Yup.number("Must be a number")
+                    .typeError("Must be a number")
+                    .positive("Must be positive")
+                : Yup.number("Must be a number").typeError("Must be a number");
               break;
             case "array":
               validationField = Yup.array();
@@ -67,7 +69,7 @@ const Main = ({
           if (field.required) {
             validationField = validationField.required("Требуется ввод");
           }
-          if (field.compare){
+          if (field.compare) {
             validationField = validationField.oneOf([
               Yup.ref(field.compare),
               null,
@@ -96,29 +98,30 @@ const Main = ({
       }}
       onSubmit={(values, { resetForm }) => {
         values = { ...values };
-        isArray(fields) && fields.forEach((field) => {
-          if (field.hasOwnProperty("onSubmitValue")) {
-            if (typeof field.onSubmitValue === "function") {
-              if (field.hasOwnProperty("onSubmitKey")) {
-                values[field.onSubmitKey] = field.onSubmitValue(
-                  values[field.name],
-                  values
-                );
-                delete values[field.name];
-              } else {
-                values[field.name] = field.onSubmitValue(
-                  values[field.name],
-                  values
-                );
+        isArray(fields) &&
+          fields.forEach((field) => {
+            if (field.hasOwnProperty("onSubmitValue")) {
+              if (typeof field.onSubmitValue === "function") {
+                if (field.hasOwnProperty("onSubmitKey")) {
+                  values[field.onSubmitKey] = field.onSubmitValue(
+                    values[field.name],
+                    values
+                  );
+                  delete values[field.name];
+                } else {
+                  values[field.name] = field.onSubmitValue(
+                    values[field.name],
+                    values
+                  );
+                }
               }
             }
-          }
-          if (field.hasOwnProperty("disabled")) {
-            if (field.disabled) {
-              delete values[field.name];
+            if (field.hasOwnProperty("disabled")) {
+              if (field.disabled) {
+                delete values[field.name];
+              }
             }
-          }
-        });
+          });
         mutate({
           url,
           values,
@@ -131,7 +134,7 @@ const Main = ({
             onError(data);
           },
         });
-        console.log("formikValue",values, url);
+        console.log("formikValue", values, url);
       }}
     >
       {({
@@ -141,14 +144,13 @@ const Main = ({
         isSubmitting,
         setFieldValue,
         setFieldError,
+        setErrors,
         setFieldTouched,
         touched,
         errors,
       }) => {
         return (
-          <form
-            onSubmit={handleSubmit}
-          >
+          <form onSubmit={handleSubmit}>
             {children({
               handleSubmit,
               submitForm,
@@ -157,9 +159,10 @@ const Main = ({
               isSubmitting,
               setFieldValue,
               setFieldError,
+              setErrors,
               setFieldTouched,
               errors,
-              isLoading
+              isLoading,
             })}
           </form>
         );

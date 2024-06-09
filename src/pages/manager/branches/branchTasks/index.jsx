@@ -5,38 +5,43 @@ import { GetAll } from "modules";
 import { useLocation, useParams } from "react-router-dom";
 import qs from "qs";
 import { get } from "lodash";
-const columns = [
-  {
-    key: 0,
-    title: "#",
-    width: "70px",
-    render: (a, b, i) => i + 1,
-  },
-  {
-    key: 1,
-    title: "Task",
-    dataIndex: "text",
-  },
-  {
-    key: 2,
-    title: "Berilgan sana",
-    dataIndex: "created_at",
-  },
-  {
-    key: 3,
-    title: "Deadline",
-    dataIndex: "deadline",
-  },
-  {
-    key: 4,
-    title: "Status",
-    dataIndex: "status",
-  },
-];
+
 const ManagerBranchTasks = () => {
   const location = useLocation();
   const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const { branchId } = useParams();
+  const columns = [
+    {
+      key: "num",
+      title: "№",
+      width: "70px",
+      render: (text, record, index) => {
+        // Calculate the correct index considering pagination
+        const orderNumber = (get(params, "page", 1) - 1) * 10 + index + 1;
+        return orderNumber;
+      },
+    },
+    {
+      key: 1,
+      title: "Task",
+      dataIndex: "text",
+    },
+    {
+      key: 2,
+      title: "Berilgan sana",
+      dataIndex: "created_at",
+    },
+    {
+      key: 3,
+      title: "Deadline",
+      dataIndex: "deadline",
+    },
+    {
+      key: 4,
+      title: "Status",
+      dataIndex: "status",
+    },
+  ];
   return (
     <GetAll
       url={`/warehouses/${branchId}/tasks`}

@@ -10,10 +10,11 @@ import { CreateProduct } from "components/forms";
 import { useState } from "react";
 import { useGet, usePost } from "crud";
 import { Button, Modal } from "antd";
+import { useSelector } from "react-redux";
 const ManagerProduct = () => {
+  const userData = useSelector((state) => state?.auth);
   const { productId } = useParams();
   const [modal, setModal] = useState({ isOpen: false, form: null, data: null });
-  const queryClient = useQueryClient();
   return (
     <GetAll url={`/products/${productId}`} queryKey={["product"]}>
       {({ data, isLoading, isError, error }) => {
@@ -36,7 +37,7 @@ const ManagerProduct = () => {
             >
               {modal.form === "product" ? (
                 <CreateProduct {...{ setModal, data: modal.data }} />
-              ): null}
+              ) : null}
             </Modal>
             <div className={productScss.big_wrapper}>
               <div className={productScss.wrapper}>
@@ -89,16 +90,23 @@ const ManagerProduct = () => {
                   </div>
                 </div>
                 <div className={productScss.third_box}>
-                  <Button
-                    key={"product"}
-                    type="primary"
-                    onClick={() =>
-                      setModal({ isOpen: true, form: "product", data: data?.data })
-                    }
-                  >
-                    O'zgartirish
-                  </Button>
-                </div>  
+                  {userData?.role === "admin" ||
+                  userData?.role === "manager" ? (
+                    <Button
+                      key={"product"}
+                      type="primary"
+                      onClick={() =>
+                        setModal({
+                          isOpen: true,
+                          form: "product",
+                          data: data?.data,
+                        })
+                      }
+                    >
+                      O'zgartirish
+                    </Button>
+                  ) : null}
+                </div>
               </div>
             </div>
           </div>
